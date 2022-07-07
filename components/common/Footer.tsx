@@ -4,59 +4,43 @@ import { IcNoriFooterLogo } from '../../public/assets/icons';
 export default function Footer() {
   return (
     <StFooterWrapper>
-      <div>
-        <StFooterContent>
-          <StFooterDescription>
-            <StIcNoriFooterLogo />
-            <p>장난감 대여 플랫폼, 노리</p>
-            <p>아이를 위한 장난감을 한눈에 살펴보세요.</p>
-          </StFooterDescription>
-          <StFooterLinkWrapper>
-            <li>Link</li>
-            <li>
-              <a
-                target="_blank"
-                href="https://www.facebook.com"
-                rel="noreferrer"
-              >
-                social
-              </a>
-            </li>
-            <li>
-              <a
-                target="_blank"
-                href="https://www.facebook.com"
-                rel="noreferrer"
-              >
-                privacy policy
-              </a>
-            </li>
-            <li>
-              <a
-                target="_blank"
-                href="https://www.facebook.com"
-                rel="noreferrer"
-              >
-                team NORI
-              </a>
-            </li>
-          </StFooterLinkWrapper>
-        </StFooterContent>
-        <span>@ 2022 NORI, INC</span>
-      </div>
+      <StFooterContent>
+        <StFooterDescription>
+          <StIcNoriFooterLogo />
+          <p>장난감 대여 플랫폼, 노리</p>
+          <p>아이를 위한 장난감을 한눈에 살펴보세요.</p>
+        </StFooterDescription>
+        <StFooterLinkWrapper>
+          <li>Link</li>
+          <li>
+            <a target="_blank" href="https://www.facebook.com" rel="noreferrer">
+              social
+            </a>
+          </li>
+          <li>
+            <a target="_blank" href="https://www.facebook.com" rel="noreferrer">
+              privacy policy
+            </a>
+          </li>
+          <li>
+            <a target="_blank" href="https://www.facebook.com" rel="noreferrer">
+              team NORI
+            </a>
+          </li>
+        </StFooterLinkWrapper>
+      </StFooterContent>
+      <span>@ 2022 NORI, INC</span>
     </StFooterWrapper>
   );
 }
 
 const StFooterWrapper = styled.footer`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: absolute;
   bottom: 0;
 
   width: 100%;
   height: 24.9rem;
+  padding: 0 36rem;
 
   border-top: 0.1rem solid #e2e2e2;
   background-color: #ffffff;
@@ -75,7 +59,7 @@ const StFooterContent = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  width: 120rem;
+  width: 100%;
   height: 18.4rem;
   margin-bottom: 1.6rem;
 
