@@ -139,11 +139,6 @@ export const GlobalStyle = css`
     box-sizing: border-box;
   }
 
-  &::-webkit-scrollbar {
-    background-color: transparent;
-    width: 0.8rem;
-  }
-
   &::-webkit-scrollbar-track {
     height: auto;
   }
@@ -153,7 +148,10 @@ export const GlobalStyle = css`
     border-radius: 1.6rem;
   }
 
+  body,
   html {
+    width: 100%;
+    height: auto;
     font-family: Pretendard;
     font-size: 62.5%;
   }

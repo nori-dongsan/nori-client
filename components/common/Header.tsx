@@ -3,8 +3,10 @@ export default function Header() {
   return <StHeaderWrapper></StHeaderWrapper>;
 }
 
-const StHeaderWrapper = styled.div`
-  position: fixed;
+const StHeaderWrapper = styled.header`
+  position: sticky;
+  padding-top: 32px;
+  top: -32px;
 
   width: 100%;
   height: 11.4rem;
