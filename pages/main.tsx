@@ -1,3 +1,3 @@
 export default function main() {
-  return <div></div>;
+  return <div>메인입니다</div>;
 }
