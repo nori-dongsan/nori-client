@@ -8,7 +8,7 @@ export default function index() {
       <StBtn type="button" onClick={() => router.push('/main')}>
         메인으로
       </StBtn>
-      <StBtn type="button" onClick={() => router.push('/toyView')}>
+      <StBtn type="button" onClick={() => router.push('/viewProduct')}>
         상품보기로
       </StBtn>
 
