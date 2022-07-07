@@ -1,4 +1,3 @@
-import { LandingFooter, LandingHeader } from '../components/landing';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 export default function index() {
