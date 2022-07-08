@@ -11,7 +11,6 @@ export default function Footer() {
           <p>아이를 위한 장난감을 한눈에 살펴보세요.</p>
         </StFooterDescription>
         <StFooterLinkWrapper>
-          <li>Link</li>
           <li>
             <a target="_blank" href="https://www.facebook.com" rel="noreferrer">
               social
@@ -40,7 +39,7 @@ const StFooterWrapper = styled.footer`
 
   width: 100%;
   height: 24.9rem;
-  padding: 0 36rem;
+  padding: 0 37.2rem;
 
   border-top: 0.1rem solid #e2e2e2;
   background-color: #ffffff;
@@ -56,30 +55,34 @@ const StFooterWrapper = styled.footer`
 const StFooterContent = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
 
   width: 100%;
   height: 18.4rem;
+  padding-right: 8.1rem;
   margin-bottom: 1.6rem;
 
   border-bottom: 0.1rem solid #e2e2e2;
 `;
 const StFooterDescription = styled.div`
+  padding-top: 4.1rem;
+
   color: #818181;
   font-weight: 500;
   font-size: 1.2rem;
   line-height: 1.8rem;
 `;
 const StFooterLinkWrapper = styled.ul`
+  padding-top: 4.5rem;
+
   color: #9c9c9c;
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1.5rem;
 
   li {
-    margin-bottom: 1.3rem;
+    margin-bottom: 2.2rem;
   }
 `;
 const StIcNoriFooterLogo = styled(IcNoriFooterLogo)`
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.8rem;
 `;
