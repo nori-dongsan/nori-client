@@ -7,8 +7,8 @@ export default function Footer() {
       <StFooterContent>
         <StFooterDescription>
           <StIcNoriFooterLogo />
-          <p>장난감 대여 플랫폼, 노리</p>
-          <p>아이를 위한 장난감을 한눈에 살펴보세요.</p>
+          <p>장난감 대여 비교 플랫폼, NORI</p>
+          <p>아이를 위한 장난감을 한눈에 살펴보세요</p>
         </StFooterDescription>
         <StFooterLinkWrapper>
           <li>
@@ -28,7 +28,7 @@ export default function Footer() {
           </li>
         </StFooterLinkWrapper>
       </StFooterContent>
-      <span>@ 2022 NORI, INC</span>
+      <span>ⓒ 2022 nori, Inc.</span>
     </StFooterWrapper>
   );
 }
