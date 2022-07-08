@@ -15,6 +15,10 @@ export default function index() {
       <StBtn type="button" onClick={() => router.push('/community')}>
         커뮤니티로
       </StBtn>
+
+      <StBtn type="button" onClick={() => router.push('/login')}>
+        로그인
+      </StBtn>
     </StIndexWrapper>
   );
 }

@@ -17,6 +17,8 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
           <link
             rel="stylesheet"
             type="text/css"
