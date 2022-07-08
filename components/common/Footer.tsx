@@ -53,11 +53,10 @@ const StFooterWrapper = styled.footer`
     text-align: left;
   }
 `;
-
 const StFooterContent = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 
   width: 100%;
   height: 18.4rem;
@@ -65,14 +64,12 @@ const StFooterContent = styled.div`
 
   border-bottom: 0.1rem solid #e2e2e2;
 `;
-
 const StFooterDescription = styled.div`
   color: #818181;
   font-weight: 500;
   font-size: 1.2rem;
   line-height: 1.8rem;
 `;
-
 const StFooterLinkWrapper = styled.ul`
   color: #9c9c9c;
   font-weight: 500;
@@ -83,7 +80,6 @@ const StFooterLinkWrapper = styled.ul`
     margin-bottom: 1.3rem;
   }
 `;
-
 const StIcNoriFooterLogo = styled(IcNoriFooterLogo)`
   margin-bottom: 1.2rem;
 `;
