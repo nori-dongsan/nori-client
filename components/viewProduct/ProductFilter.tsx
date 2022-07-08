@@ -46,12 +46,13 @@ export default function ProductFilter() {
 const StFilterWrapper = styled.div`
   width: 21.2rem;
   height: 52.8rem;
+  padding-left: 1.2rem;
 `;
 const StSectionTitle = styled.div`
   display: flex;
   justify-content: space-between;
 
-  width: 21.2rem;
+  width: 20rem;
 
   text-align: center;
   & > h2 {
@@ -65,7 +66,8 @@ const StFilterSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 21.2rem;
+
+  width: 20rem;
   height: 7.6rem;
 
   border-bottom: 0.1rem #d9d9d9 solid;
@@ -73,6 +75,10 @@ const StFilterSection = styled.section`
   color: #d9d9d9;
   font-size: 1.5rem;
   font-weight: 400;
+
+  & > p {
+    margin-top: 0.4rem;
+  }
 `;
 
 /* or 21px */
