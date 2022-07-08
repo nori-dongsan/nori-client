@@ -1,7 +1,12 @@
 import styled from '@emotion/styled';
 import { IcPlus } from '../../public/assets/icons';
 
-export default function ProductFilter() {
+interface SectionProps {
+  children: React.ReactNode;
+}
+
+export default function ProductFilter(props: SectionProps) {
+  const { children } = props;
   return (
     <StFilterWrapper>
       <StFilterSection>
