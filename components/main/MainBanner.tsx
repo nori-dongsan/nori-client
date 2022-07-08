@@ -8,7 +8,7 @@ export default function MainBanner() {
   );
 }
 
-const StMainBannerWrapper = styled.header`
+const StMainBannerWrapper = styled.aside`
   height: 37.8rem;
 
   background-color: #31cc94;
