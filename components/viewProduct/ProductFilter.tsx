@@ -57,17 +57,22 @@ const StSectionTitle = styled.div`
   & > h2 {
     height: 2rem;
 
+    color: #000000;
     font-size: 1.4rem;
   }
 `;
 const StFilterSection = styled.section`
   display: flex;
   flex-direction: column;
-
+  justify-content: center;
   width: 21.2rem;
   height: 7.6rem;
 
   border-bottom: 0.1rem #d9d9d9 solid;
+
+  color: #d9d9d9;
+  font-size: 1.5rem;
+  font-weight: 400;
 `;
 
 /* or 21px */
