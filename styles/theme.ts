@@ -54,6 +54,12 @@ const fonts = {
     height: 2.24,
     spacing: 0,
   }),
+  b3_16_medium_140: FONT({
+    weight: 500,
+    size: 1.6,
+    height: 2.24,
+    spacing: 0,
+  }),
   b4_15_semibold_146: FONT({
     weight: 600,
     size: 1.5,

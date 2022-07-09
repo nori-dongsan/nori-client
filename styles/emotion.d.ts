@@ -33,6 +33,7 @@ declare module '@emotion/react' {
       b2_18_medium_130: SerializedStyles;
       b2_18_regular_130: SerializedStyles;
       b3_16_semibold_140: SerializedStyles;
+      b3_16_medium_140: SerializedStyles;
       b4_15_semibold_146: SerializedStyles;
       b5_14_semibold_140: SerializedStyles;
       b5_14_medium_140: SerializedStyles;

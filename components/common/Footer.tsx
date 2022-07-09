@@ -34,7 +34,6 @@ export default function Footer() {
 }
 
 const StFooterWrapper = styled.footer`
-  position: absolute;
   bottom: 0;
 
   width: 100%;
@@ -73,12 +72,13 @@ const StFooterLinkWrapper = styled.ul`
   padding-top: 4.5rem;
 
   color: ${({ theme }) => theme.colors.gray008};
-  font-weight: 500;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
 
   & > li {
-    margin-bottom: 2.2rem;
+    margin-bottom: 1.7rem;
+
+    & > a {
+      ${({ theme }) => theme.fonts.b3_16_medium_140};
+    }
   }
 `;
 const StIcNoriFooterLogo = styled(IcNoriFooterLogo)`
