@@ -32,7 +32,7 @@ function FONT({ weight, size, height, spacing }: Font) {
     font-family: Pretendard;
     font-weight: ${weight};
     font-size: ${size}rem;
-    line-height: ${height}%;
+    line-height: ${height}rem;
     spacing: ${spacing}%;
   `;
 }
