@@ -1,1 +1,2 @@
-export { default as IcNoriLogo } from './noriLogoIcon.svg';
+export { default as IcNoriHeaderLogo } from './noriHeaderIcon.svg';
+export {default as IcSearchIcon }  from './searchIcon.svg';
