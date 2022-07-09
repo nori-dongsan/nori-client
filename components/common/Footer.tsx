@@ -12,17 +12,17 @@ export default function Footer() {
         </StFooterDescription>
         <StFooterLinkWrapper>
           <li>
-            <a target="_blank" href="https://www.facebook.com" rel="noreferrer">
+            <a target="_blank" href="" rel="noreferrer">
               social
             </a>
           </li>
           <li>
-            <a target="_blank" href="https://www.facebook.com" rel="noreferrer">
+            <a target="_blank" href="" rel="noreferrer">
               privacy policy
             </a>
           </li>
           <li>
-            <a target="_blank" href="https://www.facebook.com" rel="noreferrer">
+            <a target="_blank" href="" rel="noreferrer">
               team NORI
             </a>
           </li>
@@ -41,15 +41,12 @@ const StFooterWrapper = styled.footer`
   height: 24.9rem;
   padding: 0 37.2rem;
 
-  border-top: 0.1rem solid #e2e2e2;
-  background-color: #ffffff;
+  border-top: 0.1rem solid ${({ theme }) => theme.colors.gray004};
+  background-color: ${({ theme }) => theme.colors.white};
 
   span:last-child {
-    color: #818181;
-    font-weight: 400;
-    font-size: 0.8rem;
-    line-height: 1.1rem;
-    text-align: left;
+    color: ${({ theme }) => theme.colors.gray008};
+    ${({ theme }) => theme.fonts.b7_12_regular_120}
   }
 `;
 const StFooterContent = styled.div`
@@ -61,25 +58,26 @@ const StFooterContent = styled.div`
   padding-right: 8.1rem;
   margin-bottom: 1.6rem;
 
-  border-bottom: 0.1rem solid #e2e2e2;
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
 `;
 const StFooterDescription = styled.div`
   padding-top: 4.1rem;
 
-  color: #818181;
-  font-weight: 500;
-  font-size: 1.2rem;
-  line-height: 1.8rem;
+  color: ${({ theme }) => theme.colors.gray006};
+
+  & > p {
+    ${({ theme }) => theme.fonts.b7_12_medium_140}
+  }
 `;
 const StFooterLinkWrapper = styled.ul`
   padding-top: 4.5rem;
 
-  color: #9c9c9c;
+  color: ${({ theme }) => theme.colors.gray008};
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1.5rem;
 
-  li {
+  & > li {
     margin-bottom: 2.2rem;
   }
 `;
