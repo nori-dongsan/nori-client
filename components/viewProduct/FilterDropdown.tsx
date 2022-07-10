@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { CategoryProps } from './ProductFilter';
+import { IcCheckbox } from '../../public/assets/icons';
 
 export default function FilterDropdown({ categoryInfo }: CategoryProps) {
   return (
@@ -7,7 +8,12 @@ export default function FilterDropdown({ categoryInfo }: CategoryProps) {
       {categoryInfo.map((sort: string) => {
         return (
           <StLabel htmlFor={sort}>
-            <StInput type="checkbox" id={sort} name={sort} />
+            <StInput
+              type="checkbox"
+              id={sort}
+              name={sort}
+              className="checkBox"
+            />
             <p>{sort}</p>
           </StLabel>
         );
@@ -15,20 +21,40 @@ export default function FilterDropdown({ categoryInfo }: CategoryProps) {
     </StDropdownWrapper>
   );
 }
+const StInput = styled.input`
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray008};
+  border-radius: 0.2rem;
+  width: 1.4rem;
+  height: 1.4rem;
 
-const StInput = styled.input``;
+  &:checked {
+    border: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='14' height='14' rx='2' fill='%231D8669'/%3E%3Cpath d='M4.08398 6.4457L6.41732 9.21654L9.91732 4.7832' stroke='white' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    background-size: 1.4rem 1.4rem;
+    background-position: 100%;
+    background-repeat: no-repeat;
+  }
+`;
 const StLabel = styled.label`
+  display: flex;
+  gap: 1rem;
   & > p {
     width: 15.2rem;
     height: 2rem;
 
+    color: ${({ theme }) => theme.colors.gray008};
     font: ${({ theme }) => theme.fonts.b5_14_medium_140};
-   
+  }
 `;
 const StDropdownWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
   width: 20rem;
   height: 14.8rem;
   margin: 1.6rem 0 2.8rem 0;
+  gap: 1.2rem;
+
   overflow: auto;
 
   ::-webkit-scrollbar {
