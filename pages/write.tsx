@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcDefaultImg } from '../public/assets/icons';
+import { IcDefaultImg, IcDelete } from '../public/assets/icons';
 
 interface IImage {
   id: number;
@@ -25,12 +25,24 @@ export default function Write() {
     const formData = new FormData();
     Array.from(fileList).map((file) => {
       formData.append('images', file);
-      setImages((prev) => [
-        ...prev,
-        { id: prev.length + 1, src: URL.createObjectURL(file) },
+      setImages([
+        ...images,
+        {
+          id: images.length == 0 ? 0 : images[images.length - 1].id + 1,
+          src: URL.createObjectURL(file),
+        },
       ]);
     });
   };
+
+  const handleDeleteImg = (
+    id: number,
+    e: React.ChangeEvent<HTMLOrSVGElement>,
+  ) => {
+    setImages(images.filter((image) => image.id !== id));
+  };
+
+  console.log(images);
 
   return (
     <>
@@ -59,11 +71,14 @@ export default function Write() {
                 />
                 {images.length > 0 &&
                   images.map((image) => (
-                    <StPreviewImg
-                      key={image.id}
-                      src={image.src}
-                      alt={String(image.id)}
-                    />
+                    <StPreviewImgWrapper key={image.id}>
+                      <StPreviewImg src={image.src} alt={String(image.id)} />
+                      <StIcDelete
+                        onClick={(e: React.ChangeEvent<HTMLOrSVGElement>) =>
+                          handleDeleteImg(image.id, e)
+                        }
+                      />
+                    </StPreviewImgWrapper>
                   ))}
               </StImgInputWrapper>
             </StImgSection>
@@ -160,7 +175,7 @@ const StImgSection = styled.section`
   width: 100%;
   margin-bottom: 7.4rem;
 
-  overflow: scroll;
+  /* overflow: scroll; */
 `;
 const StImgInputWrapper = styled.div`
   display: flex;
@@ -184,6 +199,16 @@ const StImgInputLabel = styled.label`
 
   border: 1px solid #d9d9d9;
   border-radius: 0.5rem;
+
+  cursor: pointer;
+`;
+const StPreviewImgWrapper = styled.div`
+  position: relative;
+`;
+const StIcDelete = styled(IcDelete)`
+  position: absolute;
+  top: 1.4rem;
+  right: 3.7rem;
 
   cursor: pointer;
 `;
