@@ -1,12 +1,23 @@
 import styled from '@emotion/styled';
 import { IcPlus } from '../../public/assets/icons';
+import FilterDropdown from './FilterDropdown';
 
-interface SectionProps {
-  children: React.ReactNode;
+export interface CategoryProps {
+  categoryInfo: string[];
 }
-
-export default function ProductFilter(props: SectionProps) {
-  const { children } = props;
+const store = [
+  '그린키드',
+  '국민장난감',
+  '노리왕',
+  '러브로',
+  '리틀베이비',
+  '빌리바바',
+  '어텐션홈이벤트',
+  '장난감점빵',
+  '젤리바운스',
+  '해피장난감',
+];
+export default function ProductFilter() {
   return (
     <StFilterWrapper>
       <StFilterSection>
@@ -14,6 +25,7 @@ export default function ProductFilter(props: SectionProps) {
           <h2>장난감 종류</h2>
           <IcPlus />
         </StSectionTitle>
+        <FilterDropdown categoryInfo={store} />
         <p>모든 장난감</p>
       </StFilterSection>
       <StFilterSection>
