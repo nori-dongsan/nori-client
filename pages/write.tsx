@@ -2,11 +2,34 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { IcDefaultImg } from '../public/assets/icons';
 
+interface IImage {
+  id: number;
+  src: string;
+}
+
 export default function Write() {
   const [isCategory, setIsCategory] = useState<boolean>(false);
+  const [images, setImages] = useState<IImage[]>([]);
 
   const handleCategory = () => {
     setIsCategory((prev) => !prev);
+  };
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList: FileList = e.target.files as FileList;
+    if (images.length + fileList.length > 3) {
+      alert('사진은 최대 3개까지 가능합니다.');
+      return;
+    }
+
+    const formData = new FormData();
+    Array.from(fileList).map((file) => {
+      formData.append('images', file);
+      setImages((prev) => [
+        ...prev,
+        { id: prev.length + 1, src: URL.createObjectURL(file) },
+      ]);
+    });
   };
 
   return (
@@ -23,9 +46,26 @@ export default function Write() {
             <StImgSection>
               <StImgTitleSection>사진 첨부 (최대 3장)</StImgTitleSection>
               <StImgInputWrapper>
-                <IcDefaultImg />
+                <StImgInputLabel htmlFor="input-file">
+                  <IcDefaultImg />
+                </StImgInputLabel>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="input-file"
+                  style={{ display: 'none' }}
+                  multiple
+                  onChange={handleFile}
+                />
+                {images.length > 0 &&
+                  images.map((image) => (
+                    <StPreviewImg
+                      key={image.id}
+                      src={image.src}
+                      alt={String(image.id)}
+                    />
+                  ))}
               </StImgInputWrapper>
-              <StPreviewImg></StPreviewImg>
             </StImgSection>
           </StFormSection>
         </StFormArticle>
@@ -119,6 +159,11 @@ const StCategorySelectBox = styled.div`
 const StImgSection = styled.section`
   width: 100%;
   margin-bottom: 7.4rem;
+
+  overflow: scroll;
+`;
+const StImgInputWrapper = styled.div`
+  display: flex;
 `;
 const StImgTitleSection = styled.section`
   margin-bottom: 1.3rem;
@@ -128,18 +173,30 @@ const StImgTitleSection = styled.section`
   font-size: 2rem;
   line-height: 2.9rem;
 `;
-const StImgInputWrapper = styled.div`
+const StImgInputLabel = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 25rem;
+  min-width: 25rem;
   height: 25rem;
+  margin-right: 2.1rem;
 
   border: 1px solid #d9d9d9;
   border-radius: 0.5rem;
+
+  cursor: pointer;
 `;
-const StPreviewImg = styled.div``; // img 일지?
+const StPreviewImg = styled.img`
+  width: 25rem;
+  height: 25rem;
+  margin-right: 2.1rem;
+
+  border: 1px solid #d9d9d9;
+  border-radius: 0.5rem;
+
+  object-fit: fill;
+`;
 const StSubmitBtn = styled.button`
   width: 79.8rem;
   height: 5.9rem;
