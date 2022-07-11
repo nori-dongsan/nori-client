@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { IcDefaultImg, IcDelete } from '../public/assets/icons';
 
 interface IImage {
@@ -9,10 +9,17 @@ interface IImage {
 
 export default function Write() {
   const [isCategory, setIsCategory] = useState<boolean>(false);
+  const [category, setCategory] = useState<string>('카테고리');
+  const [content, setContent] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
   const [images, setImages] = useState<IImage[]>([]);
 
-  const handleCategory = () => {
+  const handleIsCategory = () => {
     setIsCategory((prev) => !prev);
+  };
+
+  const handleCategory = (value: string) => {
+    setCategory(value);
   };
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,80 +29,87 @@ export default function Write() {
       return;
     }
 
+    const imageList: IImage[] = [];
+    let prevId = images.length == 0 ? 0 : images[images.length - 1].id;
     const formData = new FormData();
     Array.from(fileList).map((file) => {
       formData.append('images', file);
-      setImages([
-        ...images,
-        {
-          id: images.length == 0 ? 0 : images[images.length - 1].id + 1,
-          src: URL.createObjectURL(file),
-        },
-      ]);
+      imageList.push({
+        id: prevId + 1,
+        src: URL.createObjectURL(file),
+      });
+      prevId++;
     });
+    setImages([...images, ...imageList]);
   };
 
-  const handleDeleteImg = (
-    id: number,
-    e: React.ChangeEvent<HTMLOrSVGElement>,
-  ) => {
+  const handleDeleteImg = (id: number) => {
     setImages(images.filter((image) => image.id !== id));
   };
 
-  console.log(images);
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+  };
 
   return (
-    <>
-      <StFormMain>
-        <StFormArticle>
-          <StTitleSection>글쓰기</StTitleSection>
-          <StFormSection>
-            <StCategorySelectBox>
-              <StCategoryBtn onClick={handleCategory}>카테고리</StCategoryBtn>
-            </StCategorySelectBox>
-            <input type="text" placeholder="제목" />
-            <textarea placeholder="내용을 작성해주세요." />
-            <StImgSection>
-              <StImgTitleSection>사진 첨부 (최대 3장)</StImgTitleSection>
-              <StImgInputWrapper>
-                <StImgInputLabel htmlFor="input-file">
-                  <IcDefaultImg />
-                </StImgInputLabel>
-                <input
-                  type="file"
-                  accept="image/*"
-                  id="input-file"
-                  style={{ display: 'none' }}
-                  multiple
-                  onChange={handleFile}
-                />
-                {images.length > 0 &&
-                  images.map((image) => (
-                    <StPreviewImgWrapper key={image.id}>
-                      <StPreviewImg src={image.src} alt={String(image.id)} />
-                      <StIcDelete
-                        onClick={(e: React.ChangeEvent<HTMLOrSVGElement>) =>
-                          handleDeleteImg(image.id, e)
-                        }
-                      />
-                    </StPreviewImgWrapper>
-                  ))}
-              </StImgInputWrapper>
-            </StImgSection>
-          </StFormSection>
-        </StFormArticle>
-        <StSubmitBtn>작성완료</StSubmitBtn>
-        {isCategory && (
-          <StCategoryWrapper onClick={handleCategory}>
-            <StCategoryList>
-              <li>질문</li>
-              <li>후기</li>
-              <li>정보 공유</li>
-            </StCategoryList>
-          </StCategoryWrapper>
-        )}
-      </StFormMain>
-    </>
+    <StFormMain>
+      <StFormArticle>
+        <StTitleSection>글쓰기</StTitleSection>
+        <StFormSection>
+          <StCategorySelectBox>
+            <StCategoryBtn onClick={handleIsCategory}>{category}</StCategoryBtn>
+          </StCategorySelectBox>
+          <input
+            type="text"
+            value={title}
+            onChange={handleTitle}
+            placeholder="제목"
+          />
+          <textarea
+            value={content}
+            onChange={handleContent}
+            placeholder="내용을 작성해주세요."
+          />
+          <StImgSection>
+            <StImgTitleSection>사진 첨부 (최대 3장)</StImgTitleSection>
+            <StImgInputWrapper>
+              <StImgInputLabel htmlFor="input-file">
+                <IcDefaultImg />
+              </StImgInputLabel>
+              <input
+                type="file"
+                accept="image/*"
+                id="input-file"
+                style={{ display: 'none' }}
+                multiple
+                onChange={handleFile}
+              />
+              {images.length > 0 &&
+                images.map((image) => (
+                  <StPreviewImgWrapper key={image.id}>
+                    <StPreviewImg src={image.src} alt={String(image.id)} />
+                    <StIcDelete onClick={() => handleDeleteImg(image.id)} />
+                  </StPreviewImgWrapper>
+                ))}
+            </StImgInputWrapper>
+          </StImgSection>
+        </StFormSection>
+      </StFormArticle>
+      <StSubmitBtn>작성완료</StSubmitBtn>
+      {isCategory && (
+        <StCategoryWrapper onClick={handleIsCategory}>
+          <StCategoryList>
+            <li onClick={() => handleCategory('질문')}>질문</li>
+            <li onClick={() => handleCategory('후기')}>후기</li>
+            <li onClick={() => handleCategory('정보 공유')}>정보 공유</li>
+          </StCategoryList>
+        </StCategoryWrapper>
+      )}
+    </StFormMain>
   );
 }
 
@@ -175,7 +189,8 @@ const StImgSection = styled.section`
   width: 100%;
   margin-bottom: 7.4rem;
 
-  /* overflow: scroll; */
+  overflow: auto;
+  overflow-y: hidden;
 `;
 const StImgInputWrapper = styled.div`
   display: flex;
@@ -282,6 +297,8 @@ const StCategoryList = styled.ul`
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 4rem;
+
+    cursor: pointer;
   }
 
   li:not(:last-child) {
