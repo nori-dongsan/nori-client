@@ -1,11 +1,8 @@
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 
 export default function Header() {
-  const router = useRouter();
-
   return (
     <StHeaderWrapper>
       <StTopLink>
@@ -54,11 +51,13 @@ const StTopLink = styled.div`
   padding: 0rem;
   padding-top: 0.7rem;
   padding-left: 75%;
+  a {
+    ${({ theme }) => theme.fonts.b7_12_regular_120}
 
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1.2rem;
-  line-height: 1.6rem;
+    &:hover {
+      ${({ theme }) => theme.fonts.b7_12_bold_120}
+    }
+  }
 `;
 const StHeaderContents = styled.section`
   display: flex;
@@ -90,11 +89,7 @@ const StSearchBar = styled.div`
     width: 22rem;
 
     color: ${({ theme }) => theme.colors.white_opacity_75};
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 140%;
+    ${({ theme }) => theme.fonts.b3_16_medium_140}
 
     &::placeholder {
       color: ${({ theme }) => theme.colors.white_opacity_75};
@@ -118,7 +113,11 @@ const StMenu = styled.div`
   line-height: 2.6rem;
 `;
 const StMenuBtn = styled.a`
+  ${({ theme }) => theme.fonts.t4_18_regular_150}
+
   color: ${({ theme }) => theme.colors.white};
-  font-weight: 500;
-  font-size: 1.8rem;
+
+  &:hover {
+    ${({ theme }) => theme.fonts.t4_18_semibold_150};
+  }
 `;
