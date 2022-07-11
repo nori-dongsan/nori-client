@@ -11,5 +11,5 @@ const StHeaderWrapper = styled.header`
   width: 100%;
   height: 11.4rem;
 
-  background-color: #31cc94;
+  background-color: ${({ theme }) => theme.colors.mainGreen};
 `;
