@@ -8,6 +8,10 @@ const colors = {
   blue: '#4484FF',
   lightGreen: '#F5FFF0',
   white: '#FFFFFF',
+  white_opacity_75: 'rgba(255, 255, 255, 0.75)',
+  white_opacity_40: 'rgba(255, 255, 255, 0.4)',
+  white_opacity_14: 'rgba(255, 255, 255, 0.14)',
+
   gray001: '#FCFCFC',
   gray002: '#F8F8F8',
   gray003: '#E8E8E8',
@@ -48,18 +52,14 @@ const fonts = {
   b2_18_bold_140: FONT({ weight: 700, size: 1.8, height: 2.52, spacing: 0 }),
   b2_18_medium_130: FONT({ weight: 500, size: 1.8, height: 2.34, spacing: 0 }),
   b2_18_regular_130: FONT({ weight: 400, size: 1.8, height: 2.34, spacing: 0 }),
+  b3_16_bold_140: FONT({ weight: 700, size: 1.6, height: 2.24, spacing: 0 }),
   b3_16_semibold_140: FONT({
     weight: 600,
     size: 1.6,
     height: 2.24,
     spacing: 0,
   }),
-  b3_16_medium_140: FONT({
-    weight: 500,
-    size: 1.6,
-    height: 2.24,
-    spacing: 0,
-  }),
+  b3_16_medium_140: FONT({ weight: 500, size: 1.6, height: 2.24, spacing: 0 }),
   b4_15_semibold_146: FONT({
     weight: 600,
     size: 1.5,
