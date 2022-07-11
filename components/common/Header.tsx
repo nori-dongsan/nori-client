@@ -11,7 +11,7 @@ export default function Header() {
         </p>
       </StTopLink>
       <StHeaderContents>
-        <Link href="/">
+        <Link href="/main">
           <IcNoriHeaderLogo />
         </Link>
         <StSearchWrapper>
