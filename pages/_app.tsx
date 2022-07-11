@@ -12,10 +12,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <Global styles={resetStyle} />
         <Global styles={GlobalStyle} />
-        <Header /> 
+        <Header />
         <SessionProvider session={pageProps.session}>
-        <Component {...pageProps} />
-         </SessionProvider>
+          <Component {...pageProps} />
+        </SessionProvider>
         <Footer />
       </ThemeProvider>
     </RecoilRoot>
