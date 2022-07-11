@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { useRouter, Link } from 'next/router';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 
 export default function Header() {
@@ -20,12 +21,12 @@ export default function Header() {
             <IcSearchIcon />
           </StSearchBar>
           <StMenu>
-            <StMenuBtn type="button" onClick={() => router.push('/toyView')}>
-              상품보기
-            </StMenuBtn>
-            <StMenuBtn type="button" onClick={() => router.push('/community')}>
-              커뮤니티
-            </StMenuBtn>
+            <Link href='/toyView'>
+              <StMenuBtn type="button">상품보기</StMenuBtn>
+            </Link>
+            <Link href='/community'>
+              <StMenuBtn type="button">커뮤니티</StMenuBtn>
+            </Link>
             <StMenuBtn>ABOUT</StMenuBtn>
           </StMenu>
         </StSearchWrapper>
@@ -114,7 +115,7 @@ const StMenu = styled.div`
 
   line-height: 2.6rem;
 `;
-const StMenuBtn = styled.button`
+const StMenuBtn = styled.a`
   color: #ffffff;
   font-weight: 500;
   font-size: 1.8rem;
