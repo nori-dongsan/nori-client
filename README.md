@@ -1,14 +1,14 @@
 
 
-<div align="center">
-   <img src="https://capsule-render.vercel.app/api?type=waving&color=FFE766&height=100&section=header&text=Web💚nori-dongsan&fontSize=40&fontColor=ffffff" />
-   <br/>
+<h2>
    <img src="https://user-images.githubusercontent.com/79238676/178289176-0ff0c55a-0b9b-4323-80e0-cfd4dc042ee0.png"/>
-</div>
+   </h2>
+ <img src="https://capsule-render.vercel.app/api?type=waving&color=FFE766&height=100&section=header&text=Web💚nori-dongsan&fontSize=40&fontColor=ffffff" />
+
 
 <h2> 🧸 다양한 장난감 정보를 한눈에! 우리 아이 장난감 대여 비교 플랫폼, NORI </h2>
+<img width="748" alt="핵심가치" src="https://user-images.githubusercontent.com/79238676/178306085-6d51b179-cbd6-4b7e-9cb4-7a762f582b68.png">
 
----
 
 <h2> 💚 NORI 서비스의 핵심 기능 </h2>
 
