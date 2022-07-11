@@ -44,8 +44,8 @@ const StHeaderWrapper = styled.header`
   width: 100%;
   height: 11.4rem;
 
-  background-color: #31cc94;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.mainGreen};
+  color: ${({ theme }) => theme.colors.white};
 `;
 const StTopLink = styled.div`
   display: flex;
@@ -82,14 +82,14 @@ const StSearchBar = styled.div`
   width: 28.5rem;
   height: 4.2rem;
 
-  background: rgba(255, 255, 255, 0.14);
+  background: ${({ theme }) => theme.colors.white_opacity_14};
   border-radius: 0.8rem;
 
   input {
     height: 2.2rem;
     width: 22rem;
 
-    color: rgba(255, 255, 255, 0.75);
+    color: ${({ theme }) => theme.colors.white_opacity_75};
     font-family: 'Pretendard';
     font-style: normal;
     font-weight: 500;
@@ -97,7 +97,7 @@ const StSearchBar = styled.div`
     line-height: 140%;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.75);
+      color: ${({ theme }) => theme.colors.white_opacity_75};
     }
 
     :focus::placeholder {
@@ -118,7 +118,7 @@ const StMenu = styled.div`
   line-height: 2.6rem;
 `;
 const StMenuBtn = styled.a`
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.white};
   font-weight: 500;
   font-size: 1.8rem;
 `;
