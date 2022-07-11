@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
+import { useRouter, Link } from 'next/router';
 import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 
 export default function Header() {
@@ -16,7 +16,7 @@ export default function Header() {
         <IcNoriHeaderLogo type="button" onClick={() => router.push('/')} />
         <StSearchWrapper>
           <StSearchBar>
-            <input placeholder="상품명, 스토어명을 검색해보세요!" />
+            <input type="text" placeholder="상품명, 스토어명을 검색해보세요!" />
             <IcSearchIcon />
           </StSearchBar>
           <StMenu>
@@ -44,7 +44,6 @@ const StHeaderWrapper = styled.header`
   background-color: #31cc94;
   color: #ffffff;
 `;
-
 const StTopLink = styled.div`
   display: flex;
   align-items: center;
@@ -58,7 +57,6 @@ const StTopLink = styled.div`
   font-size: 1.2rem;
   line-height: 1.6rem;
 `;
-
 const StHeaderContents = styled.section`
   display: flex;
   justify-content: space-around;
@@ -67,14 +65,12 @@ const StHeaderContents = styled.section`
   width: 100%;
   margin-top: 2.9rem;
 `;
-
 const StSearchWrapper = styled.div`
   display: flex;
   align-items: center;
 
   gap: 4.8rem;
 `;
-
 const StSearchBar = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -106,7 +102,6 @@ const StSearchBar = styled.div`
     }
   }
 `;
-
 const StMenu = styled.div`
   display: flex;
   flex-direction: row;
@@ -119,7 +114,6 @@ const StMenu = styled.div`
 
   line-height: 2.6rem;
 `;
-
 const StMenuBtn = styled.button`
   color: #ffffff;
   font-weight: 500;
