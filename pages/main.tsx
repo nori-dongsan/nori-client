@@ -1,8 +1,11 @@
 import { MainBanner } from '../components/main';
 import styled from '@emotion/styled';
 import { ToyList } from '../components/common';
+import { useRouter } from 'next/router';
 
 export default function main() {
+  const { query } = useRouter();
+  
   return (
     <>
       <MainBanner />
@@ -10,6 +13,7 @@ export default function main() {
         <StConceptArticle>
           <StConceptTitle>이번주 인기 장난감</StConceptTitle>
           <ToyList />
+
         </StConceptArticle>
       </StMainSection>
     </>
@@ -28,7 +32,5 @@ const StConceptArticle = styled.article`
 const StConceptTitle = styled.div`
   padding-bottom: 5rem;
 
-  font-weight: 500;
-  font-size: 2.6rem;
-  text-align: center;
+  ${({ theme }) => theme.fonts.t2_26_semibold_150};
 `;
