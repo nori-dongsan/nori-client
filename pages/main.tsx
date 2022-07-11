@@ -1,6 +1,10 @@
+
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 export default function main() {
+  const { query } = useRouter();
+
   return (
     <>
       <StMainSection>
