@@ -14,17 +14,19 @@ export default function Header() {
         </p>
       </StTopLink>
       <StHeaderContents>
-        <IcNoriHeaderLogo type="button" onClick={() => router.push('/')} />
+        <Link href="/">
+          <IcNoriHeaderLogo />
+        </Link>
         <StSearchWrapper>
           <StSearchBar>
             <input type="text" placeholder="상품명, 스토어명을 검색해보세요!" />
             <IcSearchIcon />
           </StSearchBar>
           <StMenu>
-            <Link href='/toyView'>
+            <Link href="/toyView">
               <StMenuBtn type="button">상품보기</StMenuBtn>
             </Link>
-            <Link href='/community'>
+            <Link href="/community">
               <StMenuBtn type="button">커뮤니티</StMenuBtn>
             </Link>
             <StMenuBtn>ABOUT</StMenuBtn>
