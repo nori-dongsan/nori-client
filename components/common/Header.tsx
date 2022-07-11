@@ -54,6 +54,8 @@ const StTopLink = styled.div`
   a {
     ${({ theme }) => theme.fonts.b7_12_regular_120}
 
+    cursor: pointer;
+
     &:hover {
       ${({ theme }) => theme.fonts.b7_12_bold_120}
     }
@@ -120,4 +122,5 @@ const StMenuBtn = styled.a`
   &:hover {
     ${({ theme }) => theme.fonts.t4_18_semibold_150};
   }
+  cursor: pointer;
 `;
