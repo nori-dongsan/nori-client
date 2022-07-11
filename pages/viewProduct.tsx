@@ -1,3 +1,10 @@
-export default function toyView() {
-  return <div>상품보기입니다</div>;
+import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
+
+export default function viewProduct() {
+  return (
+    <div>
+      <ViewProductBanner />
+      <ProductFilter />
+    </div>
+  );
 }
