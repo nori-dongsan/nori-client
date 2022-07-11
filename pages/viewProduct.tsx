@@ -1,3 +1,10 @@
+import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
+
 export default function viewProduct() {
-  return <div>상품보기입니다</div>;
+  return (
+    <div>
+      <ViewProductBanner />
+      <ProductFilter />
+    </div>
+  );
 }
