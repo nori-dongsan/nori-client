@@ -45,14 +45,14 @@
         </td>
         <td style="min-width: 150px;">
             <a href="https://github.com/Brokyeom">
-              <img src="" width="200">
+              <img src="https://user-images.githubusercontent.com/79238676/178309660-6c15f963-c370-4962-8440-38005f0c2773.JPG" width="200">
               <br />
               <b>Brokyeom</b>
             </a>
         </td>
         <td style="min-width: 150px;" background-color="white">
             <a href="https://github.com/say-young516">
-              <img src="" width="200">
+              <img src="https://user-images.githubusercontent.com/79238676/178309614-8f14b607-5b57-461f-a0fb-92689295b2b2.JPG" width="200">
               <br />
               <b>say-young516</b>
             </a> 
