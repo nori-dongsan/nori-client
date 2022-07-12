@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { IcComment, IcHeart } from '../../public/assets/icons';
 
-interface ContentsInfo {
+interface ContentInfoProps {
   category: string;
   title: string;
   content: string;
@@ -12,7 +12,7 @@ interface ContentsInfo {
   img?: string;
 }
 
-export default function ContentCard(props: ContentsInfo) {
+export default function ContentCard(props: ContentInfoProps) {
   const { category, title, content, userNickname, replyCount, createdAt, img } =
     props;
 
