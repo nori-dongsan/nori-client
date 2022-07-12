@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import ContentCard from './ContentsCard';
+import Link from 'next/link';
 
 export default function CommunityList() {
   return (
@@ -9,6 +10,9 @@ export default function CommunityList() {
         <input type="text" />
         <IcCommunitySearchIcon />
       </StSearchBar>
+      <Link href="/write">
+        <StWriteBtn>글쓰기</StWriteBtn>
+      </Link>
       <ContentCard
         category="후기"
         title="그린키드 미끄럼틀 아이가 좋아하네요"
@@ -62,4 +66,21 @@ const StSearchBar = styled.div`
 
     font-size: 2.5rem;
   }
+`;
+const StWriteBtn = styled.a`
+  padding: 0.9rem 2.5rem 0.9rem 2.5rem;
+  margin-bottom: 3.3rem;
+  margin-left: 85%;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+
+  color: ${({ theme }) => theme.colors.mainDarkgreen};
+  background-color: #e1ffeb;
+  border: 2px solid ${({ theme }) => theme.colors.mainDarkgreen};
+  border-radius: 1rem;
+
+  cursor: pointer;
 `;

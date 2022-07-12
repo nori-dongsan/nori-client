@@ -44,11 +44,12 @@ export default function ContentCard(props: ContentsInfo) {
 
 const StContentsCardWrapper = styled.div`
   display: flex;
+  flex-direction: row;
 
   width: 120rem;
   height: auto;
 
-  margin-bottom: 9.6rem;
+  margin-bottom: 4.8rem;
   padding-bottom: 4.5rem;
   border-bottom: 1px solid #d6d6d6;
 
