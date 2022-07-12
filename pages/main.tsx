@@ -26,7 +26,7 @@ export default function main() {
       <StMainSection>
         <StConceptArticle>
           <StConceptTitle>이번 주 인기 장난감</StConceptTitle>
-          <ToyList />
+          <ToyList landingCategory="popularity" length={3} />
         </StConceptArticle>
 
         <StCollectionArticle>
