@@ -101,7 +101,7 @@ export default function ProductFilter() {
         </StFilterTitle>
         {visibility[2] && <FilterDropdown categoryInfo={cost} />}
       </StFilterSection>
-      <StFilterSection isDrop={visibility[3]}>
+      <StFilterExcept isDrop={visibility[3]}>
         <StFilterTitle>
           <h2>특성</h2>
           <IcOpen
@@ -114,7 +114,7 @@ export default function ProductFilter() {
           />
         </StFilterTitle>
         {visibility[3] && <FilterDropdown categoryInfo={way} />}
-      </StFilterSection>
+      </StFilterExcept>
       <StFilterSection isDrop={visibility[4]}>
         <StFilterTitle>
           <h2>스토어</h2>
@@ -135,6 +135,7 @@ export default function ProductFilter() {
 
 const StFilterWrapper = styled.div`
   width: 20rem;
+  height: 28rem;
   padding-left: 1.2rem;
 `;
 const StFilterTitle = styled.div`
@@ -150,7 +151,14 @@ const StFilterSection = styled.section<{ isDrop: boolean }>`
   border-bottom: 0.1rem #d9d9d9 solid;
   font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
 `;
+const StFilterExcept = styled.section<{ isDrop: boolean }>`
+  width: 20rem;
+  height: ${({ isDrop }) => (isDrop ? '13.6rem' : '5.6rem')};
+  padding: 1.7rem 0;
 
+  border-bottom: 0.1rem #d9d9d9 solid;
+  font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
+`;
 // display `-객체의 노출여부/표현방식--`
 // ( justify-content / align-items)
 // ( flex-direction / flex-wrap / flex-flow ) → flex ~로 시작하는 것들

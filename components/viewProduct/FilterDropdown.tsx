@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import { CategoryProps } from './ProductFilter';
 import { IcCheckbox } from '../../public/assets/icons';
+import { useRef } from 'react';
 
 export default function FilterDropdown({ categoryInfo }: CategoryProps) {
+  const child = useRef();
   return (
     <StDropdownWrapper>
       {categoryInfo.map((sort: string) => {
