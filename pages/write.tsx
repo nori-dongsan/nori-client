@@ -9,7 +9,7 @@ interface IImage {
 
 export default function Write() {
   const [isCategory, setIsCategory] = useState<boolean>(false);
-  const [category, setCategory] = useState<string>('카테고리');
+  const [category, setCategory] = useState<string>('후기');
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [images, setImages] = useState<IImage[]>([]);
@@ -79,6 +79,7 @@ export default function Write() {
             <StImgInputWrapper>
               <StImgInputLabel htmlFor="input-file">
                 <IcDefaultImg />
+                <span>{`(${images.length}/3)`}</span>
               </StImgInputLabel>
               <input
                 type="file"
@@ -103,8 +104,8 @@ export default function Write() {
       {isCategory && (
         <StCategoryWrapper onClick={handleIsCategory}>
           <StCategoryList>
-            <li onClick={() => handleCategory('질문')}>질문</li>
-            <li onClick={() => handleCategory('후기')}>후기</li>
+            <li onClick={() => handleCategory('후기')}>질문</li>
+            <li onClick={() => handleCategory('질문')}>후기</li>
             <li onClick={() => handleCategory('정보 공유')}>정보 공유</li>
           </StCategoryList>
         </StCategoryWrapper>
@@ -205,6 +206,7 @@ const StImgTitleSection = styled.section`
 `;
 const StImgInputLabel = styled.label`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -216,6 +218,15 @@ const StImgInputLabel = styled.label`
   border-radius: 0.5rem;
 
   cursor: pointer;
+
+  & > span {
+    margin-top: 1.2rem;
+
+    color: #999999;
+    font-weight: 500;
+    font-size: 1.9rem;
+    line-height: 2.8rem;
+  }
 `;
 const StPreviewImgWrapper = styled.div`
   position: relative;
