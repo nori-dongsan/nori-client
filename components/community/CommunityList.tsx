@@ -68,7 +68,7 @@ const StSearchBar = styled.div`
   }
 `;
 const StWriteBtn = styled.a`
-  padding: 0.9rem 2.5rem 0.9rem 2.5rem;
+  padding: 0.9rem 2.5rem;
   margin-bottom: 3.3rem;
   margin-left: 85%;
 
