@@ -77,8 +77,8 @@ const StWriteBtn = styled.a`
   font-size: 2rem;
   line-height: 2.8rem;
 
-  color: ${({ theme }) => theme.colors.mainDarkgreen};
   background-color: #e1ffeb;
+  color: ${({ theme }) => theme.colors.mainDarkgreen};
   border: 0.2rem solid ${({ theme }) => theme.colors.mainDarkgreen};
   border-radius: 1rem;
 

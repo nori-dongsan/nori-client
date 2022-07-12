@@ -37,7 +37,7 @@ export default function ContentCard(props: ContentInfoProps) {
           <span>{replyCount}</span>
         </StReplyInfo>
       </StContentInfo>
-      {img === undefined ? <></> : <StContentImg src={img} />};
+      {img === undefined ? <></> : <StContentImg src={img} alt="리뷰 사진" />};
     </StContentsCardWrapper>
   );
 }
@@ -46,29 +46,30 @@ const StContentsCardWrapper = styled.div`
   display: flex;
   flex-direction: row;
 
+  margin-bottom: 4.8rem;
+  padding-bottom: 4.5rem;
+
   width: 120rem;
   height: auto;
 
-  margin-bottom: 4.8rem;
-  padding-bottom: 4.5rem;
   border-bottom: 0.1rem solid #d6d6d6;
 
   h1 {
+    margin-bottom: 1.1rem;
+
     font-style: normal;
     font-weight: 500;
     font-size: 2.3rem;
     line-height: 3.3rem;
-
-    margin-bottom: 1.1rem;
   }
 
   p {
+    margin-bottom: 2.7rem;
+
     font-style: normal;
     font-weight: 400;
     font-size: 1.6rem;
     line-height: 2.9rem;
-
-    margin-bottom: 2.7rem;
   }
 `;
 const StContentInfo = styled.section`
@@ -76,7 +77,6 @@ const StContentInfo = styled.section`
 
   margin-right: 4.9rem;
 `;
-
 const StCategory = styled.div`
   display: flex;
   justify-content: center;
@@ -105,7 +105,6 @@ const StCategoryQuestion = styled(StCategory)`
 const StCategoryInfo = styled(StCategory)`
   background-color: ${({ theme }) => theme.colors.mainDarkgreen};
 `;
-
 const StContentImg = styled.img`
   width: 26rem;
   height: 25.5rem;
