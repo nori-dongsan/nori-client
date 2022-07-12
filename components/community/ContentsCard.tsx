@@ -51,13 +51,13 @@ const StContentsCardWrapper = styled.div`
 
   margin-bottom: 4.8rem;
   padding-bottom: 4.5rem;
-  border-bottom: 1px solid #d6d6d6;
+  border-bottom: 0.1rem solid #d6d6d6;
 
   h1 {
     font-style: normal;
     font-weight: 500;
-    font-size: 23px;
-    line-height: 33px;
+    font-size: 2.3rem;
+    line-height: 3.3rem;
 
     margin-bottom: 1.1rem;
   }
@@ -65,8 +65,8 @@ const StContentsCardWrapper = styled.div`
   p {
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 29px;
+    font-size: 1.6rem;
+    line-height: 2.9rem;
 
     margin-bottom: 2.7rem;
   }
@@ -91,8 +91,8 @@ const StCategory = styled.div`
 
   font-style: normal;
   font-weight: 700;
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
 
   color: ${({ theme }) => theme.colors.white};
 `;
@@ -118,15 +118,15 @@ const StWriteInfo = styled.div`
 
     font-style: normal;
     font-weight: 500;
-    font-size: 17px;
-    line-height: 25px;
+    font-size: 1.7rem;
+    line-height: 2.5rem;
   }
 
   span:last-child {
     font-style: normal;
     font-weight: 350;
-    font-size: 17px;
-    line-height: 25px;
+    font-size: 1.7rem;
+    line-height: 2.5rem;
   }
 `;
 const StReplyInfo = styled.div`
@@ -139,7 +139,7 @@ const StReplyInfo = styled.div`
 
     font-style: normal;
     font-weight: 400;
-    font-size: 17.6098px;
-    line-height: 25px;
+    font-size: 1.76rem;
+    line-height: 2.5rem;
   }
 `;

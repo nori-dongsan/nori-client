@@ -57,7 +57,7 @@ const StSearchBar = styled.div`
 
   width: 64.2rem;
   height: 4.5rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.black};
   margin-bottom: 7.9rem;
 
   input {
@@ -74,12 +74,12 @@ const StWriteBtn = styled.a`
 
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 27px;
+  font-size: 2rem;
+  line-height: 2.8rem;
 
   color: ${({ theme }) => theme.colors.mainDarkgreen};
   background-color: #e1ffeb;
-  border: 2px solid ${({ theme }) => theme.colors.mainDarkgreen};
+  border: 0.2rem solid ${({ theme }) => theme.colors.mainDarkgreen};
   border-radius: 1rem;
 
   cursor: pointer;
