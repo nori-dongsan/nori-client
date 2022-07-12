@@ -85,7 +85,7 @@ const StDropdownWrapper = styled.div<{ isDrop: boolean }>`
   }
 
   @keyframes slide-fade-in-dropdown-animation {
-    0% {
+    0% {4
       transform: translateY(-20%);
     }
 
