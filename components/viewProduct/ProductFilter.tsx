@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import React, { EventHandler, useState } from 'react';
 import { IcClose, IcOpen } from '../../public/assets/icons';
 import FilterDropdown from './FilterDropdown';
 
 export interface CategoryProps {
   categoryInfo: string[];
+  isDrop?: boolean;
 }
 const store = [
   '국민장난감',
@@ -47,7 +48,6 @@ const kind = [
   '기타',
 ];
 const way = ['타고 노는', '만지고 노는'];
-const filterInfo = ['종류', '사용 연령', '가격', '특성', '스토어'];
 
 export default function ProductFilter() {
   const [visibility, setVisibility] = useState<boolean[]>([
@@ -57,6 +57,27 @@ export default function ProductFilter() {
     false,
     false,
   ]);
+  const [repeat, setRepeat] = useState<null | number | void | string>();
+  // const handleDrop = (idx: number) => {
+  //   if (visibility[idx]) {
+  //     clearTimeout(repeat);
+  //     setRepeat(null);
+  //     setVisibility({
+  //       ...visibility,
+  //       [idx]: !visibility[idx],
+  //     });
+  //   } else {
+  //     setRepeat(
+  //       setTimeout(() => {
+  //         setVisibility({
+  //           ...visibility,
+  //           [0]: !visibility[0],
+  //         });
+  //         return 0;
+  //       }, 400),
+  //     );
+  //   }
+  // };
   return (
     <StFilterWrapper>
       <StFilterSection isDrop={visibility[0]}>
@@ -71,7 +92,9 @@ export default function ProductFilter() {
             }}
           />
         </StFilterTitle>
-        {visibility[0] && <FilterDropdown categoryInfo={kind} />}
+        {visibility[0] && (
+          <FilterDropdown categoryInfo={kind} isDrop={visibility[0]} />
+        )}
       </StFilterSection>
       <StFilterSection isDrop={visibility[1]}>
         <StFilterTitle>
@@ -159,6 +182,10 @@ const StFilterExcept = styled.section<{ isDrop: boolean }>`
   border-bottom: 0.1rem #d9d9d9 solid;
   font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
 `;
+
+function repeat(repeat: any) {
+  throw new Error('Function not implemented.');
+}
 // display `-객체의 노출여부/표현방식--`
 // ( justify-content / align-items)
 // ( flex-direction / flex-wrap / flex-flow ) → flex ~로 시작하는 것들

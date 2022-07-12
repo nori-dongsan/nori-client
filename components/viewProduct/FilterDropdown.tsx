@@ -3,10 +3,13 @@ import { CategoryProps } from './ProductFilter';
 import { IcCheckbox } from '../../public/assets/icons';
 import { useRef } from 'react';
 
-export default function FilterDropdown({ categoryInfo }: CategoryProps) {
+export default function FilterDropdown({
+  categoryInfo,
+  isDrop,
+}: CategoryProps) {
   const child = useRef();
   return (
-    <StDropdownWrapper>
+    <StDropdownWrapper isDrop>
       {categoryInfo.map((sort: string) => {
         return (
           <StLabel htmlFor={sort}>
@@ -48,7 +51,7 @@ const StLabel = styled.label`
     font: ${({ theme }) => theme.fonts.b5_14_medium_140};
   }
 `;
-const StDropdownWrapper = styled.div`
+const StDropdownWrapper = styled.div<{ isDrop: boolean }>`
   display: flex;
   flex-direction: column;
 
@@ -80,6 +83,37 @@ const StDropdownWrapper = styled.div`
     background: ${({ theme }) =>
       theme.colors.gray002}; /*스크롤바 뒷 배경 색상*/
   }
+
+  @keyframes slide-fade-in-dropdown-animation {
+    0% {
+      transform: translateY(-20%);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+  /* fade out */
+
+  @keyframes slide-fade-out-dropdown-animation {
+    0% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+
+  animation: ${({ isDrop }) =>
+    isDrop
+      ? 'slide-fade-in-dropdown-animation 0.4s ease'
+      : 'slide-fade-out-dropdown-animation 0.4s ease'};
+
+  // .slide-fade-out-dropdown {
+  //   animation: slide-fade-out-dropdown-animation 0.4s ease;
+  //   animation-fill-mode: forwards;
+  // }
 `;
 // display `-객체의 노출여부/표현방식--`
 // ( justify-content / align-items)
