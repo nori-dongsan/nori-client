@@ -1,4 +1,9 @@
-import { MainBanner, CollectionCard } from '../components/main';
+import {
+  MainBanner,
+  CollectionCard,
+  BottomBanner,
+  MiddleBanner,
+} from '../components/main';
 import styled from '@emotion/styled';
 import { ToyList } from '../components/common';
 import { useRouter } from 'next/router';
@@ -37,7 +42,23 @@ export default function main() {
             ))}
           </StCollectionCardWrapper>
         </StCollectionArticle>
+
+        <StConceptArticle>
+          <StConceptTitle>Today's NORI PICK</StConceptTitle>
+          <ToyList landingCategory="noriPick" length={4} />
+        </StConceptArticle>
+        <MiddleBanner />
+        <StConceptArticle>
+          <StConceptTitle>우리 아이 오감 발달을 위해</StConceptTitle>
+          <ToyList landingCategory="develop" length={4} />
+        </StConceptArticle>
+
+        <StConceptArticle>
+          <StConceptTitle>학습에 도움이 되는 똑똑한 장난감</StConceptTitle>
+          <ToyList landingCategory="study" length={4} />
+        </StConceptArticle>
       </StMainSection>
+      <BottomBanner />
     </>
   );
 }
