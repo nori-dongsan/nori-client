@@ -73,9 +73,9 @@ const StContentsCardWrapper = styled.div`
   }
 `;
 const StContentInfo = styled.section`
-  width: auto;
-
   margin-right: 4.9rem;
+
+  width: auto;
 `;
 const StCategory = styled.div`
   display: flex;
