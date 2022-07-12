@@ -123,11 +123,11 @@
 ```
 ├── 📁 components 
 │  ├── 📁 common
-│	 │ └── 📁 styled  
-│	 │   ├── Eroor404.tsx
-│	 │   └── index.ts
+│	│ └── 📁 styled  
+│	│   ├── Eroor404.tsx
+│	│   └── index.ts
 │  ├── 📁 icons 
-│	 │  └── NavHeaderIcons.tsx 
+│	│  └── NavHeaderIcons.tsx 
 │  ├── 📁 landing
 │  │  ├── LandingHeader.tsx
 │  │  ├── LandingFooter.tsx
