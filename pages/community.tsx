@@ -2,10 +2,12 @@ import styled from '@emotion/styled';
 import { CommunityList } from '../components/community';
 
 export default function community() {
-  return <StCommunityWrapper>
-  <StCommunityTitle>커뮤니티</StCommunityTitle>
-    <CommunityList />
+  return (
+    <StCommunityWrapper>
+      <StCommunityTitle>커뮤니티</StCommunityTitle>
+      <CommunityList />
     </StCommunityWrapper>
+  );
 }
 
 const StCommunityWrapper = styled.section`
@@ -20,4 +22,4 @@ const StCommunityTitle = styled.h1`
   margin-bottom: 9.6rem;
 
   ${({ theme }) => theme.fonts.t1_28_medium_150};
-`
+`;
