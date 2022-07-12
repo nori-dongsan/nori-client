@@ -12,9 +12,9 @@ export default function ToyList(props: ToyListProps) {
   const toyList = new Array(length).fill(0);
   return (
     <StToyListWrapper>
-      {toyList.map(() =>
+      {toyList.map((_, idx) =>
         landingCategory === 'popularity' ? (
-          <StPopularityWrapper>
+          <StPopularityWrapper key={idx}>
             <ToyPreview
               src="d"
               store="그린키드"
@@ -24,15 +24,14 @@ export default function ToyList(props: ToyListProps) {
             />
           </StPopularityWrapper>
         ) : (
-          <StPopularityWrapper>
-            <ToyPreview
-              src="d"
-              store="그린키드"
-              title="[보행기대여] NEW 뉴 롤링360 플러스 다기능 아기보행기"
-              price={12000}
-              age="36개월이상"
-            />
-          </StPopularityWrapper>
+          <ToyPreview
+            key={idx}
+            src="d"
+            store="그린키드"
+            title="[보행기대여] NEW 뉴 롤링360 플러스 다기능 아기보행기"
+            price={12000}
+            age="36개월이상"
+          />
         ),
       )}
     </StToyListWrapper>
