@@ -57,9 +57,9 @@ export default function Write() {
 
   return (
     <StFormMain>
-      <StFormArticle>
-        <StTitleSection>글쓰기</StTitleSection>
-        <StFormSection>
+      <StFormSection>
+        <StTitleHeader>글쓰기</StTitleHeader>
+        <StFormArticle>
           <StCategorySelectBox>
             <StCategoryBtn onClick={handleIsCategory}>{category}</StCategoryBtn>
           </StCategorySelectBox>
@@ -75,7 +75,7 @@ export default function Write() {
             placeholder="내용을 작성해주세요."
           />
           <StImgSection>
-            <StImgTitleSection>사진 첨부 (최대 3장)</StImgTitleSection>
+            <StImgTitleHeader>사진 첨부 (최대 3장)</StImgTitleHeader>
             <StImgInputWrapper>
               <StImgInputLabel htmlFor="input-file">
                 <IcDefaultImg />
@@ -98,8 +98,8 @@ export default function Write() {
                 ))}
             </StImgInputWrapper>
           </StImgSection>
-        </StFormSection>
-      </StFormArticle>
+        </StFormArticle>
+      </StFormSection>
       <StSubmitBtn>작성완료</StSubmitBtn>
       {isCategory && (
         <StCategoryWrapper onClick={handleIsCategory}>
@@ -122,10 +122,10 @@ const StFormMain = styled.main`
   padding-top: 4.6rem;
   padding-bottom: 24rem;
 `;
-const StFormArticle = styled.article`
+const StFormSection = styled.section`
   width: 99.6rem;
 `;
-const StTitleSection = styled.section`
+const StTitleHeader = styled.header`
   padding-bottom: 6.3rem;
 
   color: #000000;
@@ -135,7 +135,7 @@ const StTitleSection = styled.section`
 
   text-align: center;
 `;
-const StFormSection = styled.section`
+const StFormArticle = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -196,7 +196,7 @@ const StImgSection = styled.section`
 const StImgInputWrapper = styled.div`
   display: flex;
 `;
-const StImgTitleSection = styled.section`
+const StImgTitleHeader = styled.header`
   margin-bottom: 1.3rem;
 
   color: #999999;
