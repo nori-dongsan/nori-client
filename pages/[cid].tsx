@@ -1,11 +1,28 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { IcComment, IcHeart, IcMenu } from '../public/assets/icons';
 
 export default function CommunityDetail() {
   const router = useRouter();
+  const [isWriter, setIsWriter] = useState<boolean>(true);
+  const [isMenu, setIsMenu] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
   const { cid } = router.query;
+
+  const handleMenu = () => {
+    setIsMenu((prev) => !prev);
+  };
+
+  const handleExpanded = () => {
+    setIsExpanded((prev) => !prev);
+  };
+
+  const handleDelete = () => {
+    const val = confirm('삭제하시겠습니까?');
+  };
 
   return (
     <StCommunityMain>
@@ -25,22 +42,33 @@ export default function CommunityDetail() {
               css={css`
                 cursor: pointer;
               `}
+              onClick={handleMenu}
             />
+            {isMenu && (
+              <StMenuWrapper onClick={handleMenu}>
+                {isWriter ? (
+                  <StMenuList isWriter={isWriter}>
+                    <li>수정하기</li>
+                    <li onClick={handleDelete}>삭제하기</li>
+                  </StMenuList>
+                ) : (
+                  <StMenuList isWriter={isWriter}>
+                    <li>신고하기</li>
+                  </StMenuList>
+                )}
+              </StMenuWrapper>
+            )}
           </StCommunityInfoWrapper>
           <StCommunityContent>
             <StImgWrapper>
-              <StPreviewImg
-                src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
-                alt="test"
-              />
-              <StPreviewImg
-                src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
-                alt="test"
-              />
-              <StPreviewImg
-                src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
-                alt="test"
-              />
+              {['1', '2', '3'].map((item) => (
+                <StPreviewImg
+                  key={item}
+                  onClick={handleExpanded}
+                  src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
+                  alt={item}
+                />
+              ))}
             </StImgWrapper>
             <StContent>
               군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한
@@ -61,6 +89,14 @@ export default function CommunityDetail() {
           </StCommunityContent>
         </StCommunityArticle>
       </StCommunitySection>
+      {isExpanded && (
+        <StExpandedImgWrapper onClick={handleExpanded}>
+          <StExpandedImg
+            src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
+            alt="expanded"
+          />
+        </StExpandedImgWrapper>
+      )}
     </StCommunityMain>
   );
 }
@@ -122,6 +158,7 @@ const StCommunityTitle = styled.div`
 const StCommunityInfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  position: relative;
 
   border-bottom: 1.86px solid #d6d6d6;
 `;
@@ -150,6 +187,7 @@ const StCommunityInfo = styled.div`
 const StCommunityContent = styled.div`
   padding-top: 5rem;
   padding-bottom: 3.383rem;
+
   border-bottom: 1.86px solid #d6d6d6;
 `;
 const StImgWrapper = styled.div`
@@ -169,7 +207,9 @@ const StPreviewImg = styled.img`
   border: 0.93px solid #bebebe;
   border-radius: 0.929rem;
 
-  object-fit: fill;
+  object-fit: cover;
+
+  cursor: pointer;
 `;
 const StContent = styled.p`
   color: #767676;
@@ -196,4 +236,64 @@ const StIconWrapper = styled.div`
     font-size: 1.85rem;
     line-height: 2.7rem;
   }
+`;
+const StMenuWrapper = styled.div`
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+`;
+const StMenuList = styled.ul<{ isWriter: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: ${(props) => (props.isWriter ? '8rem' : '6rem')};
+  right: -12rem;
+  transform: translate(-50%, -50%);
+
+  width: 23.4rem;
+
+  border: 1px solid #bebebe;
+  border-radius: 1rem;
+  background-color: white;
+
+  li {
+    width: 95%;
+    height: 4rem;
+
+    background-color: white;
+    color: #000000;
+    font-weight: 400;
+    font-size: 3rem;
+    line-height: 3.6rem;
+
+    text-align: center;
+
+    cursor: pointer;
+  }
+`;
+const StExpandedImgWrapper = styled.div`
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+const StExpandedImg = styled.img`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
