@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { IcViewProductIcon } from '../../public/assets/icons';
 
+// interface ViewProductProps {
+//   onClick: MouseCli;
+// }
 export default function ViewProductBanner() {
   //상품보기 뷰 배너 아이콘 요소 배열
   const productIcons = [
@@ -13,13 +17,31 @@ export default function ViewProductBanner() {
     '승용완구',
     '역할놀이',
   ];
+  const [isClicked, setIsClicked] = useState<boolean[]>([
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const handleProductIcon = (idx: number) => {
+    console.log(idx);
+  };
   return (
     <StViewProductWrapper>
       <h1>상품보기</h1>
       <StCategoryNav>
-        {productIcons.map((item: string) => {
+        {productIcons.map((item: string, idx: number) => {
           return (
-            <StProductItem>
+            <StProductItem
+              onClick={() => {
+                handleProductIcon(idx);
+              }}
+              key={idx}
+            >
               <IcViewProductIcon />
               <p>{item}</p>
             </StProductItem>
@@ -36,8 +58,10 @@ const StViewProductWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  margin: 7.1rem 0 5.4rem 0;
+  margin: 7.1rem 0 0 0;
+  padding-bottom: 5.4rem;
 
+  border-bottom: 1px solid #d9d9d9;
   & > h1 {
     font: ${({ theme }) => theme.fonts.t1_28_medium_150};
   }
