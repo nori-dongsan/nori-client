@@ -35,7 +35,7 @@ const StToyWrapper = styled.article`
   display: flex;
   flex-direction: column;
 
-  margin: 0rem 3.5rem;
+  margin: 0rem 1.25rem;
 `;
 const StImgWrapper = styled.div`
   position: relative;

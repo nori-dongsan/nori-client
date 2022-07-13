@@ -42,6 +42,7 @@ const StToyListWrapper = styled.section`
   display: flex;
 `;
 const StPopularityWrapper = styled.article`
+  margin: 0rem 2.1rem;
   transition: all 0.2s linear;
 
   &:hover {
