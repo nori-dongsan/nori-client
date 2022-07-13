@@ -40,7 +40,8 @@ const StHeaderWrapper = styled.header`
   position: sticky;
   top: -3.2rem;
 
-  width: 100%;
+  width: 192rem;
+  // width: 100%;
   height: 11.4rem;
 
   background-color: ${({ theme }) => theme.colors.mainGreen};
