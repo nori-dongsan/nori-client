@@ -14,6 +14,8 @@ export default function Write() {
   const [title, setTitle] = useState<string>('');
   const [images, setImages] = useState<IImage[]>([]);
 
+  const menu = ['후기', '질문', '정보 공유'];
+
   const handleIsCategory = () => {
     setIsCategory((prev) => !prev);
   };
@@ -104,9 +106,11 @@ export default function Write() {
       {isCategory && (
         <StCategoryWrapper onClick={handleIsCategory}>
           <StCategoryList>
-            <li onClick={() => handleCategory('후기')}>질문</li>
-            <li onClick={() => handleCategory('질문')}>후기</li>
-            <li onClick={() => handleCategory('정보 공유')}>정보 공유</li>
+            {menu.map((item, idx) => (
+              <li key={idx} onClick={() => handleCategory(item)}>
+                {item}
+              </li>
+            ))}
           </StCategoryList>
         </StCategoryWrapper>
       )}
