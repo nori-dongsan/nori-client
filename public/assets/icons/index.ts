@@ -1,3 +1,6 @@
+export { default as IcDefaultImg } from './defaultImgIcon.svg';
+export { default as IcDropDown } from './dropDownIcon.svg';
+export { default as IcDelete } from './deleteIcon.svg';
 export { default as IcNoriHeaderLogo } from './noriHeaderIcon.svg';
 export { default as IcSearchIcon } from './searchIcon.svg';
 export { default as IcPlus } from './IcPlus.svg';
