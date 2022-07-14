@@ -1,1 +1,1 @@
-export { default as CommunityForm } from './CommunityForm';
+export { default as CommunityList } from './CommunityList';
