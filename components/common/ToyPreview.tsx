@@ -44,7 +44,7 @@ const StToyImg = styled.img`
   width: 27.5rem;
   height: 27.5rem;
 
-  border: 0.2rem solid #e2e2e2;
+  border: 0.1rem solid #e2e2e2;
   border-radius: 0.8rem;
 `;
 
