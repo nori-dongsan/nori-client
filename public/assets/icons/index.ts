@@ -8,3 +8,4 @@ export { default as IcMainBanner } from './mainBannerIc.svg';
 export { default as IcToyMark } from './toyMark.svg';
 export { default as IcFillToyMark } from './fillToyMark.svg';
 export { default as IcViewProductIcon } from './IcViewProductIcon.svg';
+export { default as IcPriceLine } from './IcPriceLine.svg';

@@ -1,40 +1,77 @@
 import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
 import styled from '@emotion/styled';
+import { IcPriceLine } from '../public/assets/icons';
 import { ToyList } from '../components/common';
 
 export default function viewProduct() {
   return (
-    <StWrapper>
+    <StViewProductWrapper>
       <ViewProductBanner />
-
-      <StViewProductWrapper>
-        <StFilterWrapper>
-          <ProductFilter />
-        </StFilterWrapper>
+      <StFilterBarWrapper>
+        <StPriceSort>
+          <h3>낮은 가격순</h3>
+          <IcPriceLine />
+          <h3>높은 가격순</h3>
+        </StPriceSort>
+      </StFilterBarWrapper>
+      <StSection>
+        <ProductFilter />
         <StToyListWrapper>
-          {/* <ToyList landingCategory="viewProduct" length={4} /> */}
+          <ToyList
+            isViewProduct={true}
+            landingCategory="viewProduct"
+            length={4}
+          />
+          <ToyList
+            isViewProduct={true}
+            landingCategory="viewProduct"
+            length={4}
+          />
+          <ToyList
+            isViewProduct={true}
+            landingCategory="viewProduct"
+            length={4}
+          />
+          <ToyList
+            isViewProduct={true}
+            landingCategory="viewProduct"
+            length={4}
+          />
         </StToyListWrapper>
-      </StViewProductWrapper>
-    </StWrapper>
+      </StSection>
+    </StViewProductWrapper>
   );
 }
 
-const StWrapper = styled.div`
+const StViewProductWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  padding: 0rem 37.2rem;
+  padding: 0 37.2rem;
 `;
-const StViewProductWrapper = styled.section`
+const StFilterBarWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
 `;
-const StFilterWrapper = styled.nav`
+const StPriceSort = styled.div`
   display: flex;
-  flex: 0.5;
+  align-items: center;
+
+  height: 2rem;
+  margin-top: 2rem;
+
+  font: ${({ theme }) => theme.fonts.b5_14_medium_140};
+
+  cursor: pointer;
 `;
-const StToyListWrapper = styled.article`
+
+const StSection = styled.section`
   display: flex;
-  flex: 2.5;
+`;
+const StToyListWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 1rem;
 `;

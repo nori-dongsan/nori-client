@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcPriceLine, IcViewProductIcon } from '../../public/assets/icons';
+import { IcViewProductIcon } from '../../public/assets/icons';
 
 // interface ViewProductProps {
 //   onClick: MouseCli;
@@ -17,7 +17,7 @@ export default function ViewProductBanner() {
     '승용완구',
     '역할놀이',
   ];
-  const [selectIcon, setSelectIcon] = useState<boolean[]>([
+  const [isClicked, setIsClicked] = useState<boolean[]>([
     true,
     false,
     false,
@@ -42,7 +42,6 @@ export default function ViewProductBanner() {
                 handleProductIcon(idx);
               }}
               key={idx}
-              isClicked={selectIcon[idx]}
             >
               <IcViewProductIcon />
               <p>{item}</p>
@@ -60,7 +59,6 @@ const StProductBannerWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  //아래 스타일도 figma대로 적용
   width: 117.6rem;
   margin: 7.1rem 0 0.4rem 0;
   padding: 0 3.6rem 5.4rem 3.6rem;
@@ -77,17 +75,15 @@ const StCategoryNav = styled.nav`
   display: flex;
   gap: 3.2rem;
 
-  //아래 스타일도 figma대로 적용
   width: 110.4rem;
   height: 14.4rem;
 `;
-const StProductItem = styled.div<{ isClicked: boolean }>`
+const StProductItem = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 1.2rem;
 
-  color: ${({ isClicked }) => (isClicked ? '#1D8669' : '#1F2220')};
   font: ${({ theme }) => theme.fonts.b3_16_semibold_140};
 
   cursor: pointer;
