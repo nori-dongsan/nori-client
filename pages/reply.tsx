@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import ReplyContent from '../components/community/reply/ReplyContent';
 
-export default function Comment() {
+export default function Reply() {
   return (
     <StReplyWrapper>
       <StReplyTitle>
