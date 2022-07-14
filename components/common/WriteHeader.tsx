@@ -17,21 +17,21 @@ export default function WriteHeader() {
 
 const StWriteHeaderWrapper = styled.section`
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
-
+  flex-direction: row;
   position: sticky;
-  top: -3.2rem;
+  top: -3.2em;
 
   width: 100%;
   height: 11.4rem;
-  margin-top: 4.2rem;
+  padding-top: 4.2rem;
 
   background-color: ${({ theme }) => theme.colors.white};
 
   z-index: 1;
-`;
 
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+`;
 const StWriteBtn = styled.a`
   display: flex;
   justify-content: center;
@@ -40,11 +40,10 @@ const StWriteBtn = styled.a`
   width: 10rem;
   height: 4.2rem;
 
-  ${({ theme }) => theme.fonts.b2_18_medium_130}
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.mainDarkgreen};
-
   border-radius: 0.5rem;
+  background-color: ${({ theme }) => theme.colors.mainDarkgreen};
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.b2_18_medium_130}
 
   cursor: pointer;
 `;

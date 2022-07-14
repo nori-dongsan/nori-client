@@ -12,4 +12,4 @@ export { default as IcMenu } from './menuIcon.svg';
 export { default as IcCommunitySearchIcon } from './communitySearchIcon.svg';
 export { default as IcComment } from './commentIcon.svg';
 export { default as IcHeart } from './heartIcon.svg';
-export { default as IcWriteHeaderLogo } from './writeHeaderLogo.svg';
+export { default as IcWriteHeaderLogo } from './writeHeaderIcon.svg';
