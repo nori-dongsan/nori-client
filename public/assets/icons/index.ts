@@ -1,3 +1,6 @@
+export { default as IcDefaultImg } from './defaultImgIcon.svg';
+export { default as IcDropDown } from './dropDownIcon.svg';
+export { default as IcDelete } from './deleteIcon.svg';
 export { default as IcNoriHeaderLogo } from './noriHeaderIcon.svg';
 export { default as IcSearchIcon } from './searchIcon.svg';
 export { default as IcPlus } from './IcPlus.svg';
@@ -5,3 +8,7 @@ export { default as IcNoriFooterLogo } from './noriFooterIcon.svg';
 export { default as IcMainBanner } from './mainBannerIc.svg';
 export { default as IcToyMark } from './toyMark.svg';
 export { default as IcFillToyMark } from './fillToyMark.svg';
+export { default as IcMenu } from './menuIcon.svg';
+export { default as IcCommunitySearchIcon } from './CommunitySearchIcon.svg';
+export { default as IcComment } from './CommentIcon.svg';
+export { default as IcHeart } from './Heart.svg';
