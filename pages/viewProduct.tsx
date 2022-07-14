@@ -1,6 +1,7 @@
 import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
 import styled from '@emotion/styled';
 import { IcPriceLine } from '../public/assets/icons';
+import { ToyList } from '../components/common';
 
 export default function viewProduct() {
   return (
@@ -14,6 +15,7 @@ export default function viewProduct() {
           <h3>높은 가격순</h3>
         </StPriceSort>
       </StFilterBarWrapper>
+      <ToyList isViewProduct={true} landingCategory="viewProduct" length={4} />
     </StViewProductWrapper>
   );
 }

@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { IcFillToyMark, IcToyMark } from '../../public/assets/icons';
@@ -8,18 +9,22 @@ interface ToyPreviewProps {
   title: string;
   price: number;
   age: string;
+  isViewProduct: boolean;
 }
 export default function ToyPreview(props: ToyPreviewProps) {
-  const { src, store, title, price, age } = props;
+  const { src, store, title, price, age, isViewProduct } = props;
   const [isMark, setIsMark] = useState(false);
   const handleToyMark = () => {
     setIsMark((prev) => !prev);
   };
   return (
-    <StToyWrapper>
+    <StToyWrapper isViewProduct={isViewProduct}>
       <StImgWrapper>
-        <StToyImg src="https://www.littlebaby.co.kr:14019/shop/data/goods/1632018070797m0.jpg" />
-        <StToyMarkWrapper onClick={handleToyMark}>
+        <StToyImg
+          isViewProduct={isViewProduct}
+          src="https://www.littlebaby.co.kr:14019/shop/data/goods/1632018070797m0.jpg"
+        />
+        <StToyMarkWrapper isViewProduct={isViewProduct} onClick={handleToyMark}>
           <StToyMark />
           {isMark && <StFillToyMark />}
         </StToyMarkWrapper>
@@ -31,27 +36,50 @@ export default function ToyPreview(props: ToyPreviewProps) {
     </StToyWrapper>
   );
 }
-const StToyWrapper = styled.article`
+const StToyWrapper = styled.article<{ isViewProduct: boolean }>`
   display: flex;
   flex-direction: column;
 
-  margin: 0rem 3.5rem;
+  ${({ isViewProduct }) =>
+    isViewProduct
+      ? css`
+          margin: 0rem 1rem;
+        `
+      : css`
+          margin: 0rem 1.25rem;
+        `}
 `;
 const StImgWrapper = styled.div`
   position: relative;
 `;
-const StToyImg = styled.img`
-  width: 27.5rem;
-  height: 27.5rem;
+const StToyImg = styled.img<{ isViewProduct: boolean }>`
+  ${({ isViewProduct }) =>
+    isViewProduct
+      ? css`
+          width: 22.4rem;
+          height: 22.4rem;
+        `
+      : css`
+          width: 27.5rem;
+          height: 27.5rem;
+        `}
 
   border: 0.2rem solid #e2e2e2;
   border-radius: 0.8rem;
 `;
 
-const StToyMarkWrapper = styled.div`
+const StToyMarkWrapper = styled.div<{ isViewProduct: boolean }>`
   position: absolute;
-  top: 1.7rem;
-  left: 23.6rem;
+  ${({ isViewProduct }) =>
+    isViewProduct
+      ? css`
+          top: 1.2rem;
+          left: 19rem;
+        `
+      : css`
+          top: 1.7rem;
+          left: 23.6rem;
+        `}
 `;
 const StToyMark = styled(IcToyMark)`
   position: absolute;
@@ -64,6 +92,7 @@ const StFillToyMark = styled(IcFillToyMark)`
   left: 0.2rem;
 `;
 const StStore = styled.div`
+  width: 22.4rem;
   margin-top: 1.6rem;
 
   font-weight: 500;
@@ -73,6 +102,7 @@ const StStore = styled.div`
 `;
 
 const StTitle = styled.div`
+  width: 22.4rem;
   margin-top: 0.8rem;
 
   font-weight: 400;
@@ -85,6 +115,7 @@ const StTitle = styled.div`
 `;
 
 const StPrice = styled.div`
+  width: 22.4rem;
   margin-top: 1.3rem;
 
   font-weight: 700;
