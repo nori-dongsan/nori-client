@@ -23,7 +23,6 @@ export default function ReplyContent(props: ReplyContentProps) {
 
 const StReplyContentWrapper = styled.section`
   width: 120rem;
-
   margin-bottom: 3.3rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
