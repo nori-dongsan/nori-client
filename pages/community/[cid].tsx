@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { IcComment, IcHeart, IcMenu } from '../public/assets/icons';
+import { Reply } from '../../components/community';
+import { IcComment, IcHeart, IcMenu } from '../../public/assets/icons';
 
 export default function CommunityDetail() {
   const router = useRouter();
@@ -97,6 +98,7 @@ export default function CommunityDetail() {
           />
         </StExpandedImgWrapper>
       )}
+      <Reply />
     </StCommunityMain>
   );
 }

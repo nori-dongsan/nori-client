@@ -1,2 +1,3 @@
-export { default as ReplyContent } from './reply/ReplyContent';
+export { default as ReplyContent } from './ReplyContent';
 export { default as CommunityList } from './CommunityList';
+export { default as Reply } from './Reply';
