@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import ReplyContent from '../components/community/comment/ReplyContent';
+import ReplyContent from '../components/community/reply/ReplyContent';
 
 export default function Comment() {
   return (
