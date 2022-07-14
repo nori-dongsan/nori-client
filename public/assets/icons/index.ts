@@ -8,6 +8,7 @@ export { default as IcNoriFooterLogo } from './noriFooterIcon.svg';
 export { default as IcMainBanner } from './mainBannerIc.svg';
 export { default as IcToyMark } from './toyMark.svg';
 export { default as IcFillToyMark } from './fillToyMark.svg';
+export { default as IcMenu } from './menuIcon.svg';
 export { default as IcCommunitySearchIcon } from './CommunitySearchIcon.svg';
-export { default  as IcComment } from './CommentIcon.svg';
+export { default as IcComment } from './CommentIcon.svg';
 export { default as IcHeart } from './Heart.svg';
