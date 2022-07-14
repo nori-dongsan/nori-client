@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CommunityList } from '../components/community';
+import { CommunityList } from '../../components/community';
 
 export default function community() {
   return (
