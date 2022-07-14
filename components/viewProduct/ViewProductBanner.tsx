@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcPriceLine, IcViewProductIcon } from '../../public/assets/icons';
+import { IcViewProductIcon } from '../../public/assets/icons';
 
 // interface ViewProductProps {
 //   onClick: MouseCli;
@@ -17,7 +17,7 @@ export default function ViewProductBanner() {
     '승용완구',
     '역할놀이',
   ];
-  const [selectIcon, setSelectIcon] = useState<boolean[]>([
+  const [isClicked, setIsClicked] = useState<boolean[]>([
     true,
     false,
     false,
@@ -42,7 +42,7 @@ export default function ViewProductBanner() {
                 handleProductIcon(idx);
               }}
               key={idx}
-              isClicked={selectIcon[idx]}
+              isClicked={isClicked[idx]}
             >
               <IcViewProductIcon />
               <p>{item}</p>

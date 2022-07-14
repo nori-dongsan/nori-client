@@ -47,6 +47,8 @@ const StHeaderWrapper = styled.header`
 
   background-color: ${({ theme }) => theme.colors.mainGreen};
   color: ${({ theme }) => theme.colors.white};
+
+  z-index: 1;
 `;
 const StTopLink = styled.div`
   display: flex;
