@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
-interface CommentInfo {
+interface ReplyContentProps {
   userNickname: string;
   content: string;
   createdAt: string;
 }
 
-export default function ReplyContent(props: CommentInfo) {
+export default function ReplyContent(props: ReplyContentProps) {
   const { userNickname, content, createdAt } = props;
   return (
     <StReplyContentWrapper>
