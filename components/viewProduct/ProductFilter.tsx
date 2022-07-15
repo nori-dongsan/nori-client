@@ -81,13 +81,12 @@ export default function ProductFilter() {
   // };
   return (
     <StFilterWrapper>
-      <StFilterSection
-        isDrop={visibility[0]}
-        onClick={() => {
-          handleDropdown(0);
-        }}
-      >
-        <StFilterTitle>
+      <StFilterSection isDrop={visibility[0]}>
+        <StFilterTitle
+          onClick={() => {
+            handleDropdown(0);
+          }}
+        >
           <h2>종류</h2>
           {visibility[0] ? <IcClose /> : <IcOpen />}
         </StFilterTitle>
@@ -99,13 +98,12 @@ export default function ProductFilter() {
           />
         )}
       </StFilterSection>
-      <StFilterSection
-        isDrop={visibility[1]}
-        onClick={() => {
-          handleDropdown(1);
-        }}
-      >
-        <StFilterTitle>
+      <StFilterSection isDrop={visibility[1]}>
+        <StFilterTitle
+          onClick={() => {
+            handleDropdown(1);
+          }}
+        >
           <h2>사용 연령</h2>
           {visibility[1] ? <IcClose /> : <IcOpen />}
         </StFilterTitle>
@@ -117,13 +115,12 @@ export default function ProductFilter() {
           />
         )}
       </StFilterSection>
-      <StFilterSection
-        isDrop={visibility[2]}
-        onClick={() => {
-          handleDropdown(2);
-        }}
-      >
-        <StFilterTitle>
+      <StFilterSection isDrop={visibility[2]}>
+        <StFilterTitle
+          onClick={() => {
+            handleDropdown(2);
+          }}
+        >
           <h2>가격</h2>
           {visibility[2] ? <IcClose /> : <IcOpen />}
         </StFilterTitle>
@@ -135,13 +132,12 @@ export default function ProductFilter() {
           />
         )}
       </StFilterSection>
-      <StFilterSection
-        isDrop={visibility[3]}
-        onClick={() => {
-          handleDropdown(3);
-        }}
-      >
-        <StFilterTitle>
+      <StFilterSection isDrop={visibility[3]}>
+        <StFilterTitle
+          onClick={() => {
+            handleDropdown(3);
+          }}
+        >
           <h2>특성</h2>
           {visibility[3] ? <IcClose /> : <IcOpen />}
         </StFilterTitle>
@@ -153,13 +149,12 @@ export default function ProductFilter() {
           />
         )}
       </StFilterSection>
-      <StFilterSection
-        isDrop={visibility[4]}
-        onClick={() => {
-          handleDropdown(4);
-        }}
-      >
-        <StFilterTitle>
+      <StFilterSection isDrop={visibility[4]}>
+        <StFilterTitle
+          onClick={() => {
+            handleDropdown(4);
+          }}
+        >
           <h2>스토어</h2>
           {visibility[4] ? <IcClose /> : <IcOpen />}
         </StFilterTitle>
