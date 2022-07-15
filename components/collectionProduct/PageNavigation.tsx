@@ -16,6 +16,7 @@ interface PageNavigationProps {
 
 export default function PageNavigation(props: PageNavigationProps) {
   const { currentPage, lastPage, handleCurrentPage } = props;
+
   const pageArray =
     currentPage % 5 === 0
       ? new Array(5)
@@ -29,10 +30,6 @@ export default function PageNavigation(props: PageNavigationProps) {
           .fill(0)
           .map((_, idx) => Math.floor(currentPage / 5) * 5 + idx + 1);
 
-  console.log(pageArray);
-  const isLastPage = currentPage === lastPage;
-  const isFirstPage = currentPage === 1;
-
   const handlePreviousGroupPage = () => {
     handleCurrentPage(pageArray[0] - 1);
   };
@@ -43,12 +40,6 @@ export default function PageNavigation(props: PageNavigationProps) {
   const handlePageNumber = (e: MouseEvent<HTMLAnchorElement>) => {
     const target = e.target as HTMLAnchorElement;
     handleCurrentPage(Number(target.innerHTML));
-  };
-
-  const handlePageChange = (type: string) => {
-    const op = type === 'prev' ? -1 : 1;
-    if (currentPage + op < 1 || currentPage + op > lastPage) return;
-    // setCurrentPage((prevPage) => prevPage + op);
   };
   return (
     <StNavigationWrapper>
@@ -61,7 +52,7 @@ export default function PageNavigation(props: PageNavigationProps) {
         <StPageNumberA
           key={page}
           isCurrent={page === currentPage}
-          onClick={handlePageNumber}
+          onClick={() => handleCurrentPage(page)}
         >
           {page}
         </StPageNumberA>
