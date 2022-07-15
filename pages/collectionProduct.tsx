@@ -62,10 +62,9 @@ export default function collectionProduct() {
 
 const StCollectionSection = styled.section`
   display: flex;
-  flex-direction: column;
-
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 const StCollectionTitle = styled.text`
   margin: 7.1rem 0rem;

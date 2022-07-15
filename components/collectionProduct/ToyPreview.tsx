@@ -72,11 +72,11 @@ const StStore = styled.div`
 `;
 
 const StTitle = styled.div`
-  width: 27.5rem;
-  margin-top: 0.6rem;
-
   display: flex;
   align-items: center;
+
+  width: 27.5rem;
+  margin-top: 0.6rem;
 
   color: ${({ theme }) => theme.colors.black};
   ${({ theme }) => theme.fonts.b2_18_medium_130};
@@ -84,9 +84,6 @@ const StTitle = styled.div`
 
 const StPrice = styled.div`
   margin-top: 0.6rem;
-
-  font-weight: 700;
-  font-size: 1.9rem;
 
   :after {
     content: '원';
@@ -101,8 +98,8 @@ const StAge = styled.div`
   margin-top: 0.4rem;
   gap: 0.2rem;
 
-  background: ${({ theme }) => theme.colors.subYellow};
   border-radius: 0.5rem;
+  background: ${({ theme }) => theme.colors.subYellow};
   color: ${({ theme }) => theme.colors.black};
   ${({ theme }) => theme.fonts.b6_13_medium_120};
 `;
