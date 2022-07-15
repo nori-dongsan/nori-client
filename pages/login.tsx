@@ -8,10 +8,33 @@ import styled from '@emotion/styled';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { IcLoginLine } from '../public/assets/icons';
 import Link from 'next/link';
+import { userLogin } from '../core/api/user';
+import { PostLoginBody } from '../types/user';
+import { useEffect, useState } from 'react';
+import LocalStorage from '../core/localStorage';
+import Router from 'next/router';
 
 export default function login() {
   const { data, status } = useSession();
-  console.log(data?.user);
+
+  const handleLogin = async (social: string) => {
+    if (data?.user) {
+      const userLoginData = {
+        snsId: data?.user.email,
+        provider: social,
+        email: data?.user.email,
+      } as PostLoginBody;
+      await userLogin(userLoginData);
+      console.log(await userLogin(userLoginData));
+    }
+  };
+
+  useEffect(() => {
+    // if (LocalStorage.getItem('email')) {
+    // Router.push('/signup');
+    // }
+  }, []);
+
   return (
     <StLoginWrapper>
       <StLoginTitle>로그인</StLoginTitle>
@@ -32,14 +55,20 @@ export default function login() {
           width={56}
           height={56}
           style={{ padding: '1.5rem' }}
-          onClick={() => signIn('naver')}
+          onClick={() => {
+            signIn('naver');
+            handleLogin('naver');
+          }}
         />
         <Image
           src={ImgKakaoLogo}
           width={56}
           height={56}
           style={{ padding: '1.5rem' }}
-          onClick={() => signIn('kakao')}
+          onClick={() => {
+            // signIn('kakao');
+            handleLogin('kakao');
+          }}
         />
 
         <Image
@@ -47,7 +76,10 @@ export default function login() {
           width={56}
           height={56}
           style={{ padding: '1.5rem' }}
-          onClick={() => signIn('google')}
+          onClick={() => {
+            signIn('google');
+            handleLogin('google');
+          }}
         />
       </StSocialLoginWrapper>
 
