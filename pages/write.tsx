@@ -13,8 +13,8 @@ export default function Write() {
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [images, setImages] = useState<IImage[]>([]);
+  const textRef = useRef<HTMLTextAreaElement>(null);
   const menu = ['후기', '질문', '정보 공유'];
-  const textRef = useRef();
 
   const handleIsCategory = () => {
     setIsCategory((prev) => !prev);
@@ -50,7 +50,7 @@ export default function Write() {
   };
 
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (title.length >= 30) return;
+    if (e.target.value.length > 30) return;
     setTitle(e.target.value);
   };
 
@@ -59,7 +59,8 @@ export default function Write() {
   };
 
   const handleResizeHeight = () => {
-    textRef.current.style.height = textRef.current.scrollHeight + 'px';
+    if (textRef.current)
+      textRef.current.style.height = textRef.current.scrollHeight / 10 + 'rem';
   };
 
   return (
@@ -152,12 +153,13 @@ const StFormArticle = styled.article`
 
   & > textarea {
     width: 100%;
+    height: 3.6rem;
     margin-bottom: 3rem;
-
-    overflow-y: hidden;
 
     color: ${({ theme }) => theme.colors.black};
     ${({ theme }) => theme.fonts.b8_20_regular_180}
+
+    overflow-y: hidden;
 
     &::placeholder {
       color: ${({ theme }) => theme.colors.gray005};
@@ -167,12 +169,13 @@ const StFormArticle = styled.article`
 `;
 const StCategoryInputWrapper = styled.div`
   margin-bottom: 4.5rem;
+
   border-bottom: 0.093rem solid #d6d6d6;
 
   & > input {
     width: 67.2rem;
     margin-bottom: 1.5rem;
-    margin-right: 4.2rem;
+    margin-right: 3.1rem;
 
     color: ${({ theme }) => theme.colors.black};
     ${({ theme }) => theme.fonts.t5_27_regular_130}
@@ -196,7 +199,7 @@ const StCategorySelectBox = styled.div<{ isCategory: boolean }>`
   height: 4rem;
   margin-bottom: 4.8rem;
 
-  border: 1px solid ${({ theme }) => theme.colors.gray004};
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray004};
   border-radius: 0.5rem;
   background: ${({ isCategory }) =>
       isCategory
@@ -238,7 +241,7 @@ const StPreviewImgWrapper = styled.div`
 const StIcDelete = styled(IcDelete)`
   position: absolute;
   top: 1rem;
-  right: 3rem;
+  right: 3.4rem;
 
   cursor: pointer;
 `;
@@ -248,7 +251,7 @@ const StPreviewImg = styled.img`
 
   border-radius: 0.8rem;
 
-  object-fit: fill;
+  object-fit: cover;
 
   &:not(:last-child) {
     margin-right: 2rem;
