@@ -21,7 +21,7 @@ const colors = {
   gray007: '#9D9D9D',
   gray008: '#787878',
   gray009: '#636363',
-  black: '#636363',
+  black: '#1F2220',
 };
 
 interface Font {
