@@ -200,7 +200,7 @@ const StCategorySelectBox = styled.div<{ isCategory: boolean }>`
   margin-bottom: 4.8rem;
 
   border: 0.1rem solid ${({ theme }) => theme.colors.gray004};
-  border-radius: 0.5rem;
+  border-radius: 0.6rem;
   background: ${({ isCategory }) =>
       isCategory
         ? "url('/assets/icons/dropDownIcon2.svg')"
@@ -290,14 +290,15 @@ const StCategoryList = styled.ul`
   width: 11.9rem;
   padding: 1.5rem 1.8rem;
 
-  border: 1px solid #d9d9d9;
-  border-radius: 0.5rem;
-  background-color: white;
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray004};
+  border-radius: 0.491rem;
+  box-shadow: 0.1rem 0.1rem 0.491rem rgba(0, 0, 0, 0.08);
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 const StCategoryItem = styled.li<{ isSelected: boolean }>`
   width: 100%;
 
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
   color: ${({ isSelected, theme: { colors } }) =>
     isSelected ? colors.mainDarkgreen : colors.gray007};
   ${({ theme }) => theme.fonts.b5_14_medium_140}
