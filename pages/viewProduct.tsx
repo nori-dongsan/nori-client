@@ -2,7 +2,7 @@ import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
 import styled from '@emotion/styled';
 import { IcPriceLine } from '../public/assets/icons';
 import { useState } from 'react';
-import { ToyList } from '../components/common';
+import { ToyList } from '../components/viewProduct';
 
 export default function viewProduct() {
   //default는 낮은 가격순
@@ -11,41 +11,31 @@ export default function viewProduct() {
   return (
     <StViewProductWrapper>
       <ViewProductBanner />
-      <StFilterBarWrapper>
-        {/* <<<<<<< HEAD
-        <ProductFilter />
-        <StPriceSort>
-          <StPriceStandard
-            onClick={() => {
-              setSelectPrice({
-                ...selectPrice,
-                [0]: !selectPrice[0],
-              });
-            }}
-            isClicked={selectPrice[0]}
-          >
-            낮은 가격순
-          </StPriceStandard>
-          <IcPriceLine />
-          <StPriceStandard
-            onClick={() => {
-              setSelectPrice({
-                ...selectPrice,
-                [1]: !selectPrice[1],
-              });
-            }}
-            isClicked={selectPrice[1]}
-          >
-            높은 가격순
-          </StPriceStandard>
-        </StPriceSort>
-      </StFilterBarWrapper> */}
-        <StPriceSort>
-          <h3>낮은 가격순</h3>
-          <IcPriceLine />
-          <h3>높은 가격순</h3>
-        </StPriceSort>
-      </StFilterBarWrapper>
+      <StPriceSort>
+        <StPriceStandard
+          onClick={() => {
+            setSelectPrice({
+              ...selectPrice,
+              [0]: !selectPrice[0],
+            });
+          }}
+          isClicked={selectPrice[0]}
+        >
+          낮은 가격순
+        </StPriceStandard>
+        <IcPriceLine />
+        <StPriceStandard
+          onClick={() => {
+            setSelectPrice({
+              ...selectPrice,
+              [1]: !selectPrice[1],
+            });
+          }}
+          isClicked={selectPrice[1]}
+        >
+          높은 가격순
+        </StPriceStandard>
+      </StPriceSort>
       <StSection>
         <ProductFilter />
         <StToyListWrapper>
@@ -115,5 +105,6 @@ const StToyListWrapper = styled.section`
   display: flex;
   flex-direction: column;
 
-  margin-left: 1rem;
+  margin-left: 2.4rem;
+  margin-top: 6rem;
 `;

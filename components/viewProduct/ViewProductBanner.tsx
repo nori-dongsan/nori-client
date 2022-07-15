@@ -76,7 +76,6 @@ const StCategoryNav = styled.nav`
   display: flex;
   gap: 3.2rem;
 
-  //아래 스타일도 figma 대로 그대로 적용
   width: 110.4rem;
   height: 14.4rem;
 `;
