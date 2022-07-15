@@ -160,6 +160,7 @@ const StFilterWrapper = styled.div`
   width: 20rem;
   height: 28rem;
   padding-left: 1.2rem;
+  margin-right: 2.4rem;
 `;
 const StFilterTitle = styled.div`
   display: flex;

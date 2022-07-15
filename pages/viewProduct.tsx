@@ -39,26 +39,10 @@ export default function viewProduct() {
       <StSection>
         <ProductFilter />
         <StToyListWrapper>
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
+          <ToyList length={4} />
+          <ToyList length={4} />
+          <ToyList length={4} />
+          <ToyList length={4} />
         </StToyListWrapper>
       </StSection>
     </StViewProductWrapper>
@@ -78,10 +62,6 @@ const StViewProductWrapper = styled.div`
   padding: 0 37.2rem;
 `;
 */
-const StFilterBarWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 const StPriceSort = styled.div`
   display: flex;
   align-items: center;
@@ -105,6 +85,5 @@ const StToyListWrapper = styled.section`
   display: flex;
   flex-direction: column;
 
-  margin-left: 2.4rem;
   margin-top: 6rem;
 `;
