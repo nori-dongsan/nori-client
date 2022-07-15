@@ -10,32 +10,35 @@ export default function viewProduct() {
 
   return (
     <StViewProductWrapper>
-      <ViewProductBanner />
-      <StPriceSort>
-        <StPriceStandard
-          onClick={() => {
-            setSelectPrice({
-              ...selectPrice,
-              [0]: !selectPrice[0],
-            });
-          }}
-          isClicked={selectPrice[0]}
-        >
-          낮은 가격순
-        </StPriceStandard>
-        <IcPriceLine />
-        <StPriceStandard
-          onClick={() => {
-            setSelectPrice({
-              ...selectPrice,
-              [1]: !selectPrice[1],
-            });
-          }}
-          isClicked={selectPrice[1]}
-        >
-          높은 가격순
-        </StPriceStandard>
-      </StPriceSort>
+      <StSelectBar>
+        <ViewProductBanner />
+        <StPriceSort>
+          <StPriceStandard
+            onClick={() => {
+              setSelectPrice({
+                ...selectPrice,
+                [0]: !selectPrice[0],
+              });
+            }}
+            isClicked={selectPrice[0]}
+          >
+            낮은 가격순
+          </StPriceStandard>
+          <IcPriceLine />
+          <StPriceStandard
+            onClick={() => {
+              setSelectPrice({
+                ...selectPrice,
+                [1]: !selectPrice[1],
+              });
+            }}
+            isClicked={selectPrice[1]}
+          >
+            높은 가격순
+          </StPriceStandard>
+        </StPriceSort>
+      </StSelectBar>
+
       <StSection>
         <ProductFilter />
         <StToyListWrapper>
@@ -85,5 +88,10 @@ const StToyListWrapper = styled.section`
   display: flex;
   flex-direction: column;
 
-  margin-top: 6rem;
+  margin-top: 2rem;
+`;
+const StSelectBar = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
