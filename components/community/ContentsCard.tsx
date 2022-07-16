@@ -61,6 +61,8 @@ const StContentsCardWrapper = styled.div`
     font-weight: 500;
     font-size: 2.3rem;
     line-height: 3.3rem;
+
+    ${({ theme }) => theme.fonts.b9_24_medium_150}
   }
 
   p {
@@ -70,6 +72,11 @@ const StContentsCardWrapper = styled.div`
     font-weight: 400;
     font-size: 1.6rem;
     line-height: 2.9rem;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 `;
 const StContentInfo = styled.section`
@@ -82,8 +89,8 @@ const StCategory = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 10.2rem;
-  height: 3.2rem;
+  width: 7.6rem;
+  height: 2.6rem;
 
   margin-bottom: 2.6rem;
 
@@ -95,12 +102,14 @@ const StCategory = styled.div`
   line-height: 2.6rem;
 
   color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.b5_14_medium_140}
 `;
 const StCategoryReview = styled(StCategory)`
   background-color: ${({ theme }) => theme.colors.mainGreen};
 `;
 const StCategoryQuestion = styled(StCategory)`
-  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.gray009};
+  background-color: ${({ theme }) => theme.colors.subYellow};
 `;
 const StCategoryInfo = styled(StCategory)`
   background-color: ${({ theme }) => theme.colors.mainDarkgreen};

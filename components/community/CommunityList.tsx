@@ -7,7 +7,7 @@ export default function CommunityList() {
   return (
     <StCommunityListWrapper>
       <StSearchBar>
-        <input type="text" />
+        <input type="text" placeholder="궁금한 장난감 정보를 검색해보세요:)" />
         <IcCommunitySearchIcon />
       </StSearchBar>
       <Link href="/write">
@@ -57,7 +57,7 @@ const StSearchBar = styled.div`
 
   width: 64.2rem;
   height: 4.5rem;
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.black};
+  border-bottom: 0.2rem solid ${({ theme }) => theme.colors.gray008};
   margin-bottom: 7.9rem;
 
   input {
@@ -65,6 +65,11 @@ const StSearchBar = styled.div`
     height: 2.5rem;
 
     font-size: 2.5rem;
+
+    &::placeholder {
+      font-family: Pretandard;
+      color: ${({ theme }) => theme.colors.gray006};
+    }
   }
 `;
 const StWriteBtn = styled.a`
