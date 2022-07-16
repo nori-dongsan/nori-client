@@ -17,7 +17,7 @@ export const postLogin = rest.post('/auth/login', async (req, res, ctx) => {
   }
 
   return res(
-    // ctx.status(200),
+    ctx.status(200),
     ctx.json({
       data: {
         accessToken: 'adsda',

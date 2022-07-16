@@ -9,7 +9,7 @@ export interface PostSignUpBody {
   nickname: string;
 }
 export interface PostLoginBody {
-  snsId?: string;
+  snsId: string;
   provider: string;
   email: string;
 }
