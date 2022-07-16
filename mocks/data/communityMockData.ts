@@ -81,7 +81,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '1',
+    id: '2',
     category: '질문',
     title: '그린키드 미끄럼틀 아이가 좋아하나요?',
     content:
@@ -104,7 +104,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '2',
+    id: '3',
     category: '정보공유',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -116,7 +116,7 @@ export const communityMockData: CommunityData[] = [
     replyList: [],
   },
   {
-    id: '3',
+    id: '4',
     category: '정보공유',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -139,7 +139,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '4',
+    id: '5',
     category: '질문',
     title: '그린키드 미끄럼틀 아이가 좋아하나요?',
     content:
@@ -166,7 +166,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '5',
+    id: '6',
     category: '후기',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -189,7 +189,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '6',
+    id: '7',
     category: '질문',
     title: '그린키드 미끄럼틀 아이가 좋아하나요?',
     content:
@@ -217,7 +217,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '7',
+    id: '8',
     category: '정보공유',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -244,7 +244,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '8',
+    id: '9',
     category: '후기',
     title: '그린키드 미끄럼틀 아이가 좋아하나요?',
     content:
@@ -267,7 +267,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '9',
+    id: '10',
     category: '질문',
     title: '그린키드 미끄럼틀 아이가 좋아하나요?',
     content:
@@ -296,7 +296,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '10',
+    id: '11',
     category: '후기',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -319,7 +319,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '11',
+    id: '12',
     category: '정보공유',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -346,7 +346,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '12',
+    id: '13',
     category: '질문',
     title: '그린키드 미끄럼틀 아이가 좋아하나요?',
     content:
@@ -373,7 +373,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '13',
+    id: '14',
     category: '후기',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -400,7 +400,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '14',
+    id: '15',
     category: '질문',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -423,7 +423,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '15',
+    id: '16',
     category: '후기',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -446,7 +446,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '16',
+    id: '17',
     category: '정보공유',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -473,7 +473,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '17',
+    id: '18',
     category: '질문',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -500,7 +500,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '18',
+    id: '19',
     category: '후기',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -523,7 +523,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '19',
+    id: '20',
     category: '후기',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -550,7 +550,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '20',
+    id: '21',
     category: '정보공유',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -573,7 +573,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '21',
+    id: '22',
     category: '질문',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -600,7 +600,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '22',
+    id: '23',
     category: '후기',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -627,7 +627,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '23',
+    id: '24',
     category: '정보공유',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
@@ -650,7 +650,7 @@ export const communityMockData: CommunityData[] = [
     ],
   },
   {
-    id: '24',
+    id: '25',
     category: '질문',
     title: '그린키드 미끄럼틀 아이가 좋아하네요',
     content:
