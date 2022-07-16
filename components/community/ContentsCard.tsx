@@ -49,7 +49,7 @@ const StContentsCardWrapper = styled.div`
   margin-bottom: 4.8rem;
   padding-bottom: 4.5rem;
 
-  width: 120rem;
+  width: 97.6rem;
   height: auto;
 
   border-bottom: 0.1rem solid #d6d6d6;
@@ -77,6 +77,9 @@ const StContentsCardWrapper = styled.div`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+
+    color: ${({ theme }) => theme.colors.gray009};
+    ${({ theme }) => theme.fonts.t6_17_regular_140}
   }
 `;
 const StContentInfo = styled.section`
