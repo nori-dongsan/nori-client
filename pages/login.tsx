@@ -8,7 +8,7 @@ import styled from '@emotion/styled';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { IcLoginLine } from '../public/assets/icons';
 import Link from 'next/link';
-import { userLogin } from '../core/api/user';
+import { loginUser } from '../core/api/user';
 import { PostLoginBody } from '../types/user';
 import { useEffect, useState } from 'react';
 import LocalStorage from '../core/localStorage';
@@ -21,7 +21,6 @@ export default function login() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const resetList = useResetRecoilState(userInfoState);
 
-  console.log(userInfo);
   const handleLogin = async (social: string) => {
     if (data?.user) {
       const userLoginData = {
@@ -29,10 +28,10 @@ export default function login() {
         provider: social,
         email: data?.user.email,
       } as PostLoginBody;
-      const login = await userLogin(userLoginData);
-      if (login.data) {
-        setUserInfo(userLoginData);
-      }
+      const login = await loginUser(userLoginData);
+      // if (login) {
+      //   setUserInfo(userLoginData);
+      // }
     }
   };
 
@@ -84,7 +83,7 @@ export default function login() {
           height={56}
           style={{ padding: '1.5rem' }}
           onClick={() => {
-            signIn('google');
+            // signIn('google');
             handleLogin('google');
           }}
         />
