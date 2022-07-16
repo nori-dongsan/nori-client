@@ -1,18 +1,14 @@
 import styled from '@emotion/styled';
 import React, { useRef, useState } from 'react';
 import { IcDefaultImg, IcDelete } from '../public/assets/icons';
-
-interface IImage {
-  id: number;
-  src: string;
-}
+import { ImgData } from '../types/community';
 
 export default function Write() {
   const [isCategory, setIsCategory] = useState<boolean>(false);
   const [category, setCategory] = useState<string>('후기');
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [images, setImages] = useState<IImage[]>([]);
+  const [images, setImages] = useState<ImgData[]>([]);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const menu = ['후기', '질문', '정보 공유'];
 
@@ -31,7 +27,7 @@ export default function Write() {
       return;
     }
 
-    const imageList: IImage[] = [];
+    const imageList: ImgData[] = [];
     let prevId = images.length == 0 ? 0 : images[images.length - 1].id;
     const formData = new FormData();
     Array.from(fileList).map((file) => {
