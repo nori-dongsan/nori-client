@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { PriceFilter } from '../components/collectionProduct';
+
 export default function collectionProduct() {
   const { query } = useRouter();
   const { collection } = query;
 
   console.log(collection);
+
   return (
     <StCollectionSection>
       <StCollectionTitle>{collection}</StCollectionTitle>
@@ -13,6 +15,7 @@ export default function collectionProduct() {
     </StCollectionSection>
   );
 }
+
 const StCollectionSection = styled.section`
   display: flex;
   flex-direction: column;
