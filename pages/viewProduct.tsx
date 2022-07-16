@@ -3,16 +3,45 @@ import styled from '@emotion/styled';
 import { IcPriceLine } from '../public/assets/icons';
 import { useState } from 'react';
 import { ToyList } from '../components/common';
+import {
+  LandingViewProductBanner,
+  LandingToyList,
+  LandingPriceSort,
+  LandingProductFilter,
+} from '../components/landing/viewProduct';
 
 export default function viewProduct() {
   //default는 낮은 가격순
   const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
+  // useSWR로 로딩 판단할 것임
+  const isLoading = true;
 
   return (
     <StViewProductWrapper>
-      <ViewProductBanner />
-      <StFilterBarWrapper>
-        {/* <<<<<<< HEAD
+      {isLoading ? (
+        <>
+          <LandingViewProductBanner />
+          <StFilterSectionWrapper>
+            <LandingProductFilter />
+            <StContentSection>
+              <StFilterBarWrapper>
+                <LandingPriceSort />
+              </StFilterBarWrapper>
+              <StToyListWrapper>
+                <LandingToyList />
+                <LandingToyList />
+                <LandingToyList />
+              </StToyListWrapper>
+            </StContentSection>
+          </StFilterSectionWrapper>
+        </>
+      ) : (
+        <>
+          <ViewProductBanner />
+          <StFilterSectionWrapper>
+            <ProductFilter />
+
+            {/* <<<<<<< HEAD
         <ProductFilter />
         <StPriceSort>
           <StPriceStandard
@@ -40,37 +69,41 @@ export default function viewProduct() {
           </StPriceStandard>
         </StPriceSort>
       </StFilterBarWrapper> */}
-        <StPriceSort>
-          <h3>낮은 가격순</h3>
-          <IcPriceLine />
-          <h3>높은 가격순</h3>
-        </StPriceSort>
-      </StFilterBarWrapper>
-      <StSection>
-        <ProductFilter />
-        <StToyListWrapper>
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-        </StToyListWrapper>
-      </StSection>
+
+            <StContentSection>
+              <StFilterBarWrapper>
+                <StPriceSort>
+                  <h3>낮은 가격순</h3>
+                  <IcPriceLine />
+                  <h3>높은 가격순</h3>
+                </StPriceSort>
+              </StFilterBarWrapper>
+              <StToyListWrapper>
+                <ToyList
+                  isViewProduct={true}
+                  landingCategory="viewProduct"
+                  length={4}
+                />
+                <ToyList
+                  isViewProduct={true}
+                  landingCategory="viewProduct"
+                  length={4}
+                />
+                <ToyList
+                  isViewProduct={true}
+                  landingCategory="viewProduct"
+                  length={4}
+                />
+                <ToyList
+                  isViewProduct={true}
+                  landingCategory="viewProduct"
+                  length={4}
+                />
+              </StToyListWrapper>
+            </StContentSection>
+          </StFilterSectionWrapper>
+        </>
+      )}
     </StViewProductWrapper>
   );
 }
@@ -88,9 +121,12 @@ const StViewProductWrapper = styled.div`
   padding: 0 37.2rem;
 `;
 */
+const StFilterSectionWrapper = styled.section`
+  display: flex;
+`;
 const StFilterBarWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 const StPriceSort = styled.div`
   display: flex;
@@ -108,8 +144,9 @@ const StPriceStandard = styled.h3<{ isClicked: boolean }>`
   color: ${({ isClicked }) => (isClicked ? '#1F2220' : '#D9D9D9')};
 `;
 
-const StSection = styled.section`
+const StContentSection = styled.section`
   display: flex;
+  flex-direction: column;
 `;
 const StToyListWrapper = styled.section`
   display: flex;
