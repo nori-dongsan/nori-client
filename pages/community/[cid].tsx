@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Reply } from '../../components/community';
-import { IcComment, IcHeart, IcMenu } from '../../public/assets/icons';
+import FloatingBtn from '../../components/community/FloatingBtn';
+import { IcExpandImg, IcMenu, IcWriter } from '../../public/assets/icons';
 
 export default function CommunityDetail() {
   const router = useRouter();
@@ -22,74 +23,84 @@ export default function CommunityDetail() {
   };
 
   const handleDelete = () => {
-    const val = confirm('삭제하시겠습니까?');
+    const val = confirm(
+      '삭제하시겠어요? 삭제 시, 해당 글과 댓글은 복구되지 않습니다.',
+    );
+
+    if (val) {
+      router.push('/community');
+    }
   };
 
   return (
     <StCommunityMain>
-      <StCommunitySection>
-        <StCommunityHeader>커뮤니티</StCommunityHeader>
-        <StCommunityArticle>
-          <StCommunityTitle>
-            <span>질문</span>
-            <h2>4개월 아이 장난감 추천해주세요!</h2>
-          </StCommunityTitle>
-          <StCommunityInfoWrapper>
-            <StCommunityInfo>
-              <span>예현맘</span>
-              <span>2022.06.23</span>
-            </StCommunityInfo>
-            <IcMenu
-              css={css`
-                cursor: pointer;
-              `}
-              onClick={handleMenu}
-            />
-            {isMenu && (
-              <StMenuWrapper onClick={handleMenu}>
-                {isWriter ? (
-                  <StMenuList isWriter={isWriter}>
-                    <li>수정하기</li>
-                    <li onClick={handleDelete}>삭제하기</li>
-                  </StMenuList>
-                ) : (
-                  <StMenuList isWriter={isWriter}>
-                    <li>신고하기</li>
-                  </StMenuList>
-                )}
-              </StMenuWrapper>
-            )}
-          </StCommunityInfoWrapper>
-          <StCommunityContent>
-            <StImgWrapper>
-              {['1', '2', '3'].map((item) => (
-                <StPreviewImg
-                  key={item}
-                  onClick={handleExpanded}
-                  src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
-                  alt={item}
+      <StFloatingBlock />
+      <StDetailSection>
+        <StCommunitySection>
+          <StCommunityArticle>
+            <StCommunityCategory>
+              <span>후기</span>
+            </StCommunityCategory>
+            <StCommunityHeader>
+              역시 그린키드 미끄럼틀 아이가 좋아하네요
+            </StCommunityHeader>
+            <StCommunityInfoWrapper>
+              <StCommunityInfo>
+                <StNickNameInfo>
+                  {isWriter && <IcWriter />}
+                  <span>예현맘</span>
+                </StNickNameInfo>
+                <span>2022.06.23</span>
+              </StCommunityInfo>
+              <StCommunityMenu>
+                <IcMenu
+                  css={css`
+                    cursor: pointer;
+                  `}
+                  onClick={handleMenu}
                 />
-              ))}
-            </StImgWrapper>
-            <StContent>
-              군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한
-              군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중
-              법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의
-              재판을 받지 아니한다. 선거에 관한 경비는 법률이 정하는 경우....
-            </StContent>
-            <StReaction>
-              <StIconWrapper>
-                <IcComment />
-                <span>12</span>
-              </StIconWrapper>
-              <StIconWrapper>
-                <IcHeart />
-                <span>42</span>
-              </StIconWrapper>
-            </StReaction>
-          </StCommunityContent>
-        </StCommunityArticle>
-      </StCommunitySection>
+              </StCommunityMenu>
+              {isMenu && (
+                <StMenuWrapper onClick={handleMenu}>
+                  {isWriter ? (
+                    <StMenuList isWriter={isWriter}>
+                      <li>수정하기</li>
+                      <li onClick={handleDelete}>삭제하기</li>
+                    </StMenuList>
+                  ) : (
+                    <StMenuList isWriter={isWriter}>
+                      <li>신고하기</li>
+                    </StMenuList>
+                  )}
+                </StMenuWrapper>
+              )}
+            </StCommunityInfoWrapper>
+            <StCommunityContent>
+              <StImgWrapper>
+                {['1', '2', '3'].map((item) => (
+                  <StPreviewImgWrapper>
+                    <StPreviewImg
+                      key={item}
+                      src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
+                      alt={item}
+                    />
+                    <StExpandImgIcon onClick={handleExpanded} />
+                  </StPreviewImgWrapper>
+                ))}
+              </StImgWrapper>
+              <StContent>
+                군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한
+                군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중
+                법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는
+                군사법원의 재판을 받지 아니한다. 선거에 관한 경비는 법률이
+                정하는 경우....
+              </StContent>
+            </StCommunityContent>
+          </StCommunityArticle>
+        </StCommunitySection>
+        <Reply />
+      </StDetailSection>
+      <FloatingBtn heartNum={24} replyNum={24} />
       {isExpanded && (
         <StExpandedImgWrapper onClick={handleExpanded}>
           <StExpandedImg
@@ -98,63 +109,51 @@ export default function CommunityDetail() {
           />
         </StExpandedImgWrapper>
       )}
-      <Reply />
     </StCommunityMain>
   );
 }
 
 const StCommunityMain = styled.main`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 
-  padding-top: 4.6rem;
-  padding-bottom: 9.8rem;
+  padding-top: 7rem;
+  padding-bottom: 12rem;
+`;
+const StFloatingBlock = styled.div`
+  width: 15rem;
+`;
+const StDetailSection = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 const StCommunitySection = styled.section`
-  width: 111.9rem;
-  margin-bottom: 8.6rem;
+  width: 77.6rem;
+  margin-bottom: 5.7rem;
 `;
 const StCommunityHeader = styled.header`
-  padding-bottom: 8.3rem;
+  margin-bottom: 2rem;
 
-  color: #000000;
-  font-weight: 500;
-  font-size: 3.2rem;
-  line-height: 4.6rem;
-
-  text-align: center;
+  color: ${({ theme }) => theme.colors.black};
+  ${({ theme }) => theme.fonts.t5_27_medium_150}
 `;
 const StCommunityArticle = styled.article`
   display: flex;
   flex-direction: column;
 `;
-const StCommunityTitle = styled.div`
-  display: flex;
-  align-items: center;
-
-  margin-bottom: 3.335rem;
+const StCommunityCategory = styled.div`
+  margin-bottom: 1.2rem;
 
   & > span {
-    padding: 0.2rem 2.4rem;
-    margin-right: 2.5rem;
+    padding: 0.3rem 1.35rem;
 
-    border-radius: 4.182rem;
-    background-color: #000000;
-    color: #ffffff;
+    border-radius: 1.9rem;
+    background-color: ${({ theme }) => theme.colors.mainDarkgreen};
+    color: ${({ theme }) => theme.colors.white};
 
-    font-weight: 700;
-    font-size: 1.952rem;
-    line-height: 2.8rem;
+    ${({ theme }) => theme.fonts.b5_14_medium_140}
 
     text-align: center;
-  }
-
-  & > h2 {
-    color: #000000;
-    font-weight: 700;
-    font-size: 2.788rem;
-    line-height: 4rem;
   }
 `;
 const StCommunityInfoWrapper = styled.div`
@@ -162,82 +161,76 @@ const StCommunityInfoWrapper = styled.div`
   justify-content: space-between;
   position: relative;
 
-  border-bottom: 1.86px solid #d6d6d6;
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray004};
 `;
 const StCommunityInfo = styled.div`
   display: flex;
   flex-direction: column;
 
-  span:first-child {
-    margin-bottom: 1.394rem;
+  & > span {
+    margin-bottom: 1.6rem;
 
-    color: #000000;
-    font-weight: 700;
-    font-size: 2.138rem;
-    line-height: 2.138rem;
-  }
-
-  span:nth-child(2) {
-    margin-bottom: 3.346rem;
-
-    color: #929292;
-    font-weight: 350;
-    font-size: 2.138rem;
-    line-height: 2.138rem;
+    color: ${({ theme }) => theme.colors.gray006};
+    ${({ theme }) => theme.fonts.b5_14_regular_140}
   }
 `;
-const StCommunityContent = styled.div`
-  padding-top: 5rem;
-  padding-bottom: 3.383rem;
+const StNickNameInfo = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 0.8rem;
+  margin-bottom: 0.4rem;
 
-  border-bottom: 1.86px solid #d6d6d6;
+  & > span {
+    color: ${({ theme }) => theme.colors.gray008};
+    ${({ theme }) => theme.fonts.t6_17_medium_130}
+  }
+`;
+const StCommunityMenu = styled.div`
+  padding-top: 0.9rem;
+`;
+const StCommunityContent = styled.div`
+  padding-top: 4.5rem;
+  padding-bottom: 4rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray004};
 `;
 const StImgWrapper = styled.div`
   display: flex;
   justify-content: center;
+  column-gap: 2.4rem;
 
-  margin-bottom: 3.811rem;
+  margin-bottom: 3rem;
+`;
+const StPreviewImgWrapper = styled.div`
+  position: relative;
 
-  img:not(:last-child) {
-    margin-right: 2.974rem;
+  &:hover {
+    & > svg {
+      visibility: visible;
+    }
   }
 `;
-const StPreviewImg = styled.img`
-  width: 34.295rem;
-  height: 34.295rem;
+const StExpandImgIcon = styled(IcExpandImg)`
+  position: absolute;
+  bottom: 0.8rem;
+  right: 0.8rem;
 
-  border: 0.93px solid #bebebe;
-  border-radius: 0.929rem;
-
-  object-fit: cover;
+  visibility: hidden;
 
   cursor: pointer;
 `;
+const StPreviewImg = styled.img`
+  width: 24.3rem;
+  height: 24.3rem;
+
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
+  border-radius: 0.6rem;
+
+  object-fit: cover;
+`;
 const StContent = styled.p`
-  color: #767676;
-  font-weight: 400;
-  font-size: 2.324rem;
-  line-height: 3.5rem;
-`;
-const StReaction = styled.div`
-  display: flex;
-
-  margin-top: 3rem;
-`;
-const StIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  margin-right: 3rem;
-
-  & > span {
-    margin-left: 1rem;
-
-    color: #c9c9c9;
-    font-weight: 400;
-    font-size: 1.85rem;
-    line-height: 2.7rem;
-  }
+  color: ${({ theme }) => theme.colors.black};
+  ${({ theme }) => theme.fonts.t6_17_regular_170};
 `;
 const StMenuWrapper = styled.div`
   display: block;
@@ -249,33 +242,29 @@ const StMenuWrapper = styled.div`
   height: 100%;
 `;
 const StMenuList = styled.ul<{ isWriter: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: absolute;
-  top: ${(props) => (props.isWriter ? '8rem' : '6rem')};
-  right: -12rem;
-  transform: translate(-50%, -50%);
+  top: 4.1rem;
+  right: 0;
 
-  width: 23.4rem;
+  padding: 1.5rem 1.8rem;
+  width: 11.9rem;
 
-  border: 1px solid #bebebe;
-  border-radius: 1rem;
-  background-color: white;
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray004};
+  border-radius: 0.491rem;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 1px 1px 4.91436px rgba(0, 0, 0, 0.08);
 
-  li {
-    width: 95%;
-    height: 4rem;
+  z-index: 1;
 
-    background-color: white;
-    color: #000000;
-    font-weight: 400;
-    font-size: 3rem;
-    line-height: 3.6rem;
-
-    text-align: center;
+  & > li {
+    color: ${({ theme }) => theme.colors.gray008};
+    ${({ theme }) => theme.fonts.b5_14_medium_140}
 
     cursor: pointer;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
   }
 `;
 const StExpandedImgWrapper = styled.div`
@@ -287,7 +276,10 @@ const StExpandedImgWrapper = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 3;
+  cursor: pointer;
+
+  background: rgba(31, 34, 32, 0.8);
 `;
 const StExpandedImg = styled.img`
   display: flex;

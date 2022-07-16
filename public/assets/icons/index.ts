@@ -12,3 +12,8 @@ export { default as IcMenu } from './menuIcon.svg';
 export { default as IcCommunitySearchIcon } from './communitySearchIcon.svg';
 export { default as IcComment } from './commentIcon.svg';
 export { default as IcHeart } from './heartIcon.svg';
+export { default as IcExpandImg } from './expandImgIcon.svg';
+export { default as IcWriter } from './writerIcon.svg';
+export { default as IcDetailHeart } from './detailHeartIcon.svg';
+export { default as IcDetailReply } from './detailReplyIcon.svg';
+export { default as IcDetailTop } from './detailTopIcon.svg';
