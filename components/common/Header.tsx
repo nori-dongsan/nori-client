@@ -18,7 +18,11 @@ export default function Header() {
         </Link>
         <StSearchWrapper>
           <StSearchBar>
-            <input type="text" placeholder="상품명, 스토어명을 검색해보세요!" />
+            <input
+              type="text"
+              maxLength={60}
+              placeholder="상품명, 스토어명을 검색해보세요!"
+            />
             <IcSearchIcon />
           </StSearchBar>
           <StMenu>
@@ -40,7 +44,7 @@ const StHeaderWrapper = styled.header`
   position: sticky;
   top: -3.2rem;
 
-  width: 100%;
+  width: 192rem;
   height: 11.4rem;
 
   background-color: ${({ theme }) => theme.colors.mainGreen};

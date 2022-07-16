@@ -6,9 +6,9 @@ interface ContentInfoProps {
   category: string;
   title: string;
   content: string;
-  userNickname: string;
-  replyCount: number;
-  createdAt: string;
+  userNickname?: string;
+  replyCount?: number;
+  createdAt?: string;
   img?: string;
 }
 

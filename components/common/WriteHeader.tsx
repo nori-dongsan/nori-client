@@ -22,7 +22,7 @@ const StWriteHeaderWrapper = styled.section`
   position: sticky;
   top: -3.2em;
 
-  width: 100%;
+  width: 192rem;
   height: 11.4rem;
   padding-top: 4.2rem;
 
