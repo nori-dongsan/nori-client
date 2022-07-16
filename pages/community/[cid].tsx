@@ -78,9 +78,8 @@ export default function CommunityDetail() {
             <StCommunityContent>
               <StImgWrapper>
                 {['1', '2', '3'].map((item) => (
-                  <StPreviewImgWrapper>
+                  <StPreviewImgWrapper key={item}>
                     <StPreviewImg
-                      key={item}
                       src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
                       alt={item}
                     />
