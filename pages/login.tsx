@@ -13,10 +13,15 @@ import { PostLoginBody } from '../types/user';
 import { useEffect, useState } from 'react';
 import LocalStorage from '../core/localStorage';
 import Router from 'next/router';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { userInfoState } from '../core/atom';
 
 export default function login() {
   const { data, status } = useSession();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const resetList = useResetRecoilState(userInfoState);
 
+  console.log(userInfo);
   const handleLogin = async (social: string) => {
     if (data?.user) {
       const userLoginData = {
@@ -24,8 +29,10 @@ export default function login() {
         provider: social,
         email: data?.user.email,
       } as PostLoginBody;
-      await userLogin(userLoginData);
-      console.log(await userLogin(userLoginData));
+      const login = await userLogin(userLoginData);
+      if (login.data) {
+        setUserInfo(userLoginData);
+      }
     }
   };
 
@@ -56,7 +63,7 @@ export default function login() {
           height={56}
           style={{ padding: '1.5rem' }}
           onClick={() => {
-            signIn('naver');
+            // signIn('naver');
             handleLogin('naver');
           }}
         />
