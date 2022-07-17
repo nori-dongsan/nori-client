@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcComment, IcHeart } from '../../public/assets/icons';
+import { IcReply, IcHeart } from '../../public/assets/icons';
 
 interface ContentInfoProps {
   category: string;
@@ -33,7 +33,7 @@ export default function ContentCard(props: ContentInfoProps) {
           <span>{createdAt}</span>
         </StWriteInfo>
         <StReplyInfo>
-          <IcComment />
+          <IcReply />
           <span>{replyCount}</span>
         </StReplyInfo>
       </StContentInfo>
