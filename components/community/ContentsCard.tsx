@@ -55,7 +55,7 @@ const StContentsCardWrapper = styled.div`
   width: 97.6rem;
   height: auto;
 
-  border-bottom: 0.1rem solid lor ${({ theme }) => theme.colors.gray005};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
 
   h1 {
     margin-bottom: 0.7rem;
