@@ -54,8 +54,10 @@ const StTopLink = styled.div`
 
   padding: 0rem;
   padding-top: 0.7rem;
-  padding-left: 75%;
+  padding-left: 73.25%;
   a {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
     ${({ theme }) => theme.fonts.b7_12_regular_120}
 
     cursor: pointer;
