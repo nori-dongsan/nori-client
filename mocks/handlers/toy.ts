@@ -11,7 +11,7 @@ export const getHome = rest.get('/home', (req, res, ctx) =>
 export const getToyCollection = rest.get('/collection', (req, res, ctx) => {
   const theme = req.url.searchParams.get('theme');
   const sort = req.url.searchParams.get('sort');
-  console.log(sort);
+
   // 낮은 가격 순
   function priceDesc(a: ToyData, b: ToyData) {
     if (a.price == b.price) {
