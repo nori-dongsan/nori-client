@@ -22,7 +22,7 @@ export interface PostCommunityBody {
   category: string;
   title: string;
   content: string;
-  imageList?: FormData[];
+  imageList?: FormData;
 }
 // 커뮤니티 댓글
 export interface PostCommentBody {
@@ -33,4 +33,5 @@ export interface PostCommentBody {
 export interface ImgData {
   id: number;
   src: string;
+  file: File;
 }

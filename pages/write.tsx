@@ -1,15 +1,22 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { postCommunity } from '../core/api/community';
+import { newPostInfoState } from '../core/atom';
 import { IcDefaultImg, IcDelete } from '../public/assets/icons';
 import { ImgData } from '../types/community';
 
 export default function Write() {
+  const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
   const [isCategory, setIsCategory] = useState<boolean>(false);
+  const [images, setImages] = useState<ImgData[]>([]);
   const [category, setCategory] = useState<string>('후기');
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [images, setImages] = useState<ImgData[]>([]);
   const textRef = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
+
   const menu = ['후기', '질문', '정보 공유'];
 
   const handleIsCategory = () => {
@@ -18,6 +25,7 @@ export default function Write() {
 
   const handleCategory = (value: string) => {
     setCategory(value);
+    setNewPostInfo({ ...newPostInfo, category: value });
   };
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,35 +37,64 @@ export default function Write() {
 
     const imageList: ImgData[] = [];
     let prevId = images.length == 0 ? 0 : images[images.length - 1].id;
-    const formData = new FormData();
+
     Array.from(fileList).map((file) => {
-      formData.append('images', file);
       imageList.push({
         id: prevId + 1,
         src: URL.createObjectURL(file),
+        file,
       });
       prevId++;
+    });
+
+    const formData = new FormData();
+    images.map((image) => formData.append(image.id + '', image.file));
+    imageList.map((image) => formData.append(image.id + '', image.file));
+
+    setNewPostInfo({
+      ...newPostInfo,
+      imageList: formData,
     });
     setImages([...images, ...imageList]);
   };
 
   const handleDeleteImg = (id: number) => {
-    setImages(images.filter((image) => image.id !== id));
+    const imgDelData = images.filter((image) => image.id !== id);
+    const formData = new FormData();
+    imgDelData.map((image) => formData.append(image.id + '', image.file));
+    setNewPostInfo({
+      ...newPostInfo,
+      imageList: formData,
+    });
+    setImages(imgDelData);
   };
 
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 30) return;
     setTitle(e.target.value);
+    setNewPostInfo({ ...newPostInfo, title: e.target.value });
   };
 
   const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
+    setNewPostInfo({ ...newPostInfo, content: e.target.value });
   };
 
   const handleResizeHeight = () => {
     if (textRef.current)
       textRef.current.style.height = textRef.current.scrollHeight / 10 + 'rem';
   };
+
+  // submit api + recoil 사용해서 글쓰기 배너에서 해결
+  // const handleSubmit = async () => {
+  //   const data = await postCommunity({
+  //     category: "",
+  //     title: "",
+  //     content: "",
+  //     imageList: [],
+  //   });
+  //   router.push(`/community/${data.id}`);
+  // };
 
   return (
     <StFormMain>
