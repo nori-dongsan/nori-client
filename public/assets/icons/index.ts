@@ -12,3 +12,4 @@ export { default as IcLeftArrowFill } from './leftArrow.svg';
 export { default as IcLeftArrow } from './leftArrowFill.svg';
 export { default as IcRightArrow } from './rightArrow.svg';
 export { default as IcRightArrowFill } from './rightArrowFill.svg';
+export { default as IcPriceLine } from './IcPriceLine.svg';
