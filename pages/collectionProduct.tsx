@@ -22,6 +22,7 @@ export default function collectionProduct() {
   const [toyList, setToyList] = useState<ToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const landingArray = new Array(10).fill(0);
+
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
@@ -31,7 +32,7 @@ export default function collectionProduct() {
 
   useEffect(() => {
     if (productList) {
-      let data = productList as ToyData[];
+      let data = productList.data as ToyData[];
       data = data.filter(
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
@@ -42,7 +43,7 @@ export default function collectionProduct() {
       });
     }
   }, [productList, currentPage]);
-  isLoading = true;
+
   return (
     <StCollectionSection>
       {isLoading ? (
@@ -71,10 +72,10 @@ export default function collectionProduct() {
                 ),
             )}
           </StToyListWrapper>
-          {!isLoading && !isError && (
+          {!isLoading && !isError && productList && (
             <PageNavigation
               currentPage={currentPage}
-              lastPage={Math.ceil(productList.length / limit)}
+              lastPage={Math.ceil(productList.data.length / limit)}
               handleCurrentPage={handleCurrentPage}
             />
           )}
