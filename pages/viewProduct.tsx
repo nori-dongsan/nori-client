@@ -2,6 +2,7 @@ import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
 import styled from '@emotion/styled';
 import { IcPriceLine } from '../public/assets/icons';
 import { useState } from 'react';
+
 import { ToyList } from '../components/common';
 import {
   LandingViewProductBanner,
@@ -14,7 +15,7 @@ export default function viewProduct() {
   //default는 낮은 가격순
   const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
   // useSWR로 로딩 판단할 것임
-  const isLoading = true;
+  const isLoading = false;
 
   return (
     <StViewProductWrapper>
@@ -68,6 +69,7 @@ export default function viewProduct() {
             높은 가격순
           </StPriceStandard>
         </StPriceSort>
+
       </StFilterBarWrapper> */}
 
             <StContentSection>
@@ -115,12 +117,14 @@ const StViewProductWrapper = styled.div`
 
   padding: 0 37.2rem;
 `;
+
 /*
 const StViewProductWrapper = styled.div`
   width: 192rem;
   padding: 0 37.2rem;
 `;
 */
+
 const StFilterSectionWrapper = styled.section`
   display: flex;
 `;
@@ -128,6 +132,7 @@ const StFilterBarWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
 const StPriceSort = styled.div`
   display: flex;
   align-items: center;
@@ -140,8 +145,10 @@ const StPriceSort = styled.div`
   cursor: pointer;
 `;
 
+
 const StPriceStandard = styled.h3<{ isClicked: boolean }>`
-  color: ${({ isClicked }) => (isClicked ? '#1F2220' : '#D9D9D9')};
+  color: ${({ isClicked, theme: { colors } }) =>
+    isClicked ? colors.black : colors.gray005};
 `;
 
 const StContentSection = styled.section`
@@ -152,5 +159,10 @@ const StToyListWrapper = styled.section`
   display: flex;
   flex-direction: column;
 
-  margin-left: 1rem;
+  margin-top: 2rem;
+`;
+const StSelectBar = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;

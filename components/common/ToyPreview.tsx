@@ -39,7 +39,6 @@ export default function ToyPreview(props: ToyPreviewProps) {
 const StToyWrapper = styled.article<{ isViewProduct: boolean }>`
   display: flex;
   flex-direction: column;
-
   ${({ isViewProduct }) =>
     isViewProduct
       ? css`
@@ -63,7 +62,6 @@ const StToyImg = styled.img<{ isViewProduct: boolean }>`
           width: 27.5rem;
           height: 27.5rem;
         `}
-
   border: 0.2rem solid #e2e2e2;
   border-radius: 0.8rem;
 `;
@@ -94,33 +92,26 @@ const StFillToyMark = styled(IcFillToyMark)`
 const StStore = styled.div`
   width: 22.4rem;
   margin-top: 1.6rem;
-
   font-weight: 500;
   font-size: 1.4rem;
-
   color: #a9a9a9;
 `;
 
 const StTitle = styled.div`
   width: 22.4rem;
   margin-top: 0.8rem;
-
   font-weight: 400;
   font-size: 1.6rem;
-
   display: flex;
   align-items: center;
-
   color: #000000;
 `;
 
 const StPrice = styled.div`
   width: 22.4rem;
   margin-top: 1.3rem;
-
   font-weight: 700;
   font-size: 1.9rem;
-
   :after {
     content: '원';
   }
@@ -130,12 +121,9 @@ const StAge = styled.div`
   width: fit-content;
   padding: 0.3rem 1rem 0.4rem;
   margin-top: 0.8rem;
-
   background: #ffe766;
   border-radius: 0.4rem;
-
   font-weight: 600;
   font-size: 1rem;
-
   line-height: 141%;
 `;
