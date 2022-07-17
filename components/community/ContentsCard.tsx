@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcReply, IcHeart } from '../../public/assets/icons';
+import { IcReply, IcHeart, IcDot } from '../../public/assets/icons';
 
 interface ContentInfoProps {
   category: string;
@@ -30,14 +30,17 @@ export default function ContentCard(props: ContentInfoProps) {
         <p>{content}</p>
         <StWriteInfo>
           <span>{userNickname}</span>
+          <IcDot />
           <span>{createdAt}</span>
         </StWriteInfo>
         <StReplyInfo>
+          {/* <IcHeart />
+          <span>12</span> */}
           <IcReply />
           <span>{replyCount}</span>
         </StReplyInfo>
       </StContentInfo>
-      {img === undefined ? <></> : <StContentImg src={img} alt="리뷰 사진" />};
+      {img === undefined ? <></> : <StContentImg src={img} alt="리뷰 사진" />}
     </StContentsCardWrapper>
   );
 }
@@ -55,7 +58,7 @@ const StContentsCardWrapper = styled.div`
   border-bottom: 0.1rem solid #d6d6d6;
 
   h1 {
-    margin-bottom: 1.1rem;
+    margin-bottom: 0.7rem;
 
     font-style: normal;
     font-weight: 500;
@@ -95,7 +98,7 @@ const StCategory = styled.div`
   width: 7.6rem;
   height: 2.6rem;
 
-  margin-bottom: 2.6rem;
+  margin-bottom: 1.6rem;
 
   border-radius: 4.5rem;
 
@@ -118,26 +121,41 @@ const StCategoryInfo = styled(StCategory)`
   background-color: ${({ theme }) => theme.colors.mainDarkgreen};
 `;
 const StContentImg = styled.img`
-  width: 26rem;
-  height: 25.5rem;
+  width: 21.6rem;
+  height: 21.6rem;
+
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
+  border-radius: 0.5rem;
 `;
 const StWriteInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
   margin-bottom: 1.2rem;
 
   span:first-child {
-    margin-right: 1.3rem;
+    margin-right: 1rem;
 
     font-style: normal;
     font-weight: 500;
     font-size: 1.7rem;
     line-height: 2.5rem;
+
+    color: ${({ theme }) => theme.colors.gray008};
+    ${({ theme }) => theme.fonts.b4_15_semibold_146}
   }
 
   span:last-child {
+    margin-left: 1rem;
+
     font-style: normal;
     font-weight: 350;
     font-size: 1.7rem;
     line-height: 2.5rem;
+
+    color: ${({ theme }) => theme.colors.gray008};
+    ${({ theme }) => theme.fonts.b4_15_regular_146};
   }
 `;
 const StReplyInfo = styled.div`
@@ -152,5 +170,8 @@ const StReplyInfo = styled.div`
     font-weight: 400;
     font-size: 1.76rem;
     line-height: 2.5rem;
+
+    color: ${({ theme }) => theme.colors.gray008};
+    ${({ theme }) => theme.fonts.b4_15_medium_140};
   }
 `;
