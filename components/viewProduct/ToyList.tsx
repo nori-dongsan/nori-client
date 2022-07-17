@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import keyframes from '@emotion/react';
-
 import ToyPreview from './ToyPreview';
 
 interface ToyListProps {
   length: number;
 }
+
 export default function ToyList(props: ToyListProps) {
   const { length } = props;
   const toyList = new Array(length).fill(0);

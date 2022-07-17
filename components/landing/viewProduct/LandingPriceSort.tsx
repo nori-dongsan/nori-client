@@ -11,6 +11,7 @@ export default function LandingPriceSort() {
     </StLandingPriceSort>
   );
 }
+
 const StLandingPriceSort = styled.div`
   display: flex;
   align-items: center;

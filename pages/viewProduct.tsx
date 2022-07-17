@@ -2,8 +2,7 @@ import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
 import styled from '@emotion/styled';
 import { IcPriceLine } from '../public/assets/icons';
 import { useState } from 'react';
-
-import { ToyList } from '../components/common';
+import { ToyList } from '../components/viewProduct';
 import {
   LandingViewProductBanner,
   LandingToyList,
@@ -81,26 +80,10 @@ export default function viewProduct() {
                 </StPriceSort>
               </StFilterBarWrapper>
               <StToyListWrapper>
-                <ToyList
-                  isViewProduct={true}
-                  landingCategory="viewProduct"
-                  length={4}
-                />
-                <ToyList
-                  isViewProduct={true}
-                  landingCategory="viewProduct"
-                  length={4}
-                />
-                <ToyList
-                  isViewProduct={true}
-                  landingCategory="viewProduct"
-                  length={4}
-                />
-                <ToyList
-                  isViewProduct={true}
-                  landingCategory="viewProduct"
-                  length={4}
-                />
+                <ToyList landingCategory="viewProduct" length={4} />
+                <ToyList landingCategory="viewProduct" length={4} />
+                <ToyList landingCategory="viewProduct" length={4} />
+                <ToyList landingCategory="viewProduct" length={4} />
               </StToyListWrapper>
             </StContentSection>
           </StFilterSectionWrapper>
@@ -144,7 +127,6 @@ const StPriceSort = styled.div`
 
   cursor: pointer;
 `;
-
 
 const StPriceStandard = styled.h3<{ isClicked: boolean }>`
   color: ${({ isClicked, theme: { colors } }) =>

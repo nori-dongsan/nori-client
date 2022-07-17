@@ -43,10 +43,12 @@ const StImgWrapper = styled.div`
 const StToyImg = styled.img`
   width: 27.5rem;
   height: 27.5rem;
+  
+   object-fit: cover;
 
-  border: 0.1rem solid ${({ theme }) => theme.colors.gray005}
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
   border-radius: 0.8rem;
-  background : ${({ theme }) => theme.colors.gray002};
+  background: ${({ theme }) => theme.colors.gray002};
 `;
 
 const StToyMarkWrapper = styled.div`

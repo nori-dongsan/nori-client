@@ -23,9 +23,6 @@ baseInstance.interceptors.request.use((config) => {
   return { ...config, headers };
 });
 
-
-
-
 baseInstance.interceptors.response.use(
   async function (res) {
     console.log('응답');
