@@ -1,42 +1,48 @@
 import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
 import styled from '@emotion/styled';
 import { IcPriceLine } from '../public/assets/icons';
-import { ToyList } from '../components/common';
+import { useState } from 'react';
+import { ToyList } from '../components/viewProduct';
 
 export default function viewProduct() {
   return (
     <StViewProductWrapper>
-      <ViewProductBanner />
-      <StFilterBarWrapper>
+      <StSelectBar>
+        <ViewProductBanner />
         <StPriceSort>
-          <h3>낮은 가격순</h3>
+          <StPriceStandard
+            onClick={() => {
+              setSelectPrice({
+                ...selectPrice,
+                [0]: !selectPrice[0],
+              });
+            }}
+            isClicked={selectPrice[0]}
+          >
+            낮은 가격순
+          </StPriceStandard>
           <IcPriceLine />
-          <h3>높은 가격순</h3>
+          <StPriceStandard
+            onClick={() => {
+              setSelectPrice({
+                ...selectPrice,
+                [1]: !selectPrice[1],
+              });
+            }}
+            isClicked={selectPrice[1]}
+          >
+            높은 가격순
+          </StPriceStandard>
         </StPriceSort>
-      </StFilterBarWrapper>
+      </StSelectBar>
       <StSection>
         <ProductFilter />
         <StToyListWrapper>
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
-          <ToyList
-            isViewProduct={true}
-            landingCategory="viewProduct"
-            length={4}
-          />
+          {/* mocking 후 반복문으로 수정 */}
+          <ToyList length={4} />
+          <ToyList length={4} />
+          <ToyList length={4} />
+          <ToyList length={4} />
         </StToyListWrapper>
       </StSection>
     </StViewProductWrapper>
@@ -50,10 +56,14 @@ const StViewProductWrapper = styled.div`
 
   padding: 0 37.2rem;
 `;
-const StFilterBarWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
+
+/*
+const StViewProductWrapper = styled.div`
+  width: 192rem;
+  padding: 0 37.2rem;
 `;
+*/
+
 const StPriceSort = styled.div`
   display: flex;
   align-items: center;
@@ -66,6 +76,12 @@ const StPriceSort = styled.div`
   cursor: pointer;
 `;
 
+
+const StPriceStandard = styled.h3<{ isClicked: boolean }>`
+  color: ${({ isClicked, theme: { colors } }) =>
+    isClicked ? colors.black : colors.gray005};
+`;
+
 const StSection = styled.section`
   display: flex;
 `;
@@ -73,5 +89,10 @@ const StToyListWrapper = styled.section`
   display: flex;
   flex-direction: column;
 
-  margin-left: 1rem;
+  margin-top: 2rem;
+`;
+const StSelectBar = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
