@@ -11,5 +11,7 @@ export { default as IcMultiToy } from './multiToyIcon.svg';
 export { default as IcWalkingMachine } from './walkingMachineIcon.svg';
 export { default as IcKitchenPlay } from './kitchenPlayIcon.svg';
 export { default as IcViewProductIcon } from './IcViewProductIcon.svg';
+export { default as IcPriceLine } from './IcPriceLine.svg';
 export { default as IcLoginLine } from './loginLineIc.svg';
 export { default as IcCheckboxUnselected } from './IcCheckboxUnselected.svg';
+

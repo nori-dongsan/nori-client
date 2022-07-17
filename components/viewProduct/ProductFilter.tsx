@@ -1,55 +1,64 @@
 import styled from '@emotion/styled';
+import { LoaderValue } from 'next/dist/shared/lib/image-config';
 import React, { EventHandler, useState } from 'react';
 import { IcClose, IcOpen } from '../../public/assets/icons';
 import FilterDropdown from './FilterDropdown';
 
-export interface CategoryProps {
-  categoryInfo: string[];
-  isDrop?: boolean;
-}
-const store = [
-  '국민장난감',
-  '그린키드',
-  '노리왕',
-  '러브로',
-  '리틀베이비',
-  '빌리바바',
-  '어텐션홈이벤트',
-  '장난감점빵',
-  '젤리바운스',
-  '해피장난감',
-];
-const useAge = [
-  ' 0~8개월',
-  '9~14개월',
-  '15~24개월',
-  '25~35개월',
-  '36~40개월',
-  '41~60개월',
-  '기타',
-];
-const cost = ['1만원 이하', '1-3만원', '3-5만원', '5-8만원', '8만원이상'];
-const kind = [
-  '쏘서',
-  '점퍼루',
-  '위고',
-  '보행기',
-  ' 걸음마 보조기',
-  '미끄럼틀',
-  '시소',
-  '그네',
-  '작은 장난감',
-  '에어바운스',
-  '트램펄린',
-  '어린이 자동차',
-  '흔들말',
-  '소꿉놀이',
-  '역할놀이',
-  '기타',
-];
-const way = ['타고 노는', '만지고 노는'];
 
+interface ProductFilterIcon {
+  title: string;
+  value: boolean;
+}
 export default function ProductFilter() {
+  const filterList = {
+    스토어: [
+      '국민장난감',
+      '그린키드',
+      '러브로',
+      '리틀베이비',
+      '빌리바바',
+      '어텐션홈이벤트',
+      '장난감점빵',
+      '젤리바운스',
+      '해피장난감',
+    ],
+    '사용 연령': [
+      '0~5개월',
+      '6~11개월',
+      '12~17개월',
+      '18~23개월',
+      '24~35개월',
+      '36~47개월',
+      '48~60개월',
+      '기타',
+    ],
+    가격: ['1만원 미만', '1-3만원', '3-5만원', '5-8만원', '8만원이상'],
+    특성: ['타고 노는', '만지고 노는', '기타'],
+    '장난감 종류': [
+      '아기체육관',
+      '모빌',
+      '바운서',
+      '쏘서',
+      '점퍼루',
+      '위고',
+      '보행기',
+      '걸음마 보조기',
+      '러닝홈',
+      '러닝테이블',
+      '기타 학습완구',
+      '미끄럼틀',
+      '에어바운스',
+      '트램펄린',
+      '어린이 자동차',
+      '흔들말',
+      '그네',
+      '소꿉놀이',
+      '역할놀이',
+      '기타',
+    ],
+  };
+  const filterListData = Object.values(filterList);
+  const filterListKeys = Object.keys(filterList);
   const [visibility, setVisibility] = useState<boolean[]>([
     false,
     false,
@@ -57,6 +66,34 @@ export default function ProductFilter() {
     false,
     false,
   ]);
+  const handleDropdown = (idx: number) => {
+    setVisibility({
+      ...visibility,
+      [idx]: !visibility[idx],
+    });
+  };
+
+  return (
+    <StFilterWrapper>
+      {filterListKeys.map((title: string, idx: number) => (
+        <StFilterSection isDrop={visibility[idx]} key={title}>
+          <StFilterTitle
+            onClick={() => {
+              handleDropdown(idx);
+            }}
+          >
+            <h2>{title}</h2>
+            {visibility[idx] ? <IcClose /> : <IcOpen />}
+          </StFilterTitle>
+          {visibility[idx] && (
+            <FilterDropdown
+              categoryInfo={filterListData[idx]}
+              isExcept={false}
+              isDrop={visibility[idx]}
+            />
+          )}
+        </StFilterSection>
+      ))}
   const [repeat, setRepeat] = useState<null | number | void | string>();
   // const handleDrop = (idx: number) => {
   //   if (visibility[idx]) {
@@ -92,66 +129,6 @@ export default function ProductFilter() {
             }}
           />
         </StFilterTitle>
-        {visibility[0] && (
-          <FilterDropdown categoryInfo={kind} isDrop={visibility[0]} />
-        )}
-      </StFilterSection>
-      <StFilterSection isDrop={visibility[1]}>
-        <StFilterTitle>
-          <h2>사용 연령</h2>
-          <IcOpen
-            onClick={() => {
-              setVisibility({
-                ...visibility,
-                [1]: !visibility[1],
-              });
-            }}
-          />
-        </StFilterTitle>
-        {visibility[1] && <FilterDropdown categoryInfo={useAge} />}
-      </StFilterSection>
-      <StFilterSection isDrop={visibility[2]}>
-        <StFilterTitle>
-          <h2>가격</h2>
-          <IcOpen
-            onClick={() => {
-              setVisibility({
-                ...visibility,
-                [2]: !visibility[2],
-              });
-            }}
-          />
-        </StFilterTitle>
-        {visibility[2] && <FilterDropdown categoryInfo={cost} />}
-      </StFilterSection>
-      <StFilterExcept isDrop={visibility[3]}>
-        <StFilterTitle>
-          <h2>특성</h2>
-          <IcOpen
-            onClick={() => {
-              setVisibility({
-                ...visibility,
-                [3]: !visibility[3],
-              });
-            }}
-          />
-        </StFilterTitle>
-        {visibility[3] && <FilterDropdown categoryInfo={way} />}
-      </StFilterExcept>
-      <StFilterSection isDrop={visibility[4]}>
-        <StFilterTitle>
-          <h2>스토어</h2>
-          <IcOpen
-            onClick={() => {
-              setVisibility({
-                ...visibility,
-                [4]: !visibility[4],
-              });
-            }}
-          />
-        </StFilterTitle>
-        {visibility[4] && <FilterDropdown categoryInfo={store} />}
-      </StFilterSection>
     </StFilterWrapper>
   );
 }
@@ -160,6 +137,7 @@ const StFilterWrapper = styled.div`
   width: 20rem;
   height: 28rem;
   padding-left: 1.2rem;
+  margin-right: 2.4rem;
 `;
 const StFilterTitle = styled.div`
   display: flex;
@@ -186,27 +164,3 @@ const StFilterExcept = styled.section<{ isDrop: boolean }>`
 function repeat(repeat: any) {
   throw new Error('Function not implemented.');
 }
-// display `-객체의 노출여부/표현방식--`
-// ( justify-content / align-items)
-// ( flex-direction / flex-wrap / flex-flow ) → flex ~로 시작하는 것들
-// list-style
-// position `-위치/좌표--`
-// float
-// clear
-
-// width
-// height `-크기/여백--`
-// padding
-// margin
-
-// border
-// background `-윤곽/배경--`
-// color
-// font `-글자/정렬--`
-
-// text-decoration
-// text-align / vertical-align
-
-// white-space
-// other text
-// content `-내용--`
