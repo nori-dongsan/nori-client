@@ -7,38 +7,35 @@ import { ToyList } from '../components/viewProduct';
 export default function viewProduct() {
   //default는 낮은 가격순
   const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
-
+  const handlePriceSort = (idx: number) => {
+    //이미 해당 버튼이 눌려져있다면 return
+    if (selectPrice[idx]) return;
+    setSelectPrice({
+      ...selectPrice,
+      [0]: !selectPrice[0],
+      [1]: !selectPrice[1],
+    });
+  };
   return (
     <StViewProductWrapper>
       <StSelectBar>
         <ViewProductBanner />
         <StPriceSort>
           <StPriceStandard
-            onClick={() => {
-              setSelectPrice({
-                ...selectPrice,
-                [0]: !selectPrice[0],
-              });
-            }}
+            onClick={() => handlePriceSort(0)}
             isClicked={selectPrice[0]}
           >
             낮은 가격순
           </StPriceStandard>
           <IcPriceLine />
           <StPriceStandard
-            onClick={() => {
-              setSelectPrice({
-                ...selectPrice,
-                [1]: !selectPrice[1],
-              });
-            }}
+            onClick={() => handlePriceSort(1)}
             isClicked={selectPrice[1]}
           >
             높은 가격순
           </StPriceStandard>
         </StPriceSort>
       </StSelectBar>
-
       <StSection>
         <ProductFilter />
         <StToyListWrapper>
@@ -60,12 +57,6 @@ const StViewProductWrapper = styled.div`
 
   padding: 0 37.2rem;
 `;
-/*
-const StViewProductWrapper = styled.div`
-  width: 192rem;
-  padding: 0 37.2rem;
-`;
-*/
 const StPriceSort = styled.div`
   display: flex;
   align-items: center;
@@ -73,7 +64,7 @@ const StPriceSort = styled.div`
   height: 2rem;
   margin-top: 2rem;
 
-  font: ${({ theme }) => theme.fonts.b5_14_medium_140};
+  ${({ theme }) => theme.fonts.b5_14_medium_140};
 
   cursor: pointer;
 `;
