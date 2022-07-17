@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { CommunityList } from '../../components/community';
+import CommunityFloatingBtn from '../../components/community/CommunityFloatingBtn';
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -17,7 +18,11 @@ export default function community() {
         <input type="text" placeholder="궁금한 장난감 정보를 검색해보세요:)" />
         <IcCommunitySearchIcon />
       </StSearchBar>
-      <CommunityList contentsList={[]} />
+      <StMainArticle>
+        <StFloatingBlock />
+        <CommunityList contentsList={[]} />
+        <CommunityFloatingBtn />
+      </StMainArticle>
     </StCommunityWrapper>
   );
 }
@@ -70,4 +75,11 @@ const StSearchBar = styled.div`
 
     cursor: pointer;
   }
+`;
+const StMainArticle = styled.article`
+  display: flex;
+`;
+
+const StFloatingBlock = styled.div`
+  width: 9rem;
 `;
