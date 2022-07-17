@@ -42,7 +42,6 @@ export default function ViewProductBanner() {
                 handleProductIcon(idx);
               }}
               key={idx}
-              isClicked={isClicked[idx]}
             >
               <IcViewProductIcon />
               <p>{item}</p>
@@ -76,17 +75,15 @@ const StCategoryNav = styled.nav`
   display: flex;
   gap: 3.2rem;
 
-  //아래 스타일도 figma 대로 그대로 적용
   width: 110.4rem;
   height: 14.4rem;
 `;
-const StProductItem = styled.div<{ isClicked: boolean }>`
+const StProductItem = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 1.2rem;
 
-  color: ${({ isClicked }) => (isClicked ? '#1D8669' : '#1F2220')};
   font: ${({ theme }) => theme.fonts.b3_16_semibold_140};
 
   cursor: pointer;
