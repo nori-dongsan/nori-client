@@ -129,4 +129,7 @@ const StCommunityListWrapper = styled.section`
 
   margin-bottom: 4.8rem;
 `;
-const StContentCardList = styled.div``;
+const StContentCardList = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
