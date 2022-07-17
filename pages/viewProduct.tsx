@@ -5,9 +5,6 @@ import { useState } from 'react';
 import { ToyList } from '../components/viewProduct';
 
 export default function viewProduct() {
-  //default는 낮은 가격순
-  const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
-
   return (
     <StViewProductWrapper>
       <StSelectBar>
@@ -38,7 +35,6 @@ export default function viewProduct() {
           </StPriceStandard>
         </StPriceSort>
       </StSelectBar>
-
       <StSection>
         <ProductFilter />
         <StToyListWrapper>
@@ -60,12 +56,14 @@ const StViewProductWrapper = styled.div`
 
   padding: 0 37.2rem;
 `;
+
 /*
 const StViewProductWrapper = styled.div`
   width: 192rem;
   padding: 0 37.2rem;
 `;
 */
+
 const StPriceSort = styled.div`
   display: flex;
   align-items: center;
@@ -77,6 +75,7 @@ const StPriceSort = styled.div`
 
   cursor: pointer;
 `;
+
 
 const StPriceStandard = styled.h3<{ isClicked: boolean }>`
   color: ${({ isClicked, theme: { colors } }) =>
