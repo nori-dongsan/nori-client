@@ -7,6 +7,7 @@ import {
 
 export default function PriceFilter() {
   const data = useGetCollectionProduct('price-desc');
+
   console.log('낮은 가격순', data);
 
   const handlePriceDesc = () => {};
