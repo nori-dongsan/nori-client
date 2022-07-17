@@ -1,16 +1,15 @@
 import styled from '@emotion/styled';
+import { CategoryProps } from './ProductFilter';
 import { IcCheckbox } from '../../public/assets/icons';
 import { useRef } from 'react';
-export interface FilterDropdownProps {
-  categoryInfo: string[];
-  isDrop: boolean;
-  isExcept: boolean;
-}
-export default function FilterDropdown(props: FilterDropdownProps) {
-  const { categoryInfo, isDrop, isExcept } = props;
+
+export default function FilterDropdown({
+  categoryInfo,
+  isDrop,
+}: CategoryProps) {
   const child = useRef();
   return (
-    <StDropdownWrapper isExcept={isExcept} isDrop={isDrop}>
+    <StDropdownWrapper isDrop>
       {categoryInfo.map((sort: string) => {
         return (
           <StLabel htmlFor={sort}>
@@ -52,12 +51,12 @@ const StLabel = styled.label`
     font: ${({ theme }) => theme.fonts.b5_14_medium_140};
   }
 `;
-const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
+const StDropdownWrapper = styled.div<{ isDrop: boolean }>`
   display: flex;
   flex-direction: column;
 
   width: 20rem;
-  height: ${({ isExcept }) => (isExcept ? 'fit-content' : '14.8rem')};
+  height: 14.8rem;
   margin: 1.6rem 0 2.8rem 0;
   gap: 1.2rem;
 
@@ -86,8 +85,8 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
   }
 
   @keyframes slide-fade-in-dropdown-animation {
-    0% {
-      transform: translateY(-1rem);
+    0% {4
+      transform: translateY(-20%);
     }
 
     100% {
@@ -111,10 +110,10 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
       ? 'slide-fade-in-dropdown-animation 0.4s ease'
       : 'slide-fade-out-dropdown-animation 0.4s ease'};
 
-  .slide-fade-out-dropdown {
-    animation: slide-fade-out-dropdown-animation 0.4s ease;
-    animation-fill-mode: forwards;
-  }
+  // .slide-fade-out-dropdown {
+  //   animation: slide-fade-out-dropdown-animation 0.4s ease;
+  //   animation-fill-mode: forwards;
+  // }
 `;
 // display `-객체의 노출여부/표현방식--`
 // ( justify-content / align-items)
