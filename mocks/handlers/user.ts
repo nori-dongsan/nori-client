@@ -1,40 +1,32 @@
 import { rest } from 'msw';
 import { userMockData } from '../data/userMockData';
-import { PostSignUpBody } from '../../types/user';
-// 카카오 로그인
-export const getKakao = rest.get(
-  '/auth/login/kakao/:nickname',
-  (req, res, ctx) => {
-    const { nickname } = req.params;
-    const user = userMockData.filter(
-      (user) => user.provider === 'kakao' && user.nickname === nickname,
-    );
-    return res(ctx.json(user));
-  },
-);
-// 구글 로그인
-export const getGoogle = rest.get(
-  '/auth/login/google/:nickname',
-  (req, res, ctx) => {
-    const { nickname } = req.params;
-    const user = userMockData.filter(
-      (user) => user.provider === 'google' && user.nickname === nickname,
-    );
-    return res(ctx.json(user));
-  },
-);
+import { PostSignUpBody, PostLoginBody } from '../../types/user';
+// 로그인
+export const postLogin = rest.post('/auth/login', async (req, res, ctx) => {
+  const { snsId, provider, email } = req.body as PostLoginBody;
 
-// 네이버 로그인
-export const getNaver = rest.get(
-  '/auth/login/naver/:nickname',
-  (req, res, ctx) => {
-    const { nickname } = req.params;
-    const user = userMockData.filter(
-      (user) => user.provider === 'naver' && user.nickname === nickname,
-    );
-    return res(ctx.json(user));
-  },
-);
+  const user = userMockData.filter(
+    (user) =>
+      user.snsId === snsId &&
+      user.provider === provider &&
+      user.email === email,
+  );
+
+  if (user.length === 0) {
+    return res(ctx.status(401));
+  }
+
+  return res(
+    // ctx.status(200),
+    ctx.json({
+      data: {
+        accessToken: 'adsda',
+        refreshToken: 'asdada',
+        isSignup: false,
+      },
+    }),
+  );
+});
 
 // 회원가입
 export const signUp = rest.post('/auth/signup', (req, res, ctx) => {
