@@ -1,5 +1,4 @@
 export { default as IcDefaultImg } from './defaultImgIcon.svg';
-export { default as IcDropDown } from './dropDownIcon.svg';
 export { default as IcDelete } from './deleteIcon.svg';
 export { default as IcNoriHeaderLogo } from './noriHeaderIcon.svg';
 export { default as IcSearchIcon } from './searchIcon.svg';
@@ -15,3 +14,7 @@ export { default as IcHeart } from './heartIcon.svg';
 export { default as IcWriteBtn } from './writeBtnIcon.svg';
 export { default as IcTopBtn } from './topBtnIcon.svg';
 export { default as IcDot } from './dotIcon.svg';
+export { default as IcExpandImg } from './expandImgIcon.svg';
+export { default as IcWriter } from './writerIcon.svg';
+export { default as IcHeartBtn } from './heartBtnIcon.svg';
+export { default as IcReplyBtn } from './replyBtnIcon.svg';

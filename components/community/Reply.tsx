@@ -66,7 +66,7 @@ const StInputForm = styled.article`
   padding-left: 4.3rem;
   padding-right: 3.2rem;
 
-  width: 120rem;
+  width: 77.6rem;
   height: auto;
   min-height: 13.6rem;
 
