@@ -55,26 +55,16 @@ const StContentsCardWrapper = styled.div`
   width: 97.6rem;
   height: auto;
 
-  border-bottom: 0.1rem solid #d6d6d6;
+  border-bottom: 0.1rem solid lor ${({ theme }) => theme.cos.gray005};
 
   h1 {
     margin-bottom: 0.7rem;
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 2.3rem;
-    line-height: 3.3rem;
 
     ${({ theme }) => theme.fonts.b9_24_medium_150}
   }
 
   p {
     margin-bottom: 2.7rem;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.6rem;
-    line-height: 2.9rem;
 
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -101,11 +91,6 @@ const StCategory = styled.div`
   margin-bottom: 1.6rem;
 
   border-radius: 4.5rem;
-
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1.8rem;
-  line-height: 2.6rem;
 
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.b5_14_medium_140}
@@ -137,22 +122,12 @@ const StWriteInfo = styled.div`
   span:first-child {
     margin-right: 1rem;
 
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.7rem;
-    line-height: 2.5rem;
-
     color: ${({ theme }) => theme.colors.gray008};
     ${({ theme }) => theme.fonts.b4_15_semibold_146}
   }
 
   span:last-child {
     margin-left: 1rem;
-
-    font-style: normal;
-    font-weight: 350;
-    font-size: 1.7rem;
-    line-height: 2.5rem;
 
     color: ${({ theme }) => theme.colors.gray008};
     ${({ theme }) => theme.fonts.b4_15_regular_146};
@@ -165,11 +140,6 @@ const StReplyInfo = styled.div`
   span {
     margin-left: 1.057rem;
     margin-right: 1.898rem;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.76rem;
-    line-height: 2.5rem;
 
     color: ${({ theme }) => theme.colors.gray008};
     ${({ theme }) => theme.fonts.b4_15_medium_140};
