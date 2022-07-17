@@ -1,11 +1,8 @@
 import styled from '@emotion/styled';
 import { IcCheckbox } from '../../public/assets/icons';
 import { useRef } from 'react';
-export interface FilterDropdownProps {
-  categoryInfo: string[];
-  isDrop: boolean;
-  isExcept: boolean;
-}
+import { FilterDropdownProps } from '../../types/viewProduct';
+
 export default function FilterDropdown(props: FilterDropdownProps) {
   const { categoryInfo, isDrop, isExcept } = props;
   const child = useRef();
@@ -85,15 +82,15 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
       theme.colors.gray002}; /*스크롤바 뒷 배경 색상*/
   }
 
-  @keyframes slide-fade-in-dropdown-animation {
-    0% {
-      transform: translateY(-1rem);
-    }
+  // @keyframes slide-fade-in-dropdown-animation {
+  //   0% {
+  //     transform: translateY(-1rem);
+  //   }
 
-    100% {
-      transform: translateY(0);
-    }
-  }
+  //   100% {
+  //     transform: translateY(0);
+  //   }
+  // }
   /* fade out */
 
   @keyframes slide-fade-out-dropdown-animation {

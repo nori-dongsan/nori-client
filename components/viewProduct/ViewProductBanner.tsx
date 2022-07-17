@@ -40,7 +40,7 @@ export default function ViewProductBanner() {
               onClick={() => {
                 handleProductIcon(idx);
               }}
-              key={idx}
+              key={item}
               isClicked={isClicked[idx]}
             >
               <IcViewProductIcon />
@@ -68,7 +68,7 @@ const StProductBannerWrapper = styled.div`
   & > h1 {
     margin-bottom: 3.4rem;
 
-    font: ${({ theme }) => theme.fonts.t1_28_medium_150};
+    ${({ theme }) => theme.fonts.t1_28_medium_150};
   }
 `;
 const StCategoryNav = styled.nav`

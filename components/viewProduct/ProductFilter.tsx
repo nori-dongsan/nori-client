@@ -1,8 +1,13 @@
 import styled from '@emotion/styled';
+import { LoaderValue } from 'next/dist/shared/lib/image-config';
 import React, { EventHandler, useState } from 'react';
 import { IcClose, IcOpen } from '../../public/assets/icons';
 import FilterDropdown from './FilterDropdown';
 
+interface ProductFilterIcon {
+  title: string;
+  value: boolean;
+}
 export default function ProductFilter() {
   const filterList = {
     스토어: [
@@ -51,6 +56,9 @@ export default function ProductFilter() {
       '기타',
     ],
   };
+  const filterListData = Object.values(filterList);
+  const filterListKeys = Object.keys(filterList);
+
   const [visibility, setVisibility] = useState<boolean[]>([
     false,
     false,
@@ -64,114 +72,28 @@ export default function ProductFilter() {
       [idx]: !visibility[idx],
     });
   };
-  // const [repeat, setRepeat] = useState<null | number | void | string>();
-  // const handleDrop = (idx: number) => {
-  //   if (visibility[idx]) {
-  //     clearTimeout(repeat);
-  //     setRepeat(null);
-  //     setVisibility({
-  //       ...visibility,
-  //       [idx]: !visibility[idx],
-  //     });
-  //   } else {
-  //     setRepeat(
-  //       setTimeout(() => {
-  //         setVisibility({
-  //           ...visibility,
-  //           [0]: !visibility[0],
-  //         });
-  //         return 0;
-  //       }, 400),
-  //     );
-  //   }
-  // };
+
   return (
     <StFilterWrapper>
-      <StFilterSection isDrop={visibility[0]}>
-        <StFilterTitle
-          onClick={() => {
-            handleDropdown(0);
-          }}
-        >
-          <h2>종류</h2>
-          {visibility[0] ? <IcClose /> : <IcOpen />}
-        </StFilterTitle>
-        {visibility[0] && (
-          <FilterDropdown
-            categoryInfo={kind}
-            isExcept={false}
-            isDrop={visibility[0]}
-          />
-        )}
-      </StFilterSection>
-      <StFilterSection isDrop={visibility[1]}>
-        <StFilterTitle
-          onClick={() => {
-            handleDropdown(1);
-          }}
-        >
-          <h2>사용 연령</h2>
-          {visibility[1] ? <IcClose /> : <IcOpen />}
-        </StFilterTitle>
-        {visibility[1] && (
-          <FilterDropdown
-            categoryInfo={useAge}
-            isExcept={false}
-            isDrop={visibility[1]}
-          />
-        )}
-      </StFilterSection>
-      <StFilterSection isDrop={visibility[2]}>
-        <StFilterTitle
-          onClick={() => {
-            handleDropdown(2);
-          }}
-        >
-          <h2>가격</h2>
-          {visibility[2] ? <IcClose /> : <IcOpen />}
-        </StFilterTitle>
-        {visibility[2] && (
-          <FilterDropdown
-            categoryInfo={cost}
-            isExcept={false}
-            isDrop={visibility[2]}
-          />
-        )}
-      </StFilterSection>
-      <StFilterSection isDrop={visibility[3]}>
-        <StFilterTitle
-          onClick={() => {
-            handleDropdown(3);
-          }}
-        >
-          <h2>특성</h2>
-          {visibility[3] ? <IcClose /> : <IcOpen />}
-        </StFilterTitle>
-        {visibility[3] && (
-          <FilterDropdown
-            categoryInfo={way}
-            isExcept={true}
-            isDrop={visibility[3]}
-          />
-        )}
-      </StFilterSection>
-      <StFilterSection isDrop={visibility[4]}>
-        <StFilterTitle
-          onClick={() => {
-            handleDropdown(4);
-          }}
-        >
-          <h2>스토어</h2>
-          {visibility[4] ? <IcClose /> : <IcOpen />}
-        </StFilterTitle>
-        {visibility[4] && (
-          <FilterDropdown
-            categoryInfo={store}
-            isExcept={false}
-            isDrop={visibility[4]}
-          />
-        )}
-      </StFilterSection>
+      {filterListKeys.map((title: string, idx: number) => (
+        <StFilterSection isDrop={visibility[idx]} key={title}>
+          <StFilterTitle
+            onClick={() => {
+              handleDropdown(idx);
+            }}
+          >
+            <h2>{title}</h2>
+            {visibility[idx] ? <IcClose /> : <IcOpen />}
+          </StFilterTitle>
+          {visibility[idx] && (
+            <FilterDropdown
+              categoryInfo={filterListData[idx]}
+              isExcept={false}
+              isDrop={visibility[idx]}
+            />
+          )}
+        </StFilterSection>
+      ))}
     </StFilterWrapper>
   );
 }
