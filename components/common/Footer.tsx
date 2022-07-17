@@ -74,7 +74,7 @@ const StFooterLinkWrapper = styled.ul`
   color: ${({ theme }) => theme.colors.gray008};
 
   & > li {
-    margin-bottom: 1.7rem;
+    margin-bottom: 1.2rem;
 
     & > a {
       ${({ theme }) => theme.fonts.b3_16_medium_140};

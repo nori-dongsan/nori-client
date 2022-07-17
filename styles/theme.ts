@@ -48,6 +48,7 @@ const fonts = {
   t3_19_medium_130: FONT({ weight: 500, size: 1.8, height: 2.47, spacing: 0 }),
   t4_18_semibold_150: FONT({ weight: 600, size: 1.8, height: 2.7, spacing: 0 }),
   t4_18_regular_150: FONT({ weight: 400, size: 1.8, height: 2.7, spacing: 0 }),
+  t5_27_regular_130: FONT({ weight: 400, size: 2.7, height: 3.51, spacing: 0 }),
   t5_27_medium_150: FONT({ weight: 500, size: 2.7, height: 4.05, spacing: 0 }),
   t6_17_medium_130: FONT({ weight: 500, size: 1.7, height: 2.21, spacing: 0 }),
   t6_17_regular_140: FONT({ weight: 400, size: 1.7, height: 2.38, spacing: 0 }),
@@ -94,6 +95,7 @@ const fonts = {
   b7_12_bold_120: FONT({ weight: 700, size: 1.2, height: 1.44, spacing: 0 }),
   b7_12_medium_140: FONT({ weight: 500, size: 1.2, height: 1.68, spacing: 0 }),
   b7_12_regular_120: FONT({ weight: 400, size: 1.2, height: 1.44, spacing: 0 }),
+  b8_20_regular_180: FONT({ weight: 400, size: 2, height: 3.6, spacing: 0 }),
   b9_24_medium_150: FONT({ weight: 500, size: 2.4, height: 3.6, spacing: 0 }),
   b10_22_regular_150: FONT({
     weight: 400,

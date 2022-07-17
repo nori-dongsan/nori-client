@@ -31,6 +31,7 @@ declare module '@emotion/react' {
       t3_19_medium_130: SerializedStyles;
       t4_18_semibold_150: SerializedStyles;
       t4_18_regular_150: SerializedStyles;
+      t5_27_regular_130: SerializedStyles;
       t5_27_medium_150: SerializedStyles;
       t6_17_medium_130: SerializedStyles;
       t6_17_regular_140: SerializedStyles;
@@ -52,6 +53,7 @@ declare module '@emotion/react' {
       b7_12_bold_120: SerializedStyles;
       b7_12_medium_140: SerializedStyles;
       b7_12_regular_120: SerializedStyles;
+      b8_20_regular_180: SerializedStyles;
       b9_24_medium_150: SerializedStyles;
       b10_22_regular_150: SerializedStyles;
     };
