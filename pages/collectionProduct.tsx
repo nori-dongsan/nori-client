@@ -91,7 +91,6 @@ const StCollectionSection = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 `;
 const StCollectionTitle = styled.text`
   margin: 7.1rem 0rem;
@@ -101,4 +100,3 @@ const StCollectionTitle = styled.text`
 const StToyListWrapper = styled.div`
   margin: 0rem 37.2rem;
 `;
-

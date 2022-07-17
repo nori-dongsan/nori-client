@@ -31,7 +31,11 @@ export default function main() {
       <StMainSection>
         <StConceptArticle>
           <StConceptTitle>이번 주 인기 장난감</StConceptTitle>
-          <ToyList landingCategory="popularity" length={3} />
+          <ToyList
+            isViewProduct={false}
+            landingCategory="popularity"
+            length={3}
+          />
         </StConceptArticle>
 
         <StCollectionArticle>
@@ -45,17 +49,21 @@ export default function main() {
 
         <StConceptArticle>
           <StConceptTitle>Today's NORI PICK</StConceptTitle>
-          <ToyList landingCategory="noriPick" length={4} />
+          <ToyList
+            isViewProduct={false}
+            landingCategory="noriPick"
+            length={4}
+          />
         </StConceptArticle>
         <MiddleBanner />
         <StConceptArticle>
           <StConceptTitle>우리 아이 오감 발달을 위해</StConceptTitle>
-          <ToyList landingCategory="develop" length={4} />
+          <ToyList isViewProduct={false} landingCategory="develop" length={4} />
         </StConceptArticle>
 
         <StConceptArticle>
           <StConceptTitle>학습에 도움이 되는 똑똑한 장난감</StConceptTitle>
-          <ToyList landingCategory="study" length={4} />
+          <ToyList isViewProduct={false} landingCategory="study" length={4} />
         </StConceptArticle>
       </StMainSection>
       <BottomBanner />

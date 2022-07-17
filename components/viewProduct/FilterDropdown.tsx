@@ -10,7 +10,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     <StDropdownWrapper isDrop>
       {categoryInfo.map((sort: string) => {
         return (
-          <StLabel htmlFor={sort}>
+          <StLabel htmlFor={sort} key={sort}>
             <StInput
               type="checkbox"
               id={sort}

@@ -80,10 +80,10 @@ export default function viewProduct() {
                 </StPriceSort>
               </StFilterBarWrapper>
               <StToyListWrapper>
-                <ToyList landingCategory="viewProduct" length={4} />
-                <ToyList landingCategory="viewProduct" length={4} />
-                <ToyList landingCategory="viewProduct" length={4} />
-                <ToyList landingCategory="viewProduct" length={4} />
+                <ToyList length={4} />
+                <ToyList length={4} />
+                <ToyList length={4} />
+                <ToyList length={4} />
               </StToyListWrapper>
             </StContentSection>
           </StFilterSectionWrapper>
