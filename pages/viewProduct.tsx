@@ -98,6 +98,7 @@ const StFilterBarWrapper = styled.div`
 const StPriceSort = styled.div`
   display: flex;
   align-items: center;
+  column-gap: 1.4rem;
 
   height: 2rem;
   margin-top: 2rem;

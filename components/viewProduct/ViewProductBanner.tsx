@@ -75,6 +75,7 @@ const StProductBannerWrapper = styled.div`
 const StCategoryNav = styled.nav`
   display: flex;
   gap: 3.2rem;
+  justify-content: center;
 
   width: 110.4rem;
   height: 14.4rem;

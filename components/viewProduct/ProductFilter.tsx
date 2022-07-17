@@ -130,6 +130,8 @@ const StFilterTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  cursor: pointer;
 `;
 const StFilterSection = styled.section<{ isDrop: boolean }>`
   width: 20rem;
