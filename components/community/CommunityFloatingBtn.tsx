@@ -15,7 +15,9 @@ export default function CommunityFloatingBtn() {
   return (
     <StCommunityFloatingBtnWrapper>
       <Link href="/write">
-        <IcWriteBtn />
+        <a>
+          <IcWriteBtn />
+        </a>
       </Link>
       <IcTopBtn onClick={handleTopScroll} />
     </StCommunityFloatingBtnWrapper>
