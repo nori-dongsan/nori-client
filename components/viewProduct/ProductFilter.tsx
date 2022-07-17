@@ -4,7 +4,6 @@ import React, { EventHandler, useState } from 'react';
 import { IcClose, IcOpen } from '../../public/assets/icons';
 import FilterDropdown from './FilterDropdown';
 
-
 interface ProductFilterIcon {
   title: string;
   value: boolean;
@@ -66,12 +65,35 @@ export default function ProductFilter() {
     false,
     false,
   ]);
+
   const handleDropdown = (idx: number) => {
     setVisibility({
       ...visibility,
       [idx]: !visibility[idx],
     });
   };
+
+  //const [repeat, setRepeat] = useState<null | number | void | string>();
+  // const handleDrop = (idx: number) => {
+  //   if (visibility[idx]) {
+  //     clearTimeout(repeat);
+  //     setRepeat(null);
+  //     setVisibility({
+  //       ...visibility,
+  //       [idx]: !visibility[idx],
+  //     });
+  //   } else {
+  //     setRepeat(
+  //       setTimeout(() => {
+  //         setVisibility({
+  //           ...visibility,
+  //           [0]: !visibility[0],
+  //         });
+  //         return 0;
+  //       }, 400),
+  //     );
+  //   }
+  // };
 
   return (
     <StFilterWrapper>
@@ -94,41 +116,6 @@ export default function ProductFilter() {
           )}
         </StFilterSection>
       ))}
-  const [repeat, setRepeat] = useState<null | number | void | string>();
-  // const handleDrop = (idx: number) => {
-  //   if (visibility[idx]) {
-  //     clearTimeout(repeat);
-  //     setRepeat(null);
-  //     setVisibility({
-  //       ...visibility,
-  //       [idx]: !visibility[idx],
-  //     });
-  //   } else {
-  //     setRepeat(
-  //       setTimeout(() => {
-  //         setVisibility({
-  //           ...visibility,
-  //           [0]: !visibility[0],
-  //         });
-  //         return 0;
-  //       }, 400),
-  //     );
-  //   }
-  // };
-  return (
-    <StFilterWrapper>
-      <StFilterSection isDrop={visibility[0]}>
-        <StFilterTitle>
-          <h2>종류</h2>
-          <IcOpen
-            onClick={() => {
-              setVisibility({
-                ...visibility,
-                [0]: !visibility[0],
-              });
-            }}
-          />
-        </StFilterTitle>
     </StFilterWrapper>
   );
 }
@@ -161,6 +148,6 @@ const StFilterExcept = styled.section<{ isDrop: boolean }>`
   font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
 `;
 
-function repeat(repeat: any) {
-  throw new Error('Function not implemented.');
-}
+// function repeat(repeat: any) {
+//   throw new Error('Function not implemented.');
+// }

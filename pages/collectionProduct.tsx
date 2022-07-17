@@ -16,6 +16,7 @@ import {
 } from '../components/landing/collectionProduct.tsx';
 
 const limit = 40;
+
 export default function collectionProduct() {
   const { query } = useRouter();
   const { collection } = query;

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { LandingToyPreview } from '.';
+
 export default function LandingCollectionList() {
   const toyList = new Array(4).fill(0);
   return (

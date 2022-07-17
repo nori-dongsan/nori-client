@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { IcNoriHeaderLogo } from '../../public/assets/icons';
+
 export default function MiddleBanner() {
   return (
     <StBottomLink href="/community">

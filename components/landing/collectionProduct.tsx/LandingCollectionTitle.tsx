@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import { loading } from '../../common/styled/animation';
+
 export default function LandingCollectionTitle() {
   return <StLandingCollectionTitle></StLandingCollectionTitle>;
 }
+
 const StLandingCollectionTitle = styled.text`
   width: 20.8rem;
   height: 4.2rem;

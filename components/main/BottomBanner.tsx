@@ -11,6 +11,7 @@ export default function BottomBanner() {
     </StBottomLink>
   );
 }
+
 const StBottomLink = styled(Link)`
   & > div {
     width: 100%;

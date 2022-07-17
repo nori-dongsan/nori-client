@@ -6,7 +6,7 @@ import {
 } from '../../components/landing/community';
 
 export default function community() {
-  const isLoading = true;
+  const isLoading = false;
   return (
     <StCommunityWrapper>
       {isLoading ? (

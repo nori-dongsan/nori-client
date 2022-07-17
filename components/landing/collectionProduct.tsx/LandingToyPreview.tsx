@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { loading } from '../../common/styled/animation';
+
 export default function LandingToyPreview() {
   return (
     <LandingToyWrapper>
@@ -11,6 +12,7 @@ export default function LandingToyPreview() {
     </LandingToyWrapper>
   );
 }
+
 const LandingToyWrapper = styled.article`
   display: flex;
   flex-direction: column;

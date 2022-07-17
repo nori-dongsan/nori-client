@@ -1,6 +1,7 @@
 export interface ImgData {
   id: number;
   src: string;
+}
 // 댓글
 export interface ReplyData {
   userNickname?: string;

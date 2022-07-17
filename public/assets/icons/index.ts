@@ -29,6 +29,5 @@ export { default as IcLeftArrow } from './leftArrowFill.svg';
 export { default as IcRightArrow } from './rightArrow.svg';
 export { default as IcRightArrowFill } from './rightArrowFill.svg';
 export { default as IcViewProductIcon } from './IcViewProductIcon.svg';
-export { default as IcPriceLine } from './IcPriceLine.svg';
 export { default as IcLoginLine } from './loginLineIc.svg';
 export { default as IcCheckboxUnselected } from './IcCheckboxUnselected.svg';
