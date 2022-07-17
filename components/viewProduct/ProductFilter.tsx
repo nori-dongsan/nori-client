@@ -187,27 +187,3 @@ const StFilterExcept = styled.section<{ isDrop: boolean }>`
 function repeat(repeat: any) {
   throw new Error('Function not implemented.');
 }
-// display `-객체의 노출여부/표현방식--`
-// ( justify-content / align-items)
-// ( flex-direction / flex-wrap / flex-flow ) → flex ~로 시작하는 것들
-// list-style
-// position `-위치/좌표--`
-// float
-// clear
-
-// width
-// height `-크기/여백--`
-// padding
-// margin
-
-// border
-// background `-윤곽/배경--`
-// color
-// font `-글자/정렬--`
-
-// text-decoration
-// text-align / vertical-align
-
-// white-space
-// other text
-// content `-내용--`

@@ -72,7 +72,7 @@ const StStore = styled.div`
   height: 2rem;
   margin-top: 1.2rem;
 
-  font: ${({ theme }) => theme.fonts.b5_14_medium_140};
+  ${({ theme }) => theme.fonts.b5_14_medium_140};
   color: ${({ theme }) => theme.colors.gray006};
 `;
 
@@ -81,7 +81,7 @@ const StTitle = styled.div`
   height: 4.4rem;
   margin-top: 0.4rem;
 
-  font: ${({ theme }) => theme.fonts.b3_16_medium_140};
+  ${({ theme }) => theme.fonts.b3_16_medium_140};
 `;
 
 const StPrice = styled.div`
@@ -89,7 +89,7 @@ const StPrice = styled.div`
   height: 2.5rem;
   margin-top: 0.4rem;
 
-  font: ${({ theme }) => theme.fonts.b2_18_bold_140};
+  ${({ theme }) => theme.fonts.b2_18_bold_140};
 
   :after {
     content: '원';
@@ -102,6 +102,6 @@ const StAge = styled.div`
   margin-top: 0.3rem;
   background: ${({ theme }) => theme.colors.subYellow};
   border-radius: 0.4rem;
-  font: ${({ theme }) => theme.fonts.b7_12_medium_140};
+  ${({ theme }) => theme.fonts.b7_12_medium_140};
   line-height: 140%;
 `;

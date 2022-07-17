@@ -42,6 +42,7 @@ export default function viewProduct() {
       <StSection>
         <ProductFilter />
         <StToyListWrapper>
+          {/* mocking 후 반복문으로 수정 */}
           <ToyList length={4} />
           <ToyList length={4} />
           <ToyList length={4} />
@@ -78,7 +79,8 @@ const StPriceSort = styled.div`
 `;
 
 const StPriceStandard = styled.h3<{ isClicked: boolean }>`
-  color: ${({ isClicked }) => (isClicked ? '#1F2220' : '#D9D9D9')};
+  color: ${({ isClicked, theme: { colors } }) =>
+    isClicked ? colors.black : colors.gray005};
 `;
 
 const StSection = styled.section`

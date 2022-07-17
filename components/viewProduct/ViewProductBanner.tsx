@@ -69,7 +69,7 @@ const StProductBannerWrapper = styled.div`
   & > h1 {
     margin-bottom: 3.4rem;
 
-    font: ${({ theme }) => theme.fonts.t1_28_medium_150};
+    ${({ theme }) => theme.fonts.t1_28_medium_150};
   }
 `;
 const StCategoryNav = styled.nav`
@@ -85,33 +85,9 @@ const StProductItem = styled.div<{ isClicked: boolean }>`
   flex-direction: column;
   gap: 1.2rem;
 
-  color: ${({ isClicked }) => (isClicked ? '#1D8669' : '#1F2220')};
-  font: ${({ theme }) => theme.fonts.b3_16_semibold_140};
+  color: ${({ isClicked, theme: { colors } }) =>
+    isClicked ? colors.mainGreen : colors.black};
+  ${({ theme }) => theme.fonts.b3_16_semibold_140};
 
   cursor: pointer;
 `;
-
-// 1. display `-객체의 노출여부/표현방식--`
-// 2. ( justify-content / align-items)
-// 3. ( flex-direction / flex-wrap / flex-flow ) → flex ~로 시작하는 것들
-// 4. list-style
-// 5. position `-위치/좌표--`
-// 6. float
-// 7. clear
-
-// 1. width
-// 2.  height `-크기/여백--`
-// 3. padding
-// 4.  margin
-
-// 1. border
-// 2.  background `-윤곽/배경--`
-// 3. color
-// 4. font `-글자/정렬--`
-
-// 1. text-decoration
-// 2. text-align / vertical-align
-
-// 1. white-space
-// 2. other text
-// 3. content `-내용--`
