@@ -12,7 +12,9 @@ export default function Header() {
       </StTopLink>
       <StHeaderContents>
         <Link href="/main">
-          <IcNoriHeaderLogo />
+          <a>
+            <IcNoriHeaderLogo />
+          </a>
         </Link>
         <StSearchWrapper>
           <StSearchBar>
@@ -20,7 +22,7 @@ export default function Header() {
             <IcSearchIcon />
           </StSearchBar>
           <StMenu>
-            <Link href="/toyView">
+            <Link href="/viewProduct">
               <StMenuBtn type="button">상품보기</StMenuBtn>
             </Link>
             <Link href="/community">
@@ -43,6 +45,8 @@ const StHeaderWrapper = styled.header`
 
   background-color: ${({ theme }) => theme.colors.mainGreen};
   color: ${({ theme }) => theme.colors.white};
+
+  z-index: 1;
 `;
 const StTopLink = styled.div`
   display: flex;
@@ -50,8 +54,10 @@ const StTopLink = styled.div`
 
   padding: 0rem;
   padding-top: 0.7rem;
-  padding-left: 75%;
+  padding-left: 73.25%;
   a {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
     ${({ theme }) => theme.fonts.b7_12_regular_120}
 
     cursor: pointer;

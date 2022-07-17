@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 export default function main() {
   const { query } = useRouter();
-  
+
   return (
     <>
       <MainBanner />
@@ -13,7 +13,6 @@ export default function main() {
         <StConceptArticle>
           <StConceptTitle>이번주 인기 장난감</StConceptTitle>
           <ToyList />
-
         </StConceptArticle>
       </StMainSection>
     </>
