@@ -17,7 +17,7 @@ export default function ViewProductBanner() {
     '승용 완구',
     '역할놀이 완구',
   ];
-  const [isClicked, setIsClicked] = useState<boolean[]>([
+  const [seletedIcon, setSeletedIcon] = useState<boolean[]>([
     true,
     false,
     false,
@@ -25,11 +25,13 @@ export default function ViewProductBanner() {
     false,
     false,
     false,
-    false,
   ]);
+
   //통신이나.. 클릭했을 때 나타나는 효과나.. 그런 거 아직 안 함
-  const handleProductIcon = (idx: number) => {
-    console.log(idx);
+  const handleProductIcon = (selectIdx: number) => {
+    if (seletedIcon[selectIdx]) return;
+    const initial = [false, false, false, false, false, false, false];
+    setSeletedIcon({ ...initial, [selectIdx]: true });
   };
   return (
     <StProductBannerWrapper>
@@ -42,7 +44,7 @@ export default function ViewProductBanner() {
                 handleProductIcon(idx);
               }}
               key={item}
-              isClicked={isClicked[idx]}
+              isClicked={seletedIcon[idx]}
             >
               <IcViewProductIcon />
               <p>{item}</p>

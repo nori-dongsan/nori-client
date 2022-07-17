@@ -110,7 +110,7 @@ export default function ProductFilter() {
           {visibility[idx] && (
             <FilterDropdown
               categoryInfo={filterListData[idx]}
-              isExcept={false}
+              isExcept={idx == 3 ? true : false}
               isDrop={visibility[idx]}
             />
           )}
@@ -135,19 +135,12 @@ const StFilterTitle = styled.div`
 `;
 const StFilterSection = styled.section<{ isDrop: boolean }>`
   width: 20rem;
-  height: ${({ isDrop }) => (isDrop ? '23.2rem' : '5.6rem')};
-  padding: 1.7rem 0;
+  height: fit-content;
+  padding: ${({ isDrop }) => (isDrop ? ' 1.7rem 0 0 0' : '1.7rem 0')};
 
   border-bottom: 0.1rem #d9d9d9 solid;
-  font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
-`;
-const StFilterExcept = styled.section<{ isDrop: boolean }>`
-  width: 20rem;
-  height: ${({ isDrop }) => (isDrop ? '13.6rem' : '5.6rem')};
-  padding: 1.7rem 0;
-
-  border-bottom: 0.1rem #d9d9d9 solid;
-  font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
+  ${({ theme }) => theme.fonts.b4_15_semibold_146};
+  cursor: pointer;
 `;
 
 // function repeat(repeat: any) {

@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { IcCheckbox } from '../../public/assets/icons';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { FilterDropdownProps } from '../../types/viewProduct';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
   const { categoryInfo, isDrop, isExcept } = props;
-  const child = useRef();
+
   return (
-    <StDropdownWrapper isDrop>
+    <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
       {categoryInfo.map((sort: string) => {
         return (
           <StLabel htmlFor={sort} key={sort}>
@@ -41,20 +41,23 @@ const StInput = styled.input`
 const StLabel = styled.label`
   display: flex;
   gap: 1rem;
+
+  cursor: pointer;
   & > p {
     width: 15.2rem;
     height: 2rem;
 
-    color: ${({ theme }) => theme.colors.gray008};
-    font: ${({ theme }) => theme.fonts.b5_14_medium_140};
+    color: ${({ isClicked, theme: { colors } }) =>
+      isClicked ? colors.mainGreen : colors.gray008};
+    ${({ theme }) => theme.fonts.b5_14_medium_140};
   }
 `;
-const StDropdownWrapper = styled.div<{ isDrop: boolean }>`
+const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
   display: flex;
   flex-direction: column;
 
   width: 20rem;
-  height: 14.8rem;
+  height: ${({ isExcept }) => (isExcept ? 'fit-content' : '14.8rem')};
   margin: 1.6rem 0 2.8rem 0;
   gap: 1.2rem;
 
