@@ -10,6 +10,7 @@ interface ToyPreviewProps {
   price: number;
   age: string;
 }
+
 export default function ToyPreview(props: ToyPreviewProps) {
   const { src, store, title, price, age } = props;
   const [isMark, setIsMark] = useState(false);
@@ -32,6 +33,7 @@ export default function ToyPreview(props: ToyPreviewProps) {
     </StToyWrapper>
   );
 }
+
 const StToyWrapper = styled.article`
   display: flex;
   flex-direction: column;

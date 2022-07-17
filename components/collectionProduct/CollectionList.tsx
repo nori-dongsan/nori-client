@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { ToyData } from '../../types/toy';
-
 import ToyPreview from './ToyPreview';
 
 interface CollectionListProps {
   toyList: ToyData[];
 }
+
 export default function CollectionList(props: CollectionListProps) {
   const { toyList } = props;
   return (

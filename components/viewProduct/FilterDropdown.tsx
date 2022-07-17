@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { CategoryProps } from './ProductFilter';
 import { IcCheckbox } from '../../public/assets/icons';
 import { useRef } from 'react';
 import { FilterDropdownProps } from '../../types/viewProduct';
@@ -83,12 +82,10 @@ const StDropdownWrapper = styled.div<{ isDrop: boolean }>`
       theme.colors.gray002}; /*스크롤바 뒷 배경 색상*/
   }
 
-
   // @keyframes slide-fade-in-dropdown-animation {
   //   0% {
   //     transform: translateY(-1rem);
   //   }
-
 
   //   100% {
   //     transform: translateY(0);

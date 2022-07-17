@@ -10,6 +10,7 @@ interface CollectionCardProps {
   title: string;
   subTitle: string;
 }
+
 export default function CollectionCard(props: CollectionCardProps) {
   const { title, subTitle } = props;
 
@@ -29,6 +30,7 @@ export default function CollectionCard(props: CollectionCardProps) {
     </StCardWrapper>
   );
 }
+
 const StCardWrapper = styled.section`
   display: flex;
   justify-content: center;

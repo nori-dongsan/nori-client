@@ -15,12 +15,10 @@ baseInstance.interceptors.request.use((config) => {
     ...config.headers,
     accessToken: LocalStorage.getItem('accessToken'),
     refreshToken: LocalStorage.getItem('refreshToken'),
-
   };
 
   return { ...config, headers };
 });
-
 
 baseInstance.interceptors.response.use(
   async function (res) {

@@ -15,6 +15,7 @@ export default function LandingProductFilter() {
     </StLadingFilterWrapper>
   );
 }
+
 const StLadingFilterWrapper = styled.div`
   width: 20rem;
   height: 28rem;

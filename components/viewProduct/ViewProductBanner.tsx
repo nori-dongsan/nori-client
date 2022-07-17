@@ -5,6 +5,7 @@ import { IcViewProductIcon } from '../../public/assets/icons';
 // interface ViewProductProps {
 //   onClick: MouseCli;
 // }
+
 export default function ViewProductBanner() {
   //상품보기 뷰 배너 아이콘 요소 배열
   const productIcons = [
@@ -78,17 +79,15 @@ const StCategoryNav = styled.nav`
   width: 110.4rem;
   height: 14.4rem;
 `;
-const StProductItem = styled.div`
+const StProductItem = styled.div<{ isClicked: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 1.2rem;
 
-
   color: ${({ isClicked, theme: { colors } }) =>
     isClicked ? colors.mainGreen : colors.black};
   ${({ theme }) => theme.fonts.b3_16_semibold_140};
-
 
   cursor: pointer;
 `;
