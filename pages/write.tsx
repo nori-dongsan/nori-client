@@ -1,19 +1,15 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { IcDefaultImg, IcDelete } from '../public/assets/icons';
-
-interface IImage {
-  id: number;
-  src: string;
-}
+import { ImgData } from '../types/community';
 
 export default function Write() {
   const [isCategory, setIsCategory] = useState<boolean>(false);
   const [category, setCategory] = useState<string>('후기');
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [images, setImages] = useState<IImage[]>([]);
-
+  const [images, setImages] = useState<ImgData[]>([]);
+  const textRef = useRef<HTMLTextAreaElement>(null);
   const menu = ['후기', '질문', '정보 공유'];
 
   const handleIsCategory = () => {
@@ -31,7 +27,7 @@ export default function Write() {
       return;
     }
 
-    const imageList: IImage[] = [];
+    const imageList: ImgData[] = [];
     let prevId = images.length == 0 ? 0 : images[images.length - 1].id;
     const formData = new FormData();
     Array.from(fileList).map((file) => {
@@ -50,6 +46,7 @@ export default function Write() {
   };
 
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > 30) return;
     setTitle(e.target.value);
   };
 
@@ -57,27 +54,56 @@ export default function Write() {
     setContent(e.target.value);
   };
 
+  const handleResizeHeight = () => {
+    if (textRef.current)
+      textRef.current.style.height = textRef.current.scrollHeight / 10 + 'rem';
+  };
+
   return (
     <StFormMain>
       <StFormSection>
-        <StTitleHeader>글쓰기</StTitleHeader>
         <StFormArticle>
-          <StCategorySelectBox>
+          <StCategorySelectBox isCategory={isCategory}>
             <StCategoryBtn onClick={handleIsCategory}>{category}</StCategoryBtn>
+            {isCategory && (
+              <StCategoryWrapper onClick={handleIsCategory}>
+                <StCategoryList>
+                  {menu.map((item, idx) => (
+                    <StCategoryItem
+                      key={idx}
+                      onClick={() => handleCategory(item)}
+                      isSelected={item === category}
+                    >
+                      {item}
+                    </StCategoryItem>
+                  ))}
+                </StCategoryList>
+              </StCategoryWrapper>
+            )}
           </StCategorySelectBox>
-          <input
-            type="text"
-            value={title}
-            onChange={handleTitle}
-            placeholder="제목"
-          />
+          <StCategoryInputWrapper>
+            <input
+              type="text"
+              value={title}
+              onChange={handleTitle}
+              placeholder="제목"
+            />
+            <span>{`(${title.length} / 30)`}</span>
+          </StCategoryInputWrapper>
           <textarea
+            ref={textRef}
             value={content}
             onChange={handleContent}
-            placeholder="내용을 작성해주세요."
+            onInput={handleResizeHeight}
+            placeholder={
+              category === '후기'
+                ? '우리 아이 장난감 구매 후기를 들려주세요'
+                : category === '질문'
+                ? '궁금한 점을 질문해보세요'
+                : '장난감에 대해 알고 있는 어떤 정보든 공유해주세요!'
+            }
           />
           <StImgSection>
-            <StImgTitleHeader>사진 첨부 (최대 3장)</StImgTitleHeader>
             <StImgInputWrapper>
               <StImgInputLabel htmlFor="input-file">
                 <IcDefaultImg />
@@ -102,18 +128,6 @@ export default function Write() {
           </StImgSection>
         </StFormArticle>
       </StFormSection>
-      <StSubmitBtn>작성완료</StSubmitBtn>
-      {isCategory && (
-        <StCategoryWrapper onClick={handleIsCategory}>
-          <StCategoryList>
-            {menu.map((item, idx) => (
-              <li key={idx} onClick={() => handleCategory(item)}>
-                {item}
-              </li>
-            ))}
-          </StCategoryList>
-        </StCategoryWrapper>
-      )}
     </StFormMain>
   );
 }
@@ -123,90 +137,77 @@ const StFormMain = styled.main`
   flex-direction: column;
   align-items: center;
 
-  padding-top: 4.6rem;
-  padding-bottom: 24rem;
+  padding-top: 6rem;
+  margin-bottom: 12rem;
 `;
 const StFormSection = styled.section`
-  width: 99.6rem;
-`;
-const StTitleHeader = styled.header`
-  padding-bottom: 6.3rem;
-
-  color: #000000;
-  font-weight: 500;
-  font-size: 3.2rem;
-  line-height: 4.6rem;
-
-  text-align: center;
+  width: 77.6rem;
 `;
 const StFormArticle = styled.article`
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  & > input {
-    width: 100%;
-    height: 4rem;
-    padding: 0.8rem 2rem;
-    margin-bottom: 1.4rem;
-
-    border: 1px solid #d9d9d9;
-    border-radius: 0.5rem;
-
-    &::placeholder {
-      color: #999999;
-      font-weight: 500;
-      font-size: 1.6rem;
-      line-height: 2.3rem;
-    }
-  }
 
   & > textarea {
     width: 100%;
-    height: 46.5rem;
-    padding: 1.6rem 1.7rem;
-    margin-bottom: 3.2rem;
+    height: 3.6rem;
+    margin-bottom: 3rem;
 
-    border: 1px solid #d9d9d9;
-    border-radius: 0.5rem;
+    color: ${({ theme }) => theme.colors.black};
+    ${({ theme }) => theme.fonts.b8_20_regular_180}
+
+    overflow-y: hidden;
 
     &::placeholder {
-      color: #999999;
-      font-weight: 500;
-      font-size: 1.6rem;
-      line-height: 2.3rem;
+      color: ${({ theme }) => theme.colors.gray005};
+      ${({ theme }) => theme.fonts.b8_20_regular_180}
     }
   }
 `;
-const StCategorySelectBox = styled.div`
+const StCategoryInputWrapper = styled.div`
+  margin-bottom: 4.5rem;
+
+  border-bottom: 0.093rem solid #d6d6d6;
+
+  & > input {
+    width: 67.2rem;
+    margin-bottom: 1.5rem;
+    margin-right: 3.1rem;
+
+    color: ${({ theme }) => theme.colors.black};
+    ${({ theme }) => theme.fonts.t5_27_regular_130}
+
+    &::placeholder {
+      color: ${({ theme }) => theme.colors.gray006};
+      ${({ theme }) => theme.fonts.t5_27_regular_130}
+    }
+  }
+
+  & > span {
+    color: ${({ theme }) => theme.colors.gray005};
+    ${({ theme }) => theme.fonts.b2_18_medium_130}
+  }
+`;
+
+const StCategorySelectBox = styled.div<{ isCategory: boolean }>`
   position: relative;
 
-  width: 100%;
+  width: 11.9rem;
   height: 4rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 4.8rem;
 
-  border: 1px solid #d9d9d9;
-  border-radius: 0.5rem;
-  background: url('/assets/icons/dropDownIcon.svg') calc(100% - 17px) center
-    no-repeat;
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray004};
+  border-radius: 0.6rem;
+  background: ${({ isCategory }) =>
+      isCategory
+        ? "url('/assets/icons/dropDownIcon2.svg')"
+        : "url('/assets/icons/dropDownIcon1.svg')"}
+    calc(100% - 1.738rem) center no-repeat;
 `;
 const StImgSection = styled.section`
   width: 100%;
-  margin-bottom: 7.4rem;
-
-  overflow: auto;
-  overflow-y: hidden;
 `;
 const StImgInputWrapper = styled.div`
   display: flex;
-`;
-const StImgTitleHeader = styled.header`
-  margin-bottom: 1.3rem;
-
-  color: #999999;
-  font-weight: 500;
-  font-size: 2rem;
-  line-height: 2.9rem;
 `;
 const StImgInputLabel = styled.label`
   display: flex;
@@ -214,22 +215,20 @@ const StImgInputLabel = styled.label`
   align-items: center;
   justify-content: center;
 
-  min-width: 25rem;
-  height: 25rem;
-  margin-right: 2.1rem;
+  min-width: 17.6rem;
+  height: 17.6rem;
+  margin-right: 2.4rem;
 
-  border: 1px solid #d9d9d9;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray002};
 
   cursor: pointer;
 
   & > span {
-    margin-top: 1.2rem;
+    margin-top: 0.587rem;
 
-    color: #999999;
-    font-weight: 500;
-    font-size: 1.9rem;
-    line-height: 2.8rem;
+    color: ${({ theme }) => theme.colors.gray005};
+    ${({ theme }) => theme.fonts.b6_13_medium_120};
   }
 `;
 const StPreviewImgWrapper = styled.div`
@@ -237,32 +236,22 @@ const StPreviewImgWrapper = styled.div`
 `;
 const StIcDelete = styled(IcDelete)`
   position: absolute;
-  top: 1.4rem;
-  right: 3.7rem;
+  top: 1rem;
+  right: 3.4rem;
 
   cursor: pointer;
 `;
 const StPreviewImg = styled.img`
-  width: 25rem;
-  height: 25rem;
-  margin-right: 2.1rem;
+  width: 17.6rem;
+  height: 17.6rem;
 
-  border: 1px solid #d9d9d9;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
 
-  object-fit: fill;
-`;
-const StSubmitBtn = styled.button`
-  width: 79.8rem;
-  height: 5.9rem;
+  object-fit: cover;
 
-  border: 1px solid #1db981;
-  border-radius: 0.5rem;
-  background-color: #1db981;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 2rem;
-  line-height: 2.9rem;
+  &:not(:last-child) {
+    margin-right: 2rem;
+  }
 `;
 const StCategoryBtn = styled.button`
   display: flex;
@@ -270,13 +259,11 @@ const StCategoryBtn = styled.button`
 
   width: inherit;
   height: inherit;
-  padding-left: 2rem;
+  padding-left: 1.8rem;
 
   background: transparent;
-  color: #999999;
-  font-weight: 500;
-  font-size: 1.6rem;
-  line-height: 2.3rem;
+  color: ${({ theme }) => theme.colors.black};
+  ${({ theme }) => theme.fonts.b3_16_medium_140};
 `;
 const StCategoryWrapper = styled.div`
   display: block;
@@ -292,31 +279,29 @@ const StCategoryList = styled.ul`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: 37rem;
-  left: 50%;
+  top: 9.7rem;
+  left: 5.9rem;
   transform: translate(-50%, -50%);
 
-  width: 99.6rem;
+  width: 11.9rem;
+  padding: 1.5rem 1.8rem;
 
-  border: 1px solid #d9d9d9;
-  border-radius: 0.5rem;
-  background-color: white;
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray004};
+  border-radius: 0.491rem;
+  box-shadow: 0.1rem 0.1rem 0.491rem rgba(0, 0, 0, 0.08);
+  background-color: ${({ theme }) => theme.colors.white};
+`;
+const StCategoryItem = styled.li<{ isSelected: boolean }>`
+  width: 100%;
 
-  li {
-    width: 95%;
-    height: 4rem;
-    padding-left: 2rem;
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ isSelected, theme: { colors } }) =>
+    isSelected ? colors.mainDarkgreen : colors.gray007};
+  ${({ theme }) => theme.fonts.b5_14_medium_140}
 
-    background-color: white;
-    color: #999999;
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 4rem;
+  cursor: pointer;
 
-    cursor: pointer;
-  }
-
-  li:not(:last-child) {
-    border-bottom: 1px solid #d9d9d9;
+  &:not(:last-child) {
+    padding-bottom: 1rem;
   }
 `;

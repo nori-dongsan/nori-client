@@ -28,20 +28,24 @@ export default function Footer() {
           </li>
         </StFooterLinkWrapper>
       </StFooterContent>
-      <span>ⓒ 2022 nori, Inc.</span>
+      <StFooterCopyRight>
+        <span>© 2022 nori, Inc.</span>
+      </StFooterCopyRight>
     </StFooterWrapper>
   );
 }
 
 const StFooterWrapper = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   bottom: 0;
 
   width: 100%;
   height: 24.9rem;
-  padding: 0 37.2rem;
 
   border-top: 0.1rem solid ${({ theme }) => theme.colors.gray004};
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.gray001};
 
   span:last-child {
     color: ${({ theme }) => theme.colors.gray008};
@@ -52,9 +56,9 @@ const StFooterContent = styled.div`
   display: flex;
   justify-content: space-between;
 
-  width: 100%;
+  width: 117.6rem;
   height: 18.4rem;
-  padding-right: 8.1rem;
+  padding-right: 7.487rem;
   margin-bottom: 1.6rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
@@ -74,7 +78,7 @@ const StFooterLinkWrapper = styled.ul`
   color: ${({ theme }) => theme.colors.gray008};
 
   & > li {
-    margin-bottom: 1.7rem;
+    margin-bottom: 1.2rem;
 
     & > a {
       ${({ theme }) => theme.fonts.b3_16_medium_140};
@@ -82,5 +86,11 @@ const StFooterLinkWrapper = styled.ul`
   }
 `;
 const StIcNoriFooterLogo = styled(IcNoriFooterLogo)`
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.782rem;
+`;
+const StFooterCopyRight = styled.div`
+  display: flex;
+  justify-content: flex-start;
+
+  width: 117.6rem;
 `;
