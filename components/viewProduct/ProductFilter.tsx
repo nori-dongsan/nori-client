@@ -4,6 +4,7 @@ import React, { EventHandler, useState } from 'react';
 import { IcClose, IcOpen } from '../../public/assets/icons';
 import FilterDropdown from './FilterDropdown';
 
+
 interface ProductFilterIcon {
   title: string;
   value: boolean;
@@ -58,7 +59,6 @@ export default function ProductFilter() {
   };
   const filterListData = Object.values(filterList);
   const filterListKeys = Object.keys(filterList);
-
   const [visibility, setVisibility] = useState<boolean[]>([
     false,
     false,
@@ -94,6 +94,41 @@ export default function ProductFilter() {
           )}
         </StFilterSection>
       ))}
+  const [repeat, setRepeat] = useState<null | number | void | string>();
+  // const handleDrop = (idx: number) => {
+  //   if (visibility[idx]) {
+  //     clearTimeout(repeat);
+  //     setRepeat(null);
+  //     setVisibility({
+  //       ...visibility,
+  //       [idx]: !visibility[idx],
+  //     });
+  //   } else {
+  //     setRepeat(
+  //       setTimeout(() => {
+  //         setVisibility({
+  //           ...visibility,
+  //           [0]: !visibility[0],
+  //         });
+  //         return 0;
+  //       }, 400),
+  //     );
+  //   }
+  // };
+  return (
+    <StFilterWrapper>
+      <StFilterSection isDrop={visibility[0]}>
+        <StFilterTitle>
+          <h2>종류</h2>
+          <IcOpen
+            onClick={() => {
+              setVisibility({
+                ...visibility,
+                [0]: !visibility[0],
+              });
+            }}
+          />
+        </StFilterTitle>
     </StFilterWrapper>
   );
 }
@@ -110,13 +145,19 @@ const StFilterTitle = styled.div`
 `;
 const StFilterSection = styled.section<{ isDrop: boolean }>`
   width: 20rem;
-  height: fit-content;
-  padding: ${({ isDrop }) => (isDrop ? ' 1.7rem 0 0 0' : '1.7rem 0')};
+  height: ${({ isDrop }) => (isDrop ? '23.2rem' : '5.6rem')};
+  padding: 1.7rem 0;
 
   border-bottom: 0.1rem #d9d9d9 solid;
   font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
+`;
+const StFilterExcept = styled.section<{ isDrop: boolean }>`
+  width: 20rem;
+  height: ${({ isDrop }) => (isDrop ? '13.6rem' : '5.6rem')};
+  padding: 1.7rem 0;
 
-  cursor: pointer;
+  border-bottom: 0.1rem #d9d9d9 solid;
+  font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
 `;
 
 function repeat(repeat: any) {
