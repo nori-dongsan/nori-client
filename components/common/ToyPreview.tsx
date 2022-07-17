@@ -51,18 +51,12 @@ const StToyWrapper = styled.article<{ isViewProduct: boolean }>`
 const StImgWrapper = styled.div`
   position: relative;
 `;
-const StToyImg = styled.img<{ isViewProduct: boolean }>`
-  ${({ isViewProduct }) =>
-    isViewProduct
-      ? css`
-          width: 22.4rem;
-          height: 22.4rem;
-        `
-      : css`
-          width: 27.5rem;
-          height: 27.5rem;
-        `}
-  border: 0.2rem solid #e2e2e2;
+
+const StToyImg = styled.img`
+  width: 27.5rem;
+  height: 27.5rem;
+
+  border: 0.1rem solid #e2e2e2;
   border-radius: 0.8rem;
 `;
 

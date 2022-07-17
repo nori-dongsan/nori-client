@@ -7,5 +7,11 @@ export { default as IcNoriFooterLogo } from './noriFooterIcon.svg';
 export { default as IcMainBanner } from './mainBannerIc.svg';
 export { default as IcToyMark } from './toyMark.svg';
 export { default as IcFillToyMark } from './fillToyMark.svg';
+export { default as IcMultiToy } from './multiToyIcon.svg';
+export { default as IcWalkingMachine } from './walkingMachineIcon.svg';
+export { default as IcKitchenPlay } from './kitchenPlayIcon.svg';
 export { default as IcViewProductIcon } from './IcViewProductIcon.svg';
 export { default as IcPriceLine } from './IcPriceLine.svg';
+export { default as IcLoginLine } from './loginLineIc.svg';
+export { default as IcCheckboxUnselected } from './IcCheckboxUnselected.svg';
+
