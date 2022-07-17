@@ -1,3 +1,4 @@
+
 import LocalStorage from '../localStorage';
 import { baseInstance } from '../axios';
 import { PostLoginBody } from '../../types/user';
@@ -17,3 +18,4 @@ export const loginUser = async (userLoginData: PostLoginBody) => {
 export const getRefreshToken = () => {
   return baseInstance.get('/auth/refresh');
 };
+
