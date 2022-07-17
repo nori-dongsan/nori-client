@@ -8,14 +8,18 @@ import styled from '@emotion/styled';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { IcLoginLine } from '../public/assets/icons';
 import Link from 'next/link';
-import { userLogin } from '../core/api/user';
+import { loginUser } from '../core/api/user';
 import { PostLoginBody } from '../types/user';
 import { useEffect, useState } from 'react';
 import LocalStorage from '../core/localStorage';
 import Router from 'next/router';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { userInfoState } from '../core/atom';
 
 export default function login() {
   const { data, status } = useSession();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const resetList = useResetRecoilState(userInfoState);
 
   const handleLogin = async (social: string) => {
     if (data?.user) {
@@ -24,8 +28,10 @@ export default function login() {
         provider: social,
         email: data?.user.email,
       } as PostLoginBody;
-      await userLogin(userLoginData);
-      console.log(await userLogin(userLoginData));
+      const login = await loginUser(userLoginData);
+      // if (login) {
+      //   setUserInfo(userLoginData);
+      // }
     }
   };
 
@@ -56,7 +62,7 @@ export default function login() {
           height={56}
           style={{ padding: '1.5rem' }}
           onClick={() => {
-            signIn('naver');
+            // signIn('naver');
             handleLogin('naver');
           }}
         />
@@ -77,7 +83,7 @@ export default function login() {
           height={56}
           style={{ padding: '1.5rem' }}
           onClick={() => {
-            signIn('google');
+            // signIn('google');
             handleLogin('google');
           }}
         />

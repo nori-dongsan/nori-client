@@ -20,17 +20,20 @@ baseInstance.interceptors.request.use((config) => {
   return { ...config, headers };
 });
 
-baseInstance.interceptors.response.use((response) => {
-  if (response.data) return response.data;
-
-  async (error: { config: any; response: { status: any } }) => {
+baseInstance.interceptors.response.use(
+  async function (res) {
+    console.log('응답');
+    console.log(res);
+    return res;
+  },
+  async function (error: { config: any; response: { status: any } }) {
     const {
       config,
       response: { status },
     } = error;
+    console.log(config);
 
     const originalRequest = config;
-    console.log(originalRequest);
     if (status === 409) {
       // token refresh 요청
       const { data } = await axios.post(
@@ -43,7 +46,6 @@ baseInstance.interceptors.response.use((response) => {
           },
         },
       );
-
       const accessToken = data.data.accessToken;
       const refreshToken = data.data.refreshToken;
 
@@ -57,6 +59,6 @@ baseInstance.interceptors.response.use((response) => {
       return axios(originalRequest);
     }
     return Promise.reject(error);
-  };
-});
+  },
+);
 export { baseInstance };

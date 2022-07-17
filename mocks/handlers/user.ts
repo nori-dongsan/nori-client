@@ -13,11 +13,11 @@ export const postLogin = rest.post('/auth/login', async (req, res, ctx) => {
   );
 
   if (user.length === 0) {
-    return res(ctx.status(401));
+    return res(ctx.status(409));
   }
 
   return res(
-    // ctx.status(200),
+    ctx.status(200),
     ctx.json({
       data: {
         accessToken: 'adsda',
@@ -35,3 +35,6 @@ export const signUp = rest.post('/auth/signup', (req, res, ctx) => {
 
   return userList.length === 0 ? res(ctx.status(201)) : res(ctx.json(409));
 });
+
+// 리프레쉬
+// export const refreshToken

@@ -2,7 +2,7 @@ import LocalStorage from '../localStorage';
 import { baseInstance } from '../axios';
 import { PostLoginBody } from '../../types/user';
 
-export const userLogin = async (userLoginData: PostLoginBody) => {
+export const loginUser = async (userLoginData: PostLoginBody) => {
   const data = await baseInstance.post('/auth/login', userLoginData);
 
   if (data)
