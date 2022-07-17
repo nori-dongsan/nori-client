@@ -14,13 +14,10 @@ export default function community() {
     <StCommunityWrapper>
       <StCommunityTitle>커뮤니티</StCommunityTitle>
       <StSearchBar>
-        <input type="text" />
+        <input type="text" placeholder="궁금한 장난감 정보를 검색해보세요:)" />
         <IcCommunitySearchIcon />
       </StSearchBar>
-      <Link href="/write">
-        <StWriteBtn>글쓰기</StWriteBtn>
-      </Link>
-      {contentList.map(<CommunityList contentsList={contentList} />)}
+      <CommunityList contentsList={[]} />
     </StCommunityWrapper>
   );
 }
@@ -42,32 +39,35 @@ const StSearchBar = styled.div`
   display: flex;
   flex-direction: row;
 
-  width: 64.2rem;
+  width: 57.6rem;
   height: 4.5rem;
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.black};
+  border-bottom: 0.2rem solid ${({ theme }) => theme.colors.gray008};
   margin-bottom: 7.9rem;
 
   input {
+    margin-left: 0.9rem;
+
     width: 60rem;
-    height: 2.5rem;
+    height: 3.3rem;
 
     font-size: 2.5rem;
+
+    color: ${({ theme }) => theme.colors.gray006};
+    ${({ theme }) => theme.fonts.b10_22_regular_150}
+
+    &::placeholder {
+      font-family: Pretandard;
+      color: ${({ theme }) => theme.colors.gray006};
+      ${({ theme }) => theme.fonts.b10_22_regular_150}
+    }
+
+    :focus::placeholder {
+      opacity: 0;
+    }
   }
-`;
-const StWriteBtn = styled.a`
-  padding: 0.9rem 2.5rem;
-  margin-bottom: 3.3rem;
-  margin-left: 85%;
+  & > svg {
+    margin-right: 0.9rem;
 
-  font-style: normal;
-  font-weight: 400;
-  font-size: 2rem;
-  line-height: 2.8rem;
-
-  background-color: #e1ffeb;
-  color: ${({ theme }) => theme.colors.mainDarkgreen};
-  border: 0.2rem solid ${({ theme }) => theme.colors.mainDarkgreen};
-  border-radius: 1rem;
-
-  cursor: pointer;
+    cursor: pointer;
+  }
 `;

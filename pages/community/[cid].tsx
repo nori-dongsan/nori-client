@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Reply } from '../../components/community';
-import { IcComment, IcHeart, IcMenu } from '../../public/assets/icons';
+import { IcReply, IcHeart, IcMenu } from '../../public/assets/icons';
 
 export default function CommunityDetail() {
   const router = useRouter();
@@ -79,7 +79,7 @@ export default function CommunityDetail() {
             </StContent>
             <StReaction>
               <StIconWrapper>
-                <IcComment />
+                <IcReply />
                 <span>12</span>
               </StIconWrapper>
               <StIconWrapper>
