@@ -1,46 +1,70 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { PriceFilter } from '../components/collectionProduct';
-import PageNavigation from '../components/collectionProduct/PageNavigation';
-import { ToyList } from '../components/common';
-import { useState } from 'react';
+import {
+  PriceFilter,
+  PageNavigation,
+  CollectionList,
+} from '../components/collectionProduct';
+import { useEffect, useState } from 'react';
+import { useGetCollectionProduct } from '../core/api/toy';
+import { GetCollectionProduct, ToyData } from '../types/toy';
 
 const limit = 40;
-const totalCount = 361;
-
 export default function collectionProduct() {
   const { query } = useRouter();
   const { collection } = query;
-  const toyList = new Array(10).fill(0);
-  const [currentPage, setCurrentPage] = useState<number>(7);
+  const [toyList, setToyList] = useState<ToyData[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
+  let { productList, isLoading, isError } = useGetCollectionProduct(
+    'price-desc',
+  ) as GetCollectionProduct;
+
+  useEffect(() => {
+    if (productList) {
+      let data = productList as ToyData[];
+      data = data.filter(
+        (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
+      );
+      setToyList(data);
+      window.scrollTo(0, 0);
+    }
+  }, [productList, currentPage]);
+
   return (
     <StCollectionSection>
       <StCollectionTitle>{collection}</StCollectionTitle>
       <PriceFilter />
       <StToyListWrapper>
-        {toyList.map((_, idx) => (
-          <ToyList key={idx} landingCategory="noriPick" length={4} />
-        ))}
+        {toyList.map(
+          (_, idx) =>
+            (idx + 1) % 4 === 0 && (
+              <CollectionList
+                key={idx}
+                toyList={toyList.slice(idx - 3, idx + 1)}
+              />
+            ),
+        )}
       </StToyListWrapper>
-      <PageNavigation
-        currentPage={currentPage}
-        lastPage={Math.ceil(totalCount / limit) + 1}
-        handleCurrentPage={handleCurrentPage}
-      />
+      {!isLoading && !isError && (
+        <PageNavigation
+          currentPage={currentPage}
+          lastPage={Math.ceil(productList.length / limit)}
+          handleCurrentPage={handleCurrentPage}
+        />
+      )}
     </StCollectionSection>
   );
 }
 
 const StCollectionSection = styled.section`
   display: flex;
-  flex-direction: column;
-
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 const StCollectionTitle = styled.text`
   margin: 7.1rem 0rem;

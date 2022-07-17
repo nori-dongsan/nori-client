@@ -7,11 +7,10 @@ import {
 
 export default function PriceFilter() {
   const data = useGetCollectionProduct('price-desc');
-  console.log('낮은 가격순', data);
+
   const handlePriceDesc = () => {};
   const handlePriceAsc = async () => {
     const data = await getCollectionProduct('price-asc');
-    console.log('높은 가격순 ', data);
   };
 
   return (
