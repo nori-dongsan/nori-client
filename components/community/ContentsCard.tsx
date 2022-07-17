@@ -33,6 +33,8 @@ export default function ContentCard(props: ContentInfoProps) {
           <span>{createdAt}</span>
         </StWriteInfo>
         <StReplyInfo>
+          {/* <IcHeart />
+          <span>12</span> */}
           <IcReply />
           <span>{replyCount}</span>
         </StReplyInfo>
@@ -161,5 +163,8 @@ const StReplyInfo = styled.div`
     font-weight: 400;
     font-size: 1.76rem;
     line-height: 2.5rem;
+
+    color: ${({ theme }) => theme.colors.gray008};
+    ${({ theme }) => theme.fonts.b4_15_medium_140};
   }
 `;

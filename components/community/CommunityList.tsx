@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
+// import { useState } from 'react';
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import ContentCard from './ContentsCard';
 import CommunityFloatingBtn from './CommunityFloatingBtn';
 
 export default function CommunityList() {
+  // const [category, setCategory] = useState<string>('모든 글');
+
   return (
     <StCommunityListWrapper>
       <StSearchBar>

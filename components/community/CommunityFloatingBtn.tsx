@@ -30,6 +30,8 @@ const StCommunityFloatingBtnWrapper = styled.section`
   position: sticky;
   top: 43rem;
 
+  height: 30rem;
+  margin-top: 8.8rem;
   margin-left: 3.4rem;
 
   & > svg {
