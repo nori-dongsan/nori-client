@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Reply } from '../../components/community';
-import FloatingBtn from '../../components/community/FloatingBtn';
+import DetailFloatingBtn from '../../components/community/DetailFloatingBtn';
 import { IcExpandImg, IcMenu, IcWriter } from '../../public/assets/icons';
 
 export default function CommunityDetail() {
@@ -99,7 +99,7 @@ export default function CommunityDetail() {
         </StCommunitySection>
         <Reply />
       </StDetailSection>
-      <FloatingBtn heartNum={24} replyNum={24} />
+      <DetailFloatingBtn heartNum={24} replyNum={24} />
       {isExpanded && (
         <StExpandedImgWrapper onClick={handleExpanded}>
           <StExpandedImg

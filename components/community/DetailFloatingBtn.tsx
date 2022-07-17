@@ -1,16 +1,12 @@
 import styled from '@emotion/styled';
-import {
-  IcDetailHeart,
-  IcDetailReply,
-  IcDetailTop,
-} from '../../public/assets/icons';
+import { IcHeartBtn, IcReplyBtn, IcTopBtn } from '../../public/assets/icons';
 
-interface FloatingBtnProps {
+interface DetailFloatingBtnProps {
   heartNum: number;
   replyNum: number;
 }
 
-export default function FloatingBtn(props: FloatingBtnProps) {
+export default function DetailFloatingBtn(props: DetailFloatingBtnProps) {
   const { heartNum, replyNum } = props;
 
   const handleTopScroll = () => {
@@ -25,14 +21,14 @@ export default function FloatingBtn(props: FloatingBtnProps) {
   return (
     <StFloatingBtnWrapper>
       <StIconWrapper>
-        <IcDetailHeart />
+        <IcHeartBtn />
         <span>{heartNum}</span>
       </StIconWrapper>
       <StIconWrapper>
-        <IcDetailReply />
+        <IcReplyBtn />
         <span>{replyNum}</span>
       </StIconWrapper>
-      <IcDetailTop onClick={handleTopScroll} />
+      <IcTopBtn onClick={handleTopScroll} />
     </StFloatingBtnWrapper>
   );
 }
