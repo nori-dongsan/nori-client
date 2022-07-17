@@ -96,6 +96,10 @@ const StSearchBar = styled.div`
   background: ${({ theme }) => theme.colors.white_opacity_14};
   border-radius: 0.8rem;
 
+  & > svg {
+    cursor: pointer;
+  }
+
   input {
     height: 2.2rem;
     width: 22rem;
