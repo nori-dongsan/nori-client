@@ -15,3 +15,4 @@ export { default as IcHeart } from './heartIcon.svg';
 export { default as IcWriteHeaderLogo } from './writeHeaderIcon.svg';
 export { default as IcWriteBtn } from './writeBtnIcon.svg';
 export { default as IcTopBtn } from './topBtnIcon.svg';
+export { default as IcDot } from './dotIcon.svg';

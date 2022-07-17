@@ -30,3 +30,9 @@ export interface PostCommentBody {
   boardId: string;
   content: string;
 }
+
+export interface GetCommunityList {
+  communityList: CommunityData[];
+  isLoading: boolean;
+  isError: string;
+}

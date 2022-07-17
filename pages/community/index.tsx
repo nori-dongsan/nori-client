@@ -2,14 +2,15 @@ import styled from '@emotion/styled';
 import { CommunityList } from '../../components/community';
 import CommunityFloatingBtn from '../../components/community/CommunityFloatingBtn';
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
-import Link from 'next/link';
-import { useState } from 'react';
-import { useGetCommunityList } from '../../core/api/communityList';
-import { CommunityData } from '../../types/community';
+import { useEffect, useState } from 'react';
+import { getCommunityList } from '../../mocks/handlers/community';
+import { CommunityData, GetCommunityList } from '../../types/community';
 
 export default function community() {
   const [contentList, setContentList] = useState<CommunityData[]>([]);
   // const [currentPage, setCurrentPage] = useState<number>();
+
+  useEffect;
 
   return (
     <StCommunityWrapper>
@@ -20,7 +21,9 @@ export default function community() {
       </StSearchBar>
       <StMainArticle>
         <StFloatingBlock />
-        <CommunityList contentsList={[]} />
+        {contentList.map(() => (
+          <CommunityList contentsList={contentList} />
+        ))}
         <CommunityFloatingBtn />
       </StMainArticle>
     </StCommunityWrapper>
