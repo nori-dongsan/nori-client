@@ -40,6 +40,16 @@ export default function ToyList(props: ToyListProps) {
 
 const StToyListWrapper = styled.section`
   display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const StPopularityWrapper = styled.article`
+  margin: 0rem 2.1rem;
+  transition: all 0.2s linear;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 const StPopularityWrapper = styled.article`
   margin: 0rem 2.1rem;

@@ -1,6 +1,8 @@
+export { default as IcClose } from './IcClose.svg';
+export { default as IcOpen } from './IcOpen.svg';
+export { default as IcCheckbox } from './IcCheckbox.svg';
 export { default as IcNoriHeaderLogo } from './noriHeaderIcon.svg';
 export { default as IcSearchIcon } from './searchIcon.svg';
-export { default as IcPlus } from './IcPlus.svg';
 export { default as IcNoriFooterLogo } from './noriFooterIcon.svg';
 export { default as IcMainBanner } from './mainBannerIc.svg';
 export { default as IcToyMark } from './toyMark.svg';
@@ -13,3 +15,8 @@ export { default as IcLeftArrow } from './leftArrowFill.svg';
 export { default as IcRightArrow } from './rightArrow.svg';
 export { default as IcRightArrowFill } from './rightArrowFill.svg';
 export { default as IcPriceLine } from './IcPriceLine.svg';
+export { default as IcViewProductIcon } from './IcViewProductIcon.svg';
+export { default as IcPriceLine } from './IcPriceLine.svg';
+export { default as IcLoginLine } from './loginLineIc.svg';
+export { default as IcCheckboxUnselected } from './IcCheckboxUnselected.svg';
+
