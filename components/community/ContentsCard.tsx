@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcReply, IcHeart } from '../../public/assets/icons';
+import { IcReply, IcHeart, IcDot } from '../../public/assets/icons';
 
 interface ContentInfoProps {
   category: string;
@@ -30,6 +30,7 @@ export default function ContentCard(props: ContentInfoProps) {
         <p>{content}</p>
         <StWriteInfo>
           <span>{userNickname}</span>
+          <IcDot />
           <span>{createdAt}</span>
         </StWriteInfo>
         <StReplyInfo>
@@ -127,10 +128,14 @@ const StContentImg = styled.img`
   border-radius: 0.5rem;
 `;
 const StWriteInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
   margin-bottom: 1.2rem;
 
   span:first-child {
-    margin-right: 1.3rem;
+    margin-right: 1rem;
 
     font-style: normal;
     font-weight: 500;
@@ -142,6 +147,8 @@ const StWriteInfo = styled.div`
   }
 
   span:last-child {
+    margin-left: 1rem;
+
     font-style: normal;
     font-weight: 350;
     font-size: 1.7rem;
