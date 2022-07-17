@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import keyframes from '@emotion/react';
-
 import ToyPreview from './ToyPreview';
 
 interface ToyListProps {
@@ -8,6 +7,7 @@ interface ToyListProps {
   length: number;
   isViewProduct: boolean;
 }
+
 export default function ToyList(props: ToyListProps) {
   const { landingCategory, length, isViewProduct } = props;
   const toyList = new Array(length).fill(0);

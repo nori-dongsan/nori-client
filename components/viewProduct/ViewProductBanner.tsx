@@ -5,17 +5,17 @@ import { IcViewProductIcon } from '../../public/assets/icons';
 // interface ViewProductProps {
 //   onClick: MouseCli;
 // }
+
 export default function ViewProductBanner() {
   //상품보기 뷰 배너 아이콘 요소 배열
   const productIcons = [
-    '전체',
-    '쏘서, 점퍼루',
-    '걸음마 보조기',
-    '실내 놀이터',
-    '작은 장난감',
-    '바운스',
-    '승용완구',
-    '역할놀이',
+    '전체 상품',
+    '신생아 완구',
+    '걸음마 준비 완구',
+    '학습 완구',
+    '실내 대형 완구',
+    '승용 완구',
+    '역할놀이 완구',
   ];
   const [isClicked, setIsClicked] = useState<boolean[]>([
     true,
@@ -41,7 +41,7 @@ export default function ViewProductBanner() {
               onClick={() => {
                 handleProductIcon(idx);
               }}
-              key={idx}
+              key={item}
               isClicked={isClicked[idx]}
             >
               <IcViewProductIcon />

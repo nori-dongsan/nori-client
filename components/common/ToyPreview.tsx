@@ -11,6 +11,7 @@ interface ToyPreviewProps {
   age: string;
   isViewProduct: boolean;
 }
+
 export default function ToyPreview(props: ToyPreviewProps) {
   const { src, store, title, price, age, isViewProduct } = props;
   const [isMark, setIsMark] = useState(false);
@@ -36,9 +37,13 @@ export default function ToyPreview(props: ToyPreviewProps) {
     </StToyWrapper>
   );
 }
+
 const StToyWrapper = styled.article<{ isViewProduct: boolean }>`
   display: flex;
   flex-direction: column;
+
+  margin: 0rem 1.25rem;
+
   ${({ isViewProduct }) =>
     isViewProduct
       ? css`
@@ -52,20 +57,12 @@ const StImgWrapper = styled.div`
   position: relative;
 `;
 const StToyImg = styled.img<{ isViewProduct: boolean }>`
-  ${({ isViewProduct }) =>
-    isViewProduct
-      ? css`
-          width: 22.4rem;
-          height: 22.4rem;
-        `
-      : css`
-          width: 27.5rem;
-          height: 27.5rem;
-        `}
-  border: 0.2rem solid #e2e2e2;
+  width: 27.5rem;
+  height: 27.5rem;
+
+  border: 0.1rem solid #e2e2e2;
   border-radius: 0.8rem;
 `;
-
 const StToyMarkWrapper = styled.div<{ isViewProduct: boolean }>`
   position: absolute;
   ${({ isViewProduct }) =>
@@ -96,7 +93,6 @@ const StStore = styled.div`
   font-size: 1.4rem;
   color: #a9a9a9;
 `;
-
 const StTitle = styled.div`
   width: 22.4rem;
   margin-top: 0.8rem;
@@ -106,7 +102,6 @@ const StTitle = styled.div`
   align-items: center;
   color: #000000;
 `;
-
 const StPrice = styled.div`
   width: 22.4rem;
   margin-top: 1.3rem;
@@ -116,7 +111,6 @@ const StPrice = styled.div`
     content: '원';
   }
 `;
-
 const StAge = styled.div`
   width: fit-content;
   padding: 0.3rem 1rem 0.4rem;

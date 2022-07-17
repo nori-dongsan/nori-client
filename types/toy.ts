@@ -8,3 +8,9 @@ export interface ToyData {
   playHow: number;
   type: number;
 }
+
+export interface GetCollectionProduct {
+  productList: ToyData[];
+  isLoading: boolean;
+  isError: string;
+}

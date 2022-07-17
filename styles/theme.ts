@@ -21,7 +21,7 @@ const colors = {
   gray007: '#9D9D9D',
   gray008: '#787878',
   gray009: '#636363',
-  black: '#636363',
+  black: '#1F2220',
 };
 
 interface Font {
@@ -48,6 +48,11 @@ const fonts = {
   t3_19_medium_130: FONT({ weight: 500, size: 1.8, height: 2.47, spacing: 0 }),
   t4_18_semibold_150: FONT({ weight: 600, size: 1.8, height: 2.7, spacing: 0 }),
   t4_18_regular_150: FONT({ weight: 400, size: 1.8, height: 2.7, spacing: 0 }),
+  t5_27_regular_130: FONT({ weight: 400, size: 2.7, height: 3.51, spacing: 0 }),
+  t5_27_medium_150: FONT({ weight: 500, size: 2.7, height: 4.05, spacing: 0 }),
+  t6_17_medium_130: FONT({ weight: 500, size: 1.7, height: 2.21, spacing: 0 }),
+  t6_17_regular_140: FONT({ weight: 400, size: 1.7, height: 2.38, spacing: 0 }),
+  t6_17_regular_170: FONT({ weight: 400, size: 1.7, height: 2.89, spacing: 0 }),
   b1_20_bold_140: FONT({ weight: 700, size: 2, height: 2.8, spacing: 0 }),
   b2_18_bold_140: FONT({ weight: 700, size: 1.8, height: 2.52, spacing: 0 }),
   b2_18_medium_130: FONT({ weight: 500, size: 1.8, height: 2.34, spacing: 0 }),
@@ -66,6 +71,18 @@ const fonts = {
     height: 2.19,
     spacing: 0,
   }),
+  b4_15_medium_140: FONT({
+    weight: 500,
+    size: 1.5,
+    height: 2.1,
+    spacing: 0,
+  }),
+  b4_15_regular_146: FONT({
+    weight: 400,
+    size: 1.5,
+    height: 2.19,
+    spacing: 0,
+  }),
   b5_14_semibold_140: FONT({
     weight: 600,
     size: 1.4,
@@ -73,10 +90,19 @@ const fonts = {
     spacing: 0,
   }),
   b5_14_medium_140: FONT({ weight: 500, size: 1.4, height: 1.96, spacing: 0 }),
+  b5_14_regular_140: FONT({ weight: 400, size: 1.4, height: 1.96, spacing: 0 }),
   b6_13_medium_120: FONT({ weight: 500, size: 1.3, height: 1.56, spacing: 0 }),
   b7_12_bold_120: FONT({ weight: 700, size: 1.2, height: 1.44, spacing: 0 }),
   b7_12_medium_140: FONT({ weight: 500, size: 1.2, height: 1.68, spacing: 0 }),
   b7_12_regular_120: FONT({ weight: 400, size: 1.2, height: 1.44, spacing: 0 }),
+  b8_20_regular_180: FONT({ weight: 400, size: 2, height: 3.6, spacing: 0 }),
+  b9_24_medium_150: FONT({ weight: 500, size: 2.4, height: 3.6, spacing: 0 }),
+  b10_22_regular_150: FONT({
+    weight: 400,
+    size: 2.2,
+    height: 3.3,
+    spacing: 0,
+  }),
 };
 
 const theme: Theme = {
