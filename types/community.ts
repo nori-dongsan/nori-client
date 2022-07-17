@@ -1,3 +1,6 @@
+export interface ImgData {
+  id: number;
+  src: string;
 // 댓글
 export interface ReplyData {
   userNickname?: string;
@@ -24,7 +27,6 @@ export interface PostCommunityBody {
   content: string;
   imageList?: string[];
 }
-
 // 커뮤니티 댓글
 export interface PostCommentBody {
   boardId: string;
