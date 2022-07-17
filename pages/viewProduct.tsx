@@ -2,13 +2,48 @@ import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
 import styled from '@emotion/styled';
 import { IcPriceLine } from '../public/assets/icons';
 import { useState } from 'react';
-import { ToyList } from '../components/viewProduct';
+
+import { ToyList } from '../components/common';
+import {
+  LandingViewProductBanner,
+  LandingToyList,
+  LandingPriceSort,
+  LandingProductFilter,
+} from '../components/landing/viewProduct';
 
 export default function viewProduct() {
+  //default는 낮은 가격순
+  const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
+  // useSWR로 로딩 판단할 것임
+  const isLoading = false;
+
   return (
     <StViewProductWrapper>
-      <StSelectBar>
-        <ViewProductBanner />
+      {isLoading ? (
+        <>
+          <LandingViewProductBanner />
+          <StFilterSectionWrapper>
+            <LandingProductFilter />
+            <StContentSection>
+              <StFilterBarWrapper>
+                <LandingPriceSort />
+              </StFilterBarWrapper>
+              <StToyListWrapper>
+                <LandingToyList />
+                <LandingToyList />
+                <LandingToyList />
+              </StToyListWrapper>
+            </StContentSection>
+          </StFilterSectionWrapper>
+        </>
+      ) : (
+        <>
+          <ViewProductBanner />
+          <StFilterSectionWrapper>
+            <ProductFilter />
+
+            {/* <<<<<<< HEAD
+        <ProductFilter />
         <StPriceSort>
           <StPriceStandard
             onClick={() => {
@@ -34,17 +69,43 @@ export default function viewProduct() {
             높은 가격순
           </StPriceStandard>
         </StPriceSort>
-      </StSelectBar>
-      <StSection>
-        <ProductFilter />
-        <StToyListWrapper>
-          {/* mocking 후 반복문으로 수정 */}
-          <ToyList length={4} />
-          <ToyList length={4} />
-          <ToyList length={4} />
-          <ToyList length={4} />
-        </StToyListWrapper>
-      </StSection>
+
+      </StFilterBarWrapper> */}
+
+            <StContentSection>
+              <StFilterBarWrapper>
+                <StPriceSort>
+                  <h3>낮은 가격순</h3>
+                  <IcPriceLine />
+                  <h3>높은 가격순</h3>
+                </StPriceSort>
+              </StFilterBarWrapper>
+              <StToyListWrapper>
+                <ToyList
+                  isViewProduct={true}
+                  landingCategory="viewProduct"
+                  length={4}
+                />
+                <ToyList
+                  isViewProduct={true}
+                  landingCategory="viewProduct"
+                  length={4}
+                />
+                <ToyList
+                  isViewProduct={true}
+                  landingCategory="viewProduct"
+                  length={4}
+                />
+                <ToyList
+                  isViewProduct={true}
+                  landingCategory="viewProduct"
+                  length={4}
+                />
+              </StToyListWrapper>
+            </StContentSection>
+          </StFilterSectionWrapper>
+        </>
+      )}
     </StViewProductWrapper>
   );
 }
@@ -64,6 +125,14 @@ const StViewProductWrapper = styled.div`
 `;
 */
 
+const StFilterSectionWrapper = styled.section`
+  display: flex;
+`;
+const StFilterBarWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const StPriceSort = styled.div`
   display: flex;
   align-items: center;
@@ -82,8 +151,9 @@ const StPriceStandard = styled.h3<{ isClicked: boolean }>`
     isClicked ? colors.black : colors.gray005};
 `;
 
-const StSection = styled.section`
+const StContentSection = styled.section`
   display: flex;
+  flex-direction: column;
 `;
 const StToyListWrapper = styled.section`
   display: flex;
