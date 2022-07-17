@@ -1,6 +1,6 @@
 import axios from 'axios';
 import LocalStorage from './localStorage';
-// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const baseInstance = axios.create({
   baseURL: `/`,
@@ -15,10 +15,12 @@ baseInstance.interceptors.request.use((config) => {
     ...config.headers,
     accessToken: LocalStorage.getItem('accessToken'),
     refreshToken: LocalStorage.getItem('refreshToken'),
+
   };
 
   return { ...config, headers };
 });
+
 
 baseInstance.interceptors.response.use(
   async function (res) {
@@ -61,4 +63,5 @@ baseInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
 export { baseInstance };

@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { IcFillToyMark, IcToyMark } from '../../public/assets/icons';
@@ -9,22 +8,18 @@ interface ToyPreviewProps {
   title: string;
   price: number;
   age: string;
-  isViewProduct: boolean;
 }
 export default function ToyPreview(props: ToyPreviewProps) {
-  const { src, store, title, price, age, isViewProduct } = props;
+  const { src, store, title, price, age } = props;
   const [isMark, setIsMark] = useState(false);
   const handleToyMark = () => {
     setIsMark((prev) => !prev);
   };
   return (
-    <StToyWrapper isViewProduct={isViewProduct}>
+    <StToyWrapper>
       <StImgWrapper>
-        <StToyImg
-          isViewProduct={isViewProduct}
-          src="https://www.littlebaby.co.kr:14019/shop/data/goods/1632018070797m0.jpg"
-        />
-        <StToyMarkWrapper isViewProduct={isViewProduct} onClick={handleToyMark}>
+        <StToyImg src={src} />
+        <StToyMarkWrapper onClick={handleToyMark}>
           <StToyMark />
           {isMark && <StFillToyMark />}
         </StToyMarkWrapper>
@@ -36,45 +31,28 @@ export default function ToyPreview(props: ToyPreviewProps) {
     </StToyWrapper>
   );
 }
-const StToyWrapper = styled.article<{ isViewProduct: boolean }>`
+const StToyWrapper = styled.article`
   display: flex;
   flex-direction: column;
 
   margin: 0rem 1.25rem;
-
-  ${({ isViewProduct }) =>
-    isViewProduct
-      ? css`
-          margin: 0rem 1rem;
-        `
-      : css`
-          margin: 0rem 1.25rem;
-        `}
 `;
 const StImgWrapper = styled.div`
   position: relative;
 `;
-
 const StToyImg = styled.img`
   width: 27.5rem;
   height: 27.5rem;
 
-  border: 0.1rem solid #e2e2e2;
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray005}
   border-radius: 0.8rem;
+  background : ${({ theme }) => theme.colors.gray002};
 `;
 
-const StToyMarkWrapper = styled.div<{ isViewProduct: boolean }>`
+const StToyMarkWrapper = styled.div`
   position: absolute;
-  ${({ isViewProduct }) =>
-    isViewProduct
-      ? css`
-          top: 1.2rem;
-          left: 19rem;
-        `
-      : css`
-          top: 1.7rem;
-          left: 23.6rem;
-        `}
+  top: 1.8rem;
+  left: 22.9rem;
 `;
 const StToyMark = styled(IcToyMark)`
   position: absolute;
@@ -87,40 +65,41 @@ const StFillToyMark = styled(IcFillToyMark)`
   left: 0.2rem;
 `;
 const StStore = styled.div`
-  width: 22.4rem;
-  margin-top: 1.6rem;
-  font-weight: 500;
-  font-size: 1.4rem;
-  color: #a9a9a9;
+  margin-top: 1.4rem;
+
+  color: ${({ theme }) => theme.colors.gray006};
+  ${({ theme }) => theme.fonts.b3_16_medium_140};
 `;
 
 const StTitle = styled.div`
-  width: 22.4rem;
-  margin-top: 0.8rem;
-  font-weight: 400;
-  font-size: 1.6rem;
   display: flex;
   align-items: center;
-  color: #000000;
+
+  width: 27.5rem;
+  margin-top: 0.6rem;
+
+  color: ${({ theme }) => theme.colors.black};
+  ${({ theme }) => theme.fonts.b2_18_medium_130};
 `;
 
 const StPrice = styled.div`
-  width: 22.4rem;
-  margin-top: 1.3rem;
-  font-weight: 700;
-  font-size: 1.9rem;
+  margin-top: 0.6rem;
+
   :after {
     content: '원';
   }
+  color: ${({ theme }) => theme.colors.black};
+  ${({ theme }) => theme.fonts.t3_19_bold_140};
 `;
 
 const StAge = styled.div`
   width: fit-content;
-  padding: 0.3rem 1rem 0.4rem;
-  margin-top: 0.8rem;
-  background: #ffe766;
-  border-radius: 0.4rem;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 141%;
+  padding: 0.4rem 0.9rem 0.5rem;
+  margin-top: 0.4rem;
+  gap: 0.2rem;
+
+  border-radius: 0.5rem;
+  background: ${({ theme }) => theme.colors.subYellow};
+  color: ${({ theme }) => theme.colors.black};
+  ${({ theme }) => theme.fonts.b6_13_medium_120};
 `;

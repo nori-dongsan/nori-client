@@ -52,6 +52,7 @@ const StPopularityWrapper = styled.article`
   }
 `;
 const StPopularityWrapper = styled.article`
+  margin: 0rem 2.1rem;
   transition: all 0.2s linear;
 
   &:hover {
