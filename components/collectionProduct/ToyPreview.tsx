@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import {
@@ -10,7 +11,7 @@ interface ToyPreviewProps {
   store: string;
   title: string;
   price: number;
-  age: string;
+  age?: string;
 }
 export default function ToyPreview(props: ToyPreviewProps) {
   const { src, store, title, price, age } = props;
@@ -18,6 +19,7 @@ export default function ToyPreview(props: ToyPreviewProps) {
   const handleToyMark = () => {
     setIsMark((prev) => !prev);
   };
+
   return (
     <StToyWrapper>
       <StImgWrapper>
@@ -30,7 +32,7 @@ export default function ToyPreview(props: ToyPreviewProps) {
       <StStore>{store}</StStore>
       <StTitle>{title}</StTitle>
       <StPrice>{price.toLocaleString()}</StPrice>
-      <StAge>{age}</StAge>
+      <StAge isAge={Boolean(age)}>{age}</StAge>
     </StToyWrapper>
   );
 }
@@ -40,7 +42,7 @@ const StToyWrapper = styled.article`
   flex-direction: column;
 
   width: 27.5rem;
-  margin: 0rem 1.25rem;
+  margin: 0rem 1.25rem 6.5rem 0;
 `;
 const StImgWrapper = styled.div`
   position: relative;
@@ -95,7 +97,7 @@ const StPrice = styled.div`
     content: '원';
   }
 `;
-const StAge = styled.div`
+const StAge = styled.div<{ isAge: boolean }>`
   width: fit-content;
   padding: 0.4rem 0.9rem 0.5rem;
   margin-top: 0.4rem;
@@ -104,4 +106,10 @@ const StAge = styled.div`
   background: ${({ theme }) => theme.colors.subYellow};
   border-radius: 0.5rem;
   ${({ theme }) => theme.fonts.b6_13_medium_120};
+
+  ${({ isAge }) =>
+    !isAge &&
+    css`
+      visibility: hidden;
+    `}
 `;
