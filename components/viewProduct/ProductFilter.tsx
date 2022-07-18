@@ -110,6 +110,7 @@ export default function ProductFilter() {
           {visibility[idx] && (
             <FilterDropdown
               categoryInfo={filterListData[idx]}
+              categoryIdx={idx}
               isExcept={idx == 3 ? true : false}
               isDrop={visibility[idx]}
             />

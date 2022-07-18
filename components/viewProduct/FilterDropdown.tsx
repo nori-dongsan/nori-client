@@ -1,23 +1,52 @@
 import styled from '@emotion/styled';
 import { IcCheckbox } from '../../public/assets/icons';
-import { useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  DetailedHTMLProps,
+  DOMAttributes,
+  HTMLAttributes,
+  MouseEventHandler,
+  useRef,
+  useState,
+} from 'react';
 import { FilterDropdownProps } from '../../types/viewProduct';
+import theme from '../../styles/theme';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
   const { categoryInfo, isDrop, isExcept } = props;
+  const [checkedItems, setCheckedItems] = useState<Set<number>>(
+    new Set<number>(),
+  );
 
+  const handleCheckedItem = (idx: number) => {
+    if (checkedItems.has(idx)) {
+      checkedItems.delete(idx);
+      setCheckedItems(checkedItems);
+      console.log(checkedItems);
+    } else {
+      checkedItems.add(idx);
+      setCheckedItems(checkedItems);
+      console.log(checkedItems);
+    }
+  };
   return (
     <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
-      {categoryInfo.map((sort: string) => {
+      {categoryInfo.map((sort: string, idx: number) => {
         return (
-          <StLabel htmlFor={sort} key={sort}>
+          <StLabel
+            htmlFor={sort}
+            key={sort}
+            onClick={(e) => handleCheckedItem(idx)}
+          >
             <StInput
               type="checkbox"
               id={sort}
               name={sort}
               className="checkBox"
             />
-            <p>{sort}</p>
+            <StFilterElement checked={checkedItems.has(idx)}>
+              {sort}
+            </StFilterElement>
           </StLabel>
         );
       })}
@@ -43,14 +72,14 @@ const StLabel = styled.label`
   gap: 1rem;
 
   cursor: pointer;
-  & > p {
-    width: 15.2rem;
-    height: 2rem;
+`;
+const StFilterElement = styled.p<{ checked: boolean }>`
+  width: 15.2rem;
+  height: 2rem;
 
-    color: ${({ isClicked, theme: { colors } }) =>
-      isClicked ? colors.mainGreen : colors.gray008};
-    ${({ theme }) => theme.fonts.b5_14_medium_140};
-  }
+  color: ${({ checked, theme: { colors } }) =>
+    checked ? colors.black : colors.gray008};
+  ${({ theme }) => theme.fonts.b5_14_medium_140};
 `;
 const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
   display: flex;
