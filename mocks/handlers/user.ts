@@ -36,7 +36,7 @@ export const signUp = rest.put('/auth/signup', (req, res, ctx) => {
 
   return userList.length === 0
     ? res(
-        ctx.status(201),
+        ctx.status(200),
         ctx.json({
           success: true,
           message: '회원 가입 성공',
