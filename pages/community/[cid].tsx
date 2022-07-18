@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Reply } from '../../components/community';
+import CommunityCategory from '../../components/community/CommunityCategory';
 import DetailFloatingBtn from '../../components/community/DetailFloatingBtn';
 import { IcExpandImg, IcMenu, IcWriter } from '../../public/assets/icons';
 
@@ -37,9 +38,7 @@ export default function CommunityDetail() {
       <StDetailSection>
         <StCommunitySection>
           <StCommunityArticle>
-            <StCommunityCategory>
-              <span>후기</span>
-            </StCommunityCategory>
+            <CommunityCategory category="후기" />
             <StCommunityHeader>
               역시 그린키드 미끄럼틀 아이가 좋아하네요
             </StCommunityHeader>
@@ -127,6 +126,7 @@ const StCommunitySection = styled.section`
   margin-bottom: 5.7rem;
 `;
 const StCommunityHeader = styled.header`
+  margin-top: 1.2rem;
   margin-bottom: 2rem;
 
   color: ${({ theme }) => theme.colors.black};
@@ -135,21 +135,6 @@ const StCommunityHeader = styled.header`
 const StCommunityArticle = styled.article`
   display: flex;
   flex-direction: column;
-`;
-const StCommunityCategory = styled.div`
-  margin-bottom: 1.2rem;
-
-  & > span {
-    padding: 0.3rem 1.35rem;
-
-    border-radius: 1.9rem;
-    background-color: ${({ theme }) => theme.colors.mainDarkgreen};
-    color: ${({ theme }) => theme.colors.white};
-
-    ${({ theme }) => theme.fonts.b5_14_medium_140}
-
-    text-align: center;
-  }
 `;
 const StCommunityInfoWrapper = styled.div`
   display: flex;
