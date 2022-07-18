@@ -4,10 +4,10 @@ import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 
 export default function Header() {
   return (
-    <StHeaderWrapper>
+    <StHeaderWrapper className="mainHeader">
       <StTopLink>
         <p>
-          <a>고객센터</a> | <a>마이페이지</a> | <a>로그인</a>
+          <a>고객센터</a> | <a>마이페이지</a> | <a href="/login">로그인</a>
         </p>
       </StTopLink>
       <StHeaderContents>

@@ -18,11 +18,18 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <Global styles={resetStyle} />
         <Global styles={GlobalStyle} />
-        {router.pathname === '/write' ? <WriteHeader /> : <Header />}
+        {router.pathname === '/write' ? (
+          <WriteHeader />
+        ) : (
+          router.pathname !== '/login' &&
+          router.pathname !== '/signup' && <Header />
+        )}
         <SessionProvider session={pageProps.session}>
           <Component {...pageProps} />
         </SessionProvider>
-        <Footer />
+        {router.pathname !== '/login' && router.pathname !== '/signup' && (
+          <Footer />
+        )}
       </ThemeProvider>
     </RecoilRoot>
   );

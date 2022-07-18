@@ -149,9 +149,10 @@ export const GlobalStyle = css`
   }
 
   body,
-  html {
+  html,
+  div#__next {
     width: 100%;
-    height: auto;
+    height: 100%;
     font-family: Pretendard;
     font-size: 62.5%;
   }
