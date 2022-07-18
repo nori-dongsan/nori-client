@@ -3,3 +3,7 @@ export interface FilterDropdownProps {
   isDrop: boolean;
   isExcept: boolean;
 }
+
+export interface ProductFilter {
+  tagName: string;
+}

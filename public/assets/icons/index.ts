@@ -37,3 +37,4 @@ export { default as IcViewBookmarkSelected } from './ic_bookmark_selected_40.svg
 export { default as IcViewBookmarkUnselected } from './ic_bookmark_unselected_40.svg';
 export { default as IcMainBookmarkSelected } from './ic_bookmark_selected_48.svg';
 export { default as IcMainBookmarkUnselected } from './ic_bookmark_unselected_48.svg';
+export { default as IcDeleteTag } from './delete_circle.svg';

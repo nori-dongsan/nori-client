@@ -1,4 +1,8 @@
-import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
+import {
+  FilterTag,
+  ProductFilter,
+  ViewProductBanner,
+} from '../components/viewProduct';
 import styled from '@emotion/styled';
 import { IcPriceLine } from '../public/assets/icons';
 import { useState } from 'react';
@@ -46,6 +50,7 @@ export default function viewProduct() {
         </>
       ) : (
         <>
+          <FilterTag tagName={'노리가 최고다 노리가 최고다'} />
           <ViewProductBanner />
           <StFilterSectionWrapper>
             <ProductFilter />
