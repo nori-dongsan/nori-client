@@ -13,40 +13,45 @@ import { FilterDropdownProps } from '../../types/viewProduct';
 import theme from '../../styles/theme';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
-  const { categoryInfo, isDrop, isExcept } = props;
-  const [checkedItems, setCheckedItems] = useState<Set<number>>(
+  const { categoryInfo, isDrop, isExcept, categoryIdx } = props;
+  const [checkedItems, setCheckedItems] = useState<Set<number>[]>([
     new Set<number>(),
-  );
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+  ]);
 
-  const handleCheckedItem = (idx: number) => {
-    if (checkedItems.has(idx)) {
-      checkedItems.delete(idx);
-      setCheckedItems(checkedItems);
-      console.log(checkedItems);
+  const handleCheckedItem = (categoryIdx: number, elementIdx: number) => {
+    console.log(elementIdx);
+    if (checkedItems[categoryIdx].has(elementIdx)) {
+      checkedItems[categoryIdx].delete(elementIdx);
+      setCheckedItems({
+        ...checkedItems,
+        [categoryIdx]: checkedItems[categoryIdx],
+      });
+      console.log(checkedItems[categoryIdx]);
     } else {
-      checkedItems.add(idx);
-      setCheckedItems(checkedItems);
+      checkedItems[categoryIdx].add(elementIdx);
+
+      setCheckedItems({
+        ...checkedItems,
+        [categoryIdx]: checkedItems[categoryIdx],
+      });
       console.log(checkedItems);
     }
   };
   return (
     <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
-      {categoryInfo.map((sort: string, idx: number) => {
+      {categoryInfo.map((sort: string, elementIdx: number) => {
         return (
           <StLabel
             htmlFor={sort}
             key={sort}
-            onClick={(e) => handleCheckedItem(idx)}
+            onChange={() => handleCheckedItem(categoryIdx, elementIdx)}
           >
-            <StInput
-              type="checkbox"
-              id={sort}
-              name={sort}
-              className="checkBox"
-            />
-            <StFilterElement checked={checkedItems.has(idx)}>
-              {sort}
-            </StFilterElement>
+            <StInput type="checkbox" id={sort} name={sort} />
+            <StFilterElement>{sort}</StFilterElement>
           </StLabel>
         );
       })}
@@ -73,12 +78,12 @@ const StLabel = styled.label`
 
   cursor: pointer;
 `;
-const StFilterElement = styled.p<{ checked: boolean }>`
+const StFilterElement = styled.p`
   width: 15.2rem;
   height: 2rem;
 
-  color: ${({ checked, theme: { colors } }) =>
-    checked ? colors.black : colors.gray008};
+  // color: {({ checked, theme: { colors } }) =>
+  //   checked ? colors.black : colors.gray008};
   ${({ theme }) => theme.fonts.b5_14_medium_140};
 `;
 const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`

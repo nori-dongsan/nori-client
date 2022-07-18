@@ -2,10 +2,6 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { IcViewProductIcon } from '../../public/assets/icons';
 
-// interface ViewProductProps {
-//   onClick: MouseCli;
-// }
-
 export default function ViewProductBanner() {
   //상품보기 뷰 배너 아이콘 요소 배열
   const productIcons = [
@@ -18,7 +14,6 @@ export default function ViewProductBanner() {
     '역할놀이 완구',
   ];
   const [selectedIcon, setSeletedIcon] = useState<number>(0);
-
   //통신이나.. 클릭했을 때 나타나는 효과나.. 그런 거 아직 안 함
   const handleProductIcon = (selectIdx: number) => {
     if (selectedIcon == selectIdx) return;
