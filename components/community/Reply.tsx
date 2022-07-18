@@ -29,7 +29,7 @@ export default function Reply() {
             onChange={handleInputText}
           />
         </StInputContent>
-        <StInputBtn inputColor={inputColor}>등록</StInputBtn>
+        <StInputBtn inputColor={inputColor}>입력</StInputBtn>
       </StInputForm>
       <ReplyContent
         userNickname="희지맘"
