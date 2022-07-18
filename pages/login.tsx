@@ -20,7 +20,8 @@ export default function login() {
   const { data, status } = useSession();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const resetList = useResetRecoilState(userInfoState);
-
+  // LocalStorage.clearUserSession();
+  console.log(userInfo);
   const handleLogin = async (social: string) => {
     if (data?.user) {
       const userLoginData = {
@@ -60,15 +61,15 @@ export default function login() {
         <IcKakaoBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            // signIn('google');
-            handleLogin('google');
+            // signIn('kakao');
+            handleLogin('kakao');
           }}
         />
         <IcGoogleBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            // signIn('kakao');
-            handleLogin('kakao');
+            signIn('google');
+            handleLogin('google');
           }}
         />
         <IcNaverBtn

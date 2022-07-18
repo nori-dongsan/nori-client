@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useState, useEffect, useRef } from 'react';
+import { putSignup } from '../core/api/user';
 import {
   IcSignupCheckboxSelected,
   IcSignupCheckboxUnselected,
@@ -10,22 +11,50 @@ import { checkNickname } from '../utils/check';
 export default function signup() {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [nickName, setNickName] = useState<string>('');
-  const [isNickname, setIsNickname] = useState<boolean>(false);
+  const [notice, setNotice] = useState<string>(
+    '한, 영, 숫자 조합만 가능합니다. 2글자 이상 10글자 이하로 입력해주세요.',
+  );
+  const [isNickname, setIsNickname] = useState<boolean>(true);
   const signupBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    signupBtnRef.current &&
-      (isNickname && isChecked
-        ? (signupBtnRef.current.style.backgroundColor = '#1DB981')
-        : (signupBtnRef.current.style.backgroundColor = '#E2E2E2'));
+    if (signupBtnRef.current)
+      if (isNickname && isChecked) {
+        signupBtnRef.current.style.backgroundColor = '#1DB981';
+        signupBtnRef.current.disabled = false;
+      } else {
+        signupBtnRef.current.style.backgroundColor = '#E2E2E2';
+        signupBtnRef.current.disabled = true;
+      }
   }, [isNickname, isChecked]);
 
   const handleNickName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value);
-    setIsNickname(checkNickname(e.target.value));
   };
   const handleChecked = () => {
     setIsChecked((prev) => !prev);
+  };
+
+  const handleInputBlur = async () => {
+    if (nickName === '') setIsNickname(true);
+    else if (!checkNickname(nickName)) {
+      setIsNickname(false);
+      setNotice(
+        '한, 영, 숫자 조합만 가능합니다. 2글자 이상 10글자 이하로 입력해주세요.',
+      );
+    } else {
+      const data = await putSignup({ nickname: nickName });
+      if (data.status === 409) setNotice('사용중인 닉네임입니다');
+      else if (data.status === 200) {
+        setNotice('사용가능한 닉네임입니다');
+        setIsNickname(true);
+      }
+    }
+  };
+  const handleSignupBtn = () => {
+    if (isNickname && isChecked) {
+      //
+    }
   };
 
   return (
@@ -40,18 +69,19 @@ export default function signup() {
           onChange={handleNickName}
           placeholder="사용할 닉네임을 입력해주세요."
           maxLength={10}
+          onBlur={handleInputBlur}
         />
         <span className="length">{nickName.length}&nbsp;/&nbsp;10</span>
-        <span className="notice">
-          한, 영, 숫자 조합만 가능합니다. 2글자 이상 10글자 이하로 입력해주세요.
-        </span>
+        <StNoticeSpan isNickname={isNickname} notice={notice}>
+          {notice}
+        </StNoticeSpan>
         <StCheckBoxWrapper onClick={handleChecked}>
           <IcSignupCheckboxUnselected />
           {isChecked && <StFillToyMark />}
           <span className="underline">개인정보 수집 및 이용약관에 </span>
           <span>&nbsp;동의합니다.</span>
         </StCheckBoxWrapper>
-        <StSignupBtn type="button" ref={signupBtnRef}>
+        <StSignupBtn type="button" ref={signupBtnRef} onClick={handleSignupBtn}>
           가입하기
         </StSignupBtn>
       </StInputWrapper>
@@ -107,13 +137,22 @@ const StInputWrapper = styled.article`
     color: ${({ theme }) => theme.colors.gray005};
     ${({ theme }) => theme.fonts.b5_14_regular_140};
   }
-  span.notice {
-    margin-top: 0.4rem;
-    margin-bottom: 0.8rem;
+`;
+const StNoticeSpan = styled.span<{ isNickname: boolean; notice: string }>`
+  margin-top: 0.4rem;
+  margin-bottom: 0.8rem;
 
-    color: ${({ theme }) => theme.colors.gray005};
-    ${({ theme }) => theme.fonts.b7_12_regular_120}
-  }
+  color: ${({ isNickname, notice, theme: { colors } }) =>
+    !isNickname &&
+    notice !== '사용중인 닉네임입니다' &&
+    notice !== '사용가능한 닉네임입니다'
+      ? 'red'
+      : notice === '사용중인 닉네임입니다'
+      ? colors.orange
+      : notice === '사용가능한 닉네임입니다'
+      ? colors.mainGreen
+      : colors.gray007};
+  ${({ theme }) => theme.fonts.b7_12_regular_120};
 `;
 const StCheckBoxWrapper = styled.div`
   display: flex;
