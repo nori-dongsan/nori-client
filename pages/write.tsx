@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { postCommunity } from '../core/api/community';
 import { newPostInfoState } from '../core/atom';
 import { IcDefaultImg, IcDelete } from '../public/assets/icons';
 import { ImgData } from '../types/community';
@@ -15,7 +13,6 @@ export default function Write() {
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const textRef = useRef<HTMLTextAreaElement>(null);
-  const router = useRouter();
 
   const menu = ['후기', '질문', '정보 공유'];
 
@@ -85,17 +82,6 @@ export default function Write() {
       textRef.current.style.height = textRef.current.scrollHeight / 10 + 'rem';
   };
 
-  // submit api + recoil 사용해서 글쓰기 배너에서 해결
-  // const handleSubmit = async () => {
-  //   const data = await postCommunity({
-  //     category: "",
-  //     title: "",
-  //     content: "",
-  //     imageList: [],
-  //   });
-  //   router.push(`/community/${data.id}`);
-  // };
-
   return (
     <StFormMain>
       <StFormSection>
@@ -125,7 +111,7 @@ export default function Write() {
               onChange={handleTitle}
               placeholder="제목"
             />
-            <span>{`(${title.length} / 30)`}</span>
+            <span>{`${title.length} / 30`}</span>
           </StCategoryInputWrapper>
           <textarea
             ref={textRef}
@@ -208,7 +194,7 @@ const StCategoryInputWrapper = styled.div`
   & > input {
     width: 67.2rem;
     margin-bottom: 1.5rem;
-    margin-right: 3.1rem;
+    margin-right: 4.4rem;
 
     color: ${({ theme }) => theme.colors.black};
     ${({ theme }) => theme.fonts.t5_27_regular_130}
