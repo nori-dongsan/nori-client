@@ -52,25 +52,23 @@ export default function login() {
         </StSubContentWrapper>
 
         <StTextWrapper>
-          <StContentSpan>SNS 계정으로 간편 로그인 /</StContentSpan>
-          <StLoginLink href="/signup">
-            <StSignUpA>회원가입</StSignUpA>
-          </StLoginLink>
+          <span>SNS 계정으로 간편 로그인 &nbsp;/&nbsp;</span>
+          <Link href="/signup">
+            <a>회원가입</a>
+          </Link>
         </StTextWrapper>
-
-        <IcGoogleBtn
-          style={{ marginTop: '1.9rem' }}
-          onClick={() => {
-            // signIn('kakao');
-            handleLogin('kakao');
-          }}
-        />
-
         <IcKakaoBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
             // signIn('google');
             handleLogin('google');
+          }}
+        />
+        <IcGoogleBtn
+          style={{ marginTop: '1.9rem' }}
+          onClick={() => {
+            // signIn('kakao');
+            handleLogin('kakao');
           }}
         />
         <IcNaverBtn
@@ -122,20 +120,10 @@ const StSubContentWrapper = styled.div`
   margin: 1.9rem 0 6.9rem 0;
   ${({ theme }) => theme.fonts.t4_18_regular_150};
 `;
-const StContentSpan = styled.span`
-  color: #707070;
-  ${({ theme }) => theme.fonts.b2_18_regular_130};
-`;
 const StTextWrapper = styled.article`
   display: flex;
-`;
-const StLoginLink = styled(Link)`
-  display: inline;
-`;
-const StSignUpA = styled.a`
-  display: inline;
+  align-items: center;
 
   color: #707070;
-  ${({ theme }) => theme.fonts.b2_18_regular_130};
-  cursor: pointer;
+  ${({ theme }) => theme.fonts.b4_15_regular_146};
 `;
