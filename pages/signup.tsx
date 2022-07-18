@@ -39,6 +39,7 @@ export default function signup() {
           value={nickName}
           onChange={handleNickName}
           placeholder="사용할 닉네임을 입력해주세요."
+          maxLength={10}
         />
         <span className="length">{nickName.length}&nbsp;/&nbsp;10</span>
         <span className="notice">
