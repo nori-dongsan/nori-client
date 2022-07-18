@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Reply } from '../../components/community';
@@ -62,7 +63,11 @@ export default function CommunityDetail() {
                 <StMenuWrapper onClick={handleMenu}>
                   {isWriter ? (
                     <StMenuList isWriter={isWriter}>
-                      <li>수정하기</li>
+                      <Link href={`/write/${cid}`}>
+                        <li>
+                          <a>수정하기</a>
+                        </li>
+                      </Link>
                       <li onClick={handleDelete}>삭제하기</li>
                     </StMenuList>
                   ) : (
@@ -236,7 +241,7 @@ const StMenuList = styled.ul<{ isWriter: boolean }>`
 
   z-index: 1;
 
-  & > li {
+  li {
     color: ${({ theme }) => theme.colors.gray008};
     ${({ theme }) => theme.fonts.b5_14_medium_140}
 

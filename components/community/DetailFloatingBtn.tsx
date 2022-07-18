@@ -18,6 +18,13 @@ export default function DetailFloatingBtn(props: DetailFloatingBtnProps) {
     });
   };
 
+  const handleReplyScroll = () => {
+    window.scrollTo({
+      top: 750,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <StFloatingBtnWrapper>
       <StIconWrapper>
@@ -25,7 +32,7 @@ export default function DetailFloatingBtn(props: DetailFloatingBtnProps) {
         <span>{heartNum}</span>
       </StIconWrapper>
       <StIconWrapper>
-        <IcReplyBtn />
+        <IcReplyBtn onClick={handleReplyScroll} />
         <span>{replyNum}</span>
       </StIconWrapper>
       <IcTopBtn onClick={handleTopScroll} />
