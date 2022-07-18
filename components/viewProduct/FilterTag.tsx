@@ -1,22 +1,24 @@
 import styled from '@emotion/styled';
-import { IcDeleteTag, IcDleteTag } from '../../public/assets/icons';
+import { IcDeleteTag } from '../../public/assets/icons';
 import theme from '../../styles/theme';
 import { ProductFilter } from '../../types/viewProduct';
 
 export default function FilterTag(props: ProductFilter) {
   const { tagName } = props;
   return (
-    <StTagWrapper>
+    <StFilterTag>
       <h2>{tagName}</h2>
       <StDeleteBtn />
-    </StTagWrapper>
+    </StFilterTag>
   );
 }
-const StTagWrapper = styled.div`
+const StFilterTag = styled.div`
   display: flex;
   align-items: center;
+
   width: fit-content;
   padding: 0.6rem 0.8rem 0.6rem 1rem;
+  margin: 0.5rem;
 
   border-radius: 0.6rem;
   background-color: ${({ theme }) => theme.colors.gray002};

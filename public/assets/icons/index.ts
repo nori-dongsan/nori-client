@@ -38,3 +38,4 @@ export { default as IcViewBookmarkUnselected } from './ic_bookmark_unselected_40
 export { default as IcMainBookmarkSelected } from './ic_bookmark_selected_48.svg';
 export { default as IcMainBookmarkUnselected } from './ic_bookmark_unselected_48.svg';
 export { default as IcDeleteTag } from './delete_circle.svg';
+export { default as IcUndoBtn } from './ic_updo_gray006.svg';
