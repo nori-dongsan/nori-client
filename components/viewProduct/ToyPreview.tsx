@@ -31,7 +31,7 @@ export default function ToyPreview(props: ToyPreviewProps) {
       </StImgWrapper>
       <StStore>{store}</StStore>
       <StTitle>{title}</StTitle>
-      <StPrice>{price}</StPrice>
+      <StPrice>{price.toLocaleString()}</StPrice>
       <StAge>{age}</StAge>
     </StToyWrapper>
   );
