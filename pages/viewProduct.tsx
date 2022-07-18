@@ -24,14 +24,6 @@ export default function viewProduct() {
       [1]: !selectPrice[1],
     });
   };
-  const handleTopScroll = () => {
-    if (!window.scrollY) return;
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
 
   return (
     <StViewProductWrapper>
@@ -82,7 +74,6 @@ export default function viewProduct() {
                 <ToyList length={4} landingCategory={'vieProduct'} />
               </StToyListWrapper>
             </StContentSection>
-            <StTopBtn onClick={handleTopScroll} />
           </StFilterSectionWrapper>
         </>
       )}
@@ -131,9 +122,4 @@ const StToyListWrapper = styled.section`
   flex-direction: column;
 
   margin-top: 2rem;
-`;
-const StTopBtn = styled(IcTopBtn)`
-  position: absolute;
-
-  cursor: pointer;
 `;

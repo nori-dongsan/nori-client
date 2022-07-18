@@ -40,6 +40,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
             htmlFor={sort}
             key={sort}
             onChange={() => handleCheckedItem(elementIdx)}
+            isChecked={checkedItem.has(elementIdx)}
           >
             <StInput type="checkbox" id={sort} name={sort} />
             <StFilterElement>{sort}</StFilterElement>
@@ -63,11 +64,20 @@ const StInput = styled.input`
     background-repeat: no-repeat;
   }
 `;
-const StLabel = styled.label`
+const StLabel = styled.label<{ isChecked: boolean }>`
   display: flex;
   gap: 1rem;
 
   cursor: pointer;
+
+  & > p {
+    width: 15.2rem;
+    height: 2rem;
+
+    color: ${({ isChecked, theme: { colors } }) =>
+      isChecked ? colors.black : colors.gray008};
+    ${({ theme }) => theme.fonts.b5_14_medium_140};
+  }
 `;
 const StFilterElement = styled.p`
   width: 15.2rem;
