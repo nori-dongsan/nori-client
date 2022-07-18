@@ -37,3 +37,8 @@ export { default as IcViewBookmarkSelected } from './ic_bookmark_selected_40.svg
 export { default as IcViewBookmarkUnselected } from './ic_bookmark_unselected_40.svg';
 export { default as IcMainBookmarkSelected } from './ic_bookmark_selected_48.svg';
 export { default as IcMainBookmarkUnselected } from './ic_bookmark_unselected_48.svg';
+export { default as IcSignupLogo } from './nori.svg';
+export { default as IcLoginNori } from './ic_character_small.svg';
+export { default as IcKakaoBtn } from './btn_social_login_kakao.svg';
+export { default as IcGoogleBtn } from './btn_social_login_google.svg';
+export { default as IcNaverBtn } from './btn_social_login_naver.svg';
