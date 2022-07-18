@@ -2,11 +2,11 @@ import { Global, ThemeProvider } from '@emotion/react';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 import { Footer, Header, WriteHeader } from '../components/common';
-
 import GlobalStyle, { resetStyle } from '../styles/globalStyle';
 import theme from '../styles/theme';
 import { SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
+
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   import('../mocks');
 }

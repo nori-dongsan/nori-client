@@ -1,102 +1,153 @@
 import styled from '@emotion/styled';
-import { IcPlus } from '../../public/assets/icons';
+import { LoaderValue } from 'next/dist/shared/lib/image-config';
+import React, { EventHandler, useState } from 'react';
+import { IcClose, IcOpen } from '../../public/assets/icons';
+import FilterDropdown from './FilterDropdown';
 
+interface ProductFilterIcon {
+  title: string;
+  value: boolean;
+}
 export default function ProductFilter() {
+  const filterList = {
+    스토어: [
+      '국민장난감',
+      '그린키드',
+      '러브로',
+      '리틀베이비',
+      '빌리바바',
+      '어텐션홈이벤트',
+      '장난감점빵',
+      '젤리바운스',
+      '해피장난감',
+    ],
+    '사용 연령': [
+      '0~5개월',
+      '6~11개월',
+      '12~17개월',
+      '18~23개월',
+      '24~35개월',
+      '36~47개월',
+      '48~60개월',
+      '기타',
+    ],
+    가격: ['1만원 미만', '1-3만원', '3-5만원', '5-8만원', '8만원이상'],
+    특성: ['타고 노는', '만지고 노는', '기타'],
+    '장난감 종류': [
+      '아기체육관',
+      '모빌',
+      '바운서',
+      '쏘서',
+      '점퍼루',
+      '위고',
+      '보행기',
+      '걸음마 보조기',
+      '러닝홈',
+      '러닝테이블',
+      '기타 학습완구',
+      '미끄럼틀',
+      '에어바운스',
+      '트램펄린',
+      '어린이 자동차',
+      '흔들말',
+      '그네',
+      '소꿉놀이',
+      '역할놀이',
+      '기타',
+    ],
+  };
+  const filterListData = Object.values(filterList);
+  const filterListKeys = Object.keys(filterList);
+  const [visibility, setVisibility] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const handleDropdown = (idx: number) => {
+    setVisibility({
+      ...visibility,
+      [idx]: !visibility[idx],
+    });
+  };
+
+  //const [repeat, setRepeat] = useState<null | number | void | string>();
+  // const handleDrop = (idx: number) => {
+  //   if (visibility[idx]) {
+  //     clearTimeout(repeat);
+  //     setRepeat(null);
+  //     setVisibility({
+  //       ...visibility,
+  //       [idx]: !visibility[idx],
+  //     });
+  //   } else {
+  //     setRepeat(
+  //       setTimeout(() => {
+  //         setVisibility({
+  //           ...visibility,
+  //           [0]: !visibility[0],
+  //         });
+  //         return 0;
+  //       }, 400),
+  //     );
+  //   }
+  // };
+
   return (
     <StFilterWrapper>
-      <StFilterSection>
-        <StSectionTitle>
-          <h2>장난감 종류</h2>
-          <IcPlus />
-        </StSectionTitle>
-        <p>모든 장난감</p>
-      </StFilterSection>
-      <StFilterSection>
-        <StSectionTitle>
-          <h2>개월 수</h2>
-          <IcPlus />
-        </StSectionTitle>
-        <p>모든 개월 수</p>
-      </StFilterSection>
-      <StFilterSection>
-        <StSectionTitle>
-          <h2>가격</h2>
-          <IcPlus />
-        </StSectionTitle>
-        <p>모든 개월 수</p>
-      </StFilterSection>
-      <StFilterSection>
-        <StSectionTitle>
-          <h2>놀이 방법</h2>
-          <IcPlus />
-        </StSectionTitle>
-        <p>모든 놀이방법</p>
-      </StFilterSection>
-      <StFilterSection>
-        <StSectionTitle>
-          <h2>스토어</h2>
-          <IcPlus />
-        </StSectionTitle>
-        <p>모든 스토어</p>
-      </StFilterSection>
+      {filterListKeys.map((title: string, idx: number) => (
+        <StFilterSection isDrop={visibility[idx]} key={title}>
+          <StFilterTitle
+            onClick={() => {
+              handleDropdown(idx);
+            }}
+          >
+            <h2>{title}</h2>
+            {visibility[idx] ? <IcClose /> : <IcOpen />}
+          </StFilterTitle>
+          {visibility[idx] && (
+            <FilterDropdown
+              categoryInfo={filterListData[idx]}
+              isExcept={false}
+              isDrop={visibility[idx]}
+            />
+          )}
+        </StFilterSection>
+      ))}
     </StFilterWrapper>
   );
 }
 
 const StFilterWrapper = styled.div`
-  width: 21.2rem;
-  height: 52.8rem;
+  width: 20rem;
+  height: 28rem;
+  padding-left: 1.2rem;
+  margin-right: 2.4rem;
 `;
-const StSectionTitle = styled.div`
+const StFilterTitle = styled.div`
   display: flex;
   justify-content: space-between;
-
-  width: 21.2rem;
-
-  text-align: center;
-  & > h2 {
-    height: 2rem;
-
-    color: #000000;
-    font-size: 1.4rem;
-  }
+  align-items: center;
 `;
-const StFilterSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 21.2rem;
-  height: 7.6rem;
+const StFilterSection = styled.section<{ isDrop: boolean }>`
+  width: 20rem;
+  height: ${({ isDrop }) => (isDrop ? '23.2rem' : '5.6rem')};
+  padding: 1.7rem 0;
 
   border-bottom: 0.1rem #d9d9d9 solid;
+  font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
+`;
+const StFilterExcept = styled.section<{ isDrop: boolean }>`
+  width: 20rem;
+  height: ${({ isDrop }) => (isDrop ? '13.6rem' : '5.6rem')};
+  padding: 1.7rem 0;
 
-  color: #d9d9d9;
-  font-size: 1.5rem;
-  font-weight: 400;
+  border-bottom: 0.1rem #d9d9d9 solid;
+  font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
 `;
 
-/* or 21px */
-// display `-객체의 노출여부/표현방식--`
-// ( justify-content / align-items)
-// ( flex-direction / flex-wrap / flex-flow ) → flex ~로 시작하는 것들
-// list-style
-// position `-위치/좌표--`
-// float
-// clear
-
-// width
-// height `-크기/여백--`
-// padding
-// margin
-
-// border
-// background `-윤곽/배경--`
-// color
-// font `-글자/정렬--`
-
-// text-decoration
-// text-align / vertical-align
-
-// white-space
-// other text
-// content `-내용--`
+// function repeat(repeat: any) {
+//   throw new Error('Function not implemented.');
+// }

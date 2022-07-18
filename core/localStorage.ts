@@ -21,14 +21,20 @@ class LocalStorage {
     }
   }
 
-  static setUserSession(token: string, nickname: string) {
-    this.setItem('nori-token', token);
-    this.setItem('nori-nickname', nickname);
+  static setUserSession(
+    accessToken: string,
+    refreshToken: string,
+    email: string,
+  ) {
+    this.setItem('accessToken', accessToken);
+    this.setItem('refreshToken', refreshToken);
+    this.setItem('email', email);
   }
 
   static clearUserSession() {
-    this.removeItem('nori-token');
-    this.removeItem('nori-nickname');
+    this.removeItem('accessToken');
+    this.removeItem('refreshToken');
+    this.removeItem('email');
   }
 }
 

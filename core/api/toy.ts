@@ -1,3 +1,6 @@
+
+import axios from 'axios';
+
 import useSWR from 'swr';
 import { baseInstance } from '../axios';
 
@@ -11,11 +14,8 @@ export const useGetCollectionProduct = (key: string) => {
     isLoading: !error && !data,
     isError: error,
   };
+
 };
 export const getCollectionProduct = (key: string) => {
   return baseInstance.get(`/collection?sort=${key}`);
-};
-
-export const getCommunityList = (key: string) => {
-  return baseInstance.get(`/board?sort=${key}`);
 };

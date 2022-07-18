@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
 interface ReplyContentProps {
-  userNickname: string;
+  userNickname?: string;
   content: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 export default function ReplyContent(props: ReplyContentProps) {
@@ -22,7 +22,7 @@ export default function ReplyContent(props: ReplyContentProps) {
 }
 
 const StReplyContentWrapper = styled.section`
-  width: 120rem;
+  width: 77.6rem;
   margin-bottom: 3.3rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
