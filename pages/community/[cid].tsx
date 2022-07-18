@@ -34,7 +34,6 @@ export default function CommunityDetail() {
 
   return (
     <StCommunityMain>
-      <StFloatingBlock />
       <StDetailSection>
         <StCommunitySection>
           <StCommunityArticle>
@@ -118,9 +117,6 @@ const StCommunityMain = styled.main`
 
   padding-top: 7rem;
   padding-bottom: 12rem;
-`;
-const StFloatingBlock = styled.div`
-  width: 15rem;
 `;
 const StDetailSection = styled.div`
   display: flex;
