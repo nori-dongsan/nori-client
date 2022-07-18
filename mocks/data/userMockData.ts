@@ -7,4 +7,11 @@ export const userMockData: UserData[] = [
     nickname: 'happhee',
     email: 'ghdtj7@naver.com',
   },
+  {
+    id: 'nori',
+    snsId: 'ghdtjgml0112@gmail.com',
+    provider: 'google',
+    nickname: '',
+    email: 'ghdtjgml0112@gmail.com',
+  },
 ];
