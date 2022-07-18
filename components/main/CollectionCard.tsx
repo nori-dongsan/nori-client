@@ -10,6 +10,7 @@ interface CollectionCardProps {
   title: string;
   subTitle: string;
 }
+
 export default function CollectionCard(props: CollectionCardProps) {
   const { title, subTitle } = props;
 
@@ -29,6 +30,7 @@ export default function CollectionCard(props: CollectionCardProps) {
     </StCardWrapper>
   );
 }
+
 const StCardWrapper = styled.section`
   display: flex;
   justify-content: center;
@@ -45,13 +47,13 @@ const StCardWrapper = styled.section`
   box-shadow: 0.193473rem 0.193473rem 0.43683rem rgba(29, 185, 129, 0.3);
   cursor: pointer;
 `;
-const StSubTitle = styled.text`
+const StSubTitle = styled.div`
   margin-top: 1.8rem;
   margin-bottom: 0.5rem;
 
   ${({ theme }) => theme.fonts.b3_16_medium_140}
   color : ${({ theme }) => theme.colors.gray008};
 `;
-const StTitle = styled.text`
+const StTitle = styled.div`
   ${({ theme }) => theme.fonts.b1_20_bold_140}
 `;

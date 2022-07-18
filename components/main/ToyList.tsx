@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import keyframes from '@emotion/react';
-
 import ToyPreview from './ToyPreview';
 
 interface ToyListProps {
   landingCategory: string;
   length: number;
 }
+
 export default function ToyList(props: ToyListProps) {
   const { landingCategory, length } = props;
   const toyList = new Array(length).fill(0);
@@ -40,8 +40,11 @@ export default function ToyList(props: ToyListProps) {
 
 const StToyListWrapper = styled.section`
   display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const StPopularityWrapper = styled.article`
+  margin: 0rem 2.1rem;
   transition: all 0.2s linear;
 
   &:hover {

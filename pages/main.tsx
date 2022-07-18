@@ -5,7 +5,7 @@ import {
   MiddleBanner,
 } from '../components/main';
 import styled from '@emotion/styled';
-import { ToyList } from '../components/common';
+import { ToyList } from '../components/main';
 import { useRouter } from 'next/router';
 
 export default function main() {

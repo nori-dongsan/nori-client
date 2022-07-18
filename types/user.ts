@@ -5,9 +5,11 @@ export interface UserData {
   nickname: string;
   email: string;
 }
+
 export interface PostSignUpBody {
   nickname: string;
 }
+
 export interface PostLoginBody {
   snsId: string;
   provider: string;

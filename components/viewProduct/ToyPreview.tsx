@@ -1,6 +1,10 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcFillToyMark, IcToyMark } from '../../public/assets/icons';
+import {
+  IcViewBookmarkSelected,
+  IcViewBookmarkUnselected,
+} from '../../public/assets/icons';
 
 interface ToyPreviewProps {
   src: string;
@@ -9,6 +13,7 @@ interface ToyPreviewProps {
   price: number;
   age: string;
 }
+
 export default function ToyPreview(props: ToyPreviewProps) {
   const { src, store, title, price, age } = props;
   const [isMark, setIsMark] = useState(false);
@@ -26,69 +31,70 @@ export default function ToyPreview(props: ToyPreviewProps) {
       </StImgWrapper>
       <StStore>{store}</StStore>
       <StTitle>{title}</StTitle>
-      <StPrice>{price}</StPrice>
+      <StPrice>{price.toLocaleString()}</StPrice>
       <StAge>{age}</StAge>
     </StToyWrapper>
   );
 }
+
 const StToyWrapper = styled.article`
   display: flex;
   flex-direction: column;
 
-  margin: 0rem 3.5rem;
+  margin: 0 0 6.3rem 2.4rem;
+
+  cursor: pointer;
 `;
 const StImgWrapper = styled.div`
   position: relative;
 `;
 const StToyImg = styled.img`
-  width: 27.5rem;
-  height: 27.5rem;
+  width: 22rem;
+  height: 22rem;
 
-  border: 0.1rem solid #e2e2e2;
-  border-radius: 0.8rem;
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
+  border-radius: 1rem;
 `;
 
 const StToyMarkWrapper = styled.div`
   position: absolute;
-  top: 1.7rem;
-  left: 23.6rem;
+
+  top: 1.5rem;
+  left: 18.147rem;
 `;
-const StToyMark = styled(IcToyMark)`
+const StToyMark = styled(IcViewBookmarkUnselected)`
   position: absolute;
   top: 0;
   left: 0;
 `;
-const StFillToyMark = styled(IcFillToyMark)`
+const StFillToyMark = styled(IcViewBookmarkSelected)`
   position: absolute;
-  top: 0.2rem;
-  left: 0.2rem;
+  top: -0.2rem;
+  left: -0.1rem;
 `;
 const StStore = styled.div`
-  margin-top: 1.6rem;
+  width: 22rem;
+  height: 2rem;
+  margin-top: 1.2rem;
 
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  color: #a9a9a9;
+  ${({ theme }) => theme.fonts.b5_14_medium_140};
+  color: ${({ theme }) => theme.colors.gray006};
 `;
 
 const StTitle = styled.div`
-  margin-top: 0.8rem;
+  width: 22rem;
+  height: 4.4rem;
+  margin-top: 0.4rem;
 
-  font-weight: 400;
-  font-size: 1.6rem;
-
-  display: flex;
-  align-items: center;
-
-  color: #000000;
+  ${({ theme }) => theme.fonts.b3_16_medium_140};
 `;
 
 const StPrice = styled.div`
-  margin-top: 1.3rem;
+  width: 22rem;
+  height: 2.5rem;
+  margin-top: 0.4rem;
 
-  font-weight: 700;
-  font-size: 1.9rem;
+  ${({ theme }) => theme.fonts.b2_18_bold_140};
 
   :after {
     content: '원';
@@ -97,14 +103,10 @@ const StPrice = styled.div`
 
 const StAge = styled.div`
   width: fit-content;
-  padding: 0.3rem 1rem 0.4rem;
-  margin-top: 0.8rem;
-
-  background: #ffe766;
+  padding: 0.2rem 0.8rem 0.3rem 0.8rem;
+  margin-top: 0.3rem;
+  background: ${({ theme }) => theme.colors.subYellow};
   border-radius: 0.4rem;
-
-  font-weight: 600;
-  font-size: 1rem;
-
-  line-height: 141%;
+  ${({ theme }) => theme.fonts.b7_12_medium_140};
+  line-height: 140%;
 `;

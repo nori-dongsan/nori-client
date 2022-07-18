@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { IcMainBanner } from '../../public/assets/icons';
+
 export default function MainBanner() {
   return (
     <StMainBannerWrapper>

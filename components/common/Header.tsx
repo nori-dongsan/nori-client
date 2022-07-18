@@ -46,7 +46,7 @@ const StHeaderWrapper = styled.header`
   background-color: ${({ theme }) => theme.colors.mainGreen};
   color: ${({ theme }) => theme.colors.white};
 
-  z-index: 1;
+  z-index: 2;
 `;
 const StTopLink = styled.div`
   display: flex;
@@ -54,8 +54,10 @@ const StTopLink = styled.div`
 
   padding: 0rem;
   padding-top: 0.7rem;
-  padding-left: 75%;
+  padding-left: 73.25%;
   a {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
     ${({ theme }) => theme.fonts.b7_12_regular_120}
 
     cursor: pointer;
@@ -89,6 +91,10 @@ const StSearchBar = styled.div`
 
   background: ${({ theme }) => theme.colors.white_opacity_14};
   border-radius: 0.8rem;
+
+  & > svg {
+    cursor: pointer;
+  }
 
   input {
     height: 2.2rem;
