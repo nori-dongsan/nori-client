@@ -3,4 +3,6 @@ export interface FilterDropdownProps {
   categoryIdx: number;
   isDrop: boolean;
   isExcept: boolean;
+  checkedItem: Set<number>;
+  handleCheckedItems: (copyCheckedItem: Set<number>, idx: number) => void;
 }

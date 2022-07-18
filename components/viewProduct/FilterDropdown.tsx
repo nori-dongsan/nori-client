@@ -11,36 +11,27 @@ import {
 } from 'react';
 import { FilterDropdownProps } from '../../types/viewProduct';
 import theme from '../../styles/theme';
-
 export default function FilterDropdown(props: FilterDropdownProps) {
-  const { categoryInfo, isDrop, isExcept, categoryIdx } = props;
-  const [checkedItems, setCheckedItems] = useState<Set<number>[]>([
-    new Set<number>(),
-    new Set<number>(),
-    new Set<number>(),
-    new Set<number>(),
-    new Set<number>(),
-  ]);
+  const {
+    categoryInfo,
+    isDrop,
+    isExcept,
+    categoryIdx,
+    checkedItem,
+    handleCheckedItems,
+  } = props;
 
-  const handleCheckedItem = (categoryIdx: number, elementIdx: number) => {
-    console.log(elementIdx);
-    if (checkedItems[categoryIdx].has(elementIdx)) {
-      checkedItems[categoryIdx].delete(elementIdx);
-      setCheckedItems({
-        ...checkedItems,
-        [categoryIdx]: checkedItems[categoryIdx],
-      });
-      console.log(checkedItems[categoryIdx]);
+  const handleCheckedItem = (elementIdx: number) => {
+    if (checkedItem.has(elementIdx)) {
+      checkedItem.delete(elementIdx);
     } else {
-      checkedItems[categoryIdx].add(elementIdx);
-
-      setCheckedItems({
-        ...checkedItems,
-        [categoryIdx]: checkedItems[categoryIdx],
-      });
-      console.log(checkedItems);
+      checkedItem.add(elementIdx);
     }
+
+    handleCheckedItems(checkedItem, categoryIdx);
   };
+  console.log('하위', checkedItem);
+
   return (
     <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
       {categoryInfo.map((sort: string, elementIdx: number) => {
@@ -48,7 +39,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           <StLabel
             htmlFor={sort}
             key={sort}
-            onChange={() => handleCheckedItem(categoryIdx, elementIdx)}
+            onChange={() => handleCheckedItem(elementIdx)}
           >
             <StInput type="checkbox" id={sort} name={sort} />
             <StFilterElement>{sort}</StFilterElement>

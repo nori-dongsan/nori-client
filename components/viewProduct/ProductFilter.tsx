@@ -65,12 +65,23 @@ export default function ProductFilter() {
     false,
     false,
   ]);
-
+  const [checkedItems, setCheckedItems] = useState<Set<number>[]>([
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+  ]);
   const handleDropdown = (idx: number) => {
     setVisibility({
       ...visibility,
       [idx]: !visibility[idx],
     });
+  };
+
+  console.log('상위', checkedItems);
+  const handleCheckedItems = (copyCheckedItem: Set<number>, idx: number) => {
+    setCheckedItems({ ...checkedItems, [idx]: copyCheckedItem });
   };
 
   //const [repeat, setRepeat] = useState<null | number | void | string>();
@@ -113,6 +124,8 @@ export default function ProductFilter() {
               categoryIdx={idx}
               isExcept={idx == 3 ? true : false}
               isDrop={visibility[idx]}
+              checkedItem={checkedItems[idx]}
+              handleCheckedItems={handleCheckedItems}
             />
           )}
         </StFilterSection>
