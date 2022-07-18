@@ -28,16 +28,15 @@ export default function PriceFilter() {
 
 const StPriceSection = styled.section`
   display: flex;
-  flex-direction: row;
-
   justify-content: flex-end;
   align-items: center;
 
-  width: 50%;
+  width: 111.5rem;
+  margin: 5.4rem 0 2rem 0;
+
+  gap: 1.4rem;
 `;
 const StPriceTitle = styled.span`
-  margin: 0rem 0.7rem;
-
   color: ${({ theme }) => theme.colors.gray005};
   ${({ theme }) => theme.fonts.b5_14_medium_140};
 
