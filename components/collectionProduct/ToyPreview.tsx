@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcFillToyMark, IcToyMark } from '../../public/assets/icons';
+import {
+  IcMainBookmarkSelected,
+  IcMainBookmarkUnselected,
+} from '../../public/assets/icons';
 
 interface ToyPreviewProps {
   src: string;
@@ -43,8 +46,8 @@ const StImgWrapper = styled.div`
 const StToyImg = styled.img`
   width: 27.5rem;
   height: 27.5rem;
-  
-   object-fit: cover;
+
+  object-fit: cover;
 
   border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
   border-radius: 0.8rem;
@@ -56,15 +59,15 @@ const StToyMarkWrapper = styled.div`
   top: 1.8rem;
   left: 22.9rem;
 `;
-const StToyMark = styled(IcToyMark)`
+const StToyMark = styled(IcMainBookmarkUnselected)`
   position: absolute;
   top: 0;
   left: 0;
 `;
-const StFillToyMark = styled(IcFillToyMark)`
+const StFillToyMark = styled(IcMainBookmarkSelected)`
   position: absolute;
-  top: 0.2rem;
-  left: 0.2rem;
+  top: -0.2rem;
+  left: -0.1rem;
 `;
 const StStore = styled.div`
   margin-top: 1.4rem;
