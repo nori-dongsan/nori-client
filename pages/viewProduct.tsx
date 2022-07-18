@@ -1,4 +1,8 @@
-import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
+import {
+  ProductFilter,
+  TopFloatingBtn,
+  ViewProductBanner,
+} from '../components/viewProduct';
 import styled from '@emotion/styled';
 import { IcPriceLine, IcTopBtn, IcWriteBtn } from '../public/assets/icons';
 import { useState } from 'react';
@@ -77,6 +81,7 @@ export default function viewProduct() {
           </StFilterSectionWrapper>
         </>
       )}
+      <TopFloatingBtn />
     </StViewProductWrapper>
   );
 }
