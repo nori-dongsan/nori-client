@@ -38,10 +38,7 @@ export default function collectionProduct() {
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
       setToyList(data);
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
+      window.scrollTo(0, 0);
     }
   }, [productList, currentPage]);
 
