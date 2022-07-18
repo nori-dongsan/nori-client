@@ -118,12 +118,13 @@ const StSubContentWrapper = styled.div`
   flex-direction: column;
 
   margin: 1.9rem 0 6.9rem 0;
+
   ${({ theme }) => theme.fonts.t4_18_regular_150};
 `;
 const StTextWrapper = styled.article`
   display: flex;
   align-items: center;
 
-  color: #707070;
   ${({ theme }) => theme.fonts.b4_15_regular_146};
+  color: #707070;
 `;
