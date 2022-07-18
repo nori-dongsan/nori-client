@@ -4,24 +4,24 @@ import {
   getCollectionProduct,
   useGetCollectionProduct,
 } from '../../core/api/toy';
-
-export default function PriceFilter() {
-  const data = useGetCollectionProduct('price-desc');
-
-  console.log('낮은 가격순', data);
-
+export interface PriceFilterProps {
+  isClick: boolean[];
+}
+export default function PriceFilter(props: PriceFilterProps) {
+  const { isClick } = props;
   const handlePriceDesc = () => {};
 
-  const handlePriceAsc = async () => {
-    const data = await getCollectionProduct('price-asc');
-    console.log('높은 가격순 ', data);
-  };
+  const handlePriceAsc = async () => {};
 
   return (
     <StPriceSection>
-      <StPriceTitle onClick={handlePriceDesc}>낮은 가격순</StPriceTitle>
-      <StPriceTitle>|</StPriceTitle>
-      <StPriceTitle onClick={handlePriceAsc}>높은 가격순</StPriceTitle>
+      <StPriceTitle onClick={handlePriceDesc} isClick={isClick[0]}>
+        낮은 가격순
+      </StPriceTitle>
+      <span>|</span>
+      <StPriceTitle onClick={handlePriceAsc} isClick={isClick[1]}>
+        높은 가격순
+      </StPriceTitle>
     </StPriceSection>
   );
 }
@@ -35,10 +35,12 @@ const StPriceSection = styled.section`
   margin: 5.4rem 0 2rem 0;
 
   gap: 1.4rem;
-`;
-const StPriceTitle = styled.span`
+
   color: ${({ theme }) => theme.colors.gray005};
   ${({ theme }) => theme.fonts.b5_14_medium_140};
-
+`;
+const StPriceTitle = styled.span<{ isClick: boolean }>`
+  color: ${({ isClick, theme: { colors } }) =>
+    isClick ? colors.black : colors.gray005};
   cursor: pointer;
 `;
