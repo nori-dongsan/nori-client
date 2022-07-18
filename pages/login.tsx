@@ -36,9 +36,9 @@ export default function login() {
   };
 
   useEffect(() => {
-    // if (LocalStorage.getItem('email')) {
-    // Router.push('/signup');
-    // }
+    if (LocalStorage.getItem('email')) {
+      Router.push('/signup');
+    }
   }, []);
 
   return (
@@ -65,7 +65,7 @@ export default function login() {
           }}
         />
         <IcGoogleBtn
-          style={{ marginTop: '1.9rem' }}
+          style={{ marginTop: '1.1rem' }}
           onClick={() => {
             // signIn('kakao');
             handleLogin('kakao');
