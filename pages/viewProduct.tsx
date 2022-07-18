@@ -1,6 +1,6 @@
 import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
 import styled from '@emotion/styled';
-import { IcPriceLine } from '../public/assets/icons';
+import { IcPriceLine, IcTopBtn, IcWriteBtn } from '../public/assets/icons';
 import { useState } from 'react';
 import { ToyList } from '../components/viewProduct';
 import {
@@ -22,6 +22,14 @@ export default function viewProduct() {
       ...selectPrice,
       [0]: !selectPrice[0],
       [1]: !selectPrice[1],
+    });
+  };
+  const handleTopScroll = () => {
+    if (!window.scrollY) return;
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
     });
   };
 
@@ -74,6 +82,7 @@ export default function viewProduct() {
                 <ToyList length={4} landingCategory={'vieProduct'} />
               </StToyListWrapper>
             </StContentSection>
+            <StTopBtn onClick={handleTopScroll} />
           </StFilterSectionWrapper>
         </>
       )}
@@ -90,6 +99,8 @@ const StViewProductWrapper = styled.div`
 `;
 const StFilterSectionWrapper = styled.section`
   display: flex;
+
+  height: fit-content;
 `;
 const StFilterBarWrapper = styled.div`
   display: flex;
@@ -121,8 +132,8 @@ const StToyListWrapper = styled.section`
 
   margin-top: 2rem;
 `;
-const StSelectBar = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+const StTopBtn = styled(IcTopBtn)`
+  position: absolute;
+
+  cursor: pointer;
 `;
