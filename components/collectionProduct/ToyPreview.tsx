@@ -34,10 +34,12 @@ export default function ToyPreview(props: ToyPreviewProps) {
     </StToyWrapper>
   );
 }
+
 const StToyWrapper = styled.article`
   display: flex;
   flex-direction: column;
 
+  width: 27.5rem;
   margin: 0rem 1.25rem;
 `;
 const StImgWrapper = styled.div`
@@ -50,14 +52,13 @@ const StToyImg = styled.img`
   object-fit: cover;
 
   border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
-  border-radius: 0.8rem;
+  border-radius: 1.1rem;
   background: ${({ theme }) => theme.colors.gray002};
 `;
-
 const StToyMarkWrapper = styled.div`
   position: absolute;
-  top: 1.8rem;
-  left: 22.9rem;
+  top: 1.8em;
+  left: 21.8rem;
 `;
 const StToyMark = styled(IcMainBookmarkUnselected)`
   position: absolute;
@@ -70,41 +71,37 @@ const StFillToyMark = styled(IcMainBookmarkSelected)`
   left: -0.1rem;
 `;
 const StStore = styled.div`
-  margin-top: 1.4rem;
+  display: flex;
+  align-items: center;
+  margin-top: 1.6rem;
 
   color: ${({ theme }) => theme.colors.gray006};
   ${({ theme }) => theme.fonts.b3_16_medium_140};
 `;
-
 const StTitle = styled.div`
+  margin-top: 0.6rem;
   display: flex;
   align-items: center;
-
-  width: 27.5rem;
-  margin-top: 0.6rem;
 
   color: ${({ theme }) => theme.colors.black};
   ${({ theme }) => theme.fonts.b2_18_medium_130};
 `;
-
 const StPrice = styled.div`
   margin-top: 0.6rem;
 
+  color: ${({ theme }) => theme.colors.black};
+  ${({ theme }) => theme.fonts.t3_19_bold_140};
   :after {
     content: '원';
   }
-  color: ${({ theme }) => theme.colors.black};
-  ${({ theme }) => theme.fonts.t3_19_bold_140};
 `;
-
 const StAge = styled.div`
   width: fit-content;
   padding: 0.4rem 0.9rem 0.5rem;
   margin-top: 0.4rem;
   gap: 0.2rem;
 
-  border-radius: 0.5rem;
   background: ${({ theme }) => theme.colors.subYellow};
-  color: ${({ theme }) => theme.colors.black};
+  border-radius: 0.5rem;
   ${({ theme }) => theme.fonts.b6_13_medium_120};
 `;
