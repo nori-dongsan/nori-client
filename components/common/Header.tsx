@@ -10,7 +10,6 @@ export default function Header() {
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-  console.log(inputValue);
 
   const handleClick = () => {
     Router.push({
