@@ -1,23 +1,38 @@
 import styled from '@emotion/styled';
-import { IcCheckbox } from '../../public/assets/icons';
-import { useRef } from 'react';
 import { FilterDropdownProps } from '../../types/viewProduct';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
-  const { categoryInfo, isDrop, isExcept } = props;
-  const child = useRef();
+  const {
+    categoryInfo,
+    isDrop,
+    isExcept,
+    categoryIdx,
+    checkedItem,
+    handleCheckedItems,
+  } = props;
+
+  const handleCheckedItem = (elementIdx: number) => {
+    if (checkedItem.has(elementIdx)) {
+      checkedItem.delete(elementIdx);
+    } else {
+      checkedItem.add(elementIdx);
+    }
+
+    handleCheckedItems(checkedItem, categoryIdx);
+  };
+
   return (
-    <StDropdownWrapper isDrop>
-      {categoryInfo.map((sort: string) => {
+    <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
+      {categoryInfo.map((sort: string, elementIdx: number) => {
         return (
-          <StLabel htmlFor={sort} key={sort}>
-            <StInput
-              type="checkbox"
-              id={sort}
-              name={sort}
-              className="checkBox"
-            />
-            <p>{sort}</p>
+          <StLabel
+            htmlFor={sort}
+            key={sort}
+            onChange={() => handleCheckedItem(elementIdx)}
+            isChecked={checkedItem.has(elementIdx)}
+          >
+            <StInput type="checkbox" id={sort} name={sort} />
+            <StFilterElement>{sort}</StFilterElement>
           </StLabel>
         );
       })}
@@ -38,23 +53,35 @@ const StInput = styled.input`
     background-repeat: no-repeat;
   }
 `;
-const StLabel = styled.label`
+const StLabel = styled.label<{ isChecked: boolean }>`
   display: flex;
   gap: 1rem;
+
+  cursor: pointer;
+
   & > p {
     width: 15.2rem;
     height: 2rem;
 
-    color: ${({ theme }) => theme.colors.gray008};
-    font: ${({ theme }) => theme.fonts.b5_14_medium_140};
+    color: ${({ isChecked, theme: { colors } }) =>
+      isChecked ? colors.black : colors.gray008};
+    ${({ theme }) => theme.fonts.b5_14_medium_140};
   }
 `;
-const StDropdownWrapper = styled.div<{ isDrop: boolean }>`
+const StFilterElement = styled.p`
+  width: 15.2rem;
+  height: 2rem;
+
+  // color: {({ checked, theme: { colors } }) =>
+  //   checked ? colors.black : colors.gray008};
+  ${({ theme }) => theme.fonts.b5_14_medium_140};
+`;
+const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
   display: flex;
   flex-direction: column;
 
   width: 20rem;
-  height: 14.8rem;
+  height: ${({ isExcept }) => (isExcept ? 'fit-content' : '14.8rem')};
   margin: 1.6rem 0 2.8rem 0;
   gap: 1.2rem;
 

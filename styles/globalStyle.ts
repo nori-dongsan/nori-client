@@ -150,7 +150,7 @@ export const GlobalStyle = css`
 
   body,
   html {
-    width: 100%;
+    min-width: 1921px;
     height: auto;
     font-family: Pretendard;
     font-size: 62.5%;

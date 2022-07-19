@@ -1,12 +1,5 @@
-import {
-  ImgKakaoLogo,
-  ImgGoogleLogo,
-  ImgNaverLogo,
-} from '../public/assets/images';
-import Image from 'next/image';
 import styled from '@emotion/styled';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { IcLoginLine } from '../public/assets/icons';
 import Link from 'next/link';
 import { loginUser } from '../core/api/user';
 import { PostLoginBody } from '../types/user';
@@ -15,81 +8,83 @@ import LocalStorage from '../core/localStorage';
 import Router from 'next/router';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { userInfoState } from '../core/atom';
+import {
+  IcLoginNori,
+  IcSignupLogo,
+  IcNaverBtn,
+  IcGoogleBtn,
+  IcKakaoBtn,
+} from '../public/assets/icons';
 
 export default function login() {
-  const { data, status } = useSession();
+  const { data: session, status } = useSession();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const resetList = useResetRecoilState(userInfoState);
-
+  // LocalStorage.clearUserSession();
+  console.log(userInfo);
   const handleLogin = async (social: string) => {
-    if (data?.user) {
+    console.log(social);
+    console.log(session);
+    if (session?.user) {
       const userLoginData = {
-        snsId: data?.user.email,
+        snsId: session?.user.email,
         provider: social,
-        email: data?.user.email,
+        email: session?.user.email,
       } as PostLoginBody;
       const login = await loginUser(userLoginData);
       // if (login) {
       //   setUserInfo(userLoginData);
       // }
+      console.log(userLoginData);
     }
   };
 
   useEffect(() => {
-    // if (LocalStorage.getItem('email')) {
-    // Router.push('/signup');
-    // }
+    if (LocalStorage.getItem('email')) {
+      Router.push('/signup');
+    }
   }, []);
 
   return (
     <StLoginWrapper>
-      <StLoginTitle>로그인</StLoginTitle>
-      <IcLoginLine />
       <StContentWrapper>
-        <StContent>다양한 장난감 정보를 한눈에!</StContent>
-        <StContent>우리 아이 장난감 대여 비교 플랫폼</StContent>
-      </StContentWrapper>
-      <StTextWrapper>
-        <StContentSpan>SNS 계정으로 간편 로그인 /</StContentSpan>
-        <StLoginLink href="/signup">
-          <StSignUpA>회원가입</StSignUpA>
-        </StLoginLink>
-      </StTextWrapper>
-      <StSocialLoginWrapper>
-        <Image
-          src={ImgNaverLogo}
-          width={56}
-          height={56}
-          style={{ padding: '1.5rem' }}
-          onClick={() => {
-            // signIn('naver');
-            handleLogin('naver');
-          }}
-        />
-        <Image
-          src={ImgKakaoLogo}
-          width={56}
-          height={56}
-          style={{ padding: '1.5rem' }}
+        <StIcLoginNori />
+        <IcSignupLogo />
+        <StSubContentWrapper>
+          <div>다양한 장난감 정보를 한눈에!</div>
+          <div>우리 아이 장난감 대여 비교 플랫폼</div>
+        </StSubContentWrapper>
+
+        <StTextWrapper>
+          <span>SNS 계정으로 간편 로그인 &nbsp;/&nbsp;</span>
+          <Link href="/signup">
+            <a>회원가입</a>
+          </Link>
+        </StTextWrapper>
+        <IcKakaoBtn
+          style={{ marginTop: '1.1rem' }}
           onClick={() => {
             // signIn('kakao');
             handleLogin('kakao');
           }}
         />
-
-        <Image
-          src={ImgGoogleLogo}
-          width={56}
-          height={56}
-          style={{ padding: '1.5rem' }}
+        <IcGoogleBtn
+          style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            // signIn('google');
+
+            signIn('google');
             handleLogin('google');
+
           }}
         />
-      </StSocialLoginWrapper>
-
-      <IcLoginLine />
+        <IcNaverBtn
+          style={{ marginTop: '1.1rem' }}
+          onClick={() => {
+            // signIn('naver');
+            handleLogin('naver');
+          }}
+        />
+      </StContentWrapper>
     </StLoginWrapper>
   );
 }
@@ -99,46 +94,43 @@ const StLoginWrapper = styled.section`
   align-items: center;
   flex-direction: column;
 
-  padding-top: 4.6rem;
-  padding-bottom: 18.8rem;
+  height: 100%;
+  padding-top: 15.2rem;
+  background: ${({ theme }) => theme.colors.mainGreen};
 `;
-const StLoginTitle = styled.h1`
-  padding-bottom: 6.1rem;
-
-  ${({ theme }) => theme.fonts.t1_28_medium_150}
-`;
-const StSocialLoginWrapper = styled.article`
+const StContentWrapper = styled.article`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  position: relative;
 
-  width: 26rem;
-  padding-bottom: 7.4rem;
+  width: 39.4rem;
+  height: 54.1rem;
+
+  border-radius: 0.5rem;
+  background: ${({ theme }) => theme.colors.white};
 `;
-const StContentWrapper = styled.div`
-  padding-top: 10.2rem;
+const StIcLoginNori = styled(IcLoginNori)`
+  position: absolute;
+  top: -5rem;
+  left: 14.2rem;
 `;
-const StContent = styled.div`
-  color: #707070;
-  ${({ theme }) => theme.fonts.b2_18_regular_130};
-`;
-const StContentSpan = styled.span`
-  color: #707070;
-  ${({ theme }) => theme.fonts.b2_18_regular_130};
+
+const StSubContentWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin: 1.9rem 0 6.9rem 0;
+
+  ${({ theme }) => theme.fonts.t4_18_regular_150};
 `;
 const StTextWrapper = styled.article`
   display: flex;
+  align-items: center;
 
-  padding-top: 9.3rem;
-  padding-bottom: 2.1rem;
-`;
-const StLoginLink = styled(Link)`
-  display: inline;
-`;
-const StSignUpA = styled.a`
-  display: inline;
-
+  ${({ theme }) => theme.fonts.b4_15_regular_146};
   color: #707070;
-  ${({ theme }) => theme.fonts.b2_18_regular_130};
-  cursor: pointer;
 `;
