@@ -135,9 +135,10 @@ export default function ProductFilter() {
 
 const StFilterWrapper = styled.div`
   width: 20rem;
-  height: 28rem;
+  height: fit-content;
   padding-left: 1.2rem;
   margin-right: 2.4rem;
+  margin-bottom: 7.2rem;
 `;
 const StFilterTitle = styled.div`
   display: flex;
