@@ -47,8 +47,8 @@ export default function Write() {
     let totalImagesSize = imagesSize;
     imageList.map((image) => (totalImagesSize += image.file.size));
 
-    if (totalImagesSize > 1 * 1024 * 1024) {
-      alert('용량 초과로 업로드에 실패하였습니다.(최대 1MB)');
+    if (totalImagesSize > 15 * 1024 * 1024) {
+      alert('용량 초과로 업로드에 실패하였습니다.(최대 15MB)');
       return;
     }
     setImagesSize(totalImagesSize);
