@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import {
@@ -10,16 +11,22 @@ interface ToyPreviewProps {
   store: string;
   title: string;
   price: number;
-  age: string;
+  age?: string;
+  siteUrl: string;
 }
 export default function ToyPreview(props: ToyPreviewProps) {
-  const { src, store, title, price, age } = props;
+  const { src, store, title, price, age, siteUrl } = props;
   const [isMark, setIsMark] = useState(false);
+
+  const handleToySite = () => {
+    window.open(siteUrl);
+  };
   const handleToyMark = () => {
     setIsMark((prev) => !prev);
   };
+
   return (
-    <StToyWrapper>
+    <StToyWrapper onClick={handleToySite}>
       <StImgWrapper>
         <StToyImg src={src} />
         <StToyMarkWrapper onClick={handleToyMark}>
@@ -30,7 +37,7 @@ export default function ToyPreview(props: ToyPreviewProps) {
       <StStore>{store}</StStore>
       <StTitle>{title}</StTitle>
       <StPrice>{price.toLocaleString()}</StPrice>
-      <StAge>{age}</StAge>
+      <StAge isAge={Boolean(age)}>{age}</StAge>
     </StToyWrapper>
   );
 }
@@ -40,7 +47,9 @@ const StToyWrapper = styled.article`
   flex-direction: column;
 
   width: 27.5rem;
-  margin: 0rem 1.25rem;
+  margin: 0rem 1.25rem 6.5rem 0;
+
+  cursor: pointer;
 `;
 const StImgWrapper = styled.div`
   position: relative;
@@ -77,6 +86,12 @@ const StStore = styled.div`
 
   color: ${({ theme }) => theme.colors.gray006};
   ${({ theme }) => theme.fonts.b3_16_medium_140};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 const StTitle = styled.div`
   margin-top: 0.6rem;
@@ -85,6 +100,12 @@ const StTitle = styled.div`
 
   color: ${({ theme }) => theme.colors.black};
   ${({ theme }) => theme.fonts.b2_18_medium_130};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 const StPrice = styled.div`
   margin-top: 0.6rem;
@@ -95,7 +116,7 @@ const StPrice = styled.div`
     content: '원';
   }
 `;
-const StAge = styled.div`
+const StAge = styled.div<{ isAge: boolean }>`
   width: fit-content;
   padding: 0.4rem 0.9rem 0.5rem;
   margin-top: 0.4rem;
@@ -104,4 +125,10 @@ const StAge = styled.div`
   background: ${({ theme }) => theme.colors.subYellow};
   border-radius: 0.5rem;
   ${({ theme }) => theme.fonts.b6_13_medium_120};
+
+  ${({ isAge }) =>
+    !isAge &&
+    css`
+      visibility: hidden;
+    `}
 `;

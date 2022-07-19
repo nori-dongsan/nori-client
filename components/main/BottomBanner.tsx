@@ -4,19 +4,21 @@ import { IcNoriHeaderLogo } from '../../public/assets/icons';
 
 export default function BottomBanner() {
   return (
-    <StBottomLink href="/about">
-      <a>
-        <IcNoriHeaderLogo />
-      </a>
-    </StBottomLink>
+    <StBottomBannerWrapper>
+      <Link href="/about">
+        <a>
+          <IcNoriHeaderLogo />
+        </a>
+      </Link>
+    </StBottomBannerWrapper>
   );
 }
 
-const StBottomLink = styled(Link)`
-  & > div {
-    width: 100%;
-    height: 23.4rem;
+const StBottomBannerWrapper = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background-color: ${({ theme }) => theme.colors.lightGreen};
-  }
+  width: 100%;
+  height: 23.4rem;
 `;

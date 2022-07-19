@@ -38,8 +38,10 @@ const StFloatingBtnWrapper = styled.div`
   flex-direction: column;
   row-gap: 1.6rem;
   align-items: center;
-  position: sticky;
-  top: 43rem;
+  position: fixed;
+  bottom: 3rem;
+  right: 22.5%;
+  left: 77.5%;
 
   height: 30rem;
   margin-left: 8.4rem;
