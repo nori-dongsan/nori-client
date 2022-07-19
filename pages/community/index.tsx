@@ -14,31 +14,39 @@ import { useGetCommunityList } from '../../core/api/community';
 const limit = 10;
 
 export default function community() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [contentList, setContentList] = useState<CommunityData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const handleCurrentPage = (nextPage: number) => {
-    setCurrentPage(nextPage);
-  };
-  let { communityList, isLoading, isError } =
-    useGetCommunityList() as GetCommunityList;
+  const data = useGetCommunityList();
+  console.log(data.communityList);
 
   useEffect(() => {
-    console.log(communityList);
-    if (communityList) {
-      let data = communityList.data as CommunityData[];
-      data = data.filter(
-        (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
-      );
-      console.log(data);
-      setContentList(data);
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }
-  }, [contentList, currentPage]);
-  console.log(contentList);
+    setIsLoading(true);
+    setIsLoading(false);
+  });
+
+  // const handleCurrentPage = (nextPage: number) => {
+  //   setCurrentPage(nextPage);
+  // };
+  // let { communityList, isLoading, isError } =
+  //   useGetCommunityList() as GetCommunityList;
+
+  // useEffect(() => {
+  //   if (communityList) {
+  //     let data = communityList as CommunityData[];
+  //     data = data.filter(
+  //       (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
+  //     );
+  //     setContentList(data);
+  //     console.log(data);
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: 'smooth',
+  //     });
+  //   }
+  // }, [contentList, currentPage]);
+  // console.log(contentList);
   // setIsLoading(true);
   // fetch('/board')
   //   .then((res) => res.json())
@@ -73,13 +81,13 @@ export default function community() {
             </StContentBlock>
             <CommunityFloatingBtn />
           </StMainArticle>
-          {!isLoading && !isError && communityList && (
+          {/* {!isLoading && !isError && communityList && (
             <PageNavigation
               currentPage={currentPage}
               lastPage={Math.ceil(contentList.length / limit)}
               handleCurrentPage={handleCurrentPage}
             />
-          )}
+          )} */}
         </>
       )}
     </StCommunityWrapper>

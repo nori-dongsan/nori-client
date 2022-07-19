@@ -35,7 +35,7 @@ export interface PostCommentBody {
 }
 
 export interface GetCommunityList {
-  communityList: { data: CommunityData[] };
+  communityList: CommunityData[];
   isLoading: boolean;
   isError: string;
 }

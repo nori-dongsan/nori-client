@@ -11,9 +11,10 @@ import { baseInstance } from '../axios';
 // };
 
 export const useGetCommunityList = () => {
-  const { data, error } = useSWR('/board', baseInstance.get, {
+  const { data, error } = useSWR(`/board`, baseInstance.get, {
     errorRetryCount: 3,
   });
+  console.log(data);
 
   return {
     communityList: data,
