@@ -11,15 +11,16 @@ export interface ReplyData {
 // 커뮤니티 데이터
 export interface CommunityData {
   id: string;
+  author: boolean;
   category: string;
   title: string;
   content: string;
-  userNickname?: string;
-  replyCount?: number;
-  createdAt?: string;
+  userNickname: string;
+  replyCount: number;
+  createdAt: string;
   image?: string;
-  imageList?: string[];
-  replyList?: ReplyData[];
+  imageList: string[];
+  replyList: ReplyData[];
 }
 // 커뮤니티 게시글 작성 post body
 export interface PostCommunityBody {

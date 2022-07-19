@@ -1,36 +1,56 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
 import { Reply } from '../../components/community';
 import CommunityCategory from '../../components/community/CommunityCategory';
 import DetailFloatingBtn from '../../components/community/DetailFloatingBtn';
+import { deleteCommunity, getCommunityDetail } from '../../core/api/community';
 import { IcExpandImg, IcMenu, IcWriter } from '../../public/assets/icons';
+import { CommunityData } from '../../types/community';
 
-export default function CommunityDetail() {
-  const router = useRouter();
-  const [isWriter, setIsWriter] = useState<boolean>(true);
+export default function CommunityDetail({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [expandedImg, setExpandedImg] = useState<string>('');
 
-  const { cid } = router.query;
+  const router = useRouter();
+
+  const {
+    id: cid,
+    author,
+    category,
+    title,
+    content,
+    userNickname,
+    replyCount,
+    createdAt,
+    imageList,
+    replyList,
+  }: Omit<CommunityData, 'image'> = data;
 
   const handleMenu = () => {
     setIsMenu((prev) => !prev);
   };
 
-  const handleExpanded = () => {
+  const handleExpanded = (src?: string) => {
+    if (src) setExpandedImg(src);
     setIsExpanded((prev) => !prev);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const val = confirm(
       '삭제하시겠어요? 삭제 시, 해당 글과 댓글은 복구되지 않습니다.',
     );
 
     if (val) {
-      router.push('/community');
+      const status = await deleteCommunity(cid);
+      if (status === 200) router.push('/community');
     }
   };
 
@@ -39,17 +59,15 @@ export default function CommunityDetail() {
       <StDetailSection>
         <StCommunitySection>
           <StCommunityArticle>
-            <CommunityCategory category="후기" />
-            <StCommunityHeader>
-              역시 그린키드 미끄럼틀 아이가 좋아하네요
-            </StCommunityHeader>
+            <CommunityCategory category={category} />
+            <StCommunityHeader>{title}</StCommunityHeader>
             <StCommunityInfoWrapper>
               <StCommunityInfo>
                 <StNickNameInfo>
-                  {isWriter && <IcWriter />}
-                  <span>예현맘</span>
+                  {author && <IcWriter />}
+                  <span>{userNickname}</span>
                 </StNickNameInfo>
-                <span>2022.06.23</span>
+                <span>{createdAt}</span>
               </StCommunityInfo>
               <StCommunityMenu>
                 <IcMenu
@@ -61,8 +79,8 @@ export default function CommunityDetail() {
               </StCommunityMenu>
               {isMenu && (
                 <StMenuWrapper onClick={handleMenu}>
-                  {isWriter ? (
-                    <StMenuList isWriter={isWriter}>
+                  {author ? (
+                    <StMenuList isWriter={author}>
                       <Link href={`/write/${cid}`}>
                         <li>
                           <a>수정하기</a>
@@ -71,7 +89,7 @@ export default function CommunityDetail() {
                       <li onClick={handleDelete}>삭제하기</li>
                     </StMenuList>
                   ) : (
-                    <StMenuList isWriter={isWriter}>
+                    <StMenuList isWriter={author}>
                       <li>신고하기</li>
                     </StMenuList>
                   )}
@@ -80,40 +98,125 @@ export default function CommunityDetail() {
             </StCommunityInfoWrapper>
             <StCommunityContent>
               <StImgWrapper>
-                {['1', '2', '3'].map((item) => (
-                  <StPreviewImgWrapper key={item}>
-                    <StPreviewImg
-                      src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
-                      alt={item}
-                    />
-                    <StExpandImgIcon onClick={handleExpanded} />
+                {imageList.map((item, idx) => (
+                  <StPreviewImgWrapper key={idx}>
+                    <StPreviewImg src={item} alt={item} />
+                    <StExpandImgIcon onClick={() => handleExpanded(item)} />
                   </StPreviewImgWrapper>
                 ))}
               </StImgWrapper>
-              <StContent>
-                군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한
-                군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중
-                법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는
-                군사법원의 재판을 받지 아니한다. 선거에 관한 경비는 법률이
-                정하는 경우....
-              </StContent>
+              <StContent>{content}</StContent>
             </StCommunityContent>
           </StCommunityArticle>
         </StCommunitySection>
         <Reply />
       </StDetailSection>
-      <DetailFloatingBtn heartNum={24} replyNum={24} />
+      <DetailFloatingBtn heartNum={0} replyNum={replyCount} />
       {isExpanded && (
-        <StExpandedImgWrapper onClick={handleExpanded}>
-          <StExpandedImg
-            src="https://shop-phinf.pstatic.net/20220517_16/1652795910857kjUHI_JPEG/53931745690420048_1892994417.jpg?type=f295_381"
-            alt="expanded"
-          />
+        <StExpandedImgWrapper onClick={() => handleExpanded()}>
+          <StExpandedImg src={expandedImg} alt="expanded" />
         </StExpandedImgWrapper>
       )}
     </StCommunityMain>
   );
 }
+
+type Props = {
+  data: Omit<CommunityData, 'image'>;
+};
+interface Params extends ParsedUrlQuery {
+  cid: string;
+}
+// 해당 페이지 렌더링 시 항상 실행
+export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
+  params,
+}) => {
+  // api를 통해 받은 data 정보
+  const data = await getCommunityDetail(params!.cid);
+  return {
+    //	page component의 Props로 전달되는 객체
+    props: {
+      data: {
+        id: '2',
+        author: true,
+        category: '후기',
+        title: '그린키드 미끄럼틀 아이가 좋아하네요',
+        content:
+          '군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한 군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중 법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다. 선거에 관한 경비는 법률이 정하는 경우....경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다. 선거에 관한 경비는 법률이 정하는 경우....',
+        userNickname: '예현맘',
+        replyCount: 12,
+        createdAt: '2022.06.23',
+        imageList: [
+          'https://shop-phinf.pstatic.net/20220517_138/1652797518851PNyB4_JPEG/53933353675306804_1875513620.jpg?type=f295_381',
+          'https://img.huffingtonpost.com/asset/5d703563250000ad0003e5bd.jpeg?ops=scalefit_630_noupscale',
+          'http://image.auction.co.kr/itemimage/24/af/15/24af15b716.jpg',
+        ],
+        replyList: [
+          {
+            userNickname: '희지맘',
+            content: '와 정말 좋은 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 공감가는 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 좋은 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 공감가는 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 좋은 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 공감가는 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 좋은 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 공감가는 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 좋은 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 공감가는 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 좋은 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+          {
+            userNickname: '희지맘',
+            content: '와 정말 공감가는 글 입니다.',
+            createdAt: '2022.06.23',
+          },
+        ],
+      },
+    },
+  };
+};
 
 const StCommunityMain = styled.main`
   display: flex;

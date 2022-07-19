@@ -14,6 +14,7 @@ export const postCommunity = rest.post('/board', (req, res, ctx) => {
   연관된 모델의 데이터까지 포함시키고 있어야 해서 일단 이렇게 함. */
   communityMockData.push({
     id: newId + '',
+    author: true,
     category: category,
     title: title,
     content: content,
@@ -41,7 +42,6 @@ export const postCommunity = rest.post('/board', (req, res, ctx) => {
 export const putCommunity = rest.put('/board/:boardId', (req, res, ctx) => {
   const { boardId } = req.params;
 });
-
 // 커뮤니티 게시글 상세조회
 export const getCommunityDetail = rest.get(
   '/board/:boardId',
@@ -51,8 +51,7 @@ export const getCommunityDetail = rest.get(
     const communityDetail = communityMockData.filter(
       (community) => community.id === boardId,
     );
-
-    return res(ctx.json(communityDetail));
+    return res(ctx.status(200), ctx.delay(500), ctx.json(communityDetail[0]));
   },
 );
 // 커뮤니티 게시글 리스트 조회
@@ -76,12 +75,6 @@ export const postComment = rest.post('/board/comment', (req, res, ctx) => {
 export const deleteCommunity = rest.delete(
   '/board/:boardId',
   (req, res, ctx) => {
-    const { boardId } = req.params;
-
-    const newCommunityMockData = communityMockData.filter(
-      (community) => community.id !== boardId,
-    );
-
-    return res(ctx.json(newCommunityMockData));
+    return res(ctx.status(200));
   },
 );
