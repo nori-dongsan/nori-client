@@ -1,16 +1,39 @@
 import styled from '@emotion/styled';
 import { IcWriteHeaderLogo } from '../../public/assets/icons';
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
+import { newPostInfoState } from '../../core/atom';
+import { postCommunity } from '../../core/api/community';
+import { useRouter } from 'next/router';
 
 export default function WriteHeader() {
+  const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
+  const router = useRouter();
+
+  const handleRegister = async () => {
+    const { title, content } = newPostInfo;
+    if (title === '' || content === '') {
+      alert('내용을 입력해주세요.');
+      return;
+    }
+
+    const data = await postCommunity(newPostInfo);
+    setNewPostInfo({
+      category: '후기',
+      title: '',
+      content: '',
+    });
+    router.push(`/community/${data.id}`);
+  };
+
   return (
     <StWriteHeaderWrapper>
-      <Link href="/main">
+      <Link href="/community">
         <a>
           <IcWriteHeaderLogo />
         </a>
       </Link>
-      <StWriteBtn>등록하기</StWriteBtn>
+      <StWriteBtn onClick={handleRegister}>등록하기</StWriteBtn>
     </StWriteHeaderWrapper>
   );
 }
