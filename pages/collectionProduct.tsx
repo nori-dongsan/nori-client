@@ -25,13 +25,17 @@ export default function collectionProduct({}) {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const landingArray = new Array(10).fill(0);
   const [isClick, setIsClick] = useState<boolean[]>([true, false]);
+
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-  let { productList, isLoading, isError } = useGetCollectionProduct(
-    'price-desc',
-  ) as GetCollectionProduct;
-  console.log(isLoading);
+  const handleClickPrice = (clickIdx: number) => {
+    clickIdx === 0 ? setIsClick([true, false]) : setIsClick([false, true]);
+  };
+  let { productList, isLoading, isError } = isClick[0]
+    ? (useGetCollectionProduct('price-desc') as GetCollectionProduct)
+    : (useGetCollectionProduct('price-asc') as GetCollectionProduct);
+
   useEffect(() => {
     if (productList) {
       console.log(productList);
@@ -60,7 +64,7 @@ export default function collectionProduct({}) {
       ) : (
         <>
           <StCollectionTitle>{collection}</StCollectionTitle>
-          <PriceFilter isClick={isClick} />
+          <PriceFilter isClick={isClick} handleClickPrice={handleClickPrice} />
           <StToyListWrapper>
             {toyList.map(
               (_, idx) =>

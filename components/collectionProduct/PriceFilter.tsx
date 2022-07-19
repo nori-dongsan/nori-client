@@ -1,25 +1,19 @@
 import styled from '@emotion/styled';
 
-import {
-  getCollectionProduct,
-  useGetCollectionProduct,
-} from '../../core/api/toy';
 export interface PriceFilterProps {
   isClick: boolean[];
+  handleClickPrice: (clickIdx: number) => void;
 }
 export default function PriceFilter(props: PriceFilterProps) {
-  const { isClick } = props;
-  const handlePriceDesc = () => {};
-
-  const handlePriceAsc = async () => {};
+  const { isClick, handleClickPrice } = props;
 
   return (
     <StPriceSection>
-      <StPriceTitle onClick={handlePriceDesc} isClick={isClick[0]}>
+      <StPriceTitle onClick={() => handleClickPrice(0)} isClick={isClick[0]}>
         낮은 가격순
       </StPriceTitle>
       <span>|</span>
-      <StPriceTitle onClick={handlePriceAsc} isClick={isClick[1]}>
+      <StPriceTitle onClick={() => handleClickPrice(1)} isClick={isClick[1]}>
         높은 가격순
       </StPriceTitle>
     </StPriceSection>
