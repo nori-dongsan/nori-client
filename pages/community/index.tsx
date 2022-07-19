@@ -7,22 +7,42 @@ import {
 import CommunityFloatingBtn from '../../components/community/CommunityFloatingBtn';
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import { useEffect, useState } from 'react';
-import { CommunityData } from '../../types/community';
+import { GetCommunityList, CommunityData } from '../../types/community';
+import { PageNavigation } from '../../components/collectionProduct';
+import { useGetCommunityList } from '../../core/api/community';
+
+const limit = 10;
 
 export default function community() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [contentList, setContentList] = useState<CommunityData[]>([]);
-  // const [currentPage, setCurrentPage] = useState<number>();
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const handleCurrentPage = (nextPage: number) => {
+    setCurrentPage(nextPage);
+  };
+  let { communityList, isLoading, isError } =
+    useGetCommunityList() as GetCommunityList;
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch('/board')
-      .then((res) => res.json())
-      .then((data: CommunityData[]) => {
-        setContentList(data);
-        setIsLoading(false);
+    if (communityList) {
+      let data = communityList as CommunityData[];
+      data = data.filter(
+        (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
+      );
+      setContentList(data);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
       });
-  }, []);
+    }
+  }, [contentList, currentPage]);
+  // setIsLoading(true);
+  // fetch('/board')
+  //   .then((res) => res.json())
+  //   .then((data: CommunityData[]) => {
+  //     setContentList(data);
+  //     setIsLoading(false);
+  //   });
 
   return (
     <StCommunityWrapper>
@@ -50,6 +70,11 @@ export default function community() {
             </StContentBlock>
             <CommunityFloatingBtn />
           </StMainArticle>
+          <PageNavigation
+            currentPage={currentPage}
+            lastPage={Math.ceil(contentList.length / limit)}
+            handleCurrentPage={handleCurrentPage}
+          />
         </>
       )}
     </StCommunityWrapper>
