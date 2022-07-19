@@ -1,16 +1,6 @@
 import styled from '@emotion/styled';
-import { IcCheckbox } from '../../public/assets/icons';
-import {
-  ChangeEvent,
-  DetailedHTMLProps,
-  DOMAttributes,
-  HTMLAttributes,
-  MouseEventHandler,
-  useRef,
-  useState,
-} from 'react';
 import { FilterDropdownProps } from '../../types/viewProduct';
-import theme from '../../styles/theme';
+
 export default function FilterDropdown(props: FilterDropdownProps) {
   const {
     categoryInfo,
@@ -30,7 +20,6 @@ export default function FilterDropdown(props: FilterDropdownProps) {
 
     handleCheckedItems(checkedItem, categoryIdx);
   };
-  console.log('하위', checkedItem);
 
   return (
     <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>

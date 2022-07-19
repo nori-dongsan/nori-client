@@ -17,13 +17,10 @@ export default function TopFloatingBtn() {
 const StTopBtn = styled(IcTopBtn)`
   position: fixed;
   bottom: 3rem;
-  right: 22.5%;
-  left: 77.5%;
+  right: 27rem;
 
-  display: block;
   margin-left: 3.4rem;
 
   z-index: 1;
-
   cursor: pointer;
 `;

@@ -79,7 +79,6 @@ export default function ProductFilter() {
     });
   };
 
-  console.log('상위', checkedItems);
   const handleCheckedItems = (copyCheckedItem: Set<number>, idx: number) => {
     setCheckedItems({ ...checkedItems, [idx]: copyCheckedItem });
   };
