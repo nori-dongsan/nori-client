@@ -12,8 +12,6 @@ export const useGetCollectionProduct = (key: string) => {
       errorRetryCount: 3,
     },
   );
-
-  console.log(data);
   return {
     productList: data,
     isLoading: !error && !data,
