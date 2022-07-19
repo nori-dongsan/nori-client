@@ -2,6 +2,7 @@ import {
   FilterTag,
   ProductFilter,
   TagSection,
+  TopFloatingBtn,
   ViewProductBanner,
 } from '../components/viewProduct';
 import styled from '@emotion/styled';
@@ -84,6 +85,7 @@ export default function viewProduct() {
           </StFilterSectionWrapper>
         </>
       )}
+      <TopFloatingBtn />
     </StViewProductWrapper>
   );
 }
@@ -97,6 +99,8 @@ const StViewProductWrapper = styled.div`
 `;
 const StFilterSectionWrapper = styled.section`
   display: flex;
+
+  height: fit-content;
 `;
 const StFilterBarWrapper = styled.div`
   display: flex;

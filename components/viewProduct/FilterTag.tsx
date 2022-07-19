@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { IcDeleteTag } from '../../public/assets/icons';
-import theme from '../../styles/theme';
 import { ProductFilter } from '../../types/viewProduct';
 
 export default function FilterTag(props: ProductFilter) {

@@ -1,20 +1,19 @@
 import styled from '@emotion/styled';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { filterListState, filterTagState } from '../../core/atom';
 import { IcUndoBtn } from '../../public/assets/icons';
+import { FilterTagProps } from '../../types/viewProduct';
 import FilterTag from './FilterTag';
 
 export default function TagSection() {
+  const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
+
   return (
     <StTagSection>
       <StTagWrapper>
-        <FilterTag tagName={'노리가'} />
-        <FilterTag tagName={'노리가'} />
-        <FilterTag tagName={'노리가'} />
-        <FilterTag tagName={'노리가'} />
-        <FilterTag tagName={'노리가'} />
-        <FilterTag tagName={'노리가'} />
-        <FilterTag tagName={'노리가'} />
-        <FilterTag tagName={'노리가'} />
-        <FilterTag tagName={'노리가'} />
+        {filterTagList.map(({ tagText }) => {
+          return <FilterTag tagName={tagText} />;
+        })}
       </StTagWrapper>
       <StUndoAllTagBtn>
         <h2>모두 해제</h2>

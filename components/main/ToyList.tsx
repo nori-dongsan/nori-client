@@ -21,6 +21,7 @@ export default function ToyList(props: ToyListProps) {
               title="[보행기대여] NEW 뉴 롤링360 플러스 다기능 아기보행기"
               price={12000}
               age="36개월이상"
+              siteUrl=""
             />
           </StPopularityWrapper>
         ) : (
@@ -31,6 +32,7 @@ export default function ToyList(props: ToyListProps) {
             title="[보행기대여] NEW 뉴 롤링360 플러스 다기능 아기보행기"
             price={12000}
             age="36개월이상"
+            siteUrl=""
           />
         ),
       )}

@@ -39,3 +39,10 @@ export { default as IcMainBookmarkSelected } from './ic_bookmark_selected_48.svg
 export { default as IcMainBookmarkUnselected } from './ic_bookmark_unselected_48.svg';
 export { default as IcDeleteTag } from './delete_circle.svg';
 export { default as IcUndoBtn } from './ic_updo_gray006.svg';
+export { default as IcSignupLogo } from './nori.svg';
+export { default as IcLoginNori } from './ic_character_small.svg';
+export { default as IcKakaoBtn } from './btn_social_login_kakao.svg';
+export { default as IcGoogleBtn } from './btn_social_login_google.svg';
+export { default as IcNaverBtn } from './btn_social_login_naver.svg';
+export { default as IcSignupCheckboxUnselected } from './ic_checkbox_unselected_black_20.svg';
+export { default as IcSignupCheckboxSelected } from './ic_checkbox_selected_green_20.svg';

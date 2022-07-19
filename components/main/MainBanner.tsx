@@ -10,7 +10,11 @@ export default function MainBanner() {
 }
 
 const StMainBannerWrapper = styled.aside`
-  height: 37.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  background-color: #31cc94;
+  height: 38.4rem;
+
+  background-color: ${({ theme }) => theme.colors.mainGreen};
 `;
