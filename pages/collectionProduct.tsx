@@ -33,7 +33,7 @@ export default function collectionProduct() {
 
   useEffect(() => {
     if (productList) {
-      let data = productList.data as ToyData[];
+      let data = productList as ToyData[];
       data = data.filter(
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
@@ -76,7 +76,7 @@ export default function collectionProduct() {
           {!isLoading && !isError && productList && (
             <PageNavigation
               currentPage={currentPage}
-              lastPage={Math.ceil(productList.data.length / limit)}
+              lastPage={Math.ceil(productList.length / limit)}
               handleCurrentPage={handleCurrentPage}
             />
           )}
