@@ -6,7 +6,7 @@ export interface ImgData {
 export interface ReplyData {
   userNickname?: string;
   content: string;
-  createdAt?: string;
+  createdAt: string;
 }
 // 커뮤니티 데이터
 export interface CommunityData {

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 interface ReplyContentProps {
   userNickname?: string;
   content: string;
-  createdAt?: string;
+  createdAt: string;
 }
 
 export default function ReplyContent(props: ReplyContentProps) {
