@@ -72,7 +72,7 @@ const StNavigationWrapper = styled.nav`
   align-items: center;
 
   width: 22.2rem;
-  margin: 6.5rem 0rem 12rem;
+  margin-bottom: 12rem;
 
   cursor: pointer;
 `;

@@ -1,6 +1,10 @@
-import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
+import {
+  ProductFilter,
+  TopFloatingBtn,
+  ViewProductBanner,
+} from '../components/viewProduct';
 import styled from '@emotion/styled';
-import { IcPriceLine } from '../public/assets/icons';
+import { IcPriceLine, IcTopBtn, IcWriteBtn } from '../public/assets/icons';
 import { useState } from 'react';
 import { ToyList } from '../components/viewProduct';
 import {
@@ -15,6 +19,15 @@ export default function viewProduct() {
   const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
   // useSWR로 로딩 판단할 것임
   const isLoading = false;
+  const handlePriceSort = (idx: number) => {
+    //이미 해당 버튼이 눌려져있다면 return
+    if (selectPrice[idx]) return;
+    setSelectPrice({
+      ...selectPrice,
+      [0]: !selectPrice[0],
+      [1]: !selectPrice[1],
+    });
+  };
 
   return (
     <StViewProductWrapper>
@@ -40,55 +53,35 @@ export default function viewProduct() {
           <ViewProductBanner />
           <StFilterSectionWrapper>
             <ProductFilter />
-
-            {/* <<<<<<< HEAD
-        <ProductFilter />
-        <StPriceSort>
-          <StPriceStandard
-            onClick={() => {
-              setSelectPrice({
-                ...selectPrice,
-                [0]: !selectPrice[0],
-              });
-            }}
-            isClicked={selectPrice[0]}
-          >
-            낮은 가격순
-          </StPriceStandard>
-          <IcPriceLine />
-          <StPriceStandard
-            onClick={() => {
-              setSelectPrice({
-                ...selectPrice,
-                [1]: !selectPrice[1],
-              });
-            }}
-            isClicked={selectPrice[1]}
-          >
-            높은 가격순
-          </StPriceStandard>
-        </StPriceSort>
-
-      </StFilterBarWrapper> */}
-
             <StContentSection>
               <StFilterBarWrapper>
                 <StPriceSort>
-                  <h3>낮은 가격순</h3>
+                  <StPriceStandard
+                    onClick={() => handlePriceSort(0)}
+                    isClicked={selectPrice[0]}
+                  >
+                    낮은 가격순
+                  </StPriceStandard>
                   <IcPriceLine />
-                  <h3>높은 가격순</h3>
+                  <StPriceStandard
+                    onClick={() => handlePriceSort(1)}
+                    isClicked={selectPrice[1]}
+                  >
+                    높은 가격순
+                  </StPriceStandard>
                 </StPriceSort>
               </StFilterBarWrapper>
               <StToyListWrapper>
-                <ToyList landingCategory="viewProduct" length={4} />
-                <ToyList landingCategory="viewProduct" length={4} />
-                <ToyList landingCategory="viewProduct" length={4} />
-                <ToyList landingCategory="viewProduct" length={4} />
+                <ToyList length={4} landingCategory={'vieProduct'} />
+                <ToyList length={4} landingCategory={'vieProduct'} />
+                <ToyList length={4} landingCategory={'vieProduct'} />
+                <ToyList length={4} landingCategory={'vieProduct'} />
               </StToyListWrapper>
             </StContentSection>
           </StFilterSectionWrapper>
         </>
       )}
+      <TopFloatingBtn />
     </StViewProductWrapper>
   );
 }
@@ -100,39 +93,31 @@ const StViewProductWrapper = styled.div`
 
   padding: 0 37.2rem;
 `;
-
-/*
-const StViewProductWrapper = styled.div`
-  width: 192rem;
-  padding: 0 37.2rem;
-`;
-*/
-
 const StFilterSectionWrapper = styled.section`
   display: flex;
+
+  height: fit-content;
 `;
 const StFilterBarWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-
 const StPriceSort = styled.div`
   display: flex;
   align-items: center;
+  column-gap: 1.4rem;
 
   height: 2rem;
   margin-top: 2rem;
 
-  font: ${({ theme }) => theme.fonts.b5_14_medium_140};
+  ${({ theme }) => theme.fonts.b5_14_medium_140};
 
   cursor: pointer;
 `;
-
 const StPriceStandard = styled.h3<{ isClicked: boolean }>`
   color: ${({ isClicked, theme: { colors } }) =>
     isClicked ? colors.black : colors.gray005};
 `;
-
 const StContentSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -142,9 +127,4 @@ const StToyListWrapper = styled.section`
   flex-direction: column;
 
   margin-top: 2rem;
-`;
-const StSelectBar = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
 `;

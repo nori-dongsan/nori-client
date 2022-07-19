@@ -1,24 +1,33 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcFillToyMark, IcToyMark } from '../../public/assets/icons';
+import {
+  IcViewBookmarkSelected,
+  IcViewBookmarkUnselected,
+} from '../../public/assets/icons';
 
 interface ToyPreviewProps {
   src: string;
   store: string;
   title: string;
   price: number;
-  age: string;
+  age?: string;
+  siteUrl: string;
 }
 
 export default function ToyPreview(props: ToyPreviewProps) {
-  const { src, store, title, price, age } = props;
+  const { src, store, title, price, age, siteUrl } = props;
   const [isMark, setIsMark] = useState(false);
+
+  const handleToySite = () => {
+    window.open(siteUrl);
+  };
+
   const handleToyMark = () => {
     setIsMark((prev) => !prev);
   };
   return (
-    <StToyWrapper>
+    <StToyWrapper onClick={handleToySite}>
       <StImgWrapper>
         <StToyImg src="https://www.littlebaby.co.kr:14019/shop/data/goods/1632018070797m0.jpg" />
         <StToyMarkWrapper onClick={handleToyMark}>
@@ -28,8 +37,8 @@ export default function ToyPreview(props: ToyPreviewProps) {
       </StImgWrapper>
       <StStore>{store}</StStore>
       <StTitle>{title}</StTitle>
-      <StPrice>{price}</StPrice>
-      <StAge>{age}</StAge>
+      <StPrice>{price.toLocaleString()}</StPrice>
+      <StAge isAge={Boolean(age)}>{age}</StAge>
     </StToyWrapper>
   );
 }
@@ -59,15 +68,15 @@ const StToyMarkWrapper = styled.div`
   top: 1.5rem;
   left: 18.147rem;
 `;
-const StToyMark = styled(IcToyMark)`
+const StToyMark = styled(IcViewBookmarkUnselected)`
   position: absolute;
   top: 0;
   left: 0;
 `;
-const StFillToyMark = styled(IcFillToyMark)`
+const StFillToyMark = styled(IcViewBookmarkSelected)`
   position: absolute;
-  top: 0.2rem;
-  left: 0.2rem;
+  top: -0.2rem;
+  left: -0.1rem;
 `;
 const StStore = styled.div`
   width: 22rem;
@@ -76,6 +85,12 @@ const StStore = styled.div`
 
   ${({ theme }) => theme.fonts.b5_14_medium_140};
   color: ${({ theme }) => theme.colors.gray006};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 
 const StTitle = styled.div`
@@ -84,6 +99,12 @@ const StTitle = styled.div`
   margin-top: 0.4rem;
 
   ${({ theme }) => theme.fonts.b3_16_medium_140};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const StPrice = styled.div`
@@ -98,7 +119,7 @@ const StPrice = styled.div`
   }
 `;
 
-const StAge = styled.div`
+const StAge = styled.div<{ isAge: boolean }>`
   width: fit-content;
   padding: 0.2rem 0.8rem 0.3rem 0.8rem;
   margin-top: 0.3rem;
@@ -106,4 +127,10 @@ const StAge = styled.div`
   border-radius: 0.4rem;
   ${({ theme }) => theme.fonts.b7_12_medium_140};
   line-height: 140%;
+
+  ${({ isAge }) =>
+    !isAge &&
+    css`
+      visibility: hidden;
+    `}
 `;

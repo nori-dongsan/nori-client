@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 interface ReplyContentProps {
-  userNickname: string;
+  userNickname?: string;
   content: string;
   createdAt: string;
 }
@@ -12,10 +12,10 @@ export default function ReplyContent(props: ReplyContentProps) {
     <StReplyContentWrapper>
       <StReplyInfo>
         <p>{userNickname}</p>
-        <span>{createdAt}</span>
       </StReplyInfo>
       <StReplyContents>
         <p>{content}</p>
+        <span>{createdAt} · 신고</span>
       </StReplyContents>
     </StReplyContentWrapper>
   );
@@ -23,42 +23,37 @@ export default function ReplyContent(props: ReplyContentProps) {
 
 const StReplyContentWrapper = styled.section`
   width: 77.6rem;
-  margin-bottom: 3.3rem;
-
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
+  margin-bottom: 4rem;
 `;
 
 const StReplyInfo = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  margin-bottom: 1.1rem;
 
   p {
+    margin-bottom: 0.8rem;
     padding-right: 0.9rem;
 
-    font-style: normal;
-    font-weight: 500;
-    font-size: 23.2351px;
-    line-height: 34px;
-  }
-
-  span {
-    font-style: normal;
-    font-weight: 350;
-    font-size: 19.5174px;
-    line-height: 28px;
+    ${({ theme }) => theme.fonts.b3_16_semibold_140}
   }
 `;
 
 const StReplyContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
   margin-bottom: 2.8rem;
 
   p {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 21.3762px;
-    line-height: 31px;
+    margin-bottom: 0.8rem;
+
+    color: ${({ theme }) => theme.colors.black};
+    ${({ theme }) => theme.fonts.b4_15_regular_146}
+  }
+
+  span {
+    color: ${({ theme }) => theme.colors.gray007};
+
+    ${({ theme }) => theme.fonts.b6_13_regular_120}
   }
 `;

@@ -413,7 +413,8 @@ export const toyMockData: ToyData[] = [
     image:
       'https://shop-phinf.pstatic.net/20220527_53/1653581356749fHyE7_JPEG/54717252485904841_1205832124.jpg?type=f295_381',
     siteUrl: 'https://smartstore.naver.com/kukmintoy/products/509708593',
-    title: '[대여][주말특가] 피셔프라이스 피아노짐 아기체육관 놀이매트 블루',
+    title:
+      '[대여][주말특가] 피셔프라이스 피아노짐 아기체육관 놀이매트 블루블루블루블루블루블루블루블루블루블루블루블루블루블루블루블루',
     month: [1],
     playHow: 2,
     type: 16,

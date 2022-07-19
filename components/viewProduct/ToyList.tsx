@@ -4,10 +4,11 @@ import ToyPreview from './ToyPreview';
 
 interface ToyListProps {
   length: number;
+  landingCategory: string;
 }
 
 export default function ToyList(props: ToyListProps) {
-  const { length } = props;
+  const { length, landingCategory } = props;
   const toyList = new Array(length).fill(0);
   return (
     <StToyListWrapper>
@@ -19,6 +20,7 @@ export default function ToyList(props: ToyListProps) {
           title="[보행기대여] NEW 뉴 롤링360 플러스 다기능 아기보행기"
           price={12000}
           age="36개월이상"
+          siteUrl=""
         />
       ))}
     </StToyListWrapper>

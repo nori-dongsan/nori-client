@@ -3,8 +3,6 @@ import LocalStorage from './localStorage';
 
 // const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-
-
 const baseInstance = axios.create({
   baseURL: `/`,
   headers: {
@@ -34,10 +32,9 @@ baseInstance.interceptors.response.use(
       config,
       response: { status },
     } = error;
-    console.log(config);
 
     const originalRequest = config;
-    if (status === 409) {
+    if (status === 401) {
       // token refresh 요청
       const { data } = await axios.post(
         `/auth/refresh`, // token refresh api
@@ -61,7 +58,7 @@ baseInstance.interceptors.response.use(
       };
       return axios(originalRequest);
     }
-    return Promise.reject(error);
+    return error.response;
   },
 );
 
