@@ -79,7 +79,7 @@ export default function Write() {
 
   const handleResizeHeight = () => {
     if (textRef.current)
-      textRef.current.style.height = textRef.current.scrollHeight / 10 + 'rem';
+      textRef.current.style.height = `${textRef.current.scrollHeight / 10}rem`;
   };
 
   return (
@@ -111,7 +111,7 @@ export default function Write() {
               onChange={handleTitle}
               placeholder="제목"
             />
-            <span>{`${title.length} / 30`}</span>
+            <span>{title.length} / 30</span>
           </StCategoryInputWrapper>
           <textarea
             ref={textRef}
