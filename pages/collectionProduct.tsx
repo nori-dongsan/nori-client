@@ -38,7 +38,6 @@ export default function collectionProduct({}) {
 
   useEffect(() => {
     if (productList) {
-      console.log(productList);
 
       let data = productList as ToyData[];
       data = data.filter(
