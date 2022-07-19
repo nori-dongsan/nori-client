@@ -24,15 +24,15 @@ export default function collectionProduct({}) {
   const [toyList, setToyList] = useState<ToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const landingArray = new Array(10).fill(0);
-  const [isClick, setIsClick] = useState<boolean[]>([true, false]);
+  const [priceDesc, setPriceDesc] = useState<boolean>(true);
 
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-  const handleClickPrice = (clickIdx: number) => {
-    clickIdx === 0 ? setIsClick([true, false]) : setIsClick([false, true]);
+  const handleClickPrice = (clickPrice: string) => {
+    clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
-  let { productList, isLoading, isError } = isClick[0]
+  let { productList, isLoading, isError } = priceDesc
     ? (useGetCollectionProduct('price-desc') as GetCollectionProduct)
     : (useGetCollectionProduct('price-asc') as GetCollectionProduct);
 
@@ -40,7 +40,7 @@ export default function collectionProduct({}) {
     if (productList) {
       console.log(productList);
 
-      let data = productList.data.data as ToyData[];
+      let data = productList as ToyData[];
       data = data.filter(
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
@@ -64,7 +64,10 @@ export default function collectionProduct({}) {
       ) : (
         <>
           <StCollectionTitle>{collection}</StCollectionTitle>
-          <PriceFilter isClick={isClick} handleClickPrice={handleClickPrice} />
+          <PriceFilter
+            priceDesc={priceDesc}
+            handleClickPrice={handleClickPrice}
+          />
           <StToyListWrapper>
             {toyList.map(
               (_, idx) =>
@@ -79,7 +82,7 @@ export default function collectionProduct({}) {
           {!isLoading && !isError && productList && (
             <PageNavigation
               currentPage={currentPage}
-              lastPage={Math.ceil(productList.data.data.length / limit)}
+              lastPage={Math.ceil(productList.length / limit)}
               handleCurrentPage={handleCurrentPage}
             />
           )}
