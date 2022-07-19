@@ -10,7 +10,9 @@ export interface ToyData {
 }
 
 export interface GetCollectionProduct {
-  productList: ToyData[];
+  productList: {
+    data: { data: ToyData[] };
+  };
   isLoading: boolean;
   isError: string;
 }
