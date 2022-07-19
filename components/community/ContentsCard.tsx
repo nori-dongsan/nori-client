@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { IcReply, IcHeart, IcDot } from '../../public/assets/icons';
 
 interface ContentInfoProps {
   category: string;
   title: string;
   content: string;
-  userNickname: string;
-  replyCount: number;
-  createdAt: string;
+  userNickname?: string;
+  replyCount?: number;
+  createdAt?: string;
   img?: string;
 }
 
@@ -109,6 +108,8 @@ const StContentImg = styled.img`
   width: 21.6rem;
   height: 21.6rem;
 
+  object-fit: cover;
+
   border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
   border-radius: 0.5rem;
 `;
@@ -119,14 +120,14 @@ const StWriteInfo = styled.div`
 
   margin-bottom: 1.2rem;
 
-  span:first-child {
+  span:first-of-type {
     margin-right: 1rem;
 
     color: ${({ theme }) => theme.colors.gray008};
     ${({ theme }) => theme.fonts.b4_15_semibold_146}
   }
 
-  span:last-child {
+  span:last-of-type {
     margin-left: 1rem;
 
     color: ${({ theme }) => theme.colors.gray008};
