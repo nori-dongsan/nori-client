@@ -13,7 +13,7 @@ export const postCommunity = rest.post('/board', (req, res, ctx) => {
   /* 이게 원래 req.body만 넘겨주면 되는데, 우리는 json-server처럼 
   연관된 모델의 데이터까지 포함시키고 있어야 해서 일단 이렇게 함. */
   communityMockData.push({
-    id: newId + '',
+    id: String(newId),
     author: true,
     category: category,
     title: title,

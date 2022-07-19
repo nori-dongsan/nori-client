@@ -9,6 +9,7 @@ export default function Write() {
   const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
   const [isCategory, setIsCategory] = useState<boolean>(false);
   const [images, setImages] = useState<ImgData[]>([]);
+  const [imagesSize, setImagesSize] = useState<number>(0);
   const [category, setCategory] = useState<string>('후기');
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
@@ -34,7 +35,6 @@ export default function Write() {
 
     const imageList: ImgData[] = [];
     let prevId = images.length == 0 ? 0 : images[images.length - 1].id;
-
     Array.from(fileList).map((file) => {
       imageList.push({
         id: prevId + 1,
@@ -43,6 +43,15 @@ export default function Write() {
       });
       prevId++;
     });
+
+    let totalImagesSize = imagesSize;
+    imageList.map((image) => (totalImagesSize += image.file.size));
+
+    if (totalImagesSize > 15 * 1024 * 1024) {
+      alert('용량 초과로 업로드에 실패하였습니다.(최대 15MB)');
+      return;
+    }
+    setImagesSize(totalImagesSize);
 
     const formData = new FormData();
     images.map((image) => formData.append(image.id + '', image.file));
@@ -57,6 +66,10 @@ export default function Write() {
 
   const handleDeleteImg = (id: number) => {
     const imgDelData = images.filter((image) => image.id !== id);
+    const delImg = images.filter((image) => image.id === id);
+
+    setImagesSize((prev) => prev - delImg[0].file.size);
+
     const formData = new FormData();
     imgDelData.map((image) => formData.append(image.id + '', image.file));
     setNewPostInfo({
@@ -79,7 +92,7 @@ export default function Write() {
 
   const handleResizeHeight = () => {
     if (textRef.current)
-      textRef.current.style.height = textRef.current.scrollHeight / 10 + 'rem';
+      textRef.current.style.height = `${textRef.current.scrollHeight / 10}rem`;
   };
 
   return (
@@ -111,7 +124,7 @@ export default function Write() {
               onChange={handleTitle}
               placeholder="제목"
             />
-            <span>{`${title.length} / 30`}</span>
+            <span>{title.length} / 30</span>
           </StCategoryInputWrapper>
           <textarea
             ref={textRef}

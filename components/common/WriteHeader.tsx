@@ -11,6 +11,12 @@ export default function WriteHeader() {
   const router = useRouter();
 
   const handleRegister = async () => {
+    const { title, content } = newPostInfo;
+    if (title === '' || content === '') {
+      alert('내용을 입력해주세요.');
+      return;
+    }
+
     const data = await postCommunity(newPostInfo);
     setNewPostInfo({
       category: '후기',
