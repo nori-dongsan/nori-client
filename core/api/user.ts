@@ -17,7 +17,6 @@ export const loginUser = async (userLoginData: PostLoginBody) => {
 export const getRefreshToken = () => {
   return baseInstance.get('/auth/refresh');
 };
-
 export const putSignup = (signUpBody: PostSignUpBody) => {
   return baseInstance.put('/auth/signup', signUpBody);
 };
