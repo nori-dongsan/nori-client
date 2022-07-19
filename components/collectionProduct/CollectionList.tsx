@@ -14,7 +14,7 @@ export default function CollectionList(props: CollectionListProps) {
         <ToyPreview
           key={idx}
           src={toy.image}
-          store="그린키드"
+          store="그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드"
           title={toy.title}
           price={toy.price}
           age="36개월이상"

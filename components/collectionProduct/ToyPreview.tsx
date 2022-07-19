@@ -79,6 +79,12 @@ const StStore = styled.div`
 
   color: ${({ theme }) => theme.colors.gray006};
   ${({ theme }) => theme.fonts.b3_16_medium_140};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 const StTitle = styled.div`
   margin-top: 0.6rem;
@@ -87,6 +93,12 @@ const StTitle = styled.div`
 
   color: ${({ theme }) => theme.colors.black};
   ${({ theme }) => theme.fonts.b2_18_medium_130};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 const StPrice = styled.div`
   margin-top: 0.6rem;
