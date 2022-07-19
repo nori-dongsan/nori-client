@@ -43,15 +43,11 @@ export default function DetailFloatingBtn(props: DetailFloatingBtnProps) {
 const StFloatingBtnWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 1.6rem;
   align-items: center;
+  row-gap: 1.6rem;
   position: fixed;
-  bottom: 3rem;
+  bottom: 2.6rem;
   right: 22.5%;
-  left: 77.5%;
-
-  height: 30rem;
-  margin-left: 8.4rem;
 
   & > svg {
     cursor: pointer;
