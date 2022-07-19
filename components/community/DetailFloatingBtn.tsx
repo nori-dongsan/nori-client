@@ -18,6 +18,13 @@ export default function DetailFloatingBtn(props: DetailFloatingBtnProps) {
     });
   };
 
+  const handleReplyScroll = () => {
+    window.scrollTo({
+      top: 750,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <StFloatingBtnWrapper>
       <StIconWrapper>
@@ -25,7 +32,7 @@ export default function DetailFloatingBtn(props: DetailFloatingBtnProps) {
         <span>{heartNum}</span>
       </StIconWrapper>
       <StIconWrapper>
-        <IcReplyBtn />
+        <IcReplyBtn onClick={handleReplyScroll} />
         <span>{replyNum}</span>
       </StIconWrapper>
       <IcTopBtn onClick={handleTopScroll} />
@@ -36,15 +43,11 @@ export default function DetailFloatingBtn(props: DetailFloatingBtnProps) {
 const StFloatingBtnWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 1.6rem;
   align-items: center;
+  row-gap: 1.6rem;
   position: fixed;
-  bottom: 3rem;
+  bottom: 2.6rem;
   right: 22.5%;
-  left: 77.5%;
-
-  height: 30rem;
-  margin-left: 8.4rem;
 
   & > svg {
     cursor: pointer;
@@ -59,5 +62,9 @@ const StIconWrapper = styled.div`
   & > span {
     color: ${({ theme }) => theme.colors.gray006};
     ${({ theme }) => theme.fonts.b6_13_medium_120}
+  }
+
+  & > svg {
+    cursor: pointer;
   }
 `;
