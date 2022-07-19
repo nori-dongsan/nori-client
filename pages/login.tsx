@@ -71,10 +71,10 @@ export default function login() {
         <IcGoogleBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-
-            signIn('google');
+            signIn('google', {
+              redirect: false,
+            });
             handleLogin('google');
-
           }}
         />
         <IcNaverBtn
