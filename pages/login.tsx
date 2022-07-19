@@ -17,22 +17,25 @@ import {
 } from '../public/assets/icons';
 
 export default function login() {
-  const { data, status } = useSession();
+  const { data: session, status } = useSession();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const resetList = useResetRecoilState(userInfoState);
   // LocalStorage.clearUserSession();
   console.log(userInfo);
   const handleLogin = async (social: string) => {
-    if (data?.user) {
+    console.log(social);
+    console.log(session);
+    if (session?.user) {
       const userLoginData = {
-        snsId: data?.user.email,
+        snsId: session?.user.email,
         provider: social,
-        email: data?.user.email,
+        email: session?.user.email,
       } as PostLoginBody;
       const login = await loginUser(userLoginData);
       // if (login) {
       //   setUserInfo(userLoginData);
       // }
+      console.log(userLoginData);
     }
   };
 
@@ -68,8 +71,10 @@ export default function login() {
         <IcGoogleBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
+
             signIn('google');
             handleLogin('google');
+
           }}
         />
         <IcNaverBtn

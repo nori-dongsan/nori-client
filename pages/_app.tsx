@@ -11,7 +11,9 @@ if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   import('../mocks');
 }
 export default function App({ Component, pageProps }: AppProps) {
+
   const { pathname } = useRouter();
+
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
