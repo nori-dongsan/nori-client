@@ -50,6 +50,7 @@ declare module '@emotion/react' {
       b5_14_medium_140: SerializedStyles;
       b5_14_regular_140: SerializedStyles;
       b6_13_medium_120: SerializedStyles;
+      b6_13_regular_120: SerializedStyles;
       b7_12_bold_120: SerializedStyles;
       b7_12_medium_140: SerializedStyles;
       b7_12_regular_120: SerializedStyles;

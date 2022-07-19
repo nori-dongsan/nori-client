@@ -27,8 +27,8 @@ export const getToyCollection = rest.get('/collection', (req, res, ctx) => {
     return a.price < b.price ? 1 : -1;
   }
   return sort === 'price-desc'
-    ? res(ctx.json(toyMockData.sort(priceDesc)))
-    : res(ctx.json(toyMockData.sort(priceAsc)));
+    ? res(ctx.json({ data: toyMockData.sort(priceDesc) }))
+    : res(ctx.json({ data: toyMockData.sort(priceAsc) }));
 });
 
 // 장난감 검색 및 필터 리스트 조회
