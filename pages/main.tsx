@@ -71,7 +71,7 @@ const StMainSection = styled.section`
   align-items: center;
 `;
 const StConceptArticle = styled.article`
-  padding: 0rem 46rem 6.9rem;
+  paddind-bottom: 6.9rem;
 `;
 const StCollectionArticle = styled.article`
   width: 100%;
