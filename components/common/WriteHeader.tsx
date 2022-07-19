@@ -1,16 +1,26 @@
 import styled from '@emotion/styled';
 import { IcWriteHeaderLogo } from '../../public/assets/icons';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function WriteHeader() {
+  const { pathname } = useRouter();
+
   return (
     <StWriteHeaderWrapper>
-      <Link href="/main">
+      <Link href="/community">
         <a>
           <IcWriteHeaderLogo />
         </a>
       </Link>
-      <StWriteBtn>등록하기</StWriteBtn>
+      {pathname === '/write/[cid]' ? (
+        <StModifyBlock>
+          <StCancleBtn>취소</StCancleBtn>
+          <StWriteBtn>수정완료</StWriteBtn>
+        </StModifyBlock>
+      ) : (
+        <StWriteBtn>등록하기</StWriteBtn>
+      )}
     </StWriteHeaderWrapper>
   );
 }
@@ -37,6 +47,8 @@ const StWriteBtn = styled.a`
   justify-content: center;
   align-items: center;
 
+  margin-left: 11.4rem;
+
   width: 10rem;
   height: 4.2rem;
 
@@ -46,4 +58,16 @@ const StWriteBtn = styled.a`
   ${({ theme }) => theme.fonts.b2_18_medium_130}
 
   cursor: pointer;
+`;
+const StCancleBtn = styled(StWriteBtn)`
+  margin-left: 0rem;
+
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.mainDarkgreen};
+
+  border: 0.1rem solid ${({ theme }) => theme.colors.mainDarkgreen};
+`;
+const StModifyBlock = styled.div`
+  display: flex;
+  gap: 1.4rem;
 `;
