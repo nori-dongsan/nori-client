@@ -11,7 +11,7 @@ export default function Reply() {
   };
 
   const handleInputColor = () => {
-    replyText.length === 0 ? setInputColor(false) : setInputColor(true);
+    setInputColor(replyText.length !== 0);
   };
 
   return (
@@ -102,11 +102,6 @@ const StInputContent = styled.div<{ inputColor: boolean }>`
     width: 67.6rem;
     height: 4.2rem;
 
-    font-style: normal;
-    font-weight: 400;
-    font-size: 21.3762px;
-    line-height: 31px;
-
     color: ${({ theme }) => theme.colors.black};
 
     ${({ theme }) => theme.fonts.b4_15_regular_146};
@@ -131,12 +126,10 @@ const StInputBtn = styled.span<{ inputColor: boolean }>`
   width: 7.6rem;
   height: 4.2rem;
 
-  color: ${({ theme, inputColor }) =>
-    !inputColor ? theme.colors.gray006 : theme.colors.white};
-
   background-color: ${({ theme, inputColor }) =>
     !inputColor ? theme.colors.gray003 : theme.colors.mainDarkgreen};
-
+  color: ${({ theme, inputColor }) =>
+    !inputColor ? theme.colors.gray006 : theme.colors.white};
   ${({ theme }) => theme.fonts.b2_18_medium_130};
 
   border-radius: 0.5rem;
