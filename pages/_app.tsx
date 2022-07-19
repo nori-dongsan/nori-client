@@ -11,25 +11,21 @@ if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   import('../mocks');
 }
 export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-
+  const { pathname } = useRouter();
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <Global styles={resetStyle} />
         <Global styles={GlobalStyle} />
-        {router.pathname === '/write' ? (
+        {pathname === '/write' ? (
           <WriteHeader />
         ) : (
-          router.pathname !== '/login' &&
-          router.pathname !== '/signup' && <Header />
+          pathname !== '/login' && pathname !== '/signup' && <Header />
         )}
         <SessionProvider session={pageProps.session}>
           <Component {...pageProps} />
         </SessionProvider>
-        {router.pathname !== '/login' && router.pathname !== '/signup' && (
-          <Footer />
-        )}
+        {pathname !== '/login' && pathname !== '/signup' && <Footer />}
       </ThemeProvider>
     </RecoilRoot>
   );
