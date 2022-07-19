@@ -12,16 +12,21 @@ interface ToyPreviewProps {
   title: string;
   price: number;
   age?: string;
+  siteUrl: string;
 }
 export default function ToyPreview(props: ToyPreviewProps) {
-  const { src, store, title, price, age } = props;
+  const { src, store, title, price, age, siteUrl } = props;
   const [isMark, setIsMark] = useState(false);
+
+  const handleToySite = () => {
+    window.open(siteUrl);
+  };
   const handleToyMark = () => {
     setIsMark((prev) => !prev);
   };
 
   return (
-    <StToyWrapper>
+    <StToyWrapper onClick={handleToySite}>
       <StImgWrapper>
         <StToyImg src={src} />
         <StToyMarkWrapper onClick={handleToyMark}>
@@ -43,6 +48,8 @@ const StToyWrapper = styled.article`
 
   width: 27.5rem;
   margin: 0rem 1.25rem 6.5rem 0;
+
+  cursor: pointer;
 `;
 const StImgWrapper = styled.div`
   position: relative;

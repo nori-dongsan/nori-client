@@ -18,6 +18,7 @@ export default function CollectionList(props: CollectionListProps) {
           title={toy.title}
           price={toy.price}
           age="36개월이상"
+          siteUrl={toy.siteUrl}
         />
       ))}
     </StToyListWrapper>
