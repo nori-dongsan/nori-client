@@ -38,7 +38,6 @@ export default function collectionProduct({}) {
 
   useEffect(() => {
     if (productList) {
-
       let data = productList as ToyData[];
       data = data.filter(
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
