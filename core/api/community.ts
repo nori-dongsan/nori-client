@@ -14,7 +14,6 @@ export const useGetCommunityList = () => {
   const { data, error } = useSWR('/board', baseInstance.get, {
     errorRetryCount: 3,
   });
-  console.log(`데이터 ${data}`);
 
   return {
     communityList: data,

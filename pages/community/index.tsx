@@ -24,11 +24,13 @@ export default function community() {
     useGetCommunityList() as GetCommunityList;
 
   useEffect(() => {
+    console.log(communityList);
     if (communityList) {
-      let data = communityList as CommunityData[];
+      let data = communityList.data as CommunityData[];
       data = data.filter(
         (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
       );
+      console.log(data);
       setContentList(data);
       window.scrollTo({
         top: 0,
@@ -36,6 +38,7 @@ export default function community() {
       });
     }
   }, [contentList, currentPage]);
+  console.log(contentList);
   // setIsLoading(true);
   // fetch('/board')
   //   .then((res) => res.json())
@@ -70,11 +73,13 @@ export default function community() {
             </StContentBlock>
             <CommunityFloatingBtn />
           </StMainArticle>
-          <PageNavigation
-            currentPage={currentPage}
-            lastPage={Math.ceil(contentList.length / limit)}
-            handleCurrentPage={handleCurrentPage}
-          />
+          {!isLoading && !isError && communityList && (
+            <PageNavigation
+              currentPage={currentPage}
+              lastPage={Math.ceil(contentList.length / limit)}
+              handleCurrentPage={handleCurrentPage}
+            />
+          )}
         </>
       )}
     </StCommunityWrapper>
