@@ -4,7 +4,7 @@ export interface ToyData {
   image: string; //이미지
   siteUrl: string;
   title: string;
-  month: Array<number>; //연령
+  month?: string; //연령
   playHow: number;
   type: number;
 }
