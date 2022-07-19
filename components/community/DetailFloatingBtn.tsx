@@ -67,4 +67,8 @@ const StIconWrapper = styled.div`
     color: ${({ theme }) => theme.colors.gray006};
     ${({ theme }) => theme.fonts.b6_13_medium_120}
   }
+
+  & > svg {
+    cursor: pointer;
+  }
 `;
