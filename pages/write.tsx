@@ -15,9 +15,6 @@ export default function Write() {
   const [title, setTitle] = useState<string>('');
   const textRef = useRef<HTMLTextAreaElement>(null);
 
-  console.log('==용량체크==');
-  console.log(imagesSize);
-
   const menu = ['후기', '질문', '정보 공유'];
 
   const handleIsCategory = () => {
@@ -38,7 +35,6 @@ export default function Write() {
 
     const imageList: ImgData[] = [];
     let prevId = images.length == 0 ? 0 : images[images.length - 1].id;
-
     Array.from(fileList).map((file) => {
       imageList.push({
         id: prevId + 1,
@@ -51,8 +47,8 @@ export default function Write() {
     let totalImagesSize = imagesSize;
     imageList.map((image) => (totalImagesSize += image.file.size));
 
-    if (totalImagesSize > 15 * 1024 * 1024) {
-      alert('용량 초과로 업로드에 실패하였습니다.(최대 15MB)');
+    if (totalImagesSize > 1 * 1024 * 1024) {
+      alert('용량 초과로 업로드에 실패하였습니다.(최대 1MB)');
       return;
     }
     setImagesSize(totalImagesSize);
