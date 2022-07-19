@@ -9,10 +9,14 @@ export default function Write() {
   const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
   const [isCategory, setIsCategory] = useState<boolean>(false);
   const [images, setImages] = useState<ImgData[]>([]);
+  const [imagesSize, setImagesSize] = useState<number>(0);
   const [category, setCategory] = useState<string>('후기');
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const textRef = useRef<HTMLTextAreaElement>(null);
+
+  console.log('==용량체크==');
+  console.log(imagesSize);
 
   const menu = ['후기', '질문', '정보 공유'];
 
@@ -44,6 +48,15 @@ export default function Write() {
       prevId++;
     });
 
+    let totalImagesSize = imagesSize;
+    imageList.map((image) => (totalImagesSize += image.file.size));
+
+    if (totalImagesSize > 15 * 1024 * 1024) {
+      alert('용량 초과로 업로드에 실패하였습니다.(최대 15MB)');
+      return;
+    }
+    setImagesSize(totalImagesSize);
+
     const formData = new FormData();
     images.map((image) => formData.append(image.id + '', image.file));
     imageList.map((image) => formData.append(image.id + '', image.file));
@@ -57,6 +70,10 @@ export default function Write() {
 
   const handleDeleteImg = (id: number) => {
     const imgDelData = images.filter((image) => image.id !== id);
+    const delImg = images.filter((image) => image.id === id);
+
+    setImagesSize((prev) => prev - delImg[0].file.size);
+
     const formData = new FormData();
     imgDelData.map((image) => formData.append(image.id + '', image.file));
     setNewPostInfo({
