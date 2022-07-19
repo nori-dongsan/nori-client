@@ -65,12 +65,22 @@ export default function ProductFilter() {
     false,
     false,
   ]);
-
+  const [checkedItems, setCheckedItems] = useState<Set<number>[]>([
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+  ]);
   const handleDropdown = (idx: number) => {
     setVisibility({
       ...visibility,
       [idx]: !visibility[idx],
     });
+  };
+
+  const handleCheckedItems = (copyCheckedItem: Set<number>, idx: number) => {
+    setCheckedItems({ ...checkedItems, [idx]: copyCheckedItem });
   };
 
   //const [repeat, setRepeat] = useState<null | number | void | string>();
@@ -110,8 +120,11 @@ export default function ProductFilter() {
           {visibility[idx] && (
             <FilterDropdown
               categoryInfo={filterListData[idx]}
-              isExcept={false}
+              categoryIdx={idx}
+              isExcept={idx == 3 ? true : false}
               isDrop={visibility[idx]}
+              checkedItem={checkedItems[idx]}
+              handleCheckedItems={handleCheckedItems}
             />
           )}
         </StFilterSection>
@@ -130,22 +143,17 @@ const StFilterTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  cursor: pointer;
 `;
 const StFilterSection = styled.section<{ isDrop: boolean }>`
   width: 20rem;
-  height: ${({ isDrop }) => (isDrop ? '23.2rem' : '5.6rem')};
-  padding: 1.7rem 0;
+  height: fit-content;
+  padding: ${({ isDrop }) => (isDrop ? ' 1.7rem 0 0 0' : '1.7rem 0')};
 
   border-bottom: 0.1rem #d9d9d9 solid;
-  font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
-`;
-const StFilterExcept = styled.section<{ isDrop: boolean }>`
-  width: 20rem;
-  height: ${({ isDrop }) => (isDrop ? '13.6rem' : '5.6rem')};
-  padding: 1.7rem 0;
-
-  border-bottom: 0.1rem #d9d9d9 solid;
-  font: ${({ theme }) => theme.fonts.b4_15_semibold_146};
+  ${({ theme }) => theme.fonts.b4_15_semibold_146};
+  cursor: pointer;
 `;
 
 // function repeat(repeat: any) {

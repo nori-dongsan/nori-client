@@ -4,10 +4,11 @@ import ToyPreview from './ToyPreview';
 
 interface ToyListProps {
   length: number;
+  landingCategory: string;
 }
 
 export default function ToyList(props: ToyListProps) {
-  const { length } = props;
+  const { length, landingCategory } = props;
   const toyList = new Array(length).fill(0);
   return (
     <StToyListWrapper>
