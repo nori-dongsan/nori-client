@@ -92,6 +92,7 @@ const fonts = {
   b5_14_medium_140: FONT({ weight: 500, size: 1.4, height: 1.96, spacing: 0 }),
   b5_14_regular_140: FONT({ weight: 400, size: 1.4, height: 1.96, spacing: 0 }),
   b6_13_medium_120: FONT({ weight: 500, size: 1.3, height: 1.56, spacing: 0 }),
+  b6_13_regular_120: FONT({ weight: 400, size: 1.3, height: 1.56, spacing: 0 }),
   b7_12_bold_120: FONT({ weight: 700, size: 1.2, height: 1.44, spacing: 0 }),
   b7_12_medium_140: FONT({ weight: 500, size: 1.2, height: 1.68, spacing: 0 }),
   b7_12_regular_120: FONT({ weight: 400, size: 1.2, height: 1.44, spacing: 0 }),
