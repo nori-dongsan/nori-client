@@ -7,7 +7,10 @@ export default function Header() {
     <StHeaderWrapper className="mainHeader">
       <StTopLink>
         <p>
-          <a>고객센터</a> | <a>마이페이지</a> | <a href="/login">로그인</a>
+          <a>고객센터</a> | <a>마이페이지</a> |
+          <Link href="/login">
+            <a>로그인</a>
+          </Link>
         </p>
       </StTopLink>
       <StHeaderContents>
