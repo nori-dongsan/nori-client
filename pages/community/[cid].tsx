@@ -1,10 +1,13 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
 import { Reply } from '../../components/community';
 import DetailFloatingBtn from '../../components/community/DetailFloatingBtn';
 import { IcExpandImg, IcMenu, IcWriter } from '../../public/assets/icons';
+import { CommunityData, PostCommunityBody } from '../../types/community';
 
 export default function CommunityDetail() {
   const router = useRouter();
@@ -110,6 +113,18 @@ export default function CommunityDetail() {
     </StCommunityMain>
   );
 }
+
+type Props = {
+  data: PostCommunityBody;
+};
+
+interface Params extends ParsedUrlQuery {
+  cid: string;
+}
+
+export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
+  params,
+}) => {};
 
 const StCommunityMain = styled.main`
   display: flex;

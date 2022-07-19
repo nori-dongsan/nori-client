@@ -41,7 +41,6 @@ export const postCommunity = rest.post('/board', (req, res, ctx) => {
 export const putCommunity = rest.put('/board/:boardId', (req, res, ctx) => {
   const { boardId } = req.params;
 });
-
 // 커뮤니티 게시글 상세조회
 export const getCommunityDetail = rest.get(
   '/board/:boardId',
