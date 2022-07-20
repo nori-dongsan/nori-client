@@ -37,3 +37,10 @@ export { default as IcViewBookmarkSelected } from './ic_bookmark_selected_40.svg
 export { default as IcViewBookmarkUnselected } from './ic_bookmark_unselected_40.svg';
 export { default as IcMainBookmarkSelected } from './ic_bookmark_selected_48.svg';
 export { default as IcMainBookmarkUnselected } from './ic_bookmark_unselected_48.svg';
+export { default as IcAllProduct } from './ic_all_product.svg';
+export { default as IcBabyProduct } from './ic_baby_product.svg';
+export { default as IcCarProduct } from './ic_car_product.svg';
+export { default as IcPlayGroundProduct } from './ic_playGround_product.svg';
+export { default as IcRoleProduct } from './ic_role_product.svg';
+export { default as IcStudyProduct } from './ic_study_product.svg';
+export { default as IcWalkProduct } from './ic_walk_product.svg';

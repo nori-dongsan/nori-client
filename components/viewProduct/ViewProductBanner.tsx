@@ -1,6 +1,15 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { IcViewProductIcon } from '../../public/assets/icons';
+import {
+  IcViewProductIcon,
+  IcAllProduct,
+  IcBabyProduct,
+  IcCarProduct,
+  IcRoleProduct,
+  IcWalkProduct,
+  IcStudyProduct,
+  IcPlayGroundProduct,
+} from '../../public/assets/icons';
 
 // interface ViewProductProps {
 //   onClick: MouseCli;
@@ -9,13 +18,22 @@ import { IcViewProductIcon } from '../../public/assets/icons';
 export default function ViewProductBanner() {
   //상품보기 뷰 배너 아이콘 요소 배열
   const productIcons = [
-    '전체 상품',
-    '신생아 완구',
-    '걸음마 준비 완구',
-    '학습 완구',
-    '실내 대형 완구',
-    '승용 완구',
-    '역할놀이 완구',
+    '전체상품',
+    '신생아완구',
+    '걸음마준비완구',
+    '학습완구',
+    '실내대형완구',
+    '승용완구',
+    '역할놀이완구',
+  ];
+  const productSvgs = [
+    IcAllProduct,
+    IcBabyProduct,
+    IcWalkProduct,
+    IcStudyProduct,
+    IcPlayGroundProduct,
+    IcCarProduct,
+    IcRoleProduct,
   ];
   const [isClicked, setIsClicked] = useState<boolean[]>([
     true,
@@ -44,7 +62,7 @@ export default function ViewProductBanner() {
               key={item}
               isClicked={isClicked[idx]}
             >
-              <IcViewProductIcon />
+              {...productSvgs[0]}
               <p>{item}</p>
             </StProductItem>
           );
