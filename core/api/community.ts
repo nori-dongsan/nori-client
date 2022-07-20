@@ -10,6 +10,16 @@ export const useGetCollectionProduct = (key: string) => {
 export const getCollectionProduct = (key: string) => {
   return baseInstance.get(`/collection?sort=${key}`);
 };
+
+// export const useGetCommunityList = async () => {
+//   try {
+//     const { data } = await baseInstance.get('/board');
+//     return data;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
+
 export const postCommunity = async (body: PostCommunityBody) => {
   try {
     const { data } = await baseInstance.post('/board', body);
