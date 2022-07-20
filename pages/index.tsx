@@ -31,10 +31,10 @@ export default function index({
     <div>
       <MainBanner />
       <StMainSection>
-        <StConceptArticle>
+        <article className="trending">
           <StConceptTitle>이번 주 인기 장난감</StConceptTitle>
           <ToyList landingCategory="popularity" toyList={mainData.trending} />
-        </StConceptArticle>
+        </article>
 
         <StCollectionArticle>
           <StCollectionTitle>테마별 노리 잇템</StCollectionTitle>
@@ -45,20 +45,20 @@ export default function index({
           </StCollectionCardWrapper>
         </StCollectionArticle>
 
-        <StConceptArticle>
+        <article className="noriPick">
           <StConceptTitle>Today's NORI PICK</StConceptTitle>
           <ToyList landingCategory="noriPick" toyList={mainData.noriPick} />
-        </StConceptArticle>
+        </article>
         <MiddleBanner />
-        <StConceptArticle>
+        <article className="senses">
           <StConceptTitle>우리 아이 오감 발달을 위해</StConceptTitle>
           <ToyList landingCategory="develop" toyList={mainData.senses} />
-        </StConceptArticle>
+        </article>
 
-        <StConceptArticle>
+        <article className="smart">
           <StConceptTitle>학습에 도움이 되는 똑똑한 장난감</StConceptTitle>
           <ToyList landingCategory="study" toyList={mainData.smart} />
-        </StConceptArticle>
+        </article>
       </StMainSection>
       <BottomBanner />
     </div>
@@ -71,14 +71,24 @@ const StMainSection = styled.section`
 
   justify-content: center;
   align-items: center;
-`;
-const StConceptArticle = styled.article`
-  margin-bottom: 6.9rem;
+
+  .trending {
+    margin-top: 7.1rem;
+  }
+  .noriPick {
+    margin-top: 6.5rem;
+  }
+  .senses {
+    margin-top: 10rem;
+  }
+  .smart {
+    margin-top: 8rem;
+  }
 `;
 const StCollectionArticle = styled.article`
   width: 100%;
   height: 47.9rem;
-  margin-top: 8.4rem;
+  margin-top: 7rem;
 
   background-color: ${({ theme }) => theme.colors.lightGreen};
 `;
@@ -87,7 +97,7 @@ const StCollectionCardWrapper = styled.div`
   justify-content: center;
 `;
 const StConceptTitle = styled.div`
-  padding: 6.7rem 0rem;
+  margin-bottom: 4.3rem;
 
   ${({ theme }) => theme.fonts.t2_26_semibold_150};
   text-align: center;

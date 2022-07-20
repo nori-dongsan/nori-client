@@ -7,7 +7,7 @@ export { default as IcOpen } from './IcOpen.svg';
 export { default as IcCheckbox } from './IcCheckbox.svg';
 export { default as IcSearchIcon } from './searchIcon.svg';
 export { default as IcNoriFooterLogo } from './noriFooterIcon.svg';
-export { default as IcMainBanner } from './mainBannerIc.svg';
+export { default as IcMainBanner } from './IcMainBanner.svg';
 export { default as IcToyMark } from './toyMark.svg';
 export { default as IcFillToyMark } from './fillToyMark.svg';
 export { default as IcMenu } from './menuIcon.svg';
@@ -48,4 +48,3 @@ export { default as IcCollectionWalk } from './card_collection_1_walk.svg';
 export { default as IcCollectionPeople } from './card_collection_2_people.svg';
 export { default as IcCollectionPlayground } from './card_collection_2_playground.svg';
 export { default as IcReplyWriteIcon } from './replyWriterIcon.svg';
-
