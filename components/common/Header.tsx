@@ -29,7 +29,7 @@ export default function Header() {
         </p>
       </StTopLink>
       <StHeaderContents>
-        <Link href="/main">
+        <Link href="/">
           <a>
             <IcNoriHeaderLogo />
           </a>

@@ -1,5 +1,6 @@
 // 댓글
 export interface ReplyData {
+  author: boolean;
   userNickname?: string;
   content: string;
   createdAt: string;
@@ -27,7 +28,7 @@ export interface PostCommunityBody {
 }
 // 커뮤니티 댓글
 export interface PostCommentBody {
-  boardId: string;
+  boardId?: string;
   content: string;
 }
 
@@ -35,7 +36,7 @@ export interface GetCommunityList {
   communityList: CommunityData[];
   isLoading: boolean;
   isError: string;
-  
+}
 // 커뮤니티 글 작성 이미지 데이터
 export interface ImgData {
   id: number;
