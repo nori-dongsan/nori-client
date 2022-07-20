@@ -6,7 +6,7 @@ import {
   CollectionList,
 } from '../components/collectionProduct';
 import { useEffect, useState } from 'react';
-import { getCollectionProduct, useGetCollectionProduct } from '../core/api/toy';
+import { useGetCollectionProduct } from '../core/api/toy';
 import { GetCollectionProduct, ToyData } from '../types/toy';
 import {
   LandingCollectionList,
