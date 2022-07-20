@@ -9,7 +9,6 @@ import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import { useEffect, useState } from 'react';
 import { GetCommunityList, CommunityData } from '../../types/community';
 import { PageNavigation } from '../../components/collectionProduct';
-import { useGetCommunityList } from '../../core/api/community';
 
 const limit = 10;
 
