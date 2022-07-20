@@ -10,15 +10,15 @@ import { ToyList } from '../components/main';
 export default function main() {
   const collection = [
     {
-      title: '쏘서, 보행기 모음',
-      subTitle: '우리아이 걸음마를 위한',
+      title: '위고, 보행기 모음',
+      subTitle: '우리 아이 걸음마를 위한',
     },
     {
-      title: '주방놀이 세트',
-      subTitle: '오감 발달 아이들이 좋아하는',
+      title: '실내 놀이터 추천',
+      subTitle: '날씨 걱정 없는 우리 집',
     },
     {
-      title: '다인원 장난감 추천',
+      title: '다인원 장난감 세트',
       subTitle: '친구들과 함께',
     },
   ];
