@@ -4,19 +4,22 @@ import { IcNoriHeaderLogo } from '../../public/assets/icons';
 
 export default function MiddleBanner() {
   return (
-    <StBottomLink href="/community">
-      <a>
-        <IcNoriHeaderLogo />
-      </a>
-    </StBottomLink>
+    <StBiddleBannerWrapper>
+      <Link href="/community">
+        <a>
+          <IcNoriHeaderLogo />
+        </a>
+      </Link>
+    </StBiddleBannerWrapper>
   );
 }
 
-const StBottomLink = styled(Link)`
-  & > div {
-    width: 100%;
-    height: 15.8rem;
+const StBiddleBannerWrapper = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background-color: ${({ theme }) => theme.colors.lightGreen};
-  }
+  width: 100%;
+  height: 15.8rem;
+  margin-top: 6.9rem;
 `;

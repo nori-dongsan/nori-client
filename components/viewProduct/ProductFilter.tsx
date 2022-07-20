@@ -7,6 +7,7 @@ import FilterDropdown from './FilterDropdown';
 
 export default function ProductFilter() {
   const filterlist = useRecoilValue(filterListState);
+
   const [visibility, setVisibility] = useState<boolean[]>([
     false,
     false,
@@ -14,9 +15,11 @@ export default function ProductFilter() {
     false,
     false,
   ]);
+
   const filterListData = Object.values(filterlist.filterList);
   const filterListKeys = Object.keys(filterlist.filterList);
   const [checkedItems, setcheckedItems] = useRecoilState(checkedItemsState);
+
   const handleDropdown = (idx: number) => {
     setVisibility({
       ...visibility,
@@ -66,6 +69,9 @@ export default function ProductFilter() {
               isDrop={visibility[idx]}
               checkedItem={checkedItems[idx]}
               categoryKey={title}
+
+              handleCheckedItems={handleCheckedItems}
+
             />
           )}
         </StFilterSection>

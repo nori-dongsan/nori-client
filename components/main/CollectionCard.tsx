@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import {
-  IcKitchenPlay,
-  IcMultiToy,
-  IcWalkingMachine,
+  IcCollectionWalk,
+  IcCollectionPeople,
+  IcCollectionPlayground,
 } from '../../public/assets/icons';
 
 interface CollectionCardProps {
@@ -22,9 +22,9 @@ export default function CollectionCard(props: CollectionCardProps) {
   };
   return (
     <StCardWrapper onClick={handleCollectionPage}>
-      {title === '쏘서, 보행기 모음' && <IcWalkingMachine />}
-      {title === '다인원 장난감 추천' && <IcKitchenPlay />}
-      {title === '주방놀이 세트' && <IcMultiToy />}
+      {title === '위고, 보행기 모음' && <IcCollectionWalk />}
+      {title === '실내 놀이터 추천' && <IcCollectionPlayground />}
+      {title === '다인원 장난감 세트' && <IcCollectionPeople />}
       <StSubTitle>{subTitle}</StSubTitle>
       <StTitle>{title}</StTitle>
     </StCardWrapper>
@@ -37,18 +37,18 @@ const StCardWrapper = styled.section`
   align-items: center;
   flex-direction: column;
 
-  width: 37.1rem;
+  width: 37.2rem;
   height: 26.5rem;
-  margin: 0rem 1.5rem 8rem;
+  margin: 0rem 1.5rem;
 
-  border-radius: 1.5rem;
+  border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.white};
 
-  box-shadow: 0.193473rem 0.193473rem 0.43683rem rgba(29, 185, 129, 0.3);
+  box-shadow: 1.93473px 1.93473px 48.3683px rgba(29, 185, 129, 0.3);
   cursor: pointer;
 `;
 const StSubTitle = styled.div`
-  margin-top: 1.8rem;
+  margin-top: 2.61rem;
   margin-bottom: 0.5rem;
 
   ${({ theme }) => theme.fonts.b3_16_medium_140}

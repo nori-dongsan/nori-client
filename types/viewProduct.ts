@@ -5,6 +5,14 @@ export interface FilterDropdownProps {
   isExcept: boolean;
   checkedItem: Set<number>;
   categoryKey: string;
+  handleCheckedItems: (copyCheckedItem: Set<number>, idx: number) => void;
+
+}
+export interface FilterTagProps {
+  categoryIdx: number;
+  elementIdx: number;
+  categoryKey: string;
+  tagText: string;
 }
 export interface FilterTagProps {
   categoryIdx: number;

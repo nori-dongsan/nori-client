@@ -46,3 +46,8 @@ export { default as IcGoogleBtn } from './btn_social_login_google.svg';
 export { default as IcNaverBtn } from './btn_social_login_naver.svg';
 export { default as IcSignupCheckboxUnselected } from './ic_checkbox_unselected_black_20.svg';
 export { default as IcSignupCheckboxSelected } from './ic_checkbox_selected_green_20.svg';
+export { default as IcCollectionWalk } from './card_collection_1_walk.svg';
+export { default as IcCollectionPeople } from './card_collection_2_people.svg';
+export { default as IcCollectionPlayground } from './card_collection_2_playground.svg';
+export { default as IcReplyWriteIcon } from './replyWriterIcon.svg';
+

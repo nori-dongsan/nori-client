@@ -1,25 +1,50 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
+import React, { useState } from 'react';
+import Router from 'next/router';
 
 export default function Header() {
+  const [inputValue, setInputValue] = useState<string>('');
+
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleClick = () => {
+    Router.push({
+      pathname: '/viewProduct',
+      query: { search: inputValue },
+    });
+  };
+
   return (
     <StHeaderWrapper className="mainHeader">
       <StTopLink>
         <p>
-          <a>고객센터</a> | <a>마이페이지</a> | <a href="/login">로그인</a>
+          <a>고객센터</a> | <a>마이페이지</a> |
+          <Link href="/login">
+            <a>로그인</a>
+          </Link>
         </p>
       </StTopLink>
       <StHeaderContents>
-        <Link href="/main">
+        <Link href="/">
           <a>
             <IcNoriHeaderLogo />
           </a>
         </Link>
         <StSearchWrapper>
           <StSearchBar>
-            <input type="text" placeholder="상품명, 스토어명을 검색해보세요!" />
-            <IcSearchIcon />
+            <input
+              type="text"
+              maxLength={60}
+              placeholder="상품명, 스토어명을 검색해보세요!"
+              onChange={handleInputValue}
+            />
+            <Link href="/viewProduct">
+              <IcSearchIcon onClick={handleClick} />
+            </Link>
           </StSearchBar>
           <StMenu>
             <Link href="/viewProduct">

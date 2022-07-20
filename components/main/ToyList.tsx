@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import keyframes from '@emotion/react';
 import ToyPreview from './ToyPreview';
 
 interface ToyListProps {

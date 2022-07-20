@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import Router from 'next/router';
+
 import { useState, useEffect, useRef } from 'react';
 import { putSignup } from '../core/api/user';
 import {
@@ -36,6 +38,7 @@ export default function signup() {
   };
 
   const handleInputBlur = async () => {
+    console.log(nickName);
     if (nickName === '') setIsNickname(true);
     else if (!checkNickname(nickName)) {
       setIsNickname(false);
@@ -53,7 +56,7 @@ export default function signup() {
   };
   const handleSignupBtn = () => {
     if (isNickname && isChecked) {
-      //
+      Router.push('/');
     }
   };
 
