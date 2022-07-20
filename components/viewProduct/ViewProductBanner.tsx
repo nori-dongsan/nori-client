@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { toyKindState } from '../../core/atom';
 import {
-  IcViewProductIcon,
+  checkedItemsState,
+  filterTagState,
+  toyKindState,
+} from '../../core/atom';
+import {
   IcAllProduct,
   IcBabyProduct,
   IcCarProduct,
@@ -12,6 +15,7 @@ import {
   IcStudyProduct,
   IcPlayGroundProduct,
 } from '../../public/assets/icons';
+import { FilterTagProps } from '../../types/viewProduct';
 
 export default function ViewProductBanner() {
   //상품보기 뷰 배너 아이콘 요소 배열
@@ -35,9 +39,21 @@ export default function ViewProductBanner() {
   ];
   const [selectedIcon, setSeletedIcon] = useState<number>(0);
   const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
+  const [checkedItems, setcheckedItems] =
+    useRecoilState<Set<number>[]>(checkedItemsState);
+  const [filterTagList, setFilterTagList] =
+    useRecoilState<FilterTagProps[]>(filterTagState);
   const handleProductIcon = (selectIdx: number) => {
     if (selectedIcon == selectIdx) return;
     setSeletedIcon(selectIdx);
+    setcheckedItems([
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+    ]);
+    setFilterTagList([]);
     switch (selectIdx) {
       case 0:
         setToyKindList([]);
