@@ -26,6 +26,12 @@ export default function collectionProduct({}) {
   const landingArray = new Array(10).fill(0);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
 
+  const theme =
+    collection === '위고, 보행기 모음'
+      ? 2
+      : collection === '실내 놀이터 추천'
+      ? 3
+      : 4;
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
@@ -33,17 +39,18 @@ export default function collectionProduct({}) {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
   let { productList, isLoading, isError } = priceDesc
-    ? (useGetCollectionProduct('price-desc') as GetCollectionProduct)
-    : (useGetCollectionProduct('price-asc') as GetCollectionProduct);
+    ? (useGetCollectionProduct(theme, 'price-asc') as GetCollectionProduct)
+    : (useGetCollectionProduct(theme, 'price-desc') as GetCollectionProduct);
 
   useEffect(() => {
     if (productList) {
-      let data = productList.data.data as ToyData[];
+      let data = productList.data.data.toyList as ToyData[];
       data = data.filter(
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
       setToyList(data);
       window.scrollTo(0, 0);
+      console.log(productList.data.data.toyList);
     }
   }, [productList, currentPage]);
   return (
@@ -80,7 +87,7 @@ export default function collectionProduct({}) {
           {!isLoading && !isError && productList && (
             <PageNavigation
               currentPage={currentPage}
-              lastPage={Math.ceil(productList.data.data.length / limit)}
+              lastPage={Math.ceil(productList.data.data.toyList.length / limit)}
               handleCurrentPage={handleCurrentPage}
             />
           )}

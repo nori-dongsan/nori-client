@@ -14,10 +14,10 @@ export default function CollectionList(props: CollectionListProps) {
         <ToyPreview
           key={idx}
           src={toy.image}
-          store="그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드"
+          store={toy.siteName}
           title={toy.title}
           price={toy.price}
-          age="36개월이상"
+          age={toy.month}
           siteUrl={toy.siteUrl}
         />
       ))}

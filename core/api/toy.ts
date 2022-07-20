@@ -1,12 +1,9 @@
-import axios from 'axios';
-
 import useSWR from 'swr';
 import { baseInstance } from '../axios';
 
-export const useGetCollectionProduct = (key: string) => {
+export const useGetCollectionProduct = (theme: number, sort: string) => {
   const { data, error } = useSWR(
-    // `https://jsonplaceholder.typicode.com/todos`,
-    `/collection?sort=${key}`,
+    `/collection?theme=${theme}&sort=${sort}`,
     baseInstance.get,
     {
       errorRetryCount: 3,
@@ -19,6 +16,5 @@ export const useGetCollectionProduct = (key: string) => {
   };
 };
 export const getCollectionProduct = (key: string) => {
-  // return baseInstance.get(`https://jsonplaceholder.typicode.com/todos`);
-  return baseInstance.get(`/collection?sort=${key}`);
+  return baseInstance.get(`/collection?theme=0`);
 };

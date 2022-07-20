@@ -7,10 +7,14 @@ import {
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import { useEffect, useState } from 'react';
 import { GetCommunityList, CommunityData } from '../../types/community';
+
 import { PageNavigation } from '../../components/common';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getCommunity } from '../../core/api/community';
 import { communityMockData } from '../../mocks/data/communityMockData';
+
+import { PageNavigation } from '../../components/collectionProduct';
+
 
 const limit = 20;
 
