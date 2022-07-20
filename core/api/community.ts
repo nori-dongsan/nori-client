@@ -15,9 +15,9 @@ export const getCommunity = () => {
   return baseInstance.get(`/board`);
 };
 
-export const getCommunity = () => {
-  return baseInstance.get(`/board`);
-};
+// export const getCommunity = () => {
+//   return baseInstance.get(`/board`);
+// };
 
 export const postCommunity = async (body: PostCommunityBody) => {
   try {
