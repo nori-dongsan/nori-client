@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { IcReplyWriteIcon } from '../../public/assets/icons';
+import { useState } from 'react';
 
 interface ReplyContentProps {
   userNickname?: string;
@@ -8,14 +10,20 @@ interface ReplyContentProps {
 
 export default function ReplyContent(props: ReplyContentProps) {
   const { userNickname, content, createdAt } = props;
+
+  const [isWriter, setIsWriter] = useState(true);
+
   return (
     <StReplyContentWrapper>
       <StReplyInfo>
         <p>{userNickname}</p>
+        {isWriter && <IcReplyWriteIcon />}
       </StReplyInfo>
       <StReplyContents>
         <p>{content}</p>
-        <span>{createdAt} · 신고</span>
+        <span>
+          {createdAt} · {isWriter ? '삭제' : '신고'}
+        </span>
       </StReplyContents>
     </StReplyContentWrapper>
   );

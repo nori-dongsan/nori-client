@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import React, { useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { newPostInfoState } from '../core/atom';
-import { IcDefaultImg, IcDelete } from '../public/assets/icons';
-import { ImgData } from '../types/community';
+import { newPostInfoState } from '../../core/atom';
+import { IcDefaultImg, IcDelete } from '../../public/assets/icons';
+import { ImgData } from '../../types/community';
 
-export default function Write() {
+export default function WriteForm() {
   const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
   const [isCategory, setIsCategory] = useState<boolean>(false);
   const [images, setImages] = useState<ImgData[]>([]);

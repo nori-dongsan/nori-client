@@ -47,3 +47,5 @@ export { default as IcSignupCheckboxSelected } from './ic_checkbox_selected_gree
 export { default as IcCollectionWalk } from './card_collection_1_walk.svg';
 export { default as IcCollectionPeople } from './card_collection_2_people.svg';
 export { default as IcCollectionPlayground } from './card_collection_2_playground.svg';
+export { default as IcReplyWriteIcon } from './replyWriterIcon.svg';
+
