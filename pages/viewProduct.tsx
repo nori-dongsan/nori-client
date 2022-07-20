@@ -4,7 +4,6 @@ import {
   ViewProductBanner,
 } from '../components/viewProduct';
 import styled from '@emotion/styled';
-import { IcPriceLine, IcTopBtn, IcWriteBtn } from '../public/assets/icons';
 import { useState } from 'react';
 import { ToyList } from '../components/viewProduct';
 import {
@@ -13,25 +12,25 @@ import {
   LandingPriceSort,
   LandingProductFilter,
 } from '../components/landing/viewProduct';
+import { PriceFilter } from '../components/common';
+import { ToyData } from '../types/toy';
 
 export default function viewProduct() {
   //default는 낮은 가격순
-  const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
-  // useSWR로 로딩 판단할 것임
-  const isLoading = false;
-  const handlePriceSort = (idx: number) => {
-    //이미 해당 버튼이 눌려져있다면 return
-    if (selectPrice[idx]) return;
-    setSelectPrice({
-      ...selectPrice,
-      [0]: !selectPrice[0],
-      [1]: !selectPrice[1],
-    });
+  const [priceDesc, setPriceDesc] = useState<boolean>(true);
+  const [toyList, setToyList] = useState<ToyData[]>([]);
+
+  const handleClickPrice = (clickPrice: string) => {
+    clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
+
+  // let { productList, isLoading, isError } = priceDesc
+  //   ? (useGetCollectionProduct('price-desc') as GetCollectionProduct)
+  //   : (useGetCollectionProduct('price-asc') as GetCollectionProduct);
 
   return (
     <StViewProductWrapper>
-      {isLoading ? (
+      {false ? (
         <>
           <LandingViewProductBanner />
           <StFilterSectionWrapper>
@@ -55,21 +54,10 @@ export default function viewProduct() {
             <ProductFilter />
             <StContentSection>
               <StFilterBarWrapper>
-                <StPriceSort>
-                  <StPriceStandard
-                    onClick={() => handlePriceSort(0)}
-                    isClicked={selectPrice[0]}
-                  >
-                    낮은 가격순
-                  </StPriceStandard>
-                  <IcPriceLine />
-                  <StPriceStandard
-                    onClick={() => handlePriceSort(1)}
-                    isClicked={selectPrice[1]}
-                  >
-                    높은 가격순
-                  </StPriceStandard>
-                </StPriceSort>
+                <PriceFilter
+                  priceDesc={priceDesc}
+                  handleClickPrice={handleClickPrice}
+                />
               </StFilterBarWrapper>
               <StToyListWrapper>
                 <ToyList length={4} landingCategory={'vieProduct'} />
@@ -101,22 +89,6 @@ const StFilterSectionWrapper = styled.section`
 const StFilterBarWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-`;
-const StPriceSort = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 1.4rem;
-
-  height: 2rem;
-  margin-top: 2rem;
-
-  ${({ theme }) => theme.fonts.b5_14_medium_140};
-
-  cursor: pointer;
-`;
-const StPriceStandard = styled.h3<{ isClicked: boolean }>`
-  color: ${({ isClicked, theme: { colors } }) =>
-    isClicked ? colors.black : colors.gray005};
 `;
 const StContentSection = styled.section`
   display: flex;
