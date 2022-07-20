@@ -6,11 +6,12 @@ import { PostLoginBody, UserData } from '../types/user';
 const { persistAtom } = recoilPersist();
 
 export const userInfoState = atom<PostLoginBody>({
-  key: 'userInfo',
+  key: `userInfo`,
   default: {
     snsId: 'nori@naver.com',
     provider: 'naver',
     email: 'nori@naver.com',
+    isSignup: false,
   },
   effects_UNSTABLE: [persistAtom],
 });
