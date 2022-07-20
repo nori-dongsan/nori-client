@@ -6,7 +6,6 @@ import {
 } from '../components/main';
 import styled from '@emotion/styled';
 import { ToyList } from '../components/main';
-import { useRouter } from 'next/router';
 
 export default function main() {
   const collection = [
@@ -74,6 +73,7 @@ const StConceptArticle = styled.article`
 `;
 const StCollectionArticle = styled.article`
   width: 100%;
+  margin-top: 8.9rem;
 
   background-color: ${({ theme }) => theme.colors.lightGreen};
 `;
