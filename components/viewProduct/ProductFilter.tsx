@@ -92,6 +92,10 @@ const StFilterWrapper = styled.div`
   padding-left: 1.2rem;
   margin-right: 2.4rem;
   margin-bottom: 7.2rem;
+
+  align-self: flex-start;
+  position: sticky;
+  top: 8.2rem;
 `;
 const StFilterTitle = styled.div`
   display: flex;
