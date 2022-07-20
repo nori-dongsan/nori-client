@@ -4,35 +4,66 @@ import {
   LandingCommunityList,
   LandingTitle,
 } from '../../components/landing/community';
-import { GetServerSideProps } from 'next';
 import CommunityFloatingBtn from '../../components/community/CommunityFloatingBtn';
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import { useEffect, useState } from 'react';
 import { GetCommunityList, CommunityData } from '../../types/community';
 import { PageNavigation } from '../../components/collectionProduct';
-import {
-  getCommunityList,
-  useGetCommunityList,
-} from '../../core/api/community';
+import { useGetCommunityList } from '../../core/api/community';
 
-// const limit = 10;
+const limit = 10;
 
 export default function community() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [contentList, setContentList] = useState<CommunityData[]>([]);
-  // const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isCategory, setIsCategory] = useState<boolean>(false);
+  const [category, setCategory] = useState<string>('모든 글');
+
+  const menu = ['모든 글', '후기', '질문', '정보 공유'];
+
+  const handleIsCategory = () => {
+    setIsCategory((prev) => !prev);
+  };
+
+  const handleCategory = (value: string) => {
+    setCategory(value);
+  };
+
+  // const data = useGetCommunityList();
+  // console.log(data);
+
+  // const handleCurrentPage = (nextPage: number) => {
+  //   setCurrentPage(nextPage);
+  // };
+  // let { communityList, isLoading, isError } =
+  //   useGetCommunityList() as GetCommunityList;
 
   // useEffect(() => {
-  //   setIsLoading(true);
-  //   fetch('/board')
-  //     .then((res) => res.json())
-  //     .then((data: CommunityData[]) => {
-  //       setContentList(data);
-  //       setIsLoading(false);
+  //   if (communityList) {
+  //     let data = communityList as CommunityData[];
+  //     data = data.filter(
+  //       (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
+  //     );
+  //     setContentList(data);
+  //     console.log(data);
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: 'smooth',
   //     });
-  // }, []);
+  //   }
+  // }, [contentList, currentPage]);
+  // console.log(contentList);
 
-export const getServerSideProps: 
+  useEffect(() => {
+    setIsLoading(true);
+    fetch('/board')
+      .then((res) => res.json())
+      .then((data: CommunityData[]) => {
+        setContentList(data);
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <StCommunityWrapper>
@@ -51,6 +82,28 @@ export const getServerSideProps:
             />
             <IcCommunitySearchIcon />
           </StSearchBar>
+          <StCategoryBlock>
+            <StCategorySelectBox isCategory={isCategory}>
+              <StCategoryBtn onClick={handleIsCategory}>
+                {category}
+              </StCategoryBtn>
+              {isCategory && (
+                <StCategoryWrapper onClick={handleIsCategory}>
+                  <StCategoryList>
+                    {menu.map((item, idx) => (
+                      <StCategoryItem
+                        key={idx}
+                        onClick={() => handleCategory(item)}
+                        isSelected={item === category}
+                      >
+                        {item}
+                      </StCategoryItem>
+                    ))}
+                  </StCategoryList>
+                </StCategoryWrapper>
+              )}
+            </StCategorySelectBox>
+          </StCategoryBlock>
           <StMainArticle>
             <StContentBlock>
               {contentList.map((_, idx) => (
@@ -87,7 +140,7 @@ const StSearchBar = styled.div`
   display: flex;
   flex-direction: row;
 
-  margin-bottom: 7.9rem;
+  margin-bottom: 5.9rem;
 
   width: 57.6rem;
   height: 4.5rem;
@@ -126,4 +179,77 @@ const StMainArticle = styled.article`
 const StContentBlock = styled.div`
   display: flex;
   flex-direction: column;
+`;
+const StCategoryBlock = styled.div`
+  display: flex;
+  justify-content: flex-start;
+
+  width: 97.6rem;
+`;
+const StCategorySelectBox = styled.div<{ isCategory: boolean }>`
+  position: relative;
+
+  width: 11.9rem;
+  height: 4rem;
+  margin-bottom: 4.8rem;
+
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray004};
+  border-radius: 0.6rem;
+  background: ${({ isCategory }) =>
+      isCategory
+        ? "url('/assets/icons/dropDownIcon2.svg')"
+        : "url('/assets/icons/dropDownIcon1.svg')"}
+    calc(100% - 1.738rem) center no-repeat;
+`;
+const StCategoryBtn = styled.button`
+  display: flex;
+  align-items: center;
+
+  width: inherit;
+  height: inherit;
+  padding-left: 1.8rem;
+
+  background: transparent;
+  color: ${({ theme }) => theme.colors.black};
+  ${({ theme }) => theme.fonts.b3_16_medium_140};
+`;
+const StCategoryWrapper = styled.div`
+  display: block;
+  /* position: absolute; */
+  /* top: 0;
+  left: 0; */
+
+  width: 100%;
+  height: 100%;
+`;
+const StCategoryList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* position: absolute;
+  top: 9.7rem;
+  left: 5.9rem;
+  transform: translate(-50%, -50%); */
+
+  width: 11.9rem;
+  padding: 1.5rem 1.8rem;
+
+  border: 0.1rem solid ${({ theme }) => theme.colors.gray004};
+  border-radius: 0.491rem;
+  box-shadow: 0.1rem 0.1rem 0.491rem rgba(0, 0, 0, 0.08);
+  background-color: ${({ theme }) => theme.colors.white};
+`;
+const StCategoryItem = styled.li<{ isSelected: boolean }>`
+  width: 100%;
+
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ isSelected, theme: { colors } }) =>
+    isSelected ? colors.mainDarkgreen : colors.gray007};
+  ${({ theme }) => theme.fonts.b5_14_medium_140}
+
+  cursor: pointer;
+
+  &:not(:last-child) {
+    padding-bottom: 1rem;
+  }
 `;

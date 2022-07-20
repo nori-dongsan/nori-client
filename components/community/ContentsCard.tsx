@@ -33,8 +33,8 @@ export default function ContentCard(props: ContentInfoProps) {
           <span>{createdAt}</span>
         </StWriteInfo>
         <StReplyInfo>
-          {/* <IcHeart />
-          <span>12</span> */}
+          <IcHeart />
+          <span>12</span>
           <IcReply />
           <span>{replyCount}</span>
         </StReplyInfo>
