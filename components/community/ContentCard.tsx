@@ -57,7 +57,7 @@ export default function ContentCard(props: ContentInfoProps) {
 
 const StContentsCardWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  /* flex-direction: ; */
 
   margin-bottom: 4.8rem;
   padding-bottom: 4.5rem;
@@ -68,6 +68,7 @@ const StContentsCardWrapper = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
 
   h1 {
+    width: 92.3rem;
     margin-top: 1.6rem;
     margin-bottom: 0.7rem;
 
@@ -77,6 +78,7 @@ const StContentsCardWrapper = styled.div`
   }
 
   p {
+    width: 72.5rem;
     margin-bottom: 2.7rem;
 
     display: -webkit-box;
@@ -92,13 +94,14 @@ const StContentsCardWrapper = styled.div`
 `;
 const StMainInfo = styled.article``;
 const StContentInfo = styled.section`
-  margin-right: 4.9rem;
+  display: flex;
+  flex-direction: column;
 
-  width: auto;
+  width: 72.5rem;
 `;
 const StContentImg = styled.img`
-  width: 21.6rem;
-  height: 21.6rem;
+  width: 21.8rem;
+  height: 21.8rem;
 
   border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
   border-radius: 0.5rem;
