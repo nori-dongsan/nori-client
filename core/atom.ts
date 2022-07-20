@@ -1,8 +1,9 @@
-import { atom } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { recoilPersist } from 'recoil-persist'; //페이지가 변경되더라도 상태관리를 유지
 import { PostCommunityBody } from '../types/community';
 import { PostLoginBody, UserData } from '../types/user';
-import { FilterTagProps } from '../types/viewProduct';
+import { FilterDropdownProps, FilterTagProps } from '../types/viewProduct';
+
 
 const { persistAtom } = recoilPersist();
 
@@ -17,6 +18,7 @@ export const userInfoState = atom<PostLoginBody>({
   effects_UNSTABLE: [persistAtom],
 });
 
+
 export const newPostInfoState = atom<PostCommunityBody>({
   key: 'newPostInfo',
   default: {
@@ -26,6 +28,7 @@ export const newPostInfoState = atom<PostCommunityBody>({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
 export const filterListState = atom({
   key: 'filterListState',
   default: {
@@ -81,4 +84,15 @@ export const filterListState = atom({
 export const filterTagState = atom<FilterTagProps[]>({
   key: 'filterTagState',
   default: [],
+});
+
+export const checkedItemsState = atom<Set<number>[]>({
+  key: 'checkedItemsState',
+  default: [
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+  ],
 });

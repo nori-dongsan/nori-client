@@ -1,19 +1,13 @@
 import styled from '@emotion/styled';
-import { LoaderValue } from 'next/dist/shared/lib/image-config';
-import React, { EventHandler, useState } from 'react';
+import { useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { checkedItemsState, filterListState } from '../../core/atom';
 import { IcClose, IcOpen } from '../../public/assets/icons';
 import FilterDropdown from './FilterDropdown';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { filterListState } from '../../core/atom';
-interface ProductFilterIcon {
-  title: string;
-  value: boolean;
-}
-export default function ProductFilter() {
-  const { filterList } = useRecoilValue(filterListState);
 
-  const filterListData = Object.values(filterList);
-  const filterListKeys = Object.keys(filterList);
+export default function ProductFilter() {
+  const filterlist = useRecoilValue(filterListState);
+
   const [visibility, setVisibility] = useState<boolean[]>([
     false,
     false,
@@ -21,24 +15,16 @@ export default function ProductFilter() {
     false,
     false,
   ]);
-  const [checkedItems, setCheckedItems] = useState<Set<number>[]>([
-    new Set<number>(),
-    new Set<number>(),
-    new Set<number>(),
-    new Set<number>(),
-    new Set<number>(),
-  ]);
-  console.log(checkedItems);
+
+  const filterListData = Object.values(filterlist.filterList);
+  const filterListKeys = Object.keys(filterlist.filterList);
+  const [checkedItems, setcheckedItems] = useRecoilState(checkedItemsState);
 
   const handleDropdown = (idx: number) => {
     setVisibility({
       ...visibility,
       [idx]: !visibility[idx],
     });
-  };
-
-  const handleCheckedItems = (copyCheckedItem: Set<number>, idx: number) => {
-    setCheckedItems({ ...checkedItems, [idx]: copyCheckedItem });
   };
 
   //const [repeat, setRepeat] = useState<null | number | void | string>();
@@ -83,7 +69,9 @@ export default function ProductFilter() {
               isDrop={visibility[idx]}
               checkedItem={checkedItems[idx]}
               categoryKey={title}
+
               handleCheckedItems={handleCheckedItems}
+
             />
           )}
         </StFilterSection>
@@ -94,9 +82,10 @@ export default function ProductFilter() {
 
 const StFilterWrapper = styled.div`
   width: 20rem;
-  height: 28rem;
+  height: fit-content;
   padding-left: 1.2rem;
   margin-right: 2.4rem;
+  margin-bottom: 7.2rem;
 `;
 const StFilterTitle = styled.div`
   display: flex;
@@ -114,7 +103,3 @@ const StFilterSection = styled.section<{ isDrop: boolean }>`
   ${({ theme }) => theme.fonts.b4_15_semibold_146};
   cursor: pointer;
 `;
-
-// function repeat(repeat: any) {
-//   throw new Error('Function not implemented.');
-// }

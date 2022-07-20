@@ -1,5 +1,7 @@
 import {
+  FilterTag,
   ProductFilter,
+  TagSection,
   TopFloatingBtn,
   ViewProductBanner,
 } from '../components/viewProduct';
@@ -12,17 +14,25 @@ import {
   LandingPriceSort,
   LandingProductFilter,
 } from '../components/landing/viewProduct';
+
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { toyMockData } from '../mocks/data/toyMockData';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+
+import theme from '../styles/theme';
+import { useRecoilValue } from 'recoil';
+import { FilterTagProps } from '../types/viewProduct';
+import { filterTagState } from '../core/atom';
+
 
 const limit = 40;
 
 export default function viewProduct({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  //default는 낮은 가격순
+  
+  
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -33,7 +43,14 @@ export default function viewProduct({
 
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
-  };
+     };
+
+  const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
+  // useSWR로 로딩 판단할 것임
+  const isLoading = false;
+  const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
+ 
+ 
 
   // let { productList, isLoading, isError } = priceDesc
   //   ? (useGetCollectionProduct('price-desc') as GetCollectionProduct)
@@ -75,6 +92,7 @@ export default function viewProduct({
           <StFilterSectionWrapper>
             <ProductFilter />
             <StContentSection>
+              {filterTagList.length != 0 && <TagSection />}
               <StFilterBarWrapper>
                 <PriceFilter
                   priceDesc={priceDesc}
