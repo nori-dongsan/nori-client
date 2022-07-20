@@ -6,8 +6,12 @@ import {
 } from '../components/main';
 import styled from '@emotion/styled';
 import { ToyList } from '../components/main';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { getMainProduct } from '../core/api/toy';
 
-export default function index() {
+export default function index({
+  mainData,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const collection = [
     {
       title: '위고, 보행기 모음',
@@ -29,7 +33,7 @@ export default function index() {
       <StMainSection>
         <StConceptArticle>
           <StConceptTitle>이번 주 인기 장난감</StConceptTitle>
-          <ToyList landingCategory="popularity" length={3} />
+          <ToyList landingCategory="popularity" toyList={mainData.trending} />
         </StConceptArticle>
 
         <StCollectionArticle>
@@ -43,17 +47,17 @@ export default function index() {
 
         <StConceptArticle>
           <StConceptTitle>Today's NORI PICK</StConceptTitle>
-          <ToyList landingCategory="noriPick" length={4} />
+          <ToyList landingCategory="noriPick" toyList={mainData.noriPick} />
         </StConceptArticle>
         <MiddleBanner />
         <StConceptArticle>
           <StConceptTitle>우리 아이 오감 발달을 위해</StConceptTitle>
-          <ToyList landingCategory="develop" length={4} />
+          <ToyList landingCategory="develop" toyList={mainData.senses} />
         </StConceptArticle>
 
         <StConceptArticle>
           <StConceptTitle>학습에 도움이 되는 똑똑한 장난감</StConceptTitle>
-          <ToyList landingCategory="study" length={4} />
+          <ToyList landingCategory="study" toyList={mainData.smart} />
         </StConceptArticle>
       </StMainSection>
       <BottomBanner />
@@ -69,7 +73,7 @@ const StMainSection = styled.section`
   align-items: center;
 `;
 const StConceptArticle = styled.article`
-  paddind-bottom: 6.9rem;
+  margin-bottom: 6.9rem;
 `;
 const StCollectionArticle = styled.article`
   width: 100%;
@@ -91,3 +95,19 @@ const StConceptTitle = styled.div`
 const StCollectionTitle = styled(StConceptTitle)`
   padding: 6rem 0rem 4.8rem 0rem;
 `;
+export const getStaticProps: GetStaticProps = async (context) => {
+  const res = await getMainProduct();
+  // 데이터가 없으면 notFound를 보낸다
+  if (!res) {
+    return {
+      notFound: true,
+    };
+  }
+
+  //{ props: posts } 빌드타임에 받아서 Blog component로 보낸다
+  return {
+    props: {
+      mainData: res.data.data,
+    },
+  };
+};
