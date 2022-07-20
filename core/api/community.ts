@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import { PostCommunityBody } from '../../types/community';
 import { baseInstance } from '../axios';
 
 export const useGetCollectionProduct = (key: string) => {
@@ -8,4 +9,12 @@ export const useGetCollectionProduct = (key: string) => {
 };
 export const getCollectionProduct = (key: string) => {
   return baseInstance.get(`/collection?sort=${key}`);
+};
+export const postCommunity = async (body: PostCommunityBody) => {
+  try {
+    const { data } = await baseInstance.post('/board', body);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };

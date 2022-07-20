@@ -10,10 +10,13 @@ import { useRouter } from 'next/router';
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   import('../mocks');
 }
-export default function App({ Component, pageProps }: AppProps) {
-
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const { pathname } = useRouter();
 
+  // 안녕 진짜 너무 좋다 갈축 최고
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
@@ -24,7 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
         ) : (
           pathname !== '/login' && pathname !== '/signup' && <Header />
         )}
-        <SessionProvider session={pageProps.session}>
+        <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>
         {pathname !== '/login' && pathname !== '/signup' && <Footer />}

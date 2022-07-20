@@ -21,20 +21,14 @@ class LocalStorage {
     }
   }
 
-  static setUserSession(
-    accessToken: string,
-    refreshToken: string,
-    email: string,
-  ) {
+  static setUserSession(accessToken: string, refreshToken: string) {
     this.setItem('accessToken', accessToken);
     this.setItem('refreshToken', refreshToken);
-    this.setItem('email', email);
   }
 
   static clearUserSession() {
     this.removeItem('accessToken');
     this.removeItem('refreshToken');
-    this.removeItem('email');
   }
 }
 
