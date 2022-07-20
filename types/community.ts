@@ -1,5 +1,6 @@
 // 댓글
 export interface ReplyData {
+  author: boolean;
   userNickname?: string;
   content: string;
   createdAt: string;
@@ -27,7 +28,7 @@ export interface PostCommunityBody {
 }
 // 커뮤니티 댓글
 export interface PostCommentBody {
-  boardId: string;
+  boardId?: string;
   content: string;
 }
 

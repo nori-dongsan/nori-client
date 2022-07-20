@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
-import { Reply } from '../../components/community';
 import CommunityCategory from '../../components/community/CommunityCategory';
 import DetailFloatingBtn from '../../components/community/DetailFloatingBtn';
+import ReplyList from '../../components/community/ReplyList';
 import { deleteCommunity, getCommunityDetail } from '../../core/api/community';
 import { IcExpandImg, IcMenu, IcWriter } from '../../public/assets/icons';
 import { CommunityData } from '../../types/community';
@@ -109,7 +109,7 @@ export default function CommunityDetail({
             </StCommunityContent>
           </StCommunityArticle>
         </StCommunitySection>
-        <Reply />
+        <ReplyList replyList={replyList} cid={cid} />
       </StDetailSection>
       <DetailFloatingBtn heartNum={0} replyNum={replyCount} />
       {isExpanded && (
@@ -156,61 +156,73 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
             userNickname: '희지맘',
             content: '와 정말 좋은 글 입니다.',
             createdAt: '2022.06.23',
+            author: true,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 공감가는 글 입니다.',
             createdAt: '2022.06.23',
+            author: false,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 좋은 글 입니다.',
             createdAt: '2022.06.23',
+            author: false,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 공감가는 글 입니다.',
             createdAt: '2022.06.23',
+            author: true,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 좋은 글 입니다.',
             createdAt: '2022.06.23',
+            author: true,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 공감가는 글 입니다.',
             createdAt: '2022.06.23',
+            author: false,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 좋은 글 입니다.',
             createdAt: '2022.06.23',
+            author: true,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 공감가는 글 입니다.',
             createdAt: '2022.06.23',
+            author: false,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 좋은 글 입니다.',
             createdAt: '2022.06.23',
+            author: true,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 공감가는 글 입니다.',
             createdAt: '2022.06.23',
+            author: false,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 좋은 글 입니다.',
             createdAt: '2022.06.23',
+            author: true,
           },
           {
             userNickname: '희지맘',
             content: '와 정말 공감가는 글 입니다.',
             createdAt: '2022.06.23',
+            author: false,
           },
         ],
       },

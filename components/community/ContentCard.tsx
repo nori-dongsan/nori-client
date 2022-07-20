@@ -1,8 +1,12 @@
 import styled from '@emotion/styled';
 import { IcReply, IcHeart, IcDot } from '../../public/assets/icons';
 import CommunityCategory from './CommunityCategory';
+import Router from 'next/router';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 interface ContentInfoProps {
+  id: string;
   category: string;
   title: string;
   content: string;
@@ -13,15 +17,27 @@ interface ContentInfoProps {
 }
 
 export default function ContentCard(props: ContentInfoProps) {
-  const { category, title, content, userNickname, replyCount, createdAt, img } =
-    props;
+  const {
+    id,
+    category,
+    title,
+    content,
+    userNickname,
+    replyCount,
+    createdAt,
+    img,
+  } = props;
 
   return (
     <StContentsCardWrapper>
       <StContentInfo>
         <CommunityCategory category={category} />
-        <h1>{title}</h1>
-        <p>{content}</p>
+        <StMainInfo
+          onClick={() => Router.push({ pathname: `/community/${id}` })}
+        >
+          <h1>{title}</h1>
+          <p>{content}</p>
+        </StMainInfo>
         <StWriteInfo>
           <span>{userNickname}</span>
           <IcDot />
@@ -57,6 +73,8 @@ const StContentsCardWrapper = styled.div`
     margin-bottom: 0.7rem;
 
     ${({ theme }) => theme.fonts.b9_24_medium_150}
+
+    cursor: pointer;
   }
 
   p {
@@ -70,8 +88,11 @@ const StContentsCardWrapper = styled.div`
 
     color: ${({ theme }) => theme.colors.gray009};
     ${({ theme }) => theme.fonts.t6_17_regular_140}
+
+    cursor: pointer;
   }
 `;
+const StMainInfo = styled.article``;
 const StContentInfo = styled.section`
   display: flex;
   flex-direction: column;
@@ -82,10 +103,10 @@ const StContentImg = styled.img`
   width: 21.8rem;
   height: 21.8rem;
 
-  object-fit: cover;
-
   border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
   border-radius: 0.5rem;
+
+  object-fit: cover;
 `;
 const StWriteInfo = styled.div`
   display: flex;
