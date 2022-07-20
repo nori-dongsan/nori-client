@@ -70,7 +70,11 @@ export default function ProductFilter() {
             <FilterDropdown
               categoryInfo={filterListData[idx]}
               categoryIdx={idx}
-              isExcept={idx == 3 || toyKindList.length !== 0 ? true : false}
+              isExcept={
+                idx == 3 || (idx == 4 && toyKindList.length !== 0)
+                  ? true
+                  : false
+              }
               isDrop={visibility[idx]}
               checkedItem={checkedItems[idx]}
               categoryKey={title}
