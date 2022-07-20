@@ -42,7 +42,8 @@ export default function viewProduct({
   useEffect(() => {
     if (data) {
       const filterData = data.filter(
-        (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
+        (_: any, idx: number) =>
+          (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
       setToyList(filterData);
       window.scrollTo(0, 0);
