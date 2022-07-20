@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { loginUser } from '../core/api/user';
 import { PostLoginBody } from '../types/user';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import LocalStorage from '../core/localStorage';
 import Router from 'next/router';
-import { useRecoilState, useResetRecoilState } from 'recoil';
-import { userInfoState } from '../core/atom';
+import { useRecoilState } from 'recoil';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import {
   IcLoginNori,
   IcSignupLogo,
@@ -15,34 +15,28 @@ import {
   IcGoogleBtn,
   IcKakaoBtn,
 } from '../public/assets/icons';
-
-export default function login() {
-  const { data: session, status } = useSession();
+import { userInfoState } from '../core/atom';
+export default function login({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const resetList = useResetRecoilState(userInfoState);
-  // LocalStorage.clearUserSession();
-  console.log(userInfo);
+
   const handleLogin = async (social: string) => {
-    console.log(social);
-    console.log(session);
-    if (session?.user) {
+    if (data.session?.user) {
       const userLoginData = {
-        snsId: session?.user.email,
+        snsId: data.session?.user.email,
         provider: social,
-        email: session?.user.email,
+        email: data.session?.user.email,
       } as PostLoginBody;
       const login = await loginUser(userLoginData);
-      // if (login) {
-      //   setUserInfo(userLoginData);
-      // }
-      console.log(userLoginData);
+      if (login) {
+        setUserInfo(userLoginData);
+      }
     }
   };
-
   useEffect(() => {
-    if (LocalStorage.getItem('email')) {
+    if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
       Router.push('/signup');
-    }
   }, []);
 
   return (
@@ -61,26 +55,26 @@ export default function login() {
             <a>회원가입</a>
           </Link>
         </StTextWrapper>
+
         <IcKakaoBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            // signIn('kakao');
+            signIn('kakao');
             handleLogin('kakao');
           }}
         />
+
         <IcGoogleBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-
             signIn('google');
             handleLogin('google');
-
           }}
         />
         <IcNaverBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            // signIn('naver');
+            signIn('naver');
             handleLogin('naver');
           }}
         />
@@ -94,7 +88,7 @@ const StLoginWrapper = styled.section`
   align-items: center;
   flex-direction: column;
 
-  height: 100%;
+  height: 100vh;
   padding-top: 15.2rem;
   background: ${({ theme }) => theme.colors.mainGreen};
 `;
@@ -134,3 +128,12 @@ const StTextWrapper = styled.article`
   ${({ theme }) => theme.fonts.b4_15_regular_146};
   color: #707070;
 `;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession({ req: context.req });
+  return {
+    props: {
+      data: { session },
+    },
+  };
+};

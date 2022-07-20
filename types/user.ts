@@ -14,4 +14,12 @@ export interface PostLoginBody {
   snsId: string;
   provider: string;
   email: string;
+  isSignup?: boolean;
+}
+export interface ResponseLoginDto {
+  data: {
+    accessToken: string;
+    refreshToken: string;
+    isSignup: boolean;
+  };
 }

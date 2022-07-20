@@ -28,9 +28,11 @@ const StCommunityFloatingBtnWrapper = styled.section`
   display: flex;
   flex-direction: column;
   row-gap: 2.4rem;
-  align-items: cetner;
-  position: sticky;
-  top: 43rem;
+  align-items: center;
+  position: fixed;
+  bottom: 3rem;
+  right: 22.5%;
+  left: 77.5%;
 
   height: 30rem;
   margin-top: 8.8rem;
