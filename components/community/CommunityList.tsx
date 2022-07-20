@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 // import { useState } from 'react';
-import ContentCard from './ContentsCard';
+import ContentCard from './ContentCard';
 import { CommunityData } from '../../types/community';
 
 interface CommunityListProps {
