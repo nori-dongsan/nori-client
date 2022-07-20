@@ -3,10 +3,10 @@ import { signIn, getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { loginUser } from '../core/api/user';
 import { PostLoginBody } from '../types/user';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import LocalStorage from '../core/localStorage';
 import Router from 'next/router';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import {
   IcLoginNori,
@@ -19,12 +19,8 @@ import { userInfoState } from '../core/atom';
 export default function login({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(data);
-  // signOut();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  // const resetList = useResetRecoilState(userInfoState);
-  // // LocalStorage.clearUserSession();
-  // console.log(userInfo);
+
   const handleLogin = async (social: string) => {
     if (data.session?.user) {
       const userLoginData = {
@@ -38,11 +34,9 @@ export default function login({
       }
     }
   };
-  console.log(userInfo);
-  console.log(LocalStorage.getItem('accessToken'));
-
   useEffect(() => {
-    if (!userInfo.isSignup) Router.push('/signup');
+    if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
+      Router.push('/signup');
   }, []);
 
   return (
@@ -137,7 +131,6 @@ const StTextWrapper = styled.article`
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
-  console.log(session);
   return {
     props: {
       data: { session },

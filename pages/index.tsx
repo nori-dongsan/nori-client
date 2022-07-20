@@ -9,7 +9,6 @@ import { ToyList } from '../components/main';
 import { useRouter } from 'next/router';
 
 export default function main() {
-  const { query } = useRouter();
   const collection = [
     {
       title: '쏘서, 보행기 모음',
