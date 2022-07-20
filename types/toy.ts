@@ -10,9 +10,17 @@ export interface ToyData {
   siteName: string;
 }
 
+export interface MainToyData {
+  image: string;
+  month: string;
+  price: number;
+  siteName: string;
+  siteUrl: string;
+  title: string;
+}
 export interface GetCollectionProduct {
   productList: {
-    data: { data: { title: string; toyList: ToyData[] } };
+    data: { data: { title: string; toyList: MainToyData[] } };
   };
   isLoading: boolean;
   isError: string;

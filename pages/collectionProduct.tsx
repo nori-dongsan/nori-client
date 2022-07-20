@@ -7,7 +7,7 @@ import {
 } from '../components/collectionProduct';
 import { useEffect, useState } from 'react';
 import { getCollectionProduct, useGetCollectionProduct } from '../core/api/toy';
-import { GetCollectionProduct, ToyData } from '../types/toy';
+import { GetCollectionProduct, MainToyData } from '../types/toy';
 import {
   LandingCollectionList,
   LandingCollectionTitle,
@@ -21,7 +21,7 @@ const limit = 40;
 export default function collectionProduct({}) {
   const { query } = useRouter();
   const { collection } = query;
-  const [toyList, setToyList] = useState<ToyData[]>([]);
+  const [toyList, setToyList] = useState<MainToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const landingArray = new Array(10).fill(0);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
@@ -44,7 +44,7 @@ export default function collectionProduct({}) {
 
   useEffect(() => {
     if (productList) {
-      let data = productList.data.data.toyList as ToyData[];
+      let data = productList.data.data.toyList as MainToyData[];
       data = data.filter(
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
@@ -104,7 +104,7 @@ const StCollectionSection = styled.section`
   flex-direction: column;
 `;
 const StCollectionTitle = styled.h4`
-  margin: 7.1rem 0rem;
+  margin-top: 7.1rem;
 
   ${({ theme }) => theme.fonts.t1_28_medium_150}
 `;
