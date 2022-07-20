@@ -15,6 +15,7 @@ export default function TagSection() {
           ({ categoryIdx, elementIdx, categoryKey, tagText }) => {
             return (
               <FilterTag
+                key={`${categoryKey}${tagText}`}
                 categoryIdx={categoryIdx}
                 elementIdx={elementIdx}
                 categoryKey={categoryKey}

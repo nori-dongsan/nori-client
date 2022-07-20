@@ -70,3 +70,13 @@ export const filterTagState = atom<FilterTagProps[]>({
   key: 'filterTagState',
   default: [],
 });
+export const checkedItemsState = atom<Set<number>[]>({
+  key: 'checkedItemsState',
+  default: [
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+    new Set<number>(),
+  ],
+});

@@ -1,18 +1,51 @@
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
-import { filterListState } from '../../core/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  checkedItemsState,
+  filterListState,
+  filterTagState,
+} from '../../core/atom';
 import { IcDeleteTag } from '../../public/assets/icons';
 import { FilterTagProps } from '../../types/viewProduct';
 
 export default function FilterTag(props: FilterTagProps) {
   const { categoryIdx, elementIdx, categoryKey, tagText } = props;
-  const filterlist = useRecoilValue(filterListState);
-  const filterListKeys = Object.keys(filterlist.filterList);
-  const handleTagDelete = () => {};
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsState);
+  const [filterTagList, setFilterTagList] =
+    useRecoilState<FilterTagProps[]>(filterTagState);
+  const filterTagValues = Object.values(filterTagList);
+  const handleFilterTag = (
+    tagText: string,
+    categoryIdx: number,
+    elementIdx: number,
+  ) => {
+    const tag: FilterTagProps = {
+      categoryIdx: categoryIdx,
+      elementIdx: elementIdx,
+      categoryKey: categoryKey,
+      tagText: tagText,
+    };
+
+    checkedItems[categoryIdx].delete(elementIdx);
+    const deleteidx = filterTagList.findIndex((item) => {
+      return item.categoryIdx == categoryIdx && item.elementIdx == elementIdx;
+    });
+
+    let copyFilterTagList = [...filterTagList];
+    copyFilterTagList.splice(deleteidx, 1);
+    setFilterTagList(copyFilterTagList);
+
+    setCheckedItems({
+      ...checkedItems,
+      [elementIdx]: checkedItems[categoryIdx],
+    });
+  };
   return (
     <StFilterTag>
       <h2>{tagText == '기타' ? `${tagText} (${categoryKey})` : tagText}</h2>
-      <StDeleteBtn onClick={() => handleTagDelete} />
+      <StDeleteBtn
+        onChange={() => handleFilterTag(tagText, categoryIdx, elementIdx)}
+      />
     </StFilterTag>
   );
 }

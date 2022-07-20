@@ -1,14 +1,10 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { filterListState } from '../../core/atom';
+import { checkedItemsState, filterListState } from '../../core/atom';
 import { IcClose, IcOpen } from '../../public/assets/icons';
 import FilterDropdown from './FilterDropdown';
 
-interface ProductFilterIcon {
-  title: string;
-  value: boolean;
-}
 export default function ProductFilter() {
   const filterlist = useRecoilValue(filterListState);
   const [visibility, setVisibility] = useState<boolean[]>([
@@ -18,24 +14,14 @@ export default function ProductFilter() {
     false,
     false,
   ]);
-  const [checkedItems, setCheckedItems] = useState<Set<number>[]>([
-    new Set<number>(),
-    new Set<number>(),
-    new Set<number>(),
-    new Set<number>(),
-    new Set<number>(),
-  ]);
   const filterListData = Object.values(filterlist.filterList);
   const filterListKeys = Object.keys(filterlist.filterList);
+  const [checkedItems, setcheckedItems] = useRecoilState(checkedItemsState);
   const handleDropdown = (idx: number) => {
     setVisibility({
       ...visibility,
       [idx]: !visibility[idx],
     });
-  };
-
-  const handleCheckedItems = (copyCheckedItem: Set<number>, idx: number) => {
-    setCheckedItems({ ...checkedItems, [idx]: copyCheckedItem });
   };
 
   //const [repeat, setRepeat] = useState<null | number | void | string>();
@@ -80,7 +66,6 @@ export default function ProductFilter() {
               isDrop={visibility[idx]}
               checkedItem={checkedItems[idx]}
               categoryKey={title}
-              handleCheckedItems={handleCheckedItems}
             />
           )}
         </StFilterSection>

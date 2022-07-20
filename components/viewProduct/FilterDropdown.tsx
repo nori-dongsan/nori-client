@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { filterListState, filterTagState } from '../../core/atom';
+import { checkedItemsState, filterTagState } from '../../core/atom';
 import { FilterDropdownProps, FilterTagProps } from '../../types/viewProduct';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
@@ -11,40 +11,57 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     categoryIdx,
     checkedItem,
     categoryKey,
-    handleCheckedItems,
   } = props;
-  const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
-  const setfilterTagList = useSetRecoilState<FilterTagProps[]>(filterTagState);
-  const handleCheckedItem = (elementIdx: number) => {
-    if (checkedItem.has(elementIdx)) {
-      checkedItem.delete(elementIdx);
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsState);
+  const [filterTagList, setFilterTagList] =
+    useRecoilState<FilterTagProps[]>(filterTagState);
+  const filterTagKeys = Object.keys(filterTagList);
+  const filterTagValues = Object.values(filterTagList);
+  const handleCheckedItems = (
+    tagText: string,
+    categoryIdx: number,
+    elementIdx: number,
+  ) => {
+    const tag: FilterTagProps = {
+      categoryIdx: categoryIdx,
+      elementIdx: elementIdx,
+      categoryKey: categoryKey,
+      tagText: tagText,
+    };
+    if (checkedItems[categoryIdx].has(elementIdx)) {
+      checkedItems[categoryIdx].delete(elementIdx);
+      const deleteidx = filterTagList.findIndex((item) => {
+        return item.categoryIdx == categoryIdx && item.elementIdx == elementIdx;
+      });
+
+      let copyFilterTagList = [...filterTagList];
+      copyFilterTagList.splice(deleteidx, 1);
+      setFilterTagList(copyFilterTagList);
     } else {
-      checkedItem.add(elementIdx);
-      const tag: FilterTagProps = {
-        categoryIdx: categoryIdx,
-        elementIdx: elementIdx,
-        categoryKey: categoryKey,
-        tagText: categoryInfo[elementIdx],
-      };
-      setfilterTagList([...filterTagList, tag]);
+      checkedItems[categoryIdx].add(elementIdx);
+      setFilterTagList([...filterTagList, tag]);
       console.log(filterTagList);
     }
 
-    handleCheckedItems(checkedItem, categoryIdx);
+    setCheckedItems({
+      ...checkedItems,
+      [elementIdx]: checkedItems[categoryIdx],
+    });
   };
-
   return (
     <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
-      {categoryInfo.map((sort: string, elementIdx: number) => {
+      {categoryInfo.map((tagText: string, elementIdx: number) => {
         return (
           <StLabel
-            htmlFor={sort}
-            key={sort}
-            onChange={() => handleCheckedItem(elementIdx)}
+            htmlFor={tagText}
+            key={tagText}
+            onChange={() =>
+              handleCheckedItems(tagText, categoryIdx, elementIdx)
+            }
             isChecked={checkedItem.has(elementIdx)}
           >
-            <StInput type="checkbox" id={sort} name={sort} />
-            <StFilterElement>{sort}</StFilterElement>
+            <StInput type="checkbox" id={tagText} name={tagText} />
+            <StFilterElement>{tagText}</StFilterElement>
           </StLabel>
         );
       })}
