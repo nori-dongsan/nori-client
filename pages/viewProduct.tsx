@@ -3,36 +3,31 @@ import {
   ProductFilter,
   TagSection,
   TopFloatingBtn,
+  ToyList,
   ViewProductBanner,
 } from '../components/viewProduct';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { ToyList } from '../components/viewProduct';
 import {
   LandingViewProductBanner,
   LandingToyList,
   LandingPriceSort,
   LandingProductFilter,
 } from '../components/landing/viewProduct';
-
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { toyMockData } from '../mocks/data/toyMockData';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-
-import theme from '../styles/theme';
 import { useRecoilValue } from 'recoil';
 import { FilterTagProps } from '../types/viewProduct';
 import { filterTagState } from '../core/atom';
-
+import { IcGrayEmpty } from '../public/assets/icons';
 
 const limit = 40;
 
 export default function viewProduct({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  
-  
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -43,14 +38,12 @@ export default function viewProduct({
 
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
-     };
+  };
 
   const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
   // useSWR로 로딩 판단할 것임
   const isLoading = false;
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
- 
- 
 
   // let { productList, isLoading, isError } = priceDesc
   //   ? (useGetCollectionProduct('price-desc') as GetCollectionProduct)
@@ -99,17 +92,23 @@ export default function viewProduct({
                   handleClickPrice={handleClickPrice}
                 />
               </StFilterBarWrapper>
-              <StToyListWrapper>
-                {toyList.map(
-                  (_, idx) =>
-                    (idx + 1) % 4 === 0 && (
-                      <ToyList
-                        key={idx}
-                        toyList={toyList.slice(idx - 3, idx + 1)}
-                      />
-                    ),
-                )}
-              </StToyListWrapper>
+              {toyList.length === 0 ? (
+                <StEmptyView>
+                  <IcGrayEmpty />
+                </StEmptyView>
+              ) : (
+                <StToyListWrapper>
+                  {toyList.map(
+                    (_, idx) =>
+                      (idx + 1) % 4 === 0 && (
+                        <ToyList
+                          key={idx}
+                          toyList={toyList.slice(idx - 3, idx + 1)}
+                        />
+                      ),
+                  )}
+                </StToyListWrapper>
+              )}
             </StContentSection>
           </StFilterSectionWrapper>
           <PageNavigation
@@ -150,7 +149,12 @@ const StToyListWrapper = styled.section`
 
   margin-top: 2rem;
 `;
+const StEmptyView = styled.section`
+  display: flex;
+  justify-content: column;
 
+  margin: 0 23.8rem;
+`;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const data: ToyData[] = toyMockData;
   return {
