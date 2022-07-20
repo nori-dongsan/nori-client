@@ -148,7 +148,7 @@ const StConceptTitle = styled.div`
   text-align: center;
 `;
 const StCollectionTitle = styled(StConceptTitle)`
-  padding: 6rem 0rem 4.8rem 0rem;
+  padding-top: 7rem;
 `;
 export const getStaticProps: GetStaticProps = async (context) => {
   const res = await getMainProduct();
