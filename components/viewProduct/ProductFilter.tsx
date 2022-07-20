@@ -69,9 +69,6 @@ export default function ProductFilter() {
               isDrop={visibility[idx]}
               checkedItem={checkedItems[idx]}
               categoryKey={title}
-
-              handleCheckedItems={handleCheckedItems}
-
             />
           )}
         </StFilterSection>
