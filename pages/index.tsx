@@ -8,6 +8,14 @@ import styled from '@emotion/styled';
 import { ToyList } from '../components/main';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { getMainProduct } from '../core/api/toy';
+import {
+  LandingMainBanner,
+  LandingConceptTitle,
+  LandingToyList,
+  LandingCollectionCard,
+  LandingMiddleBanner,
+  LandingBottomBanner,
+} from '../components/landing/main';
 
 export default function index({
   mainData,
@@ -29,38 +37,75 @@ export default function index({
 
   return (
     <div>
-      <MainBanner />
-      <StMainSection>
-        <article className="trending">
-          <StConceptTitle>이번 주 인기 장난감</StConceptTitle>
-          <ToyList landingCategory="popularity" toyList={mainData.trending} />
-        </article>
+      {!mainData ? (
+        <>
+          <LandingMainBanner />
+          <StMainSection>
+            <article className="trending">
+              <LandingConceptTitle />
+              <LandingToyList landingCategory="popularity" length={3} />
+            </article>
+            <LandingCollectionCard />
+            <article className="noriPick">
+              <LandingConceptTitle />
+              <LandingToyList landingCategory="noriPick" length={4} />
+            </article>
+            <LandingMiddleBanner />
+            <article className="senses">
+              <LandingConceptTitle />
+              <LandingToyList landingCategory="noriPick" length={4} />
+            </article>
 
-        <StCollectionArticle>
-          <StCollectionTitle>테마별 노리 잇템</StCollectionTitle>
-          <StCollectionCardWrapper>
-            {collection.map(({ title, subTitle }) => (
-              <CollectionCard key={title} title={title} subTitle={subTitle} />
-            ))}
-          </StCollectionCardWrapper>
-        </StCollectionArticle>
+            <article className="smart">
+              <LandingConceptTitle />
+              <LandingToyList landingCategory="noriPick" length={4} />
+            </article>
+            <LandingBottomBanner />
+          </StMainSection>
+        </>
+      ) : (
+        <>
+          <MainBanner />
+          <StMainSection>
+            <article className="trending">
+              <StConceptTitle>이번 주 인기 장난감</StConceptTitle>
+              <ToyList
+                landingCategory="popularity"
+                toyList={mainData.trending}
+              />
+            </article>
 
-        <article className="noriPick">
-          <StConceptTitle>Today's NORI PICK</StConceptTitle>
-          <ToyList landingCategory="noriPick" toyList={mainData.noriPick} />
-        </article>
-        <MiddleBanner />
-        <article className="senses">
-          <StConceptTitle>우리 아이 오감 발달을 위해</StConceptTitle>
-          <ToyList landingCategory="develop" toyList={mainData.senses} />
-        </article>
+            <StCollectionArticle>
+              <StCollectionTitle>테마별 노리 잇템</StCollectionTitle>
+              <StCollectionCardWrapper>
+                {collection.map(({ title, subTitle }) => (
+                  <CollectionCard
+                    key={title}
+                    title={title}
+                    subTitle={subTitle}
+                  />
+                ))}
+              </StCollectionCardWrapper>
+            </StCollectionArticle>
 
-        <article className="smart">
-          <StConceptTitle>학습에 도움이 되는 똑똑한 장난감</StConceptTitle>
-          <ToyList landingCategory="study" toyList={mainData.smart} />
-        </article>
-      </StMainSection>
-      <BottomBanner />
+            <article className="noriPick">
+              <StConceptTitle>Today's NORI PICK</StConceptTitle>
+              <ToyList landingCategory="noriPick" toyList={mainData.noriPick} />
+            </article>
+            <MiddleBanner />
+            <article className="senses">
+              <StConceptTitle>우리 아이 오감 발달을 위해</StConceptTitle>
+              <ToyList landingCategory="develop" toyList={mainData.senses} />
+            </article>
+
+            <article className="smart">
+              <StConceptTitle>학습에 도움이 되는 똑똑한 장난감</StConceptTitle>
+              <ToyList landingCategory="study" toyList={mainData.smart} />
+            </article>
+          </StMainSection>
+          <BottomBanner />
+        </>
+      )}
     </div>
   );
 }
@@ -107,14 +152,6 @@ const StCollectionTitle = styled(StConceptTitle)`
 `;
 export const getStaticProps: GetStaticProps = async (context) => {
   const res = await getMainProduct();
-  // 데이터가 없으면 notFound를 보낸다
-  if (!res) {
-    return {
-      notFound: true,
-    };
-  }
-
-  //{ props: posts } 빌드타임에 받아서 Blog component로 보낸다
   return {
     props: {
       mainData: res.data.data,
