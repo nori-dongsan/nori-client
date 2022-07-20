@@ -18,9 +18,9 @@ export default function FilterDropdown(props: FilterDropdownProps) {
   const filterTagKeys = Object.keys(filterTagList);
   const filterTagValues = Object.values(filterTagList);
   const handleCheckedItems = (
-    tagText: string,
     categoryIdx: number,
     elementIdx: number,
+    tagText: string,
   ) => {
     const tag: FilterTagProps = {
       categoryIdx: categoryIdx,
@@ -31,12 +31,15 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     if (checkedItems[categoryIdx].has(elementIdx)) {
       checkedItems[categoryIdx].delete(elementIdx);
       const deleteidx = filterTagList.findIndex((item) => {
-        return item.categoryIdx == categoryIdx && item.elementIdx == elementIdx;
+        return (
+          item.categoryIdx === categoryIdx && item.elementIdx === elementIdx
+        );
       });
 
       let copyFilterTagList = [...filterTagList];
       copyFilterTagList.splice(deleteidx, 1);
       setFilterTagList(copyFilterTagList);
+      console.log(filterTagList);
     } else {
       checkedItems[categoryIdx].add(elementIdx);
       setFilterTagList([...filterTagList, tag]);
@@ -45,22 +48,28 @@ export default function FilterDropdown(props: FilterDropdownProps) {
 
     setCheckedItems({
       ...checkedItems,
-      [elementIdx]: checkedItems[categoryIdx],
+      [categoryIdx]: checkedItems[categoryIdx],
     });
   };
+
   return (
     <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
       {categoryInfo.map((tagText: string, elementIdx: number) => {
         return (
           <StLabel
-            htmlFor={tagText}
-            key={tagText}
+            htmlFor={`${tagText}${categoryIdx}`}
+            key={`${tagText}${categoryIdx}`}
             onChange={() =>
-              handleCheckedItems(tagText, categoryIdx, elementIdx)
+              handleCheckedItems(categoryIdx, elementIdx, tagText)
             }
-            isChecked={checkedItem.has(elementIdx)}
+            isChecked={checkedItems[categoryIdx].has(elementIdx)}
           >
-            <StInput type="checkbox" id={tagText} name={tagText} />
+            <StInput
+              type="checkbox"
+              id={`${tagText}${categoryIdx}`}
+              name={`${tagText}${categoryIdx}`}
+              checked={checkedItems[categoryIdx].has(elementIdx)}
+            />
             <StFilterElement>{tagText}</StFilterElement>
           </StLabel>
         );

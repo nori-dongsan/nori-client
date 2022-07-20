@@ -15,9 +15,9 @@ export default function FilterTag(props: FilterTagProps) {
     useRecoilState<FilterTagProps[]>(filterTagState);
   const filterTagValues = Object.values(filterTagList);
   const handleFilterTag = (
-    tagText: string,
     categoryIdx: number,
     elementIdx: number,
+    tagText: string,
   ) => {
     const tag: FilterTagProps = {
       categoryIdx: categoryIdx,
@@ -25,26 +25,33 @@ export default function FilterTag(props: FilterTagProps) {
       categoryKey: categoryKey,
       tagText: tagText,
     };
+    if (checkedItems[categoryIdx].has(elementIdx)) {
+      checkedItems[categoryIdx].delete(elementIdx);
+      const deleteidx = filterTagList.findIndex((item) => {
+        return (
+          item.categoryIdx === categoryIdx && item.elementIdx === elementIdx
+        );
+      });
 
-    checkedItems[categoryIdx].delete(elementIdx);
-    const deleteidx = filterTagList.findIndex((item) => {
-      return item.categoryIdx == categoryIdx && item.elementIdx == elementIdx;
-    });
-
-    let copyFilterTagList = [...filterTagList];
-    copyFilterTagList.splice(deleteidx, 1);
-    setFilterTagList(copyFilterTagList);
+      let copyFilterTagList = [...filterTagList];
+      copyFilterTagList.splice(deleteidx, 1);
+      setFilterTagList(copyFilterTagList);
+    } else {
+      checkedItems[categoryIdx].add(elementIdx);
+      setFilterTagList([...filterTagList, tag]);
+      console.log(filterTagList);
+    }
 
     setCheckedItems({
       ...checkedItems,
-      [elementIdx]: checkedItems[categoryIdx],
+      [categoryIdx]: checkedItems[categoryIdx],
     });
   };
   return (
     <StFilterTag>
-      <h2>{tagText == '기타' ? `${tagText} (${categoryKey})` : tagText}</h2>
+      <h2>{tagText === '기타' ? `${tagText} (${categoryKey})` : tagText}</h2>
       <StDeleteBtn
-        onChange={() => handleFilterTag(tagText, categoryIdx, elementIdx)}
+        onClick={() => handleFilterTag(categoryIdx, elementIdx, tagText)}
       />
     </StFilterTag>
   );
