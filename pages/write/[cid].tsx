@@ -43,8 +43,8 @@ export default function UpdateForm({
   const convertURLtoFile = async (url: string) => {
     const response = await fetch(url);
     const data = await response.blob();
-    const ext = url.split('.').pop(); // url 구조에 맞게 수정할 것
-    const filename = url.split('/').pop(); // url 구조에 맞게 수정할 것
+    const ext = url.split('.').pop(); // url 구조에 맞게 수정할 예정
+    const filename = url.split('/').pop(); // url 구조에 맞게 수정할 예정
     const metadata = { type: `image/${ext}` };
     return new File([data], filename!, metadata);
   };
@@ -130,7 +130,9 @@ export default function UpdateForm({
   return (
     <StFormMain>
       <StFormSection>
-        <StFormArticle>
+        <StFormArticle
+          textHeight={textRef.current ? textRef.current.scrollHeight : 0}
+        >
           <StCategorySelectBox isCategory={isCategory}>
             <StCategoryBtn onClick={handleIsCategory}>{category}</StCategoryBtn>
             {isCategory && (
@@ -238,13 +240,14 @@ const StFormMain = styled.main`
 const StFormSection = styled.section`
   width: 77.6rem;
 `;
-const StFormArticle = styled.article`
+const StFormArticle = styled.article<{ textHeight: number }>`
   display: flex;
   flex-direction: column;
 
   & > textarea {
     width: 100%;
-    height: auto;
+    height: ${({ textHeight }) =>
+      textHeight ? `${textHeight / 10}rem` : 'auto'};
     margin-bottom: 3rem;
 
     color: ${({ theme }) => theme.colors.black};
