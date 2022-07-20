@@ -73,7 +73,8 @@ const StConceptArticle = styled.article`
 `;
 const StCollectionArticle = styled.article`
   width: 100%;
-  margin-top: 8.9rem;
+  height: 47.9rem;
+  margin-top: 8.4rem;
 
   background-color: ${({ theme }) => theme.colors.lightGreen};
 `;
