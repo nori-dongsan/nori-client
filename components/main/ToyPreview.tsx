@@ -19,8 +19,8 @@ export default function ToyPreview(props: ToyPreviewProps) {
   const { src, store, title, price, age, siteUrl } = props;
   const [isMark, setIsMark] = useState(false);
 
-  const handleToySite = () => {
-    window.open(siteUrl);
+  const handleToySite = (e: React.MouseEvent<HTMLElement>) => {
+    if (!(e.target instanceof SVGElement)) window.open(siteUrl);
   };
 
   const handleToyMark = () => {
