@@ -38,7 +38,7 @@ export default function collectionProduct({}) {
 
   useEffect(() => {
     if (productList) {
-      let data = productList as ToyData[];
+      let data = productList.data.data as ToyData[];
       data = data.filter(
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
@@ -80,7 +80,7 @@ export default function collectionProduct({}) {
           {!isLoading && !isError && productList && (
             <PageNavigation
               currentPage={currentPage}
-              lastPage={Math.ceil(productList.length / limit)}
+              lastPage={Math.ceil(productList.data.data.length / limit)}
               handleCurrentPage={handleCurrentPage}
             />
           )}
@@ -104,14 +104,3 @@ const StCollectionTitle = styled.h4`
 const StToyListWrapper = styled.section`
   margin: 0rem 37.2rem;
 `;
-// export async function getStaticProps(context: NextPageContext) { GetStaticPropsContext
-//   const res = await getCollectionProduct(`1`);
-//   const initialData = res.data;
-//   console.log(initialData);
-
-//   return {
-//     props: {
-//       initialData,
-//     },
-//   };
-// }
