@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 export default function WriteHeader() {
   const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
   const router = useRouter();
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
 
   const handleRegister = async () => {
     const { title, content } = newPostInfo;
@@ -27,6 +27,16 @@ export default function WriteHeader() {
     router.push(`/community/${data.id}`);
   };
 
+  const handleCancel = () => {
+    const val = confirm(
+      '수정을 취소하시겠습니까? 작성하던 내용은 모두 삭제됩니다.',
+    );
+
+    if (val) {
+      router.push(`/community/${query.cid}`);
+    }
+  };
+
   return (
     <StWriteHeaderWrapper>
       <Link href="/community">
@@ -36,7 +46,9 @@ export default function WriteHeader() {
       </Link>
       {pathname === '/write/[cid]' ? (
         <StModifyBlock>
-          <StCancleBtn isMargin={false}>취소</StCancleBtn>
+          <StCancleBtn isMargin={false} onClick={handleCancel}>
+            취소
+          </StCancleBtn>
           <StWriteBtn isMargin={false}>수정완료</StWriteBtn>
         </StModifyBlock>
       ) : (
