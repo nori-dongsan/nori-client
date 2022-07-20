@@ -142,7 +142,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
         category: '후기',
         title: '그린키드 미끄럼틀 아이가 좋아하네요',
         content:
-          '군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한 군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중 법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다. 선거에 관한 경비는 법률이 정하는 경우....경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다. 선거에 관한 경비는 법률이 정하는 경우....',
+          '군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한 군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중 법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다.\n 선거에 관한 경비는 법률이 정하는 경우....경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다.\n 선거에 관한 경비는 법률이 정하는 경우....\n',
         userNickname: '예현맘',
         replyCount: 12,
         createdAt: '2022.06.23',
@@ -316,7 +316,9 @@ const StPreviewImg = styled.img`
 
   object-fit: cover;
 `;
-const StContent = styled.p`
+const StContent = styled.div`
+  white-space: pre-wrap;
+
   color: ${({ theme }) => theme.colors.black};
   ${({ theme }) => theme.fonts.t6_17_regular_170};
 `;
