@@ -13,7 +13,6 @@ export default function FilterTag(props: FilterTagProps) {
   const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
-  const filterTagValues = Object.values(filterTagList);
   const handleFilterTag = (
     categoryIdx: number,
     elementIdx: number,

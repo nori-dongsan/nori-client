@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { checkedItemsState, filterTagState } from '../../core/atom';
+import {
+  checkedItemsState,
+  filterTagState,
+  toyKindState,
+} from '../../core/atom';
 import { FilterDropdownProps, FilterTagProps } from '../../types/viewProduct';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
@@ -12,11 +16,10 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     checkedItem,
     categoryKey,
   } = props;
+  const toyKindList = useRecoilValue(toyKindState);
   const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
-  const filterTagKeys = Object.keys(filterTagList);
-  const filterTagValues = Object.values(filterTagList);
   const handleCheckedItems = (
     categoryIdx: number,
     elementIdx: number,
@@ -54,26 +57,47 @@ export default function FilterDropdown(props: FilterDropdownProps) {
 
   return (
     <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
-      {categoryInfo.map((tagText: string, elementIdx: number) => {
-        return (
-          <StLabel
-            htmlFor={`${tagText}${categoryIdx}`}
-            key={`${tagText}${categoryIdx}`}
-            onChange={() =>
-              handleCheckedItems(categoryIdx, elementIdx, tagText)
-            }
-            isChecked={checkedItems[categoryIdx].has(elementIdx)}
-          >
-            <StInput
-              type="checkbox"
-              id={`${tagText}${categoryIdx}`}
-              name={`${tagText}${categoryIdx}`}
-              checked={checkedItems[categoryIdx].has(elementIdx)}
-            />
-            <StFilterElement>{tagText}</StFilterElement>
-          </StLabel>
-        );
-      })}
+      {categoryKey === '장난감 종류' && toyKindList.length !== 0
+        ? toyKindList.map((tagText: string, elementIdx: number) => {
+            return (
+              <StLabel
+                htmlFor={`${tagText}${categoryIdx}`}
+                key={`${tagText}${categoryIdx}`}
+                onChange={() =>
+                  handleCheckedItems(categoryIdx, elementIdx, tagText)
+                }
+                isChecked={checkedItems[categoryIdx].has(elementIdx)}
+              >
+                <StInput
+                  type="checkbox"
+                  id={`${tagText}${categoryIdx}`}
+                  name={`${tagText}${categoryIdx}`}
+                  checked={checkedItems[categoryIdx].has(elementIdx)}
+                />
+                <StFilterElement>{tagText}</StFilterElement>
+              </StLabel>
+            );
+          })
+        : categoryInfo.map((tagText: string, elementIdx: number) => {
+            return (
+              <StLabel
+                htmlFor={`${tagText}${categoryIdx}`}
+                key={`${tagText}${categoryIdx}`}
+                onChange={() =>
+                  handleCheckedItems(categoryIdx, elementIdx, tagText)
+                }
+                isChecked={checkedItems[categoryIdx].has(elementIdx)}
+              >
+                <StInput
+                  type="checkbox"
+                  id={`${tagText}${categoryIdx}`}
+                  name={`${tagText}${categoryIdx}`}
+                  checked={checkedItems[categoryIdx].has(elementIdx)}
+                />
+                <StFilterElement>{tagText}</StFilterElement>
+              </StLabel>
+            );
+          })}
     </StDropdownWrapper>
   );
 }

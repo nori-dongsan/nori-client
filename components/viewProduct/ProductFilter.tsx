@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { checkedItemsState, filterListState } from '../../core/atom';
+import {
+  checkedItemsState,
+  filterListState,
+  toyKindState,
+} from '../../core/atom';
 import { IcClose, IcOpen } from '../../public/assets/icons';
 import FilterDropdown from './FilterDropdown';
 
@@ -19,6 +23,8 @@ export default function ProductFilter() {
   const filterListData = Object.values(filterlist.filterList);
   const filterListKeys = Object.keys(filterlist.filterList);
   const [checkedItems, setcheckedItems] = useRecoilState(checkedItemsState);
+
+  const toyKindList = useRecoilValue(toyKindState);
 
   const handleDropdown = (idx: number) => {
     setVisibility({
@@ -65,7 +71,7 @@ export default function ProductFilter() {
             <FilterDropdown
               categoryInfo={filterListData[idx]}
               categoryIdx={idx}
-              isExcept={idx == 3 ? true : false}
+              isExcept={idx == 3 || toyKindList.length !== 0 ? true : false}
               isDrop={visibility[idx]}
               checkedItem={checkedItems[idx]}
               categoryKey={title}

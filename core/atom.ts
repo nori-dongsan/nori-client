@@ -96,3 +96,7 @@ export const checkedItemsState = atom<Set<number>[]>({
     new Set<number>(),
   ],
 });
+export const toyKindState = atom<string[]>({
+  key: 'toyKindState',
+  default: [],
+});
