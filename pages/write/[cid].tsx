@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
-import React, { useRef, useState } from 'react';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { ParsedUrlQuery } from 'querystring';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { getCommunityDetail } from '../../core/api/community';
 import { newPostInfoState } from '../../core/atom';
 import { IcDefaultImg, IcDelete } from '../../public/assets/icons';
-import { ImgData } from '../../types/community';
+import { CommunityData, ImgData } from '../../types/community';
 
-export default function UpdateForm() {
+export default function UpdateForm({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
   const [isCategory, setIsCategory] = useState<boolean>(false);
   const [images, setImages] = useState<ImgData[]>([]);
@@ -15,7 +20,34 @@ export default function UpdateForm() {
   const [title, setTitle] = useState<string>('');
   const textRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+    setCategory(data.category);
+    setContent(data.content);
+    setTitle(data.title);
+
+    const imageList: ImgData[] = [];
+    data.imageList.forEach(async (image, index) => {
+      const file = await convertURLtoFile(image);
+      setImagesSize((prev) => prev + file.size);
+      imageList.push({
+        id: index,
+        src: image,
+        file: file,
+      });
+    });
+    setImages(imageList);
+  }, []);
+
   const menu = ['후기', '질문', '정보 공유'];
+
+  const convertURLtoFile = async (url: string) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+    const ext = url.split('.').pop(); // url 구조에 맞게 수정할 것
+    const filename = url.split('/').pop(); // url 구조에 맞게 수정할 것
+    const metadata = { type: `image/${ext}` };
+    return new File([data], filename!, metadata);
+  };
 
   const handleIsCategory = () => {
     setIsCategory((prev) => !prev);
@@ -168,6 +200,33 @@ export default function UpdateForm() {
   );
 }
 
+type Props = {
+  data: Pick<CommunityData, 'title' | 'category' | 'content' | 'imageList'>;
+};
+interface Params extends ParsedUrlQuery {
+  cid: string;
+}
+
+export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
+  params,
+}) => {
+  const data = await getCommunityDetail(params!.cid);
+  return {
+    props: {
+      data: {
+        title: '장난감 후기 알려드립니다.',
+        category: '정보 공유',
+        content:
+          '군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한 군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중 법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다.\n 선거에 관한 경비는 법률이 정하는 경우....경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다.\n 선거에 관한 경비는 법률이 정하는 경우....',
+        imageList: [
+          'https://img.huffingtonpost.com/asset/5d703563250000ad0003e5bd.jpeg?ops=scalefit_630_noupscale',
+          'http://image.auction.co.kr/itemimage/24/af/15/24af15b716.jpg',
+        ],
+      },
+    },
+  };
+};
+
 const StFormMain = styled.main`
   display: flex;
   flex-direction: column;
@@ -185,7 +244,7 @@ const StFormArticle = styled.article`
 
   & > textarea {
     width: 100%;
-    height: 3.6rem;
+    height: auto;
     margin-bottom: 3rem;
 
     color: ${({ theme }) => theme.colors.black};
