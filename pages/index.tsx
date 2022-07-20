@@ -7,7 +7,7 @@ import {
 import styled from '@emotion/styled';
 import { ToyList } from '../components/main';
 
-export default function main() {
+export default function index() {
   const collection = [
     {
       title: '위고, 보행기 모음',
@@ -24,7 +24,7 @@ export default function main() {
   ];
 
   return (
-    <>
+    <div>
       <MainBanner />
       <StMainSection>
         <StConceptArticle>
@@ -57,7 +57,7 @@ export default function main() {
         </StConceptArticle>
       </StMainSection>
       <BottomBanner />
-    </>
+    </div>
   );
 }
 
