@@ -119,6 +119,7 @@ export default function community({
               {contentList.map(
                 (
                   {
+                    id,
                     category,
                     title,
                     content,
@@ -130,6 +131,7 @@ export default function community({
                   idx,
                 ) => (
                   <ContentCard
+                    id={id}
                     key={idx}
                     category={category}
                     title={title}
