@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { toyKindState } from '../../core/atom';
 import {
   IcViewProductIcon,
   IcAllProduct,
@@ -32,10 +34,33 @@ export default function ViewProductBanner() {
     <IcRoleProduct />,
   ];
   const [selectedIcon, setSeletedIcon] = useState<number>(0);
-  //통신이나.. 클릭했을 때 나타나는 효과나.. 그런 거 아직 안 함
+  const [toyKindList, setToyKindList] = useRecoilState(toyKindState);
   const handleProductIcon = (selectIdx: number) => {
     if (selectedIcon == selectIdx) return;
     setSeletedIcon(selectIdx);
+    switch (selectIdx) {
+      case 0:
+        setToyKindList([]);
+        break;
+      case 1:
+        setToyKindList(['아기체육관', '모빌', '바운서']);
+        break;
+      case 2:
+        setToyKindList(['쏘서', '점퍼루', '위고', '보행기', '걸음마 보조기']);
+        break;
+      case 3:
+        setToyKindList(['러닝홈', '러닝테이블', '기타 학습 완구']);
+        break;
+      case 4:
+        setToyKindList(['미끄럼틀', '에어바운스', '트램펄린']);
+        break;
+      case 5:
+        setToyKindList(['어린이 자동차', '흔들말', '그네']);
+        break;
+      case 6:
+        setToyKindList(['소꿉 놀이', '역할 놀이']);
+        break;
+    }
   };
   return (
     <StProductBannerWrapper>

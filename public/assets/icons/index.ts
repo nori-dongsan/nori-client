@@ -44,6 +44,8 @@ export { default as IcPlayGroundProduct } from './ic_playGround_product.svg';
 export { default as IcRoleProduct } from './ic_role_product.svg';
 export { default as IcStudyProduct } from './ic_study_product.svg';
 export { default as IcWalkProduct } from './ic_walk_product.svg';
+export { default as IcDeleteTag } from './delete_circle.svg';
+export { default as IcUndoBtn } from './ic_updo_gray006.svg';
 export { default as IcSignupLogo } from './nori.svg';
 export { default as IcLoginNori } from './ic_character_small.svg';
 export { default as IcKakaoBtn } from './btn_social_login_kakao.svg';
