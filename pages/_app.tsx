@@ -17,13 +17,12 @@ export default function App({
 }: AppProps) {
   const { pathname } = useRouter();
 
-  // 안녕 진짜 너무 좋다 갈축 최고
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <Global styles={resetStyle} />
         <Global styles={GlobalStyle} />
-        {pathname === '/write' ? (
+        {pathname.includes('/write') ? (
           <WriteHeader />
         ) : (
           pathname !== '/login' && pathname !== '/signup' && <Header />

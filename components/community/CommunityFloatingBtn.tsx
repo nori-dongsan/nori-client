@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { IcWriteBtn, IcTopBtn } from '../../public/assets/icons';

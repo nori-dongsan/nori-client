@@ -29,7 +29,7 @@ export default function Header() {
         </p>
       </StTopLink>
       <StHeaderContents>
-        <Link href="/main">
+        <Link href="/">
           <a>
             <IcNoriHeaderLogo />
           </a>
@@ -43,7 +43,9 @@ export default function Header() {
               onChange={handleInputValue}
             />
             <Link href="/viewProduct">
-              <IcSearchIcon onClick={handleClick} />
+              <a>
+                <IcSearchIcon onClick={handleClick} />
+              </a>
             </Link>
           </StSearchBar>
           <StMenu>
