@@ -21,4 +21,5 @@ const StBottomBannerWrapper = styled.nav`
 
   width: 100%;
   height: 23.4rem;
+  margin-top: 12rem;
 `;
