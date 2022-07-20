@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { IcReply, IcHeart, IcDot } from '../../public/assets/icons';
+import CommunityCategory from './CommunityCategory';
 
 interface ContentInfoProps {
   category: string;
   title: string;
   content: string;
-  userNickname: string;
-  replyCount: number;
-  createdAt: string;
+  userNickname?: string;
+  replyCount?: number;
+  createdAt?: string;
   img?: string;
 }
 
@@ -19,13 +19,7 @@ export default function ContentCard(props: ContentInfoProps) {
   return (
     <StContentsCardWrapper>
       <StContentInfo>
-        {category === '후기' ? (
-          <StCategoryReview>{category}</StCategoryReview>
-        ) : category === '질문' ? (
-          <StCategoryQuestion>{category}</StCategoryQuestion>
-        ) : (
-          <StCategoryInfo>{category}</StCategoryInfo>
-        )}
+        <CommunityCategory category={category} />
         <h1>{title}</h1>
         <p>{content}</p>
         <StWriteInfo>
@@ -34,8 +28,8 @@ export default function ContentCard(props: ContentInfoProps) {
           <span>{createdAt}</span>
         </StWriteInfo>
         <StReplyInfo>
-          {/* <IcHeart />
-          <span>12</span> */}
+          <IcHeart />
+          <span>12</span>
           <IcReply />
           <span>{replyCount}</span>
         </StReplyInfo>
@@ -58,6 +52,7 @@ const StContentsCardWrapper = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
 
   h1 {
+    margin-top: 1.6rem;
     margin-bottom: 0.7rem;
 
     ${({ theme }) => theme.fonts.b9_24_medium_150}
@@ -80,34 +75,11 @@ const StContentInfo = styled.section`
 
   width: auto;
 `;
-const StCategory = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 7.6rem;
-  height: 2.6rem;
-
-  margin-bottom: 1.6rem;
-
-  border-radius: 4.5rem;
-
-  color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.b5_14_medium_140}
-`;
-const StCategoryReview = styled(StCategory)`
-  background-color: ${({ theme }) => theme.colors.mainGreen};
-`;
-const StCategoryQuestion = styled(StCategory)`
-  color: ${({ theme }) => theme.colors.gray009};
-  background-color: ${({ theme }) => theme.colors.subYellow};
-`;
-const StCategoryInfo = styled(StCategory)`
-  background-color: ${({ theme }) => theme.colors.mainDarkgreen};
-`;
 const StContentImg = styled.img`
   width: 21.6rem;
   height: 21.6rem;
+
+  object-fit: cover;
 
   border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
   border-radius: 0.5rem;
@@ -119,14 +91,14 @@ const StWriteInfo = styled.div`
 
   margin-bottom: 1.2rem;
 
-  span:first-child {
+  span:first-of-type {
     margin-right: 1rem;
 
     color: ${({ theme }) => theme.colors.gray008};
     ${({ theme }) => theme.fonts.b4_15_semibold_146}
   }
 
-  span:last-child {
+  span:last-of-type {
     margin-left: 1rem;
 
     color: ${({ theme }) => theme.colors.gray008};

@@ -10,15 +10,15 @@ export default function CollectionList(props: CollectionListProps) {
   const { toyList } = props;
   return (
     <StToyListWrapper>
-      {toyList.map((toy, idx) => (
+      {toyList.map(({ image, title, price, month, siteUrl }, idx) => (
         <ToyPreview
           key={idx}
-          src={toy.image}
+          src={image}
           store="그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드"
-          title={toy.title}
-          price={toy.price}
+          title={title}
+          price={price}
           age="36개월이상"
-          siteUrl={toy.siteUrl}
+          siteUrl={siteUrl}
         />
       ))}
     </StToyListWrapper>

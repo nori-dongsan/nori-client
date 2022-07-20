@@ -1,15 +1,20 @@
 import styled from '@emotion/styled';
 import React, { useRef, useState } from 'react';
-import { IcDefaultImg, IcDelete } from '../public/assets/icons';
-import { ImgData } from '../types/community';
+import { useRecoilState } from 'recoil';
+import { newPostInfoState } from '../../core/atom';
+import { IcDefaultImg, IcDelete } from '../../public/assets/icons';
+import { ImgData } from '../../types/community';
 
-export default function Write() {
+export default function WriteForm() {
+  const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
   const [isCategory, setIsCategory] = useState<boolean>(false);
+  const [images, setImages] = useState<ImgData[]>([]);
+  const [imagesSize, setImagesSize] = useState<number>(0);
   const [category, setCategory] = useState<string>('후기');
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [images, setImages] = useState<ImgData[]>([]);
   const textRef = useRef<HTMLTextAreaElement>(null);
+
   const menu = ['후기', '질문', '정보 공유'];
 
   const handleIsCategory = () => {
@@ -18,6 +23,7 @@ export default function Write() {
 
   const handleCategory = (value: string) => {
     setCategory(value);
+    setNewPostInfo({ ...newPostInfo, category: value });
   };
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,34 +35,64 @@ export default function Write() {
 
     const imageList: ImgData[] = [];
     let prevId = images.length == 0 ? 0 : images[images.length - 1].id;
-    const formData = new FormData();
     Array.from(fileList).map((file) => {
-      formData.append('images', file);
       imageList.push({
         id: prevId + 1,
         src: URL.createObjectURL(file),
+        file,
       });
       prevId++;
+    });
+
+    let totalImagesSize = imagesSize;
+    imageList.map((image) => (totalImagesSize += image.file.size));
+
+    if (totalImagesSize > 15 * 1024 * 1024) {
+      alert('용량 초과로 업로드에 실패하였습니다.(최대 15MB)');
+      return;
+    }
+    setImagesSize(totalImagesSize);
+
+    const formData = new FormData();
+    images.map((image) => formData.append(image.id + '', image.file));
+    imageList.map((image) => formData.append(image.id + '', image.file));
+
+    setNewPostInfo({
+      ...newPostInfo,
+      imageList: formData,
     });
     setImages([...images, ...imageList]);
   };
 
   const handleDeleteImg = (id: number) => {
-    setImages(images.filter((image) => image.id !== id));
+    const imgDelData = images.filter((image) => image.id !== id);
+    const delImg = images.filter((image) => image.id === id);
+
+    setImagesSize((prev) => prev - delImg[0].file.size);
+
+    const formData = new FormData();
+    imgDelData.map((image) => formData.append(image.id + '', image.file));
+    setNewPostInfo({
+      ...newPostInfo,
+      imageList: formData,
+    });
+    setImages(imgDelData);
   };
 
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 30) return;
     setTitle(e.target.value);
+    setNewPostInfo({ ...newPostInfo, title: e.target.value });
   };
 
   const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
+    setNewPostInfo({ ...newPostInfo, content: e.target.value });
   };
 
   const handleResizeHeight = () => {
     if (textRef.current)
-      textRef.current.style.height = textRef.current.scrollHeight / 10 + 'rem';
+      textRef.current.style.height = `${textRef.current.scrollHeight / 10}rem`;
   };
 
   return (
@@ -88,7 +124,7 @@ export default function Write() {
               onChange={handleTitle}
               placeholder="제목"
             />
-            <span>{`(${title.length} / 30)`}</span>
+            <span>{title.length} / 30</span>
           </StCategoryInputWrapper>
           <textarea
             ref={textRef}
@@ -171,7 +207,7 @@ const StCategoryInputWrapper = styled.div`
   & > input {
     width: 67.2rem;
     margin-bottom: 1.5rem;
-    margin-right: 3.1rem;
+    margin-right: 4.4rem;
 
     color: ${({ theme }) => theme.colors.black};
     ${({ theme }) => theme.fonts.t5_27_regular_130}
