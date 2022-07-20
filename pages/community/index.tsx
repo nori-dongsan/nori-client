@@ -37,31 +37,6 @@ export default function community({
     setCategory(value);
   };
 
-  // const data = useGetCommunityList();
-  // console.log(data);
-
-  // const handleCurrentPage = (nextPage: number) => {
-  //   setCurrentPage(nextPage);
-  // };
-  // let { communityList, isLoading, isError } =
-  //   useGetCommunityList() as GetCommunityList;
-
-  // useEffect(() => {
-  //   if (communityList) {
-  //     let data = communityList as CommunityData[];
-  //     data = data.filter(
-  //       (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
-  //     );
-  //     setContentList(data);
-  //     console.log(data);
-  //     window.scrollTo({
-  //       top: 0,
-  //       behavior: 'smooth',
-  //     });
-  //   }
-  // }, [contentList, currentPage]);
-  // console.log(contentList);
-
   useEffect(() => {
     if (data) {
       data = data.filter(
