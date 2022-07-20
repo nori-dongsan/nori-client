@@ -58,6 +58,3 @@ export const signUp = rest.put('/auth/signup', (req, res, ctx) => {
         ctx.json({ success: false, message: '이미 사용중인 닉네임입니다.' }),
       );
 });
-
-// 리프레쉬
-// export const refreshToken

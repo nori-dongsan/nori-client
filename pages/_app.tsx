@@ -7,9 +7,9 @@ import theme from '../styles/theme';
 import { SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-// if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
-//   import('../mocks');
-// }
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  import('../mocks');
+}
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
