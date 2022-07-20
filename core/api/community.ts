@@ -20,6 +20,10 @@ export const getCollectionProduct = (key: string) => {
 //   }
 // };
 
+export const getCommunity = () => {
+  return baseInstance.get(`/board`);
+};
+
 export const postCommunity = async (body: PostCommunityBody) => {
   try {
     const { data } = await baseInstance.post('/board', body);
