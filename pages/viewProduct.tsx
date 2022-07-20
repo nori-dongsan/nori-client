@@ -16,12 +16,16 @@ import {
   LandingProductFilter,
 } from '../components/landing/viewProduct';
 import theme from '../styles/theme';
+import { useRecoilValue } from 'recoil';
+import { FilterTagProps } from '../types/viewProduct';
+import { filterTagState } from '../core/atom';
 
 export default function viewProduct() {
   //default는 낮은 가격순
   const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
   // useSWR로 로딩 판단할 것임
   const isLoading = false;
+  const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
   const handlePriceSort = (idx: number) => {
     //이미 해당 버튼이 눌려져있다면 return
     if (selectPrice[idx]) return;
@@ -57,7 +61,7 @@ export default function viewProduct() {
           <StFilterSectionWrapper>
             <ProductFilter />
             <StContentSection>
-              <TagSection />
+              {filterTagList.length != 0 && <TagSection />}
               <StFilterBarWrapper>
                 <StPriceSort>
                   <StPriceStandard
