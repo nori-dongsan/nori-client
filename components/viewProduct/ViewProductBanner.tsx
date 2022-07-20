@@ -27,13 +27,13 @@ export default function ViewProductBanner() {
     '역할놀이완구',
   ];
   const productSvgs = [
-    IcAllProduct,
-    IcBabyProduct,
-    IcWalkProduct,
-    IcStudyProduct,
-    IcPlayGroundProduct,
-    IcCarProduct,
-    IcRoleProduct,
+    <IcAllProduct />,
+    <IcBabyProduct />,
+    <IcWalkProduct />,
+    <IcStudyProduct />,
+    <IcPlayGroundProduct />,
+    <IcCarProduct />,
+    <IcRoleProduct />,
   ];
   const [isClicked, setIsClicked] = useState<boolean[]>([
     true,
@@ -62,7 +62,7 @@ export default function ViewProductBanner() {
               key={item}
               isClicked={isClicked[idx]}
             >
-              {...productSvgs[0]}
+              {productSvgs[idx]}
               <p>{item}</p>
             </StProductItem>
           );
