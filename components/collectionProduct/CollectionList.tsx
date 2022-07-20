@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { ToyData } from '../../types/toy';
+import { MainToyData } from '../../types/toy';
 import ToyPreview from './ToyPreview';
 
 interface CollectionListProps {
-  toyList: ToyData[];
+  toyList: MainToyData[];
 }
 
 export default function CollectionList(props: CollectionListProps) {
