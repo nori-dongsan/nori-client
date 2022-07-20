@@ -19,7 +19,7 @@ const StLandingPriceSort = styled.div`
 
   width: 117.5rem;
   height: 2rem;
-  margin: 5.3rem 0 2.1rem 0;
+  margin: 5.4rem 0 2rem 0;
 
   gap: 1.4rem;
 

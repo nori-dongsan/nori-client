@@ -11,10 +11,6 @@ import {
   IcPlayGroundProduct,
 } from '../../public/assets/icons';
 
-// interface ViewProductProps {
-//   onClick: MouseCli;
-// }
-
 export default function ViewProductBanner() {
   //상품보기 뷰 배너 아이콘 요소 배열
   const productIcons = [
@@ -35,19 +31,11 @@ export default function ViewProductBanner() {
     <IcCarProduct />,
     <IcRoleProduct />,
   ];
-  const [isClicked, setIsClicked] = useState<boolean[]>([
-    true,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [selectedIcon, setSeletedIcon] = useState<number>(0);
   //통신이나.. 클릭했을 때 나타나는 효과나.. 그런 거 아직 안 함
-  const handleProductIcon = (idx: number) => {
-    console.log(idx);
+  const handleProductIcon = (selectIdx: number) => {
+    if (selectedIcon == selectIdx) return;
+    setSeletedIcon(selectIdx);
   };
   return (
     <StProductBannerWrapper>
@@ -60,7 +48,8 @@ export default function ViewProductBanner() {
                 handleProductIcon(idx);
               }}
               key={item}
-              isClicked={isClicked[idx]}
+              isClicked={idx}
+              selectedIcon={selectedIcon}
             >
               {productSvgs[idx]}
               <p>{item}</p>
@@ -98,14 +87,14 @@ const StCategoryNav = styled.nav`
   width: 110.4rem;
   height: 14.4rem;
 `;
-const StProductItem = styled.div<{ isClicked: boolean }>`
+const StProductItem = styled.div<{ isClicked: number; selectedIcon: number }>`
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 1.2rem;
 
-  color: ${({ isClicked, theme: { colors } }) =>
-    isClicked ? colors.mainGreen : colors.black};
+  color: ${({ selectedIcon, isClicked, theme: { colors } }) =>
+    selectedIcon == isClicked ? colors.mainGreen : colors.black};
   ${({ theme }) => theme.fonts.b3_16_semibold_140};
 
   cursor: pointer;

@@ -1,18 +1,35 @@
 import styled from '@emotion/styled';
-import ReplyContent from './ReplyContent';
+import ReplyContent from '../community/ReplyContent';
+import { useState } from 'react';
 
 export default function Reply() {
+  const [inputColor, setInputColor] = useState<boolean>(false);
+  const [replyText, setReplyText] = useState<string>('');
+
+  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReplyText(e.target.value);
+  };
+
+  const handleInputColor = () => {
+    setInputColor(replyText.length !== 0);
+  };
+
   return (
     <StReplyWrapper>
       <StReplyTitle>
-        <p>댓글</p>
+        <h1>댓글</h1>
+        <p>23</p>
       </StReplyTitle>
       <StInputForm>
-        <StInputContent>
-          <p>예현맘</p>
-          <input type="text" placeholder="댓글을 남겨보세요" />
+        <StInputContent inputColor={inputColor}>
+          <input
+            type="text"
+            placeholder="댓글을 남겨 보세요"
+            onKeyUp={handleInputColor}
+            onChange={handleInputText}
+          />
         </StInputContent>
-        <StInputBtn>등록</StInputBtn>
+        <StInputBtn inputColor={inputColor}>입력</StInputBtn>
       </StInputForm>
       <ReplyContent
         userNickname="희지맘"
@@ -41,20 +58,26 @@ export default function Reply() {
 const StReplyWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
 `;
-const StReplyTitle = styled.h1`
+const StReplyTitle = styled.article`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
 
-  margin-bottom: 2.87rem;
+  margin-bottom: 2.3rem;
 
-  font-style: normal;
-  font-weight: 500;
-  font-size: 2.8rem;
-  line-height: 4rem;
+  ${({ theme }) => theme.fonts.t3_19_medium_130}
+
+  h1 {
+    margin-right: 0.4rem;
+
+    color: ${({ theme }) => theme.colors.black};
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.mainDarkgreen};
+  }
 `;
 const StInputForm = styled.article`
   display: flex;
@@ -62,53 +85,54 @@ const StInputForm = styled.article`
   justify-content: space-between;
   align-items: center;
 
-  margin-bottom: 6.9rem;
-  padding-left: 4.3rem;
-  padding-right: 3.2rem;
+  margin-bottom: 4.8rem;
 
   width: 77.6rem;
-  height: auto;
-  min-height: 13.6rem;
-
-  border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
-  border-radius: 1rem;
 `;
-const StInputContent = styled.div`
+const StInputContent = styled.div<{ inputColor: boolean }>`
   display: flex;
   flex-direction: column;
-
-  p {
-    margin-bottom: 0.3rem;
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 23.2351px;
-    line-height: 34px;
-  }
+  justify-content: center;
+  align-items: center;
 
   input {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 21.3762px;
-    line-height: 31px;
+    margin-right: 2.4rem;
+    padding-left: 1.8rem;
+
+    width: 67.6rem;
+    height: 4.2rem;
+
+    color: ${({ theme }) => theme.colors.black};
+
+    ${({ theme }) => theme.fonts.b4_15_regular_146};
+
+    border: 0.1rem solid
+      ${({ theme, inputColor }) =>
+        !inputColor ? theme.colors.gray007 : theme.colors.mainDarkgreen};
+    border-radius: 0.65rem;
 
     &::placeholder {
       font-family: Pretendard;
+
+      color: ${({ theme }) => theme.colors.gray005};
     }
   }
 `;
-const StInputBtn = styled.span`
-  padding: 0.5rem 2.8rem;
+const StInputBtn = styled.span<{ inputColor: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  font-style: normal;
-  font-weight: 400;
-  font-size: 23.2351px;
-  line-height: 32px;
+  width: 7.6rem;
+  height: 4.2rem;
 
-  color: ${({ theme }) => theme.colors.mainDarkgreen};
-  background-color: ${({ theme }) => theme.colors.lightGreen};
-  border: 2px solid ${({ theme }) => theme.colors.mainDarkgreen};
-  border-radius: 1rem;
+  background-color: ${({ theme, inputColor }) =>
+    !inputColor ? theme.colors.gray003 : theme.colors.mainDarkgreen};
+  color: ${({ theme, inputColor }) =>
+    !inputColor ? theme.colors.gray006 : theme.colors.white};
+  ${({ theme }) => theme.fonts.b2_18_medium_130};
+
+  border-radius: 0.5rem;
 
   cursor: pointer;
 `;

@@ -1,6 +1,10 @@
-import { ProductFilter, ViewProductBanner } from '../components/viewProduct';
+import {
+  ProductFilter,
+  TopFloatingBtn,
+  ViewProductBanner,
+} from '../components/viewProduct';
 import styled from '@emotion/styled';
-import { IcPriceLine } from '../public/assets/icons';
+import { IcPriceLine, IcTopBtn, IcWriteBtn } from '../public/assets/icons';
 import { useState } from 'react';
 import { ToyList } from '../components/viewProduct';
 import {
@@ -77,6 +81,7 @@ export default function viewProduct() {
           </StFilterSectionWrapper>
         </>
       )}
+      <TopFloatingBtn />
     </StViewProductWrapper>
   );
 }
@@ -90,6 +95,8 @@ const StViewProductWrapper = styled.div`
 `;
 const StFilterSectionWrapper = styled.section`
   display: flex;
+
+  height: fit-content;
 `;
 const StFilterBarWrapper = styled.div`
   display: flex;
@@ -120,9 +127,4 @@ const StToyListWrapper = styled.section`
   flex-direction: column;
 
   margin-top: 2rem;
-`;
-const StSelectBar = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
 `;
