@@ -34,7 +34,7 @@ export default function ViewProductBanner() {
     <IcRoleProduct />,
   ];
   const [selectedIcon, setSeletedIcon] = useState<number>(0);
-  const [toyKindList, setToyKindList] = useRecoilState(toyKindState);
+  const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const handleProductIcon = (selectIdx: number) => {
     if (selectedIcon == selectIdx) return;
     setSeletedIcon(selectIdx);

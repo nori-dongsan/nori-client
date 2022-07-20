@@ -16,8 +16,9 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     checkedItem,
     categoryKey,
   } = props;
-  const toyKindList = useRecoilValue(toyKindState);
-  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsState);
+  const toyKindList = useRecoilValue<string[]>(toyKindState);
+  const [checkedItems, setCheckedItems] =
+    useRecoilState<Set<number>[]>(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
   const handleCheckedItems = (

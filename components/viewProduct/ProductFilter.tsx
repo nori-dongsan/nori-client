@@ -22,10 +22,9 @@ export default function ProductFilter() {
 
   const filterListData = Object.values(filterlist.filterList);
   const filterListKeys = Object.keys(filterlist.filterList);
-  const [checkedItems, setcheckedItems] = useRecoilState(checkedItemsState);
-
-  const toyKindList = useRecoilValue(toyKindState);
-
+  const [checkedItems, setcheckedItems] =
+    useRecoilState<Set<number>[]>(checkedItemsState);
+  const toyKindList = useRecoilValue<string[]>(toyKindState);
   const handleDropdown = (idx: number) => {
     setVisibility({
       ...visibility,

@@ -10,7 +10,8 @@ import { FilterTagProps } from '../../types/viewProduct';
 
 export default function FilterTag(props: FilterTagProps) {
   const { categoryIdx, elementIdx, categoryKey, tagText } = props;
-  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsState);
+  const [checkedItems, setCheckedItems] =
+    useRecoilState<Set<number>[]>(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
   const handleFilterTag = (
