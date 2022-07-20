@@ -12,7 +12,18 @@ export const postLogin = rest.post('/auth/login', async (req, res, ctx) => {
   );
 
   if (user.length === 0) {
-    return res(ctx.status(409));
+    return res(
+      ctx.status(200),
+      ctx.json({
+        data: {
+          accessToken:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzbnNJZCI6IjEyMzEyMzEyMyIsImVtYWlsIjoiY3JheW9uQGdtYWlsLmNvbSIsIm5pY2tuYW1lIjpudWxsLCJpYXQiOjE2NTc4MjQ2NDgsImV4cCI6MTY1NzgzMTg0OCwiaXNzIjoibm9yaSJ9.9BjVAPiSf2zFthI-T5FKfA2RDAskm02T_MkhoGrScSY',
+          refreshToken:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzbnNJZCI6IjEyMzEyMzEyMyIsImlhdCI6MTY1NzgyNDUxNiwiZXhwIjoxNjU5MDM0MTE2LCJpc3MiOiJub3JpIn0.oDOPftgMKbyUDV0rWtHW-EhRiHGsnJTrE2YQbkQOoQw',
+          isSignup: false,
+        },
+      }),
+    );
   }
 
   return res(
@@ -23,7 +34,7 @@ export const postLogin = rest.post('/auth/login', async (req, res, ctx) => {
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzbnNJZCI6IjEyMzEyMzEyMyIsImVtYWlsIjoiY3JheW9uQGdtYWlsLmNvbSIsIm5pY2tuYW1lIjpudWxsLCJpYXQiOjE2NTc4MjQ2NDgsImV4cCI6MTY1NzgzMTg0OCwiaXNzIjoibm9yaSJ9.9BjVAPiSf2zFthI-T5FKfA2RDAskm02T_MkhoGrScSY',
         refreshToken:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzbnNJZCI6IjEyMzEyMzEyMyIsImlhdCI6MTY1NzgyNDUxNiwiZXhwIjoxNjU5MDM0MTE2LCJpc3MiOiJub3JpIn0.oDOPftgMKbyUDV0rWtHW-EhRiHGsnJTrE2YQbkQOoQw',
-        isSignup: false,
+        isSignup: true,
       },
     }),
   );

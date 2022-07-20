@@ -11,6 +11,7 @@ export const userInfoState = atom<PostLoginBody>({
     snsId: 'nori@naver.com',
     provider: 'naver',
     email: 'nori@naver.com',
+    isSignup: false,
   },
   effects_UNSTABLE: [persistAtom],
 });
