@@ -10,6 +10,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     isExcept,
     categoryIdx,
     checkedItem,
+    categoryKey,
     handleCheckedItems,
   } = props;
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
@@ -22,6 +23,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       const tag: FilterTagProps = {
         categoryIdx: categoryIdx,
         elementIdx: elementIdx,
+        categoryKey: categoryKey,
         tagText: categoryInfo[elementIdx],
       };
       setfilterTagList([...filterTagList, tag]);

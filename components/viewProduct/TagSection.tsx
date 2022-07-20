@@ -11,9 +11,18 @@ export default function TagSection() {
   return (
     <StTagSection>
       <StTagWrapper>
-        {filterTagList.map(({ tagText }) => {
-          return <FilterTag tagName={tagText} />;
-        })}
+        {filterTagList.map(
+          ({ categoryIdx, elementIdx, categoryKey, tagText }) => {
+            return (
+              <FilterTag
+                categoryIdx={categoryIdx}
+                elementIdx={elementIdx}
+                categoryKey={categoryKey}
+                tagText={tagText}
+              />
+            );
+          },
+        )}
       </StTagWrapper>
       <StUndoAllTagBtn>
         <h2>모두 해제</h2>

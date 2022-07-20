@@ -1,13 +1,18 @@
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
+import { filterListState } from '../../core/atom';
 import { IcDeleteTag } from '../../public/assets/icons';
-import { ProductFilter } from '../../types/viewProduct';
+import { FilterTagProps } from '../../types/viewProduct';
 
-export default function FilterTag(props: ProductFilter) {
-  const { tagName } = props;
+export default function FilterTag(props: FilterTagProps) {
+  const { categoryIdx, elementIdx, categoryKey, tagText } = props;
+  const filterlist = useRecoilValue(filterListState);
+  const filterListKeys = Object.keys(filterlist.filterList);
+  const handleTagDelete = () => {};
   return (
     <StFilterTag>
-      <h2>{tagName}</h2>
-      <StDeleteBtn />
+      <h2>{tagText == '기타' ? `${tagText} (${categoryKey})` : tagText}</h2>
+      <StDeleteBtn onClick={() => handleTagDelete} />
     </StFilterTag>
   );
 }
