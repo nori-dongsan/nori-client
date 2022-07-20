@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { PostCommunityBody } from '../../types/community';
+import { PostCommentBody, PostCommunityBody } from '../../types/community';
 import { baseInstance } from '../axios';
 
 export const useGetCollectionProduct = (key: string) => {
@@ -43,6 +43,15 @@ export const deleteCommunity = async (id: string) => {
   try {
     const { status } = await baseInstance.delete(`/board/${id}`);
     return status;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const postReply = async (body: PostCommentBody) => {
+  try {
+    const { data } = await baseInstance.post('/board/comment', body);
+    return data;
   } catch (e) {
     console.log(e);
   }

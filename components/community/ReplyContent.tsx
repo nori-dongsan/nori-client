@@ -1,21 +1,28 @@
 import styled from '@emotion/styled';
+import { IcReplyWriteIcon } from '../../public/assets/icons';
+import { useState } from 'react';
 
 interface ReplyContentProps {
+  author: boolean;
   userNickname?: string;
   content: string;
   createdAt: string;
 }
 
 export default function ReplyContent(props: ReplyContentProps) {
-  const { userNickname, content, createdAt } = props;
+  const { userNickname, content, createdAt, author } = props;
+
   return (
     <StReplyContentWrapper>
       <StReplyInfo>
         <p>{userNickname}</p>
+        {author && <IcReplyWriteIcon />}
       </StReplyInfo>
       <StReplyContents>
         <p>{content}</p>
-        <span>{createdAt} · 신고</span>
+        <span>
+          {createdAt} · {author ? '삭제' : '신고'}
+        </span>
       </StReplyContents>
     </StReplyContentWrapper>
   );

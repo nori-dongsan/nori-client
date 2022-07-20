@@ -15,6 +15,7 @@ export default function CommunityList(props: CommunityListProps) {
     <StCommunityListWrapper>
       {contentsList.map((content, idx) => (
         <ContentCard
+          id={content.id}
           key={idx}
           category={content.category}
           title={content.title}
