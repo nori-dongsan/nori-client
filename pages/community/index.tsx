@@ -4,56 +4,35 @@ import {
   LandingCommunityList,
   LandingTitle,
 } from '../../components/landing/community';
+import { GetServerSideProps } from 'next';
 import CommunityFloatingBtn from '../../components/community/CommunityFloatingBtn';
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import { useEffect, useState } from 'react';
 import { GetCommunityList, CommunityData } from '../../types/community';
 import { PageNavigation } from '../../components/collectionProduct';
-import { useGetCommunityList } from '../../core/api/community';
+import {
+  getCommunityList,
+  useGetCommunityList,
+} from '../../core/api/community';
 
-const limit = 10;
+// const limit = 10;
 
 export default function community() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [contentList, setContentList] = useState<CommunityData[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const data = useGetCommunityList();
-  console.log(data.communityList);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setIsLoading(false);
-  });
-
-  // const handleCurrentPage = (nextPage: number) => {
-  //   setCurrentPage(nextPage);
-  // };
-  // let { communityList, isLoading, isError } =
-  //   useGetCommunityList() as GetCommunityList;
+  // const [currentPage, setCurrentPage] = useState<number>(1);
 
   // useEffect(() => {
-  //   if (communityList) {
-  //     let data = communityList as CommunityData[];
-  //     data = data.filter(
-  //       (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
-  //     );
-  //     setContentList(data);
-  //     console.log(data);
-  //     window.scrollTo({
-  //       top: 0,
-  //       behavior: 'smooth',
+  //   setIsLoading(true);
+  //   fetch('/board')
+  //     .then((res) => res.json())
+  //     .then((data: CommunityData[]) => {
+  //       setContentList(data);
+  //       setIsLoading(false);
   //     });
-  //   }
-  // }, [contentList, currentPage]);
-  // console.log(contentList);
-  // setIsLoading(true);
-  // fetch('/board')
-  //   .then((res) => res.json())
-  //   .then((data: CommunityData[]) => {
-  //     setContentList(data);
-  //     setIsLoading(false);
-  //   });
+  // }, []);
+
+export const getServerSideProps: 
 
   return (
     <StCommunityWrapper>
@@ -73,7 +52,6 @@ export default function community() {
             <IcCommunitySearchIcon />
           </StSearchBar>
           <StMainArticle>
-            <StFloatingBlock />
             <StContentBlock>
               {contentList.map((_, idx) => (
                 <CommunityList key={idx} contentsList={contentList} />
@@ -109,10 +87,11 @@ const StSearchBar = styled.div`
   display: flex;
   flex-direction: row;
 
+  margin-bottom: 7.9rem;
+
   width: 57.6rem;
   height: 4.5rem;
   border-bottom: 0.2rem solid ${({ theme }) => theme.colors.gray008};
-  margin-bottom: 7.9rem;
 
   input {
     margin-left: 0.9rem;
@@ -144,11 +123,6 @@ const StSearchBar = styled.div`
 const StMainArticle = styled.article`
   display: flex;
 `;
-
-const StFloatingBlock = styled.div`
-  width: 9rem;
-`;
-
 const StContentBlock = styled.div`
   display: flex;
   flex-direction: column;

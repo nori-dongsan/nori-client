@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 export default function WriteHeader() {
   const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
   const router = useRouter();
+  const { pathname } = useRouter();
 
   const handleRegister = async () => {
     const { title, content } = newPostInfo;
@@ -33,7 +34,7 @@ export default function WriteHeader() {
           <IcWriteHeaderLogo />
         </a>
       </Link>
-      {pathname === '/write/[cid]' ? (
+      {pathname === '/community' ? (
         <StModifyBlock>
           <StCancleBtn>취소</StCancleBtn>
           <StWriteBtn>수정완료</StWriteBtn>

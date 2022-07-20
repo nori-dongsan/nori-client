@@ -11,17 +11,27 @@ import { baseInstance } from '../axios';
 //   return baseInstance.get(`/collection?sort=${key}`);
 // };
 
-export const useGetCommunityList = () => {
-  const { data, error } = useSWR(`/board`, baseInstance.get, {
-    errorRetryCount: 3,
-  });
+// export const useGetCommunityList = () => {
+//   const { data, error } = useSWR(`/board`, baseInstance.get, {
+//     errorRetryCount: 3,
+//   });
 
-  return {
-    communityList: data,
-    isLoading: !error && !data,
-    isError: error,
-  };
+//   return {
+//     communityList: data,
+//     isLoading: !error && !data,
+//     isError: error,
+//   };
+// };
+
+export const useGetCommunityList = async () => {
+  try {
+    const { data } = await baseInstance.get('/board');
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
+
 export const getCommunityList = () => {
   return baseInstance.get('/board');
 };
