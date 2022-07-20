@@ -85,7 +85,7 @@ export default function viewProduct({
           <StFilterSectionWrapper>
             <ProductFilter />
             <StContentSection>
-              {filterTagList.length != 0 && <TagSection />}
+              {filterTagList.length !== 0 && <TagSection />}
               <StFilterBarWrapper>
                 <PriceFilter
                   priceDesc={priceDesc}
@@ -132,8 +132,7 @@ const StViewProductWrapper = styled.div`
 `;
 const StFilterSectionWrapper = styled.section`
   display: flex;
-
-  height: fit-content;
+  height: auto;
 `;
 const StFilterBarWrapper = styled.div`
   display: flex;

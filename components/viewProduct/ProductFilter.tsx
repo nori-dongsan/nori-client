@@ -70,7 +70,11 @@ export default function ProductFilter() {
             <FilterDropdown
               categoryInfo={filterListData[idx]}
               categoryIdx={idx}
-              isExcept={idx == 3 || toyKindList.length !== 0 ? true : false}
+              isExcept={
+                idx == 3 || (idx == 4 && toyKindList.length !== 0)
+                  ? true
+                  : false
+              }
               isDrop={visibility[idx]}
               checkedItem={checkedItems[idx]}
               categoryKey={title}
@@ -88,6 +92,10 @@ const StFilterWrapper = styled.div`
   padding-left: 1.2rem;
   margin-right: 2.4rem;
   margin-bottom: 7.2rem;
+
+  align-self: flex-start;
+  position: sticky;
+  top: 8.2rem;
 `;
 const StFilterTitle = styled.div`
   display: flex;
