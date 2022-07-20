@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { signIn, signOut, useSession, getSession } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { loginUser } from '../core/api/user';
 import { PostLoginBody } from '../types/user';
@@ -15,36 +15,34 @@ import {
   IcGoogleBtn,
   IcKakaoBtn,
 } from '../public/assets/icons';
+import { userInfoState } from '../core/atom';
 export default function login({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   console.log(data);
-  // const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  // signOut();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   // const resetList = useResetRecoilState(userInfoState);
   // // LocalStorage.clearUserSession();
   // console.log(userInfo);
-  // const handleLogin = async (social: string) => {
-  //   console.log(social);
-  //   console.log(session);
-  //   if (session?.user) {
-  //     const userLoginData = {
-  //       snsId: session?.user.email,
-  //       provider: social,
-  //       email: session?.user.email,
-  //     } as PostLoginBody;
-  //     const login = await loginUser(userLoginData);
-  //     // if (login) {
-  //     //   setUserInfo(userLoginData);
-  //     // }
-  //     console.log(userLoginData);
-  //   }
-  // };
+  const handleLogin = async (social: string) => {
+    if (data.session?.user) {
+      const userLoginData = {
+        snsId: data.session?.user.email,
+        provider: social,
+        email: data.session?.user.email,
+      } as PostLoginBody;
+      const login = await loginUser(userLoginData);
+      if (login) {
+        setUserInfo(userLoginData);
+      }
+    }
+  };
+  console.log(userInfo);
+  console.log(LocalStorage.getItem('accessToken'));
 
   useEffect(() => {
-    if (data.session)
-      // if (LocalStorage.getItem('email')) {
-      Router.push('/signup');
-    // }
+    if (!userInfo.isSignup) Router.push('/signup');
   }, []);
 
   return (
@@ -68,24 +66,22 @@ export default function login({
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
             signIn('kakao');
-            // handleLogin('kakao');
+            handleLogin('kakao');
           }}
         />
 
         <IcGoogleBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            signIn('google', {
-              redirect: false,
-            });
-            // handleLogin('google');
+            signIn('google');
+            handleLogin('google');
           }}
         />
         <IcNaverBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            // signIn('naver');
-            // handleLogin('naver');
+            signIn('naver');
+            handleLogin('naver');
           }}
         />
       </StContentWrapper>
@@ -98,7 +94,7 @@ const StLoginWrapper = styled.section`
   align-items: center;
   flex-direction: column;
 
-  height: 100%;
+  height: 100vh;
   padding-top: 15.2rem;
   background: ${({ theme }) => theme.colors.mainGreen};
 `;
