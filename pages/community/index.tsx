@@ -12,6 +12,7 @@ import { PageNavigation } from '../../components/common';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getCommunity } from '../../core/api/community';
 import { communityMockData } from '../../mocks/data/communityMockData';
+import { LandingPageNavigation } from '../../components/landing/collectionProduct.tsx';
 
 const limit = 20;
 
@@ -57,6 +58,7 @@ export default function community({
         <>
           <LandingTitle />
           <LandingCommunityList />
+          <LandingPageNavigation />
         </>
       ) : (
         <>
