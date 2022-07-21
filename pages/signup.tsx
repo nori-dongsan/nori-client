@@ -2,7 +2,9 @@ import styled from '@emotion/styled';
 import Router from 'next/router';
 
 import { useState, useEffect, useRef } from 'react';
-import { putSignup } from '../core/api/user';
+import { useRecoilState } from 'recoil';
+import { postNickname, putSignup } from '../core/api/user';
+import { userInfoState } from '../core/atom';
 import {
   IcSignupCheckboxSelected,
   IcSignupCheckboxUnselected,
@@ -18,6 +20,7 @@ export default function signup() {
   );
   const [isNickname, setIsNickname] = useState<boolean>(true);
   const signupBtnRef = useRef<HTMLButtonElement>(null);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   useEffect(() => {
     if (signupBtnRef.current)
@@ -46,9 +49,9 @@ export default function signup() {
         '한, 영, 숫자 조합만 가능합니다. 2글자 이상 10글자 이하로 입력해주세요.',
       );
     } else {
-      const data = await putSignup({ nickname: nickName });
+      const data = await postNickname({ nickname: nickName });
       if (data.status === 409) setNotice('사용중인 닉네임입니다');
-      else if (data.status === 200) {
+      else if (data.status === 201) {
         setNotice('사용가능한 닉네임입니다');
         setIsNickname(true);
       }
@@ -56,6 +59,7 @@ export default function signup() {
   };
   const handleSignupBtn = () => {
     if (isNickname && isChecked) {
+      putSignup({ nickname: nickName });
       Router.push('/');
     }
   };
@@ -148,7 +152,9 @@ const StNoticeSpan = styled.span<{ isNickname: boolean; notice: string }>`
   color: ${({ isNickname, notice, theme: { colors } }) =>
     !isNickname &&
     notice !== '사용중인 닉네임입니다' &&
-    notice !== '사용가능한 닉네임입니다'
+    notice !== '사용가능한 닉네임입니다' &&
+    notice ===
+      '한, 영, 숫자 조합만 가능합니다. 2글자 이상 10글자 이하로 입력해주세요.'
       ? 'red'
       : notice === '사용중인 닉네임입니다'
       ? colors.orange
@@ -187,6 +193,7 @@ const StSignupBtn = styled.button`
 
   border: 0.1rem solid ${({ theme }) => theme.colors.gray005};
   border-radius: 0.5rem;
+
   background: ${({ theme }) => theme.colors.gray004};
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.b2_18_medium_130};

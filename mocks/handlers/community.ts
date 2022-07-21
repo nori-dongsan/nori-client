@@ -4,6 +4,7 @@ import {
   CommunityData,
   PostCommentBody,
   PostCommunityBody,
+  PutCommunityBody,
 } from '../../types/community';
 // 커뮤니티 게시글 작성
 export const postCommunity = rest.post('/board', (req, res, ctx) => {
@@ -38,9 +39,19 @@ export const postCommunity = rest.post('/board', (req, res, ctx) => {
     }),
   );
 });
+
 // 커뮤니티 게시글 수정
 export const putCommunity = rest.put('/board/:boardId', (req, res, ctx) => {
+  const { category, title, content, imageList } = req.body as PutCommunityBody;
   const { boardId } = req.params;
+
+  return res(
+    ctx.status(200),
+    ctx.delay(500),
+    ctx.json({
+      id: boardId,
+    }),
+  );
 });
 // 커뮤니티 게시글 상세조회
 export const getCommunityDetail = rest.get(

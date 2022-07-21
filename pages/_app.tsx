@@ -18,7 +18,7 @@ export default function App({
       <ThemeProvider theme={theme}>
         <Global styles={resetStyle} />
         <Global styles={GlobalStyle} />
-        {pathname === '/write' ? (
+        {pathname.includes('/write') ? (
           <WriteHeader />
         ) : (
           pathname !== '/login' && pathname !== '/signup' && <Header />

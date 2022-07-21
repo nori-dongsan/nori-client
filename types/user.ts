@@ -6,20 +6,23 @@ export interface UserData {
   email: string;
 }
 
-export interface PostSignUpBody {
+export interface SignUpBody {
   nickname: string;
 }
 
 export interface PostLoginBody {
-  snsId: string;
+  snsId?: string;
   provider: string;
-  email: string;
+  email?: string;
   isSignup?: boolean;
 }
 export interface ResponseLoginDto {
+  status: number;
   data: {
-    accessToken: string;
-    refreshToken: string;
-    isSignup: boolean;
+    data: {
+      accessToken: string;
+      refreshToken: string;
+      isSignup: boolean;
+    };
   };
 }
