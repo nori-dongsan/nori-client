@@ -26,6 +26,7 @@ export interface PostCommunityBody {
   content: string;
   imageList?: ImgData[];
 }
+
 // 커뮤니티 수정 put body
 export interface PutCommunityBody {
   category?: string;
@@ -40,6 +41,7 @@ export interface IsChangeCommunity {
   isChangeContent: boolean;
   isChangeImageList: boolean;
 }
+
 // 커뮤니티 댓글
 export interface PostCommentBody {
   boardId?: string;
