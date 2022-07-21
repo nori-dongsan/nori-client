@@ -1,13 +1,22 @@
 export interface ToyData {
-  price: number; //가격
-  priceCode?: number;
-  image: string; //이미지
-  siteUrl: string;
+  id: number;
   title: string;
+  price: number; //가격
+  priceCd?: number;
   month?: string; //연령
-  playHow: number;
-  type: number;
-  siteName: string;
+  minMonth: number;
+  maxMonth: number;
+  link: string;
+  playHow: string;
+  playHowCd: number;
+  image: string; //이미지
+  category: string;
+  categoryCd: number;
+  toySiteCd: number;
+  toySite: {
+    id: number;
+    toySite: string;
+  };
 }
 
 export interface MainToyData {

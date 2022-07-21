@@ -11,15 +11,15 @@ export default function ToyList(props: ToyListProps) {
 
   return (
     <StToyListWrapper>
-      {toyList.map(({ image, title, price, month, siteUrl }, idx) => (
+      {toyList.map(({ image, title, price, month, link, toySite }, idx) => (
         <ToyPreview
           key={idx}
           src={image}
-          store="그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드"
+          store={toySite.toySite}
           title={title}
           price={price}
-          age="36개월이상"
-          siteUrl={siteUrl}
+          age={month}
+          siteUrl={link}
         />
       ))}
     </StToyListWrapper>

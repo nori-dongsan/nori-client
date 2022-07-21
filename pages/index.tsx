@@ -156,6 +156,7 @@ const StCollectionTitle = styled(StConceptTitle)`
 `;
 export const getStaticProps: GetStaticProps = async (context) => {
   const res = await getMainProduct();
+  console.log(res);
   return {
     props: {
       mainData: res.data.data,

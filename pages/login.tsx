@@ -6,7 +6,7 @@ import { PostLoginBody } from '../types/user';
 import { useEffect, useState } from 'react';
 import LocalStorage from '../core/localStorage';
 import Router from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import {
   IcLoginNori,
@@ -20,18 +20,20 @@ export default function login({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
+  useResetRecoilState(userInfoState);
   useEffect(() => {
     const handleLogin = async () => {
-      const userLoginData = {
-        snsId: data.session?.user.email,
-        provider: userInfo.provider,
-        email: data.session?.user.email,
-      } as PostLoginBody;
+      if (data.session?.user) {
+        const userLoginData = {
+          snsId: data.session?.user.email,
+          provider: userInfo.provider,
+          email: data.session?.user.email,
+        } as PostLoginBody;
 
-      const login = await loginUser(userLoginData);
-      if (login) {
-        setUserInfo(userLoginData);
+        const login = await loginUser(userLoginData);
+        if (!login) {
+          setUserInfo(userLoginData);
+        }
       }
     };
     if (userInfo.provider !== '') handleLogin();

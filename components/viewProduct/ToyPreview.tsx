@@ -29,7 +29,9 @@ export default function ToyPreview(props: ToyPreviewProps) {
   return (
     <StToyWrapper onClick={handleToySite}>
       <StImgWrapper>
-        <StToyImg src="https://www.littlebaby.co.kr:14019/shop/data/goods/1632018070797m0.jpg" />
+        <StToyImg
+          src={`https://nori-image.s3.ap-northeast-2.amazonaws.com/${src}`}
+        />
         <StToyMarkWrapper onClick={handleToyMark}>
           <StToyMark />
           {isMark && <StFillToyMark />}
