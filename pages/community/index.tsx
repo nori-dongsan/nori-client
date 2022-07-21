@@ -6,7 +6,7 @@ import {
 } from '../../components/landing/community';
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import { useEffect, useState } from 'react';
-import { GetCommunityList, CommunityData } from '../../types/community';
+import { CommunityData } from '../../types/community';
 
 import { PageNavigation } from '../../components/common';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
