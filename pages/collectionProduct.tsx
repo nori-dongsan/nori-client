@@ -111,3 +111,14 @@ const StCollectionTitle = styled.h4`
 const StToyListWrapper = styled.section`
   margin: 0rem 37.2rem;
 `;
+// export async function getStaticProps(context: NextPageContext) {
+//   const res = await getCollectionProduct(`1`);
+//   const initialData = res.data;
+//   console.log(initialData);
+
+//   return {
+//     props: {
+//       initialData,
+//     },
+//   };
+// }

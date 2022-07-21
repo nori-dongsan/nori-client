@@ -1,26 +1,25 @@
 import styled from '@emotion/styled';
-import keyframes from '@emotion/react';
+import { ToyData } from '../../types/toy';
 import ToyPreview from './ToyPreview';
 
 interface ToyListProps {
-  length: number;
-  landingCategory: string;
+  toyList: ToyData[];
 }
 
 export default function ToyList(props: ToyListProps) {
-  const { length, landingCategory } = props;
-  const toyList = new Array(length).fill(0);
+  const { toyList } = props;
+
   return (
     <StToyListWrapper>
-      {toyList.map((_, idx) => (
+      {toyList.map(({ image, title, price, month, siteUrl }, idx) => (
         <ToyPreview
           key={idx}
-          src="d"
-          store="그린키드"
-          title="[보행기대여] NEW 뉴 롤링360 플러스 다기능 아기보행기"
-          price={12000}
+          src={image}
+          store="그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드"
+          title={title}
+          price={price}
           age="36개월이상"
-          siteUrl=""
+          siteUrl={siteUrl}
         />
       ))}
     </StToyListWrapper>
