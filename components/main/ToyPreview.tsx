@@ -43,6 +43,8 @@ const StToyWrapper = styled.article`
   width: 27.5rem;
   height: 42.4rem;
   margin: 0rem 1.25rem;
+
+  cursor: pointer;
 `;
 const StImgWrapper = styled.div`
   position: relative;
