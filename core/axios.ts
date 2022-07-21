@@ -8,13 +8,14 @@ const baseInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
 // // client side base instance (default)
 // // 로컬스토리지 접근이 가능하고 token이 필요한 api 호출에서 사용
 baseInstance.interceptors.request.use((config) => {
   const headers = {
     ...config.headers,
     accessToken:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTY1ODQwNzIwMiwiZXhwIjoxNjU4NDE0NDAyLCJpc3MiOiJub3JpIn0.YdQo6BWChvNyqT8ptY8RwAN7bytNW38RUQOLASlpO0o',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTY1ODQxNDg2NiwiZXhwIjoxNjU4NDIyMDY2LCJpc3MiOiJub3JpIn0.lD7a--F1g5oEIqDvXNrRjbuLGp5S7Y1TxwRz8mXbJvY',
     refreshToken:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTY1ODM4NDEwMCwiZXhwIjoxNjU5NTkzNzAwLCJpc3MiOiJub3JpIn0.AeuhSmM1ZqItojeM3O0SwrELog-Qfq91r_ii0EMgPig',
   };

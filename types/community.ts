@@ -24,8 +24,24 @@ export interface PostCommunityBody {
   category: string;
   title: string;
   content: string;
-  imageList?: FormData;
+  imageList?: ImgData[];
 }
+
+// 커뮤니티 수정 put body
+export interface PutCommunityBody {
+  category?: string;
+  title?: string;
+  content?: string;
+  imageList?: ImgData[];
+}
+// 커뮤니티 변경된 state 판단
+export interface IsChangeCommunity {
+  isChangeCategory: boolean;
+  isChangeTitle: boolean;
+  isChangeContent: boolean;
+  isChangeImageList: boolean;
+}
+
 // 커뮤니티 댓글
 export interface PostCommentBody {
   boardId?: string;
