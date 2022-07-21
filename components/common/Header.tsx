@@ -43,7 +43,9 @@ export default function Header() {
               onChange={handleInputValue}
             />
             <Link href="/viewProduct">
-              <IcSearchIcon onClick={handleClick} />
+              <a>
+                <IcSearchIcon onClick={handleClick} />
+              </a>
             </Link>
           </StSearchBar>
           <StMenu>

@@ -4,7 +4,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { getCommunityDetail } from '../../core/api/community';
-import { newPostInfoState } from '../../core/atom';
+import { isChangeInfoState, newPostInfoState } from '../../core/atom';
 import { IcDefaultImg, IcDelete } from '../../public/assets/icons';
 import { CommunityData, ImgData } from '../../types/community';
 
@@ -12,6 +12,8 @@ export default function UpdateForm({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
+  const [isChangeCommunity, setIsChangeCommunity] =
+    useRecoilState(isChangeInfoState);
   const [isCategory, setIsCategory] = useState<boolean>(false);
   const [images, setImages] = useState<ImgData[]>([]);
   const [imagesSize, setImagesSize] = useState<number>(0);
@@ -55,6 +57,10 @@ export default function UpdateForm({
 
   const handleCategory = (value: string) => {
     setCategory(value);
+    setIsChangeCommunity({
+      ...isChangeCommunity,
+      isChangeCategory: true,
+    });
     setNewPostInfo({ ...newPostInfo, category: value });
   };
 
@@ -89,6 +95,10 @@ export default function UpdateForm({
     images.map((image) => formData.append(image.id + '', image.file));
     imageList.map((image) => formData.append(image.id + '', image.file));
 
+    setIsChangeCommunity({
+      ...isChangeCommunity,
+      isChangeImageList: true,
+    });
     setNewPostInfo({
       ...newPostInfo,
       imageList: formData,
@@ -104,6 +114,10 @@ export default function UpdateForm({
 
     const formData = new FormData();
     imgDelData.map((image) => formData.append(image.id + '', image.file));
+    setIsChangeCommunity({
+      ...isChangeCommunity,
+      isChangeImageList: true,
+    });
     setNewPostInfo({
       ...newPostInfo,
       imageList: formData,
@@ -114,11 +128,19 @@ export default function UpdateForm({
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 30) return;
     setTitle(e.target.value);
+    setIsChangeCommunity({
+      ...isChangeCommunity,
+      isChangeTitle: true,
+    });
     setNewPostInfo({ ...newPostInfo, title: e.target.value });
   };
 
   const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
+    setIsChangeCommunity({
+      ...isChangeCommunity,
+      isChangeContent: true,
+    });
     setNewPostInfo({ ...newPostInfo, content: e.target.value });
   };
 
