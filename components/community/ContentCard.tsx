@@ -12,7 +12,7 @@ interface ContentInfoProps {
   content: string;
   userNickname?: string;
   replyCount?: number;
-  createdAt?: string;
+  createdAt: string;
   img?: string;
 }
 
@@ -41,7 +41,7 @@ export default function ContentCard(props: ContentInfoProps) {
         <StWriteInfo>
           <span>{userNickname}</span>
           <IcDot />
-          <span>{createdAt}</span>
+          <span>{createdAt.split('T')[0]}</span>
         </StWriteInfo>
         <StReplyInfo>
           <IcHeart />

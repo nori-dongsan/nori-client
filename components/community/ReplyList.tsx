@@ -43,12 +43,12 @@ export default function ReplyList(props: ReplyListProps) {
       return;
     }
 
-    const data = await postReply(newReplyInfo);
+    const res = await postReply(newReplyInfo);
     setNewReplyInfo({
-      boardId: `${cid}`,
+      boardId: cid,
       content: replyText,
     });
-    router.push(`/community/${data.id}`);
+    router.push({ pathname: `/community/${cid}` });
   };
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
