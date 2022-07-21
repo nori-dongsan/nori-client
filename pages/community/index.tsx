@@ -15,6 +15,14 @@ import { communityMockData } from '../../mocks/data/communityMockData';
 
 const limit = 20;
 
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await getCommunity();
+  // const data: CommunityData[] = communityMockData;
+  return {
+    props: res.data,
+  };
+};
+
 export default function community({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -270,10 +278,3 @@ const StCategoryItem = styled.li<{ isSelected: boolean }>`
     padding-bottom: 1rem;
   }
 `;
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  // const data = await getCommunity();
-  const data: CommunityData[] = communityMockData;
-  return {
-    props: { data },
-  };
-};
