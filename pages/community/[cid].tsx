@@ -102,7 +102,7 @@ export default function CommunityDetail({
                   <StPreviewImgWrapper key={idx}>
                     <StPreviewImg
                       src={
-                        'https://nori-image.s3.ap-northeast-2.amazonaws.com/' +
+                        'https://nori-community.s3.ap-northeast-2.amazonaws.com/' +
                         item
                       }
                       alt={item}

@@ -52,14 +52,9 @@ export default function WriteForm() {
       return;
     }
     setImagesSize(totalImagesSize);
-
-    const formData = new FormData();
-    images.map((image) => formData.append(image.id + '', image.file));
-    imageList.map((image) => formData.append(image.id + '', image.file));
-
     setNewPostInfo({
       ...newPostInfo,
-      imageList: formData,
+      imageList,
     });
     setImages([...images, ...imageList]);
   };
@@ -69,12 +64,9 @@ export default function WriteForm() {
     const delImg = images.filter((image) => image.id === id);
 
     setImagesSize((prev) => prev - delImg[0].file.size);
-
-    const formData = new FormData();
-    imgDelData.map((image) => formData.append(image.id + '', image.file));
     setNewPostInfo({
       ...newPostInfo,
-      imageList: formData,
+      imageList: imgDelData,
     });
     setImages(imgDelData);
   };

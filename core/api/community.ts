@@ -1,9 +1,5 @@
 import useSWR from 'swr';
-import {
-  PostCommunityBody,
-  PutCommunityBody,
-  PostCommentBody,
-} from '../../types/community';
+import { PutCommunityBody, PostCommentBody } from '../../types/community';
 import { baseInstance } from '../axios';
 
 export const useGetCollectionProduct = (key: string) => {
@@ -20,13 +16,12 @@ export const getCommunity = () => {
   return baseInstance.get(`/board`);
 };
 
-export const postCommunity = async (body: PostCommunityBody) => {
-  try {
-    const { data } = await baseInstance.post('/board', body);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
+export const postCommunity = (body: FormData) => {
+  return baseInstance.post('/board', body, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 export const getCommunityDetail = (id: string) => {
