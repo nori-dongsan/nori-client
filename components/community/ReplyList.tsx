@@ -8,6 +8,7 @@ import {
 } from '../../types/community';
 import ReplyContent from './ReplyContent';
 import { useRouter } from 'next/router';
+import { PageNavigation } from '../common/index';
 
 interface ReplyListProps {
   cid: string;
@@ -23,6 +24,8 @@ export default function ReplyList(props: ReplyListProps) {
     boardId: '',
     content: '',
   });
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageReplyList, setPageReplyList] = useState<ReplyData[]>([]);
 
   const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReplyText(e.target.value);
@@ -47,7 +50,20 @@ export default function ReplyList(props: ReplyListProps) {
     });
     router.push(`/community/${data.id}`);
   };
+  const handleCurrentPage = (nextPage: number) => {
+    setCurrentPage(nextPage);
+  };
 
+  useEffect(() => {
+    if (replyList) {
+      setPageReplyList(
+        replyList.filter(
+          (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
+        ),
+      );
+      window.scrollTo({ top: 750 });
+    }
+  }, [replyList, currentPage]);
   return (
     <>
       <StReplyTitle>
@@ -68,20 +84,42 @@ export default function ReplyList(props: ReplyListProps) {
         </StInputBtn>
       </StInputForm>
       <StReplyWrapper>
-        {replyList.map((reply, idx) => (
-          <ReplyContent
-            key={idx}
-            author={reply.author}
-            userNickname={reply.userNickname}
-            content={reply.content}
-            createdAt={reply.createdAt}
-          />
-        ))}
+        {pageReplyList.map(
+          ({ author, userNickname, content, createdAt }, idx) => (
+            <ReplyContent
+              key={idx}
+              author={author}
+              userNickname={userNickname}
+              content={content}
+              createdAt={createdAt}
+            />
+          ),
+        )}
       </StReplyWrapper>
+      <StReplyListNav>
+        {replyList && (
+          <PageNavigation
+            currentPage={currentPage}
+            lastPage={Math.ceil(replyList.length / 10)}
+            handleCurrentPage={handleCurrentPage}
+          />
+        )}
+      </StReplyListNav>
     </>
   );
 }
 
+const StReplyWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`;
+const StReplyListNav = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 const StReplyTitle = styled.article`
   display: flex;
   flex-direction: row;
@@ -157,9 +195,4 @@ const StInputBtn = styled.span<{ inputColor: boolean }>`
   border-radius: 0.5rem;
 
   cursor: pointer;
-`;
-const StReplyWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 `;

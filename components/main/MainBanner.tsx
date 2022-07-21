@@ -14,7 +14,7 @@ const StMainBannerWrapper = styled.aside`
   justify-content: center;
   align-items: center;
 
-  height: 38.4rem;
+  height: 38.9rem;
 
   background-color: ${({ theme }) => theme.colors.mainGreen};
 `;

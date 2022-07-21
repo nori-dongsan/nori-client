@@ -5,20 +5,12 @@ import {
   IcMainBookmarkSelected,
   IcMainBookmarkUnselected,
 } from '../../public/assets/icons';
+import { MainToyData } from '../../types/toy';
 
-interface ToyPreviewProps {
-  src: string;
-  store: string;
-  title: string;
-  price: number;
-  age?: string;
-  siteUrl: string;
-}
-
-export default function ToyPreview(props: ToyPreviewProps) {
-  const { src, store, title, price, age, siteUrl } = props;
+export default function ToyPreview(props: MainToyData) {
+  const { image, month, price, siteName, siteUrl, title } = props;
   const [isMark, setIsMark] = useState(false);
-
+  console.log(image);
   const handleToySite = (e: React.MouseEvent<HTMLElement>) => {
     if (!(e.target instanceof SVGElement)) window.open(siteUrl);
   };
@@ -29,16 +21,18 @@ export default function ToyPreview(props: ToyPreviewProps) {
   return (
     <StToyWrapper onClick={handleToySite}>
       <StImgWrapper>
-        <StToyImg src="https://www.littlebaby.co.kr:14019/shop/data/goods/1632018070797m0.jpg" />
+        <StToyImg
+          src={`https://nori-image.s3.ap-northeast-2.amazonaws.com/${image}`}
+        />
         <StToyMarkWrapper onClick={handleToyMark}>
           <StToyMark />
           {isMark && <StFillToyMark />}
         </StToyMarkWrapper>
       </StImgWrapper>
-      <StStore>{store}</StStore>
+      <StStore>{siteName}</StStore>
       <StTitle>{title}</StTitle>
       <StPrice>{price.toLocaleString()}</StPrice>
-      <StAge isAge={Boolean(age)}>{age}</StAge>
+      <StAge isAge={Boolean(month)}>{month}</StAge>
     </StToyWrapper>
   );
 }
@@ -48,6 +42,7 @@ const StToyWrapper = styled.article`
   flex-direction: column;
 
   width: 27.5rem;
+  height: 42.4rem;
   margin: 0rem 1.25rem;
 `;
 const StImgWrapper = styled.div`
@@ -93,9 +88,11 @@ const StStore = styled.div`
   -webkit-box-orient: vertical;
 `;
 const StTitle = styled.div`
-  margin-top: 0.6rem;
   display: flex;
   align-items: center;
+
+  height: 4.6rem;
+  margin-top: 0.6rem;
 
   color: ${({ theme }) => theme.colors.black};
   ${({ theme }) => theme.fonts.b2_18_medium_130};
