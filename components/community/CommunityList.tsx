@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 // import { useState } from 'react';
-import ContentCard from './ContentsCard';
+import ContentCard from './ContentCard';
 import { CommunityData } from '../../types/community';
 
 interface CommunityListProps {
@@ -15,6 +15,7 @@ export default function CommunityList(props: CommunityListProps) {
     <StCommunityListWrapper>
       {contentsList.map((content, idx) => (
         <ContentCard
+          id={content.id}
           key={idx}
           category={content.category}
           title={content.title}

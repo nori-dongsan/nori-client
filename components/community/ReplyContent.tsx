@@ -3,26 +3,25 @@ import { IcReplyWriteIcon } from '../../public/assets/icons';
 import { useState } from 'react';
 
 interface ReplyContentProps {
+  author: boolean;
   userNickname?: string;
   content: string;
   createdAt: string;
 }
 
 export default function ReplyContent(props: ReplyContentProps) {
-  const { userNickname, content, createdAt } = props;
-
-  const [isWriter, setIsWriter] = useState(true);
+  const { userNickname, content, createdAt, author } = props;
 
   return (
     <StReplyContentWrapper>
       <StReplyInfo>
         <p>{userNickname}</p>
-        {isWriter && <IcReplyWriteIcon />}
+        {author && <IcReplyWriteIcon />}
       </StReplyInfo>
       <StReplyContents>
         <p>{content}</p>
         <span>
-          {createdAt} · {isWriter ? '삭제' : '신고'}
+          {createdAt} · {author ? '삭제' : '신고'}
         </span>
       </StReplyContents>
     </StReplyContentWrapper>

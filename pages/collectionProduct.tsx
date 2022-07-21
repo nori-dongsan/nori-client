@@ -6,8 +6,8 @@ import {
   CollectionList,
 } from '../components/collectionProduct';
 import { useEffect, useState } from 'react';
-import { useGetCollectionProduct } from '../core/api/toy';
-import { GetCollectionProduct, ToyData } from '../types/toy';
+import { getCollectionProduct, useGetCollectionProduct } from '../core/api/toy';
+import { GetCollectionProduct, MainToyData } from '../types/toy';
 import {
   LandingCollectionList,
   LandingCollectionTitle,
@@ -21,11 +21,17 @@ const limit = 40;
 export default function collectionProduct({}) {
   const { query } = useRouter();
   const { collection } = query;
-  const [toyList, setToyList] = useState<ToyData[]>([]);
+  const [toyList, setToyList] = useState<MainToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const landingArray = new Array(10).fill(0);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
 
+  const theme =
+    collection === '위고, 보행기 모음'
+      ? 2
+      : collection === '실내 놀이터 추천'
+      ? 3
+      : 4;
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
@@ -33,17 +39,18 @@ export default function collectionProduct({}) {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
   let { productList, isLoading, isError } = priceDesc
-    ? (useGetCollectionProduct('price-desc') as GetCollectionProduct)
-    : (useGetCollectionProduct('price-asc') as GetCollectionProduct);
+    ? (useGetCollectionProduct(theme, 'price-asc') as GetCollectionProduct)
+    : (useGetCollectionProduct(theme, 'price-desc') as GetCollectionProduct);
 
   useEffect(() => {
     if (productList) {
-      let data = productList.data.data as ToyData[];
+      let data = productList.data.data.toyList as MainToyData[];
       data = data.filter(
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
       setToyList(data);
       window.scrollTo(0, 0);
+      console.log(productList.data.data.toyList);
     }
   }, [productList, currentPage]);
   return (
@@ -80,7 +87,7 @@ export default function collectionProduct({}) {
           {!isLoading && !isError && productList && (
             <PageNavigation
               currentPage={currentPage}
-              lastPage={Math.ceil(productList.data.data.length / limit)}
+              lastPage={Math.ceil(productList.data.data.toyList.length / limit)}
               handleCurrentPage={handleCurrentPage}
             />
           )}
@@ -97,7 +104,7 @@ const StCollectionSection = styled.section`
   flex-direction: column;
 `;
 const StCollectionTitle = styled.h4`
-  margin: 7.1rem 0rem;
+  margin-top: 7.1rem;
 
   ${({ theme }) => theme.fonts.t1_28_medium_150}
 `;

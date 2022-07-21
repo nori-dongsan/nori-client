@@ -1,19 +1,23 @@
 import styled from '@emotion/styled';
-import { CommunityList } from '../../components/community';
+import { ContentCard, CommunityFloatingBtn } from '../../components/community';
 import {
   LandingCommunityList,
   LandingTitle,
 } from '../../components/landing/community';
-import CommunityFloatingBtn from '../../components/community/CommunityFloatingBtn';
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import { useEffect, useState } from 'react';
 import { GetCommunityList, CommunityData } from '../../types/community';
-import { PageNavigation } from '../../components/collectionProduct';
-import { useGetCommunityList } from '../../core/api/community';
 
-const limit = 10;
+import { PageNavigation } from '../../components/common';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { getCommunity } from '../../core/api/community';
+import { communityMockData } from '../../mocks/data/communityMockData';
 
-export default function community() {
+const limit = 20;
+
+export default function community({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [contentList, setContentList] = useState<CommunityData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -24,6 +28,10 @@ export default function community() {
 
   const handleIsCategory = () => {
     setIsCategory((prev) => !prev);
+  };
+
+  const handleCurrentPage = (nextPage: number) => {
+    setCurrentPage(nextPage);
   };
 
   const handleCategory = (value: string) => {
@@ -56,15 +64,18 @@ export default function community() {
   // console.log(contentList);
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch('/board')
-      .then((res) => res.json())
-      .then((data: CommunityData[]) => {
-        setContentList(data);
-        setIsLoading(false);
-      });
-  }, []);
-
+    if (data) {
+      data = data.filter(
+        (_: any, idx: number) =>
+          (currentPage - 1) * 20 <= idx && idx < currentPage * 20,
+      );
+      console.log(data);
+      setContentList(data);
+      setIsLoading(false);
+      window.scrollTo(0, 0);
+    }
+  }, [data, currentPage]);
+  console.log(contentList.length);
   return (
     <StCommunityWrapper>
       {isLoading ? (
@@ -105,20 +116,44 @@ export default function community() {
             </StCategorySelectBox>
           </StCategoryBlock>
           <StMainArticle>
-            <StContentBlock>
-              {contentList.map((_, idx) => (
-                <CommunityList key={idx} contentsList={contentList} />
-              ))}
-            </StContentBlock>
+            <StCommunityListWrapper>
+              {contentList.map(
+                (
+                  {
+                    id,
+                    category,
+                    title,
+                    content,
+                    userNickname,
+                    replyCount,
+                    createdAt,
+                    image,
+                  },
+                  idx,
+                ) => (
+                  <ContentCard
+                    id={id}
+                    key={idx}
+                    category={category}
+                    title={title}
+                    content={content}
+                    userNickname={userNickname}
+                    replyCount={replyCount}
+                    createdAt={createdAt}
+                    img={image}
+                  />
+                ),
+              )}
+            </StCommunityListWrapper>
             <CommunityFloatingBtn />
           </StMainArticle>
-          {/* {!isLoading && !isError && communityList && (
+          {!isLoading && contentList && (
             <PageNavigation
               currentPage={currentPage}
-              lastPage={Math.ceil(contentList.length / limit)}
+              lastPage={Math.ceil(data.length / limit)}
               handleCurrentPage={handleCurrentPage}
             />
-          )} */}
+          )}
         </>
       )}
     </StCommunityWrapper>
@@ -176,9 +211,16 @@ const StSearchBar = styled.div`
 const StMainArticle = styled.article`
   display: flex;
 `;
-const StContentBlock = styled.div`
+const StCommunityListWrapper = styled.section`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  width: 97.6rem;
+
+  margin-bottom: 4.8rem;
 `;
 const StCategoryBlock = styled.div`
   display: flex;
@@ -253,3 +295,10 @@ const StCategoryItem = styled.li<{ isSelected: boolean }>`
     padding-bottom: 1rem;
   }
 `;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // const data = await getCommunity();
+  const data: CommunityData[] = communityMockData;
+  return {
+    props: { data },
+  };
+};
