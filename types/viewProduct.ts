@@ -16,7 +16,15 @@ export interface FilterTagProps {
 }
 export interface ViewProductProps {
   search?: string;
-  type: string;
+  type?: string;
+  month?: string;
+  price?: string;
+  playHow?: string;
+  store?: string;
+}
+export interface BannerProductProps {
+  search?: string;
+  type?: string;
   month?: string;
   price?: string;
   playHow?: string;

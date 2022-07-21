@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import router, { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { getBannerViewProduct } from '../../core/api/viewProduct';
 import {
   checkedItemsState,
   filterTagState,
@@ -43,6 +45,7 @@ export default function ViewProductBanner() {
     useRecoilState<Set<number>[]>(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
+
   const handleProductIcon = (selectIdx: number) => {
     if (selectedIcon == selectIdx) return;
     setSeletedIcon(selectIdx);
@@ -54,6 +57,7 @@ export default function ViewProductBanner() {
       new Set<number>(),
     ]);
     setFilterTagList([]);
+
     switch (selectIdx) {
       case 0:
         setToyKindList([]);
@@ -77,6 +81,11 @@ export default function ViewProductBanner() {
         setToyKindList(['소꿉 놀이', '역할 놀이']);
         break;
     }
+
+    router.push({
+      pathname: '/viewProduct',
+      query: { iconId: selectIdx },
+    });
   };
   return (
     <StProductBannerWrapper>

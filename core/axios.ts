@@ -22,8 +22,6 @@ baseInstance.interceptors.request.use((config) => {
 
 baseInstance.interceptors.response.use(
   async function (res) {
-    console.log('응답');
-    console.log(res);
     return res;
   },
   async function (error: { config: any; response: { status: any } }) {
