@@ -2,7 +2,9 @@ import styled from '@emotion/styled';
 import Router from 'next/router';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRecoilState } from 'recoil';
 import { putSignup } from '../core/api/user';
+import { userInfoState } from '../core/atom';
 import {
   IcSignupCheckboxSelected,
   IcSignupCheckboxUnselected,
@@ -18,6 +20,8 @@ export default function signup() {
   );
   const [isNickname, setIsNickname] = useState<boolean>(true);
   const signupBtnRef = useRef<HTMLButtonElement>(null);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  console.log(userInfo);
 
   useEffect(() => {
     if (signupBtnRef.current)

@@ -68,7 +68,7 @@ export default function ReplyList(props: ReplyListProps) {
     <>
       <StReplyTitle>
         <h1>댓글</h1>
-        <p>23</p>
+        <p>{replyList.length}</p>
       </StReplyTitle>
       <StInputForm>
         <StInputContent inputColor={inputColor}>

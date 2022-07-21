@@ -3,7 +3,7 @@ import { signIn, getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { loginUser } from '../core/api/user';
 import { PostLoginBody } from '../types/user';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import LocalStorage from '../core/localStorage';
 import Router from 'next/router';
 import { useRecoilState } from 'recoil';
@@ -21,19 +21,22 @@ export default function login({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
-  const handleLogin = async (social: string) => {
-    if (data.session.user) {
+  useEffect(() => {
+    const handleLogin = async () => {
       const userLoginData = {
         snsId: data.session?.user.email,
-        provider: social,
+        provider: userInfo.provider,
         email: data.session?.user.email,
       } as PostLoginBody;
+
       const login = await loginUser(userLoginData);
       if (login) {
         setUserInfo(userLoginData);
       }
-    }
-  };
+    };
+    if (userInfo.provider !== '') handleLogin();
+  }, [data.session]);
+
   useEffect(() => {
     if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
       Router.push('/signup');
@@ -59,8 +62,8 @@ export default function login({
         <IcKakaoBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            handleLogin('kakao');
             signIn('kakao');
+            setUserInfo({ provider: 'kakao' });
           }}
         />
 
@@ -68,14 +71,14 @@ export default function login({
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
             signIn('google');
-            handleLogin('google');
+            setUserInfo({ provider: 'google' });
           }}
         />
         <IcNaverBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
             signIn('naver');
-            handleLogin('naver');
+            setUserInfo({ provider: 'naver' });
           }}
         />
       </StContentWrapper>

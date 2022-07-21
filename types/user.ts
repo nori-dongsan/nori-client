@@ -11,9 +11,9 @@ export interface PostSignUpBody {
 }
 
 export interface PostLoginBody {
-  snsId: string;
+  snsId?: string;
   provider: string;
-  email: string;
+  email?: string;
   isSignup?: boolean;
 }
 export interface ResponseLoginDto {
