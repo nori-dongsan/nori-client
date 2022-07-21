@@ -84,7 +84,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       case 1:
         newStr = '';
         checkedItems[1].forEach(function (item, index) {
-          newStr += `${item},`;
+          newStr += `${item + 1}`;
         });
         newQuery = {
           search: filterQuery.search,
@@ -100,7 +100,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       case 2:
         newStr = '';
         checkedItems[2].forEach(function (item, index) {
-          newStr += `${item},`;
+          newStr += `${item + 1}`;
         });
         newQuery = {
           search: filterQuery.search,
@@ -116,7 +116,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       case 3:
         newStr = '';
         checkedItems[3].forEach(function (item, index) {
-          newStr += `${item},`;
+          newStr += `${item + 1}`;
         });
         newQuery = {
           search: filterQuery.search,
@@ -132,7 +132,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       case 4:
         newStr = '';
         checkedItems[4].forEach(function (item, index) {
-          newStr += `${item},`;
+          newStr += `${item + 1}`;
         });
         newQuery = {
           search: filterQuery.search,

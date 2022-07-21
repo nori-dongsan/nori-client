@@ -62,6 +62,7 @@ export default function viewProduct({
     Number(router.query.iconId) !== 0
       ? useGetBannerViewProduct(
           Number(router.query.iconId),
+          0,
           `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&price=${filterQuery.price}&playHow=${filterQuery.playHow}&store=${filterQuery.store}`,
         )
       : useGetViewProduct(
@@ -70,7 +71,7 @@ export default function viewProduct({
 
   useEffect(() => {
     if (result) {
-      const filterData = result.filter(
+      filterData = result.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
@@ -86,7 +87,7 @@ export default function viewProduct({
       // );
       // setToyList(filterData);
       // window.scrollTo(0, 0);
-      console.log('토이리스트', toyFilterList);
+      console.log('토이리스트', toyFilterList.data.data.result);
     }
   }, [toyFilterList]);
   return (
@@ -205,7 +206,7 @@ const StEmptyView = styled.section`
 // };
 export const getServerSideProps: GetServerSideProps = async (context) => {
   if (context.query.iconId && Number(context.query.iconId) !== 0) {
-    const res = await getBannerViewProduct(Number(context.query.iconId));
+    const res = await getBannerViewProduct(Number(context.query.iconId), 0);
     return {
       props: {
         filterData: res.data.data.filterData,
