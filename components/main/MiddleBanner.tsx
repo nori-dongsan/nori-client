@@ -21,5 +21,5 @@ const StBiddleBannerWrapper = styled.section`
 
   width: 100%;
   height: 15.8rem;
-  margin-top: 6.9rem;
+  margin-top: 10rem;
 `;
