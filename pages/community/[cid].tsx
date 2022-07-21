@@ -50,7 +50,7 @@ export default function CommunityDetail({
 
     if (val && cid) {
       const status = await deleteCommunity(cid);
-      if (status === 200) router.push('/community');
+      if (status === 200) router.replace('/community');
     }
   };
 
