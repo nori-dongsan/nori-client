@@ -56,17 +56,15 @@ export default function viewProduct({
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-
+  console.log('체크', Object.keys(checkedItems));
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
   let { toyFilterList, isLoading, isError } =
     Number(router.query.iconId) !== 0
       ? useGetBannerViewProduct(
           Number(router.query.iconId),
-          0,
           `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&price=${filterQuery.price}&playHow=${filterQuery.playHow}&store=${filterQuery.store}`,
         )
       : useGetViewProduct(
-          0,
           `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&price=${filterQuery.price}&playHow=${filterQuery.playHow}&store=${filterQuery.store}`,
         );
 
@@ -79,17 +77,18 @@ export default function viewProduct({
       setToyList(filterData);
       window.scrollTo(0, 0);
     }
-  }, [result, currentPage, filterQuery]);
-  // useEffect(() => {
-  //   if (toyFilterList) {
-  //     const filterData = toyFilterList.data.filter(
-  //       (_: any, idx: number) =>
-  //         (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
-  //     );
-  //     setToyList(filterData);
-  //     window.scrollTo(0, 0);
-  //   }
-  // }, [toyFilterList]);
+  }, [result, currentPage]);
+  useEffect(() => {
+    if (toyFilterList) {
+      // const filterData = toyFilterList.data.filter(
+      //   (_: any, idx: number) =>
+      //     (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
+      // );
+      // setToyList(filterData);
+      // window.scrollTo(0, 0);
+      console.log('토이리스트', toyFilterList);
+    }
+  }, [toyFilterList]);
   return (
     <StViewProductWrapper>
       {!filterData ? (
@@ -184,9 +183,29 @@ const StEmptyView = styled.section`
 
   margin: 0 23.8rem;
 `;
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   if (context.query.iconId && Number(context.query.iconId) !== 0) {
+//     const res = await getBannerViewProduct(Number(context.query.iconId), 0);
+//     return {
+//       props: {
+//         filterData: res.data.data.filterData,
+//         result: res.data.data.result,
+//       },
+//     };
+//   } else {
+//     const res = await getViewProduct(0);
+
+//     return {
+//       props: {
+//         filterData: res.data.data.filterData,
+//         result: res.data.data.result,
+//       },
+//     };
+//   }
+// };
 export const getServerSideProps: GetServerSideProps = async (context) => {
   if (context.query.iconId && Number(context.query.iconId) !== 0) {
-    const res = await getBannerViewProduct(Number(context.query.iconId), 0);
+    const res = await getBannerViewProduct(Number(context.query.iconId));
     return {
       props: {
         filterData: res.data.data.filterData,
@@ -194,7 +213,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } else {
-    const res = await getViewProduct(0);
+    const res = await getViewProduct();
 
     return {
       props: {

@@ -13,14 +13,7 @@ import {
 } from '../../types/viewProduct';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
-  const {
-    categoryInfo,
-    isDrop,
-    isExcept,
-    categoryIdx,
-    checkedItem,
-    categoryKey,
-  } = props;
+  const { categoryInfo, isDrop, isExcept, categoryIdx, categoryKey } = props;
   const toyKindList = useRecoilValue<string[]>(toyKindState);
   const [checkedItems, setCheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);
@@ -56,11 +49,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     } else {
       checkedItems[categoryIdx].add(elementIdx);
       setFilterTagList([...filterTagList, tag]);
-      console.log(filterTagList);
-
-      console.log('체크리스트', checkedItems);
-      const sJson = checkedItems[0];
-      console.log('체크리스트2', sJson);
+      handleQuery(categoryIdx, elementIdx, tagText);
     }
 
     setCheckedItems({
@@ -68,7 +57,96 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       [categoryIdx]: checkedItems[categoryIdx],
     });
   };
-
+  const handleQuery = (
+    categoryIdx: number,
+    elementIdx: number,
+    tagText: string,
+  ) => {
+    let newQuery: ViewProductProps;
+    let newStr: string;
+    switch (categoryIdx) {
+      case 0:
+        newStr = '';
+        checkedItems[0].forEach(function (item, index) {
+          newStr += `${categoryInfo[index]},`;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: newStr,
+          month: filterQuery.month,
+          price: filterQuery.price,
+          playHow: filterQuery.playHow,
+          store: filterQuery.store,
+        };
+        setFilterCheckQuery(newQuery);
+        console.log('str', newStr);
+        break;
+      case 1:
+        newStr = '';
+        checkedItems[1].forEach(function (item, index) {
+          newStr += `${item},`;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: filterQuery.type,
+          month: newStr,
+          price: filterQuery.price,
+          playHow: filterQuery.playHow,
+          store: filterQuery.store,
+        };
+        setFilterCheckQuery(newQuery);
+        console.log('str', newStr);
+        break;
+      case 2:
+        newStr = '';
+        checkedItems[2].forEach(function (item, index) {
+          newStr += `${item},`;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: filterQuery.type,
+          month: filterQuery.month,
+          price: newStr,
+          playHow: filterQuery.playHow,
+          store: filterQuery.store,
+        };
+        setFilterCheckQuery(newQuery);
+        console.log('str', newStr);
+        break;
+      case 3:
+        newStr = '';
+        checkedItems[3].forEach(function (item, index) {
+          newStr += `${item},`;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: filterQuery.type,
+          month: filterQuery.month,
+          price: filterQuery.price,
+          playHow: newStr,
+          store: filterQuery.store,
+        };
+        setFilterCheckQuery(newQuery);
+        console.log('str', newStr);
+        break;
+      case 4:
+        newStr = '';
+        checkedItems[4].forEach(function (item, index) {
+          newStr += `${item},`;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: filterQuery.type,
+          month: filterQuery.month,
+          price: filterQuery.price,
+          playHow: filterQuery.playHow,
+          store: newStr,
+        };
+        setFilterCheckQuery(newQuery);
+        console.log('str', newStr);
+        break;
+    }
+  };
   return (
     <StDropdownWrapper
       isDrop={isDrop}
