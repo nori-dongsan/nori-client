@@ -48,11 +48,6 @@ export interface PostCommentBody {
   content: string;
 }
 
-export interface GetCommunityList {
-  communityList: CommunityData[];
-  isLoading: boolean;
-  isError: string;
-}
 // 커뮤니티 글 작성 이미지 데이터
 export interface ImgData {
   id: number;
