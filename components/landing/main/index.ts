@@ -5,3 +5,5 @@ export { default as LandingMiddleBanner } from './LandingMiddleBanner';
 export { default as LandingToyList } from './LandingToyList';
 export { default as LandingToyPreview } from './LandingToyPreview';
 export { default as LandingConceptTitle } from './LandingConceptTitle';
+export { default as LandingFooter } from './LandingFooter';
+export { default as LandingHeader } from './LandingHeader';
