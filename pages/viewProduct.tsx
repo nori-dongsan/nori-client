@@ -23,6 +23,7 @@ import { filterTagState } from '../core/atom';
 import { IcGrayEmpty } from '../public/assets/icons';
 import {
   getBannerViewProduct,
+  getViewProduct,
   useGetBannerViewProduct,
 } from '../core/api/viewProduct';
 
@@ -44,7 +45,7 @@ export default function viewProduct({
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-  // useSWR로 로딩 판단할 것임
+
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
 
   // let { productList, isLoading, isError } = priceDesc
@@ -157,12 +158,12 @@ const StEmptyView = styled.section`
   margin: 0 23.8rem;
 `;
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await getBannerViewProduct();
-  console.log(res.data.data);
+  const res = await getViewProduct();
+  console.log(res);
   return {
     props: {
-      filterData: res.data.data.filterData,
-      result: res.data.data.result,
+      filterData: '',
+      result: '',
     },
   };
 };

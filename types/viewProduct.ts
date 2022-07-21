@@ -14,3 +14,11 @@ export interface FilterTagProps {
   categoryKey: string;
   tagText: string;
 }
+export interface ViewProductProps {
+  search?: string;
+  type: string;
+  month?: string;
+  price?: string;
+  playHow?: string;
+  store?: string;
+}
