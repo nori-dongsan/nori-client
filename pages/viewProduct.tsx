@@ -16,22 +16,27 @@ import {
 } from '../components/landing/viewProduct';
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
-import { toyMockData } from '../mocks/data/toyMockData';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRecoilValue } from 'recoil';
 import { FilterTagProps } from '../types/viewProduct';
 import { filterTagState } from '../core/atom';
 import { IcGrayEmpty } from '../public/assets/icons';
+import {
+  getBannerViewProduct,
+  useGetBannerViewProduct,
+} from '../core/api/viewProduct';
 
 const limit = 40;
 
 export default function viewProduct({
-  data,
+  filterData,
+  result,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log(filterData, result);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  console.log(data);
+
   const handleClickPrice = (clickPrice: string) => {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
@@ -39,10 +44,7 @@ export default function viewProduct({
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-
-  const [selectPrice, setSelectPrice] = useState<boolean[]>([true, false]);
   // useSWR로 로딩 판단할 것임
-  const isLoading = false;
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
 
   // let { productList, isLoading, isError } = priceDesc
@@ -50,19 +52,19 @@ export default function viewProduct({
   //   : (useGetCollectionProduct('price-asc') as GetCollectionProduct);
 
   useEffect(() => {
-    if (data) {
-      const filterData = data.filter(
+    if (result) {
+      const filterData = result.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
       setToyList(filterData);
       window.scrollTo(0, 0);
     }
-  }, [data, currentPage]);
+  }, [result, currentPage]);
 
   return (
     <StViewProductWrapper>
-      {false ? (
+      {!filterData ? (
         <>
           <LandingViewProductBanner />
           <StFilterSectionWrapper>
@@ -113,7 +115,7 @@ export default function viewProduct({
           </StFilterSectionWrapper>
           <PageNavigation
             currentPage={currentPage}
-            lastPage={Math.ceil(data.length / limit)}
+            lastPage={Math.ceil(result.length / limit)}
             handleCurrentPage={handleCurrentPage}
           />
         </>
@@ -155,10 +157,12 @@ const StEmptyView = styled.section`
   margin: 0 23.8rem;
 `;
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data: ToyData[] = toyMockData;
+  const res = await getBannerViewProduct();
+  console.log(res.data.data);
   return {
     props: {
-      data,
+      filterData: res.data.data.filterData,
+      result: res.data.data.result,
     },
   };
 };

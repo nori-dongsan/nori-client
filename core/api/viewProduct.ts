@@ -15,5 +15,5 @@ export const useGetBannerViewProduct = (params: { category: number }) => {
   };
 };
 export const getBannerViewProduct = () => {
-  return;
+  return baseInstance.get('/toy/list');
 };
