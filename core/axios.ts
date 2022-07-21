@@ -12,10 +12,8 @@ const baseInstance = axios.create({
 baseInstance.interceptors.request.use((config) => {
   const headers = {
     ...config.headers,
-    accessToken:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTY1ODM4NDEwMCwiZXhwIjoxNjU4MzkxMzAwLCJpc3MiOiJub3JpIn0.ZNRxtGPFJpVCHJzlK0HdcgPcZWvkkCt3FZ_VHu8sz7M',
-    refreshToken:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTY1ODM4NDEwMCwiZXhwIjoxNjU5NTkzNzAwLCJpc3MiOiJub3JpIn0.AeuhSmM1ZqItojeM3O0SwrELog-Qfq91r_ii0EMgPig',
+    accessToken: LocalStorage.getItem('accessToken'),
+    refreshToken: LocalStorage.getItem('refreshToken'),
   };
 
   return { ...config, headers };
@@ -37,7 +35,7 @@ baseInstance.interceptors.response.use(
     if (status === 401) {
       // token refresh 요청
       const { data } = await axios.post(
-        `/auth/refresh`, // token refresh api
+        `/auth/token/refresh`, // token refresh api
         {},
         {
           headers: {
