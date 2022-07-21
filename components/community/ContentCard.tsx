@@ -57,7 +57,6 @@ export default function ContentCard(props: ContentInfoProps) {
 
 const StContentsCardWrapper = styled.div`
   display: flex;
-  /* flex-direction: ; */
 
   margin-bottom: 4.8rem;
   padding-bottom: 4.5rem;
@@ -78,7 +77,6 @@ const StContentsCardWrapper = styled.div`
   }
 
   p {
-    width: 72.5rem;
     margin-bottom: 2.7rem;
 
     display: -webkit-box;
@@ -97,7 +95,7 @@ const StContentInfo = styled.section`
   display: flex;
   flex-direction: column;
 
-  width: 72.5rem;
+  width: auto;
 `;
 const StContentImg = styled.img`
   width: 21.8rem;
