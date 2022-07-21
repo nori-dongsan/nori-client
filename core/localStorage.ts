@@ -11,8 +11,6 @@ class LocalStorage {
     if (typeof window !== 'undefined') {
       return localStorage.getItem(key) as string;
     }
-
-    return '';
   }
 
   static removeItem(key: string) {
