@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import { IcReply, IcHeart, IcDot } from '../../public/assets/icons';
 import CommunityCategory from './CommunityCategory';
 import Router from 'next/router';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 interface ContentInfoProps {
   id: string;
@@ -41,7 +39,7 @@ export default function ContentCard(props: ContentInfoProps) {
         <StWriteInfo>
           <span>{userNickname}</span>
           <IcDot />
-          <span>{createdAt.split('T')[0]}</span>
+          <span>{createdAt?.split('T')[0]}</span>
         </StWriteInfo>
         <StReplyInfo>
           <IcHeart />

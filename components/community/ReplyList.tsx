@@ -26,6 +26,10 @@ export default function ReplyList(props: ReplyListProps) {
   });
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageReplyList, setPageReplyList] = useState<ReplyData[]>([]);
+  const [isFirst, setIsFirst] = useState<boolean>(true);
+
+  console.log('=========================');
+  console.log(replyList);
 
   const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReplyText(e.target.value);
@@ -55,13 +59,17 @@ export default function ReplyList(props: ReplyListProps) {
   };
 
   useEffect(() => {
-    if (replyList) {
-      setPageReplyList(
-        replyList.filter(
-          (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
-        ),
-      );
-      window.scrollTo({ top: 750 });
+    if (!isFirst) {
+      if (replyList) {
+        setPageReplyList(
+          replyList.filter(
+            (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
+          ),
+        );
+        window.scrollTo({ top: 750 });
+      }
+    } else {
+      setIsFirst((prev) => !prev);
     }
   }, [replyList, currentPage]);
   return (
@@ -84,20 +92,18 @@ export default function ReplyList(props: ReplyListProps) {
         </StInputBtn>
       </StInputForm>
       <StReplyWrapper>
-        {pageReplyList.map(
-          ({ author, userNickname, content, createdAt }, idx) => (
-            <ReplyContent
-              key={idx}
-              author={author}
-              userNickname={userNickname}
-              content={content}
-              createdAt={createdAt}
-            />
-          ),
-        )}
+        {replyList.map(({ author, userNickname, content, createAt }, idx) => (
+          <ReplyContent
+            key={idx}
+            author={author}
+            userNickname={userNickname}
+            content={content}
+            createAt={createAt}
+          />
+        ))}
       </StReplyWrapper>
       <StReplyListNav>
-        {replyList && (
+        {pageReplyList && (
           <PageNavigation
             currentPage={currentPage}
             lastPage={Math.ceil(replyList.length / 10)}

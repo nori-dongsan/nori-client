@@ -6,11 +6,11 @@ interface ReplyContentProps {
   author: boolean;
   userNickname?: string;
   content: string;
-  createdAt: string;
+  createAt: string;
 }
 
 export default function ReplyContent(props: ReplyContentProps) {
-  const { userNickname, content, createdAt, author } = props;
+  const { userNickname, content, createAt, author } = props;
 
   return (
     <StReplyContentWrapper>
@@ -21,7 +21,7 @@ export default function ReplyContent(props: ReplyContentProps) {
       <StReplyContents>
         <p>{content}</p>
         <span>
-          {createdAt} · {author ? '삭제' : '신고'}
+          {createAt} · {author ? '삭제' : '신고'}
         </span>
       </StReplyContents>
     </StReplyContentWrapper>
