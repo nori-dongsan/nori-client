@@ -13,9 +13,6 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getCommunity } from '../../core/api/community';
 import { communityMockData } from '../../mocks/data/communityMockData';
 
-import { PageNavigation } from '../../components/collectionProduct';
-
-
 const limit = 20;
 
 export default function community({
