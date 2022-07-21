@@ -10,7 +10,6 @@ import { MainToyData } from '../../types/toy';
 export default function ToyPreview(props: MainToyData) {
   const { image, month, price, siteName, siteUrl, title } = props;
   const [isMark, setIsMark] = useState(false);
-  console.log(image);
   const handleToySite = (e: React.MouseEvent<HTMLElement>) => {
     if (!(e.target instanceof SVGElement)) window.open(siteUrl);
   };
