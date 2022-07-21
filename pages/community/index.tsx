@@ -11,7 +11,6 @@ import { GetCommunityList, CommunityData } from '../../types/community';
 import { PageNavigation } from '../../components/common';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getCommunity } from '../../core/api/community';
-import { communityMockData } from '../../mocks/data/communityMockData';
 
 const limit = 20;
 
