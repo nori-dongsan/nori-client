@@ -48,7 +48,7 @@ export default function CommunityDetail({
       '삭제하시겠어요? 삭제 시, 해당 글과 댓글은 복구되지 않습니다.',
     );
 
-    if (val) {
+    if (val && cid) {
       const status = await deleteCommunity(cid);
       if (status === 200) router.push('/community');
     }
@@ -140,7 +140,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
   const res = await getCommunityDetail(params!.cid);
   return {
     props: {
-      data: res.data.data,
+      data: { ...res.data.data, id: params!.cid },
     },
   };
 };
