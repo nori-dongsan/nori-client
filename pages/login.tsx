@@ -16,6 +16,7 @@ import {
   IcKakaoBtn,
 } from '../public/assets/icons';
 import { userInfoState } from '../core/atom';
+
 export default function login({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -41,8 +42,8 @@ export default function login({
   }, [data.session]);
 
   useEffect(() => {
-    if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
-      Router.push('/signup');
+    // if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
+    //   Router.push('/signup');
   }, []);
 
   return (
@@ -96,8 +97,11 @@ const StLoginWrapper = styled.section`
 
   height: 100vh;
   padding-top: 15.2rem;
-  background: ${({ theme }) => theme.colors.mainGreen};
+  background: url('/assets/icons/loginBackground.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
+
 const StContentWrapper = styled.article`
   display: flex;
   justify-content: center;
