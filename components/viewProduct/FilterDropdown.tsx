@@ -57,7 +57,13 @@ export default function FilterDropdown(props: FilterDropdownProps) {
   };
 
   return (
-    <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
+    <StDropdownWrapper
+      isDrop={isDrop}
+      isExcept={isExcept}
+      className={`${
+        isDrop ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'
+      }`}
+    >
       {categoryKey === '장난감 종류' && toyKindList.length !== 0
         ? toyKindList.map((tagText: string, elementIdx: number) => {
             return (
@@ -135,8 +141,6 @@ const StFilterElement = styled.p`
   width: 15.2rem;
   height: 2rem;
 
-  // color: {({ checked, theme: { colors } }) =>
-  //   checked ? colors.black : colors.gray008};
   ${({ theme }) => theme.fonts.b5_14_medium_140};
 `;
 const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
@@ -172,20 +176,9 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
       theme.colors.gray002}; /*스크롤바 뒷 배경 색상*/
   }
 
-  // @keyframes slide-fade-in-dropdown-animation {
-  //   0% {
-  //     transform: translateY(-1rem);
-  //   }
-
-  //   100% {
-  //     transform: translateY(0);
-  //   }
-  // }
-  /* fade out */
-
-  @keyframes slide-fade-out-dropdown-animation {
+  @keyframes slide-fade-in-dropdown-animation {
     0% {
-      transform: translateY(0);
+      transform: translateY(0%);
     }
 
     100% {
@@ -193,15 +186,22 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
     }
   }
 
+  /* fade out */
+
+  @keyframes slide-fade-out-dropdown-animation {
+    0% {
+      transform: translateY(0%);
+    }
+
+    100% {
+      transform: translateY(0%);
+    }
+  }
+
   animation: ${({ isDrop }) =>
     isDrop
-      ? 'slide-fade-in-dropdown-animation 0.4s ease'
-      : 'slide-fade-out-dropdown-animation 0.4s ease'};
-
-  // .slide-fade-out-dropdown {
-  //   animation: slide-fade-out-dropdown-animation 0.4s ease;
-  //   animation-fill-mode: forwards;
-  // }
+      ? 'slide-fade-in-dropdown-animation 3s ease'
+      : 'slide-fade-out-dropdown-animation 3s ease'};
 `;
 // display `-객체의 노출여부/표현방식--`
 // ( justify-content / align-items)

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   checkedItemsState,
@@ -19,54 +19,58 @@ export default function ProductFilter() {
     false,
     false,
   ]);
-
+  const [visibilityAnimation, setVisibilityAnimation] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const filterListData = Object.values(filterlist.filterList);
   const filterListKeys = Object.keys(filterlist.filterList);
   const [checkedItems, setcheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);
   const toyKindList = useRecoilValue<string[]>(toyKindState);
+  const [repeat, setRepeat] = useState<any>(null);
   const handleDropdown = (idx: number) => {
+    if (visibility[idx]) {
+      let timeoutId = repeat;
+      window.clearTimeout(timeoutId);
+      setRepeat(null);
+      setVisibilityAnimation({
+        ...visibilityAnimation,
+        [idx]: true,
+      });
+    } else {
+      setRepeat(
+        setTimeout(() => {
+          setVisibilityAnimation({
+            ...visibilityAnimation,
+            [idx]: false,
+          });
+        }, 400),
+      );
+    }
+
     setVisibility({
       ...visibility,
       [idx]: !visibility[idx],
     });
   };
 
-  //const [repeat, setRepeat] = useState<null | number | void | string>();
-  // const handleDrop = (idx: number) => {
-  //   if (visibility[idx]) {
-  //     clearTimeout(repeat);
-  //     setRepeat(null);
-  //     setVisibility({
-  //       ...visibility,
-  //       [idx]: !visibility[idx],
-  //     });
-  //   } else {
-  //     setRepeat(
-  //       setTimeout(() => {
-  //         setVisibility({
-  //           ...visibility,
-  //           [0]: !visibility[0],
-  //         });
-  //         return 0;
-  //       }, 400),
-  //     );
-  //   }
-  // };
-
   return (
     <StFilterWrapper>
       {filterListKeys.map((title: string, idx: number) => (
-        <StFilterSection isDrop={visibility[idx]} key={title}>
+        <StFilterSection isDrop={visibilityAnimation[idx]} key={title}>
           <StFilterTitle
             onClick={() => {
               handleDropdown(idx);
             }}
           >
             <h2>{title}</h2>
-            {visibility[idx] ? <IcClose /> : <IcOpen />}
+            {visibilityAnimation[idx] ? <IcClose /> : <IcOpen />}
           </StFilterTitle>
-          {visibility[idx] && (
+          {visibilityAnimation[idx] && (
             <FilterDropdown
               categoryInfo={filterListData[idx]}
               categoryIdx={idx}
