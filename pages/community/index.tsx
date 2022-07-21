@@ -11,11 +11,12 @@ import { GetCommunityList, CommunityData } from '../../types/community';
 import { PageNavigation } from '../../components/common';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getCommunity } from '../../core/api/community';
+import { useRouter } from 'next/router';
 
 const limit = 20;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await getCommunity();
+  const res = await getCommunity(4);
   return {
     props: res.data,
   };
