@@ -2,10 +2,15 @@ import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   checkedItemsState,
+  filterCheckQuery,
   filterTagState,
   toyKindState,
 } from '../../core/atom';
-import { FilterDropdownProps, FilterTagProps } from '../../types/viewProduct';
+import {
+  FilterDropdownProps,
+  FilterTagProps,
+  ViewProductProps,
+} from '../../types/viewProduct';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
   const {
@@ -21,6 +26,10 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     useRecoilState<Set<number>[]>(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
+
+  const [filterQuery, setFilterCheckQuery] =
+    useRecoilState<ViewProductProps>(filterCheckQuery);
+
   const handleCheckedItems = (
     categoryIdx: number,
     elementIdx: number,
@@ -48,6 +57,10 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       checkedItems[categoryIdx].add(elementIdx);
       setFilterTagList([...filterTagList, tag]);
       console.log(filterTagList);
+
+      console.log('체크리스트', checkedItems);
+      const sJson = checkedItems[0];
+      console.log('체크리스트2', sJson);
     }
 
     setCheckedItems({
@@ -211,27 +224,3 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
       ? 'slide-fade-in-dropdown-animation 0.2s ease-out'
       : 'slide-fade-out-dropdown-animation 0.2s ease-out'};
 `;
-// display `-객체의 노출여부/표현방식--`
-// ( justify-content / align-items)
-// ( flex-direction / flex-wrap / flex-flow ) → flex ~로 시작하는 것들
-// list-style
-// position `-위치/좌표--`
-// float
-// clear
-
-// width
-// height `-크기/여백--`
-// padding
-// margin
-
-// border
-// background `-윤곽/배경--`
-// color
-// font `-글자/정렬--`
-
-// text-decoration
-// text-align / vertical-align
-
-// white-space
-// other text
-// content `-내용--`

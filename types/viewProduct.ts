@@ -22,11 +22,25 @@ export interface ViewProductProps {
   playHow?: string;
   store?: string;
 }
-export interface BannerProductProps {
-  search?: string;
-  type?: string;
-  month?: string;
-  price?: string;
-  playHow?: string;
-  store?: string;
+export interface FilterData {
+  type: string[];
+  month: string[];
+  price: string[];
+  playHow: string[];
+  store: string[];
+}
+export interface ToyFilterData {
+  image: string;
+  title: string;
+  siteName: string;
+  price: string;
+  month: number;
+  siteUrl: string;
+}
+export interface GetViewProduct {
+  result: {
+    data: { data: { filterData: FilterData; toyFilterList: ToyFilterData[] } };
+  };
+  isLoading: boolean;
+  isError: string;
 }

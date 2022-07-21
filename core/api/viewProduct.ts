@@ -4,7 +4,7 @@ import { baseInstance } from '../axios';
 
 export const useGetViewProduct = (
   currentPage: number,
-  viewProductData: ViewProductProps,
+  viewProductData: string,
 ) => {
   const { data, error } = useSWR(
     [`/toy/list?page=${currentPage}&`, viewProductData],
@@ -22,7 +22,7 @@ export const useGetViewProduct = (
 export const useGetBannerViewProduct = (
   category: number,
   currentPage: number,
-  viewProductData: ViewProductProps,
+  viewProductData: string,
 ) => {
   const { data, error } = useSWR(
     [`${category}?page=${currentPage}&`, viewProductData],

@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist'; //페이지가 변경되더라도 상태관리를 유지
 import { PostCommunityBody, IsChangeCommunity } from '../types/community';
 import { PostLoginBody } from '../types/user';
-import { FilterTagProps } from '../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
 
 const { persistAtom } = recoilPersist();
 
@@ -110,4 +110,15 @@ export const checkedItemsState = atom<Set<number>[]>({
 export const toyKindState = atom<string[]>({
   key: 'toyKindState',
   default: [],
+});
+export const filterCheckQuery = atom<ViewProductProps>({
+  key: 'filterCheckQuery',
+  default: {
+    search: '',
+    type: '',
+    month: '',
+    price: '',
+    playHow: '',
+    store: '',
+  },
 });

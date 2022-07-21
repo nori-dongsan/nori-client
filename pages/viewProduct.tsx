@@ -17,16 +17,22 @@ import {
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRecoilValue } from 'recoil';
-import { FilterTagProps } from '../types/viewProduct';
-import { filterTagState } from '../core/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
+import {
+  checkedItemsState,
+  filterCheckQuery,
+  filterTagState,
+} from '../core/atom';
 import { IcGrayEmpty } from '../public/assets/icons';
 import {
   getBannerViewProduct,
   getViewProduct,
   useGetBannerViewProduct,
+  useGetViewProduct,
 } from '../core/api/viewProduct';
-
+import { Router, useRouter } from 'next/router';
+import { GetViewProduct } from '../types/viewProduct';
 const limit = 40;
 
 export default function viewProduct({
@@ -34,9 +40,14 @@ export default function viewProduct({
   result,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   console.log(filterData, result);
+  const router = useRouter();
+
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const filterQuery = useRecoilValue<ViewProductProps>(filterCheckQuery);
+  const [checkedItems, setCheckedItems] =
+    useRecoilState<Set<number>[]>(checkedItemsState);
 
   const handleClickPrice = (clickPrice: string) => {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
@@ -47,10 +58,17 @@ export default function viewProduct({
   };
 
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
-
-  // let { productList, isLoading, isError } = priceDesc
-  //   ? (useGetCollectionProduct('price-desc') as GetCollectionProduct)
-  //   : (useGetCollectionProduct('price-asc') as GetCollectionProduct);
+  let { toyFilterList, isLoading, isError } =
+    Number(router.query.iconId) !== 0
+      ? useGetBannerViewProduct(
+          Number(router.query.iconId),
+          0,
+          `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&price=${filterQuery.price}&playHow=${filterQuery.playHow}&store=${filterQuery.store}`,
+        )
+      : useGetViewProduct(
+          0,
+          `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&price=${filterQuery.price}&playHow=${filterQuery.playHow}&store=${filterQuery.store}`,
+        );
 
   useEffect(() => {
     if (result) {
@@ -61,8 +79,17 @@ export default function viewProduct({
       setToyList(filterData);
       window.scrollTo(0, 0);
     }
-  }, [result, currentPage]);
-
+  }, [result, currentPage, filterQuery]);
+  // useEffect(() => {
+  //   if (toyFilterList) {
+  //     const filterData = toyFilterList.data.filter(
+  //       (_: any, idx: number) =>
+  //         (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
+  //     );
+  //     setToyList(filterData);
+  //     window.scrollTo(0, 0);
+  //   }
+  // }, [toyFilterList]);
   return (
     <StViewProductWrapper>
       {!filterData ? (
