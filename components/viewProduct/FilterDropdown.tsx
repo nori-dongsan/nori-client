@@ -64,7 +64,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
         isDrop ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'
       }`}
     >
-      {categoryKey === '장난감 종류' && toyKindList.length !== 0
+      {categoryKey === '종류' && toyKindList.length !== 0
         ? toyKindList.map((tagText: string, elementIdx: number) => {
             return (
               <StLabel
