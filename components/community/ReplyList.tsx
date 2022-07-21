@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, InputHTMLAttributes } from 'react';
 import { postReply } from '../../core/api/community';
 import {
   CommunityData,
@@ -29,12 +29,11 @@ export default function ReplyList(props: ReplyListProps) {
   const [isFirst, setIsFirst] = useState<boolean>(true);
 
   const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReplyText(e.target.value);
-    setNewReplyInfo({ ...newReplyInfo, content: e.target.value });
+    setNewReplyInfo({ boardId: cid, content: e.target.value });
   };
 
-  const handleInputColor = () => {
-    setInputColor(replyText.length !== 0);
+  const handleInputColor = (e: any) => {
+    setInputColor(e.target.value.length !== 0);
   };
 
   const handleReplyregister = async () => {
@@ -44,12 +43,13 @@ export default function ReplyList(props: ReplyListProps) {
       return;
     }
 
-    const data = await postReply(newReplyInfo);
+    const status = await postReply(newReplyInfo);
     setNewReplyInfo({
-      boardId: `${cid}`,
+      boardId: cid,
       content: replyText,
     });
-    router.push(`/community/${data.id}`);
+    if (status === 200) router.push(`/community/${cid}`);
+    setNewReplyInfo({ boardId: cid, content: '' });
   };
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
@@ -89,20 +89,18 @@ export default function ReplyList(props: ReplyListProps) {
         </StInputBtn>
       </StInputForm>
       <StReplyWrapper>
-        {pageReplyList.map(
-          ({ author, userNickname, content, createdAt }, idx) => (
-            <ReplyContent
-              key={idx}
-              author={author}
-              userNickname={userNickname}
-              content={content}
-              createdAt={createdAt}
-            />
-          ),
-        )}
+        {replyList.map(({ author, userNickname, content, createAt }, idx) => (
+          <ReplyContent
+            key={idx}
+            author={author}
+            userNickname={userNickname}
+            content={content}
+            createAt={createAt}
+          />
+        ))}
       </StReplyWrapper>
       <StReplyListNav>
-        {replyList && (
+        {pageReplyList && (
           <PageNavigation
             currentPage={currentPage}
             lastPage={Math.ceil(replyList.length / 10)}
