@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, InputHTMLAttributes } from 'react';
 import { postReply } from '../../core/api/community';
 import {
   CommunityData,
@@ -28,16 +28,12 @@ export default function ReplyList(props: ReplyListProps) {
   const [pageReplyList, setPageReplyList] = useState<ReplyData[]>([]);
   const [isFirst, setIsFirst] = useState<boolean>(true);
 
-  console.log('=========================');
-  console.log(replyList);
-
   const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReplyText(e.target.value);
-    setNewReplyInfo({ ...newReplyInfo, content: e.target.value });
+    setNewReplyInfo({ boardId: cid, content: e.target.value });
   };
 
-  const handleInputColor = () => {
-    setInputColor(replyText.length !== 0);
+  const handleInputColor = (e: any) => {
+    setInputColor(e.target.value.length !== 0);
   };
 
   const handleReplyregister = async () => {
@@ -47,12 +43,13 @@ export default function ReplyList(props: ReplyListProps) {
       return;
     }
 
-    const res = await postReply(newReplyInfo);
+    const status = await postReply(newReplyInfo);
     setNewReplyInfo({
       boardId: cid,
       content: replyText,
     });
-    router.push({ pathname: `/community/${cid}` });
+    if (status === 200) router.push(`/community/${cid}`);
+    setNewReplyInfo({ boardId: cid, content: '' });
   };
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);

@@ -53,8 +53,8 @@ export const putCommunity = async (id: string, body: PutCommunityBody) => {
 
 export const postReply = async (body: PostCommentBody) => {
   try {
-    const { data } = await baseInstance.post('/board/comment', body);
-    return data;
+    const { status } = await baseInstance.post('/board/comment', body);
+    return status;
   } catch (e) {
     console.log(e);
   }

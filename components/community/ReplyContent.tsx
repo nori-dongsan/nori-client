@@ -21,7 +21,7 @@ export default function ReplyContent(props: ReplyContentProps) {
       <StReplyContents>
         <p>{content}</p>
         <span>
-          {createAt} · {author ? '삭제' : '신고'}
+          {createAt.split('T')[0]} · {author ? '삭제' : '신고'}
         </span>
       </StReplyContents>
     </StReplyContentWrapper>
