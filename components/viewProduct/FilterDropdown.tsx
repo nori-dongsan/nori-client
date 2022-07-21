@@ -178,11 +178,15 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
 
   @keyframes slide-fade-in-dropdown-animation {
     0% {
-      transform: translateY(0%);
+      max-height: 14.8rem;
+      overflow: hidden;
+      opacity: 1;
     }
 
     100% {
-      transform: translateY(-100%);
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
     }
   }
 
@@ -190,18 +194,22 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
 
   @keyframes slide-fade-out-dropdown-animation {
     0% {
-      transform: translateY(0%);
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
     }
 
     100% {
-      transform: translateY(0%);
+      opacity: 1;
+      max-height: 14.8rem;
+      overflow: hidden;
     }
   }
 
   animation: ${({ isDrop }) =>
     isDrop
-      ? 'slide-fade-in-dropdown-animation 3s ease'
-      : 'slide-fade-out-dropdown-animation 3s ease'};
+      ? 'slide-fade-in-dropdown-animation 0.2s ease-out'
+      : 'slide-fade-out-dropdown-animation 0.2s ease-out'};
 `;
 // display `-객체의 노출여부/표현방식--`
 // ( justify-content / align-items)

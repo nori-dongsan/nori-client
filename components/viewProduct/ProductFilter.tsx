@@ -48,10 +48,9 @@ export default function ProductFilter() {
             ...visibilityAnimation,
             [idx]: false,
           });
-        }, 400),
+        }, 190),
       );
     }
-
     setVisibility({
       ...visibility,
       [idx]: !visibility[idx],
