@@ -45,7 +45,7 @@ export default function ReplyList(props: ReplyListProps) {
 
     const data = await postReply(newReplyInfo);
     setNewReplyInfo({
-      boardId: `${cid}`,
+      boardId: cid,
       content: replyText,
     });
     router.push(`/community/${data.id}`);
