@@ -2,11 +2,16 @@ class LocalStorage {
   constructor() {}
 
   static setItem(key: string, item: string) {
-    localStorage.setItem(key, item);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(key, item);
+    }
   }
 
   static getItem(key: string) {
-    return localStorage.getItem(key) as string;
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(key) as string;
+    }
+    return '';
   }
 
   static removeItem(key: string) {
