@@ -158,12 +158,12 @@ const StEmptyView = styled.section`
   margin: 0 23.8rem;
 `;
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await getViewProduct();
-  console.log(res);
+  const res = await getViewProduct(0);
+
   return {
     props: {
-      filterData: '',
-      result: '',
+      filterData: res.data.data.filterData,
+      result: res.data.data.result,
     },
   };
 };

@@ -43,6 +43,6 @@ export const getBannerViewProduct = (params: { category: number }) => {
     isError: error,
   };
 };
-export const getViewProduct = () => {
-  return baseInstance.get('/toy/list');
+export const getViewProduct = (currentPage: number) => {
+  return baseInstance.get(`/toy/list?page=${currentPage}`);
 };
