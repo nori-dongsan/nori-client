@@ -42,8 +42,8 @@ export default function login({
   }, [data.session]);
 
   useEffect(() => {
-    // if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
-    //   Router.push('/signup');
+    if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
+      Router.push('/signup');
   }, []);
 
   return (
