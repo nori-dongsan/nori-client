@@ -1,5 +1,9 @@
 import useSWR from 'swr';
-import { PostCommentBody, PostCommunityBody } from '../../types/community';
+import {
+  PostCommunityBody,
+  PutCommunityBody,
+  PostCommentBody,
+} from '../../types/community';
 import { baseInstance } from '../axios';
 
 export const useGetCollectionProduct = (key: string) => {
@@ -7,6 +11,7 @@ export const useGetCollectionProduct = (key: string) => {
   console.log(data);
   return data;
 };
+
 export const getCollectionProduct = (key: string) => {
   return baseInstance.get(`/collection?sort=${key}`);
 };
@@ -27,6 +32,7 @@ export const postCommunity = async (body: PostCommunityBody) => {
     console.log(e);
   }
 };
+
 export const getCommunityDetail = async (id: string) => {
   try {
     // const { data } = await axios.get(
@@ -38,10 +44,20 @@ export const getCommunityDetail = async (id: string) => {
     console.log(e);
   }
 };
+
 export const deleteCommunity = async (id: string) => {
   try {
     const { status } = await baseInstance.delete(`/board/${id}`);
     return status;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const putCommunity = async (id: string, body: PutCommunityBody) => {
+  try {
+    const { data } = await baseInstance.put(`/board/${id}`, body);
+    return data;
   } catch (e) {
     console.log(e);
   }
