@@ -2,14 +2,17 @@ import styled from '@emotion/styled';
 import { IcWriteHeaderLogo } from '../../public/assets/icons';
 import Link from 'next/link';
 import { useRecoilState } from 'recoil';
-import { newPostInfoState } from '../../core/atom';
-import { postCommunity } from '../../core/api/community';
+import { isChangeInfoState, newPostInfoState } from '../../core/atom';
+import { postCommunity, putCommunity } from '../../core/api/community';
 import { useRouter } from 'next/router';
+import { PutCommunityBody } from '../../types/community';
 
 export default function WriteHeader() {
   const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
+  const [isChangeCommunity, setIsChangeCommunity] =
+    useRecoilState(isChangeInfoState);
   const router = useRouter();
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
 
   const handleRegister = async () => {
     const { title, content } = newPostInfo;
@@ -27,6 +30,51 @@ export default function WriteHeader() {
     router.push(`/community/${data.id}`);
   };
 
+  const handleCancel = () => {
+    const val = confirm(
+      '수정을 취소하시겠습니까? 작성하던 내용은 모두 삭제됩니다.',
+    );
+
+    if (val) {
+      router.push(`/community/${query.cid}`);
+    }
+  };
+
+  const handleUpdate = async () => {
+    const { category, title, content, imageList } = newPostInfo;
+    const {
+      isChangeCategory,
+      isChangeTitle,
+      isChangeContent,
+      isChangeImageList,
+    } = isChangeCommunity;
+    const updatePostInfo: PutCommunityBody = {};
+
+    if (isChangeCategory) updatePostInfo.category = category;
+    if (isChangeTitle) updatePostInfo.title = title;
+    if (isChangeContent) updatePostInfo.content = content;
+    if (isChangeImageList) updatePostInfo.imageList = imageList;
+
+    if (updatePostInfo.title === '' || updatePostInfo.content === '') {
+      alert('내용을 입력해주세요.');
+      return;
+    }
+
+    const data = await putCommunity(String(query.cid), updatePostInfo);
+    setNewPostInfo({
+      category: '후기',
+      title: '',
+      content: '',
+    });
+    setIsChangeCommunity({
+      isChangeCategory: false,
+      isChangeTitle: false,
+      isChangeContent: false,
+      isChangeImageList: false,
+    });
+    router.push(`/community/${data.id}`);
+  };
+
   return (
     <StWriteHeaderWrapper>
       <Link href="/community">
@@ -34,13 +82,19 @@ export default function WriteHeader() {
           <IcWriteHeaderLogo />
         </a>
       </Link>
-      {pathname === '/community' ? (
+      {pathname === '/write/[cid]' ? (
         <StModifyBlock>
-          <StCancleBtn>취소</StCancleBtn>
-          <StWriteBtn>수정완료</StWriteBtn>
+          <StCancleBtn isMargin={false} onClick={handleCancel}>
+            취소
+          </StCancleBtn>
+          <StWriteBtn isMargin={false} onClick={handleUpdate}>
+            수정완료
+          </StWriteBtn>
         </StModifyBlock>
       ) : (
-        <StWriteBtn>등록하기</StWriteBtn>
+        <StWriteBtn isMargin={true} onClick={handleRegister}>
+          등록하기
+        </StWriteBtn>
       )}
     </StWriteHeaderWrapper>
   );
@@ -53,7 +107,7 @@ const StWriteHeaderWrapper = styled.section`
   position: sticky;
   top: -3.2em;
 
-  width: 192rem;
+  width: 100%;
   height: 11.4rem;
   padding-top: 4.2rem;
 
@@ -63,12 +117,12 @@ const StWriteHeaderWrapper = styled.section`
 
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 `;
-const StWriteBtn = styled.a`
+const StWriteBtn = styled.a<{ isMargin: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  margin-left: 11.4rem;
+  margin-left: ${({ isMargin }) => (isMargin ? '11.4rem' : '0rem')};
 
   width: 10rem;
   height: 4.2rem;

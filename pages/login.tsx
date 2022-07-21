@@ -3,10 +3,10 @@ import { signIn, getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { loginUser } from '../core/api/user';
 import { PostLoginBody } from '../types/user';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import LocalStorage from '../core/localStorage';
 import Router from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import {
   IcLoginNori,
@@ -20,20 +20,26 @@ export default function login({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  useResetRecoilState(userInfoState);
+  useEffect(() => {
+    const handleLogin = async () => {
+      if (data.session?.user) {
+        const userLoginData = {
+          snsId: data.session?.user.email,
+          provider: userInfo.provider,
+          email: data.session?.user.email,
+        } as PostLoginBody;
 
-  const handleLogin = async (social: string) => {
-    if (data.session.user) {
-      const userLoginData = {
-        snsId: data.session?.user.email,
-        provider: social,
-        email: data.session?.user.email,
-      } as PostLoginBody;
-      const login = await loginUser(userLoginData);
-      if (login) {
-        setUserInfo(userLoginData);
+        const login = await loginUser(userLoginData);
+        console.log(login);
+        if (!login) {
+          setUserInfo(userLoginData);
+        }
       }
-    }
-  };
+    };
+    if (userInfo.provider !== '') handleLogin();
+  }, [data.session]);
+
   useEffect(() => {
     if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
       Router.push('/signup');
@@ -59,8 +65,8 @@ export default function login({
         <IcKakaoBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            handleLogin('kakao');
             signIn('kakao');
+            setUserInfo({ provider: 'kakao' });
           }}
         />
 
@@ -68,14 +74,14 @@ export default function login({
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
             signIn('google');
-            handleLogin('google');
+            setUserInfo({ provider: 'google' });
           }}
         />
         <IcNaverBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
             signIn('naver');
-            handleLogin('naver');
+            setUserInfo({ provider: 'naver' });
           }}
         />
       </StContentWrapper>

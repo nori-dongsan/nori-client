@@ -1,10 +1,6 @@
 import LocalStorage from '../localStorage';
 import { baseInstance } from '../axios';
-import {
-  PostLoginBody,
-  PostSignUpBody,
-  ResponseLoginDto,
-} from '../../types/user';
+import { PostLoginBody, SignUpBody, ResponseLoginDto } from '../../types/user';
 
 export const loginUser = async (userLoginData: PostLoginBody) => {
   const data = (await baseInstance.post(
@@ -12,15 +8,20 @@ export const loginUser = async (userLoginData: PostLoginBody) => {
     userLoginData,
   )) as ResponseLoginDto;
 
-  console.log(userLoginData);
-  if (data) {
-    LocalStorage.setUserSession(data.data.accessToken, data.data.refreshToken);
+  if (data.status === 200) {
+    LocalStorage.setUserSession(
+      data.data.data.accessToken,
+      data.data.data.refreshToken,
+    );
+    return data.data.data.isSignup;
   }
-  return data.data.isSignup;
 };
 export const getRefreshToken = () => {
   return baseInstance.get('/auth/refresh');
 };
-export const putSignup = (signUpBody: PostSignUpBody) => {
+export const postNickname = (nicknameBody: SignUpBody) => {
+  return baseInstance.post('/auth/nickname', nicknameBody);
+};
+export const putSignup = (signUpBody: SignUpBody) => {
   return baseInstance.put('/auth/signup', signUpBody);
 };

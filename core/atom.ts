@@ -1,9 +1,8 @@
-import { atom, selector, selectorFamily } from 'recoil';
+import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist'; //페이지가 변경되더라도 상태관리를 유지
-import { PostCommunityBody } from '../types/community';
-import { PostLoginBody, UserData } from '../types/user';
-import { FilterDropdownProps, FilterTagProps } from '../types/viewProduct';
-
+import { PostCommunityBody, IsChangeCommunity } from '../types/community';
+import { PostLoginBody } from '../types/user';
+import { FilterTagProps } from '../types/viewProduct';
 
 const { persistAtom } = recoilPersist();
 
@@ -18,13 +17,23 @@ export const userInfoState = atom<PostLoginBody>({
   effects_UNSTABLE: [persistAtom],
 });
 
-
 export const newPostInfoState = atom<PostCommunityBody>({
   key: 'newPostInfo',
   default: {
     category: '후기',
     title: '',
     content: '',
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const isChangeInfoState = atom<IsChangeCommunity>({
+  key: 'isChangeInfo',
+  default: {
+    isChangeCategory: false,
+    isChangeTitle: false,
+    isChangeContent: false,
+    isChangeImageList: false,
   },
   effects_UNSTABLE: [persistAtom],
 });
@@ -81,6 +90,7 @@ export const filterListState = atom({
     },
   },
 });
+
 export const filterTagState = atom<FilterTagProps[]>({
   key: 'filterTagState',
   default: [],
@@ -96,6 +106,7 @@ export const checkedItemsState = atom<Set<number>[]>({
     new Set<number>(),
   ],
 });
+
 export const toyKindState = atom<string[]>({
   key: 'toyKindState',
   default: [],
