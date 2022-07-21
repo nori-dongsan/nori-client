@@ -1,6 +1,7 @@
 import axios from 'axios';
 import LocalStorage from './localStorage';
 
+console.log(process.env.NEXT_PUBLIC_BASE_URL);
 const baseInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}`,
   headers: {
@@ -28,16 +29,13 @@ baseInstance.interceptors.response.use(
     return res;
   },
   async function (error: { config: any; response: { status: any } }) {
-    const {
-      config,
-      response: { status },
-    } = error;
-
+    const { config, response } = error;
+    console.log(error);
     const originalRequest = config;
-    if (status === 401) {
+    if (response?.status === 401) {
       // token refresh 요청
       const { data } = await axios.post(
-        `/auth/refresh`, // token refresh api
+        `/auth/token/refresh`, // token refresh api
         {},
         {
           headers: {

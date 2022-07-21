@@ -57,8 +57,14 @@ export default function FilterDropdown(props: FilterDropdownProps) {
   };
 
   return (
-    <StDropdownWrapper isDrop={isDrop} isExcept={isExcept}>
-      {categoryKey === '장난감 종류' && toyKindList.length !== 0
+    <StDropdownWrapper
+      isDrop={isDrop}
+      isExcept={isExcept}
+      className={`${
+        isDrop ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'
+      }`}
+    >
+      {categoryKey === '종류' && toyKindList.length !== 0
         ? toyKindList.map((tagText: string, elementIdx: number) => {
             return (
               <StLabel
@@ -135,8 +141,6 @@ const StFilterElement = styled.p`
   width: 15.2rem;
   height: 2rem;
 
-  // color: {({ checked, theme: { colors } }) =>
-  //   checked ? colors.black : colors.gray008};
   ${({ theme }) => theme.fonts.b5_14_medium_140};
 `;
 const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
@@ -172,36 +176,40 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
       theme.colors.gray002}; /*스크롤바 뒷 배경 색상*/
   }
 
-  // @keyframes slide-fade-in-dropdown-animation {
-  //   0% {
-  //     transform: translateY(-1rem);
-  //   }
+  @keyframes slide-fade-in-dropdown-animation {
+    0% {
+      max-height: 14.8rem;
+      overflow: hidden;
+      opacity: 1;
+    }
 
-  //   100% {
-  //     transform: translateY(0);
-  //   }
-  // }
+    100% {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+    }
+  }
+
   /* fade out */
 
   @keyframes slide-fade-out-dropdown-animation {
     0% {
-      transform: translateY(0);
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
     }
 
     100% {
-      transform: translateY(-100%);
+      opacity: 1;
+      max-height: 14.8rem;
+      overflow: hidden;
     }
   }
 
   animation: ${({ isDrop }) =>
     isDrop
-      ? 'slide-fade-in-dropdown-animation 0.4s ease'
-      : 'slide-fade-out-dropdown-animation 0.4s ease'};
-
-  // .slide-fade-out-dropdown {
-  //   animation: slide-fade-out-dropdown-animation 0.4s ease;
-  //   animation-fill-mode: forwards;
-  // }
+      ? 'slide-fade-in-dropdown-animation 0.2s ease-out'
+      : 'slide-fade-out-dropdown-animation 0.2s ease-out'};
 `;
 // display `-객체의 노출여부/표현방식--`
 // ( justify-content / align-items)

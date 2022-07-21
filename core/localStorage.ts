@@ -11,14 +11,11 @@ class LocalStorage {
     if (typeof window !== 'undefined') {
       return localStorage.getItem(key) as string;
     }
-
     return '';
   }
 
   static removeItem(key: string) {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(key);
-    }
+    localStorage.removeItem(key);
   }
 
   static setUserSession(accessToken: string, refreshToken: string) {
