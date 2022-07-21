@@ -15,19 +15,32 @@ export default function WriteHeader() {
   const { pathname, query } = useRouter();
 
   const handleRegister = async () => {
-    const { title, content } = newPostInfo;
+    const { title, content, imageList, category } = newPostInfo;
     if (title === '' || content === '') {
       alert('내용을 입력해주세요.');
       return;
     }
 
-    const data = await postCommunity(newPostInfo);
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('section', category);
+
+    if (imageList)
+      imageList.map((image) => {
+        formData.append('imageList', image.file);
+      });
+
+    const res = await postCommunity(formData);
+    const {
+      data: { data, status },
+    } = res;
     setNewPostInfo({
       category: '후기',
       title: '',
       content: '',
     });
-    router.push(`/community/${data.id}`);
+    if (status === 201) router.push(`/community/${data.boardId}`);
   };
 
   const handleCancel = () => {
