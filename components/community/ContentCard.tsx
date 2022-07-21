@@ -48,7 +48,7 @@ export default function ContentCard(props: ContentInfoProps) {
         <StWriteInfo>
           <span>{userNickname}</span>
           <IcDot />
-          <span>{createdAt?.split('T')[0]}</span>
+          <span>{createdAt.split('T')[0]}</span>
         </StWriteInfo>
         <StReplyInfo>
           <IcHeart />
