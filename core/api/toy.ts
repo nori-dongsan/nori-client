@@ -18,3 +18,7 @@ export const useGetCollectionProduct = (theme: number, sort: string) => {
 export const getCollectionProduct = (key: string) => {
   return baseInstance.get(`/collection?theme=0`);
 };
+
+export const getMainProduct = () => {
+  return baseInstance.get('/home');
+};

@@ -12,6 +12,7 @@ export const loginUser = async (userLoginData: PostLoginBody) => {
     userLoginData,
   )) as ResponseLoginDto;
 
+  console.log(userLoginData);
   if (data) {
     LocalStorage.setUserSession(data.data.accessToken, data.data.refreshToken);
   }

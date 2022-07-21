@@ -22,7 +22,7 @@ export default function login({
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   const handleLogin = async (social: string) => {
-    if (data.session?.user) {
+    if (data.session.user) {
       const userLoginData = {
         snsId: data.session?.user.email,
         provider: social,
@@ -59,8 +59,8 @@ export default function login({
         <IcKakaoBtn
           style={{ marginTop: '1.1rem' }}
           onClick={() => {
-            signIn('kakao');
             handleLogin('kakao');
+            signIn('kakao');
           }}
         />
 
