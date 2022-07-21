@@ -1,5 +1,9 @@
 import useSWR from 'swr';
-import { PostCommunityBody, PutCommunityBody } from '../../types/community';
+import {
+  PostCommunityBody,
+  PutCommunityBody,
+  PostCommentBody,
+} from '../../types/community';
 import { baseInstance } from '../axios';
 
 export const useGetCollectionProduct = (key: string) => {
@@ -7,17 +11,17 @@ export const useGetCollectionProduct = (key: string) => {
   console.log(data);
   return data;
 };
+
 export const getCollectionProduct = (key: string) => {
   return baseInstance.get(`/collection?sort=${key}`);
 };
 
-// export const useGetCommunityList = async () => {
-//   try {
-//     const { data } = await baseInstance.get('/board');
-//     return data;
-//   } catch (e) {
-//     console.log(e);
-//   }
+export const getCommunity = () => {
+  return baseInstance.get(`/board`);
+};
+
+// export const getCommunity = () => {
+//   return baseInstance.get(`/board`);
 // };
 
 export const postCommunity = async (body: PostCommunityBody) => {
@@ -28,6 +32,7 @@ export const postCommunity = async (body: PostCommunityBody) => {
     console.log(e);
   }
 };
+
 export const getCommunityDetail = async (id: string) => {
   try {
     // const { data } = await axios.get(
@@ -39,6 +44,7 @@ export const getCommunityDetail = async (id: string) => {
     console.log(e);
   }
 };
+
 export const deleteCommunity = async (id: string) => {
   try {
     const { status } = await baseInstance.delete(`/board/${id}`);
@@ -47,9 +53,19 @@ export const deleteCommunity = async (id: string) => {
     console.log(e);
   }
 };
+
 export const putCommunity = async (id: string, body: PutCommunityBody) => {
   try {
     const { data } = await baseInstance.put(`/board/${id}`, body);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const postReply = async (body: PostCommentBody) => {
+  try {
+    const { data } = await baseInstance.post('/board/comment', body);
     return data;
   } catch (e) {
     console.log(e);

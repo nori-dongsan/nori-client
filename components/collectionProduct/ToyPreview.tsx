@@ -18,9 +18,10 @@ export default function ToyPreview(props: ToyPreviewProps) {
   const { src, store, title, price, age, siteUrl } = props;
   const [isMark, setIsMark] = useState(false);
 
-  const handleToySite = () => {
-    window.open(siteUrl);
+  const handleToySite = (e: React.MouseEvent<HTMLElement>) => {
+    if (!(e.target instanceof SVGElement)) window.open(siteUrl);
   };
+
   const handleToyMark = () => {
     setIsMark((prev) => !prev);
   };
@@ -28,7 +29,9 @@ export default function ToyPreview(props: ToyPreviewProps) {
   return (
     <StToyWrapper onClick={handleToySite}>
       <StImgWrapper>
-        <StToyImg src={src} />
+        <StToyImg
+          src={`https://nori-image.s3.ap-northeast-2.amazonaws.com/${src}`}
+        />
         <StToyMarkWrapper onClick={handleToyMark}>
           <StToyMark />
           {isMark && <StFillToyMark />}

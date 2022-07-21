@@ -1,21 +1,71 @@
 import styled from '@emotion/styled';
-import ReplyContent from '../community/ReplyContent';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { postReply } from '../../core/api/community';
+import {
+  CommunityData,
+  PostCommentBody,
+  ReplyData,
+} from '../../types/community';
+import ReplyContent from './ReplyContent';
+import { useRouter } from 'next/router';
+import { PageNavigation } from '../common/index';
 
-export default function Reply() {
+interface ReplyListProps {
+  cid: string;
+  replyList: ReplyData[];
+}
+
+export default function ReplyList(props: ReplyListProps) {
+  const router = useRouter();
+  const { replyList, cid } = props;
   const [inputColor, setInputColor] = useState<boolean>(false);
   const [replyText, setReplyText] = useState<string>('');
+  const [newReplyInfo, setNewReplyInfo] = useState<PostCommentBody>({
+    boardId: '',
+    content: '',
+  });
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageReplyList, setPageReplyList] = useState<ReplyData[]>([]);
 
   const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReplyText(e.target.value);
+    setNewReplyInfo({ ...newReplyInfo, content: e.target.value });
   };
 
   const handleInputColor = () => {
     setInputColor(replyText.length !== 0);
   };
 
+  const handleReplyregister = async () => {
+    const { content } = newReplyInfo;
+    if (content === '') {
+      alert('내용을 입력해주세요.');
+      return;
+    }
+
+    const data = await postReply(newReplyInfo);
+    setNewReplyInfo({
+      boardId: `${cid}`,
+      content: replyText,
+    });
+    router.push(`/community/${data.id}`);
+  };
+  const handleCurrentPage = (nextPage: number) => {
+    setCurrentPage(nextPage);
+  };
+
+  useEffect(() => {
+    if (replyList) {
+      setPageReplyList(
+        replyList.filter(
+          (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
+        ),
+      );
+      window.scrollTo({ top: 750 });
+    }
+  }, [replyList, currentPage]);
   return (
-    <StReplyWrapper>
+    <>
       <StReplyTitle>
         <h1>댓글</h1>
         <p>23</p>
@@ -29,29 +79,33 @@ export default function Reply() {
             onChange={handleInputText}
           />
         </StInputContent>
-        <StInputBtn inputColor={inputColor}>입력</StInputBtn>
+        <StInputBtn inputColor={inputColor} onClick={handleReplyregister}>
+          입력
+        </StInputBtn>
       </StInputForm>
-      <ReplyContent
-        userNickname="희지맘"
-        createdAt="2022.07.13"
-        content="저희는 4개월 때부터 학습용 완구 썼어요!"
-      />
-      <ReplyContent
-        userNickname="희지맘"
-        createdAt="2022.07.13"
-        content="저희는 4개월 때부터 학습용 완구 썼어요!"
-      />
-      <ReplyContent
-        userNickname="희지맘"
-        createdAt="2022.07.13"
-        content="저희는 4개월 때부터 학습용 완구 썼어요!"
-      />
-      <ReplyContent
-        userNickname="희지맘"
-        createdAt="2022.07.13"
-        content="저희는 4개월 때부터 학습용 완구 썼어요!"
-      />
-    </StReplyWrapper>
+      <StReplyWrapper>
+        {pageReplyList.map(
+          ({ author, userNickname, content, createdAt }, idx) => (
+            <ReplyContent
+              key={idx}
+              author={author}
+              userNickname={userNickname}
+              content={content}
+              createdAt={createdAt}
+            />
+          ),
+        )}
+      </StReplyWrapper>
+      <StReplyListNav>
+        {replyList && (
+          <PageNavigation
+            currentPage={currentPage}
+            lastPage={Math.ceil(replyList.length / 10)}
+            handleCurrentPage={handleCurrentPage}
+          />
+        )}
+      </StReplyListNav>
+    </>
   );
 }
 
@@ -59,6 +113,12 @@ const StReplyWrapper = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+`;
+const StReplyListNav = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 const StReplyTitle = styled.article`
   display: flex;

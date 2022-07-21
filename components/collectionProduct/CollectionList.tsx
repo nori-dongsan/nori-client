@@ -1,23 +1,23 @@
 import styled from '@emotion/styled';
-import { ToyData } from '../../types/toy';
+import { MainToyData } from '../../types/toy';
 import ToyPreview from './ToyPreview';
 
 interface CollectionListProps {
-  toyList: ToyData[];
+  toyList: MainToyData[];
 }
 
 export default function CollectionList(props: CollectionListProps) {
   const { toyList } = props;
   return (
     <StToyListWrapper>
-      {toyList.map((toy, idx) => (
+      {toyList.map(({ image, title, price, month, siteUrl }, idx) => (
         <ToyPreview
           key={idx}
           src={toy.image}
-          store="그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드그린키드"
+          store={toy.siteName}
           title={toy.title}
           price={toy.price}
-          age="36개월이상"
+          age={toy.month}
           siteUrl={toy.siteUrl}
         />
       ))}
