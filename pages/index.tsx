@@ -39,7 +39,7 @@ export default function index({
 
   return (
     <div>
-      {true ? (
+      {!mainData ? (
         <>
           {/* <LandingHeader /> */}
           <LandingMainBanner />
@@ -108,7 +108,6 @@ export default function index({
             </article>
           </StMainSection>
           <BottomBanner />
-          <LandingFooter />
         </>
       )}
     </div>
