@@ -30,12 +30,21 @@ export default function ContentCard(props: ContentInfoProps) {
     <StContentsCardWrapper>
       <StContentInfo>
         <CommunityCategory category={category} />
-        <StMainInfo
-          onClick={() => Router.push({ pathname: `/community/${id}` })}
-        >
-          <h1>{title}</h1>
-          <p>{content}</p>
-        </StMainInfo>
+        {!img ? (
+          <StMainInfo
+            onClick={() => Router.push({ pathname: `/community/${id}` })}
+          >
+            <h1>{title}</h1>
+            <p>{content}</p>
+          </StMainInfo>
+        ) : (
+          <StImgMainInfo
+            onClick={() => Router.push({ pathname: `/community/${id}` })}
+          >
+            <h1>{title}</h1>
+            <p>{content}</p>
+          </StImgMainInfo>
+        )}
         <StWriteInfo>
           <span>{userNickname}</span>
           <IcDot />
@@ -48,7 +57,12 @@ export default function ContentCard(props: ContentInfoProps) {
           <span>{replyCount}</span>
         </StReplyInfo>
       </StContentInfo>
-      {img && <StContentImg src={img} alt="리뷰 사진" />}
+      {img && (
+        <StContentImg
+          src={'https://nori-community.s3.ap-northeast-2.amazonaws.com/' + img}
+          alt="리뷰 사진"
+        />
+      )}
     </StContentsCardWrapper>
   );
 }
@@ -65,7 +79,6 @@ const StContentsCardWrapper = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
 
   h1 {
-    width: 92.3rem;
     margin-top: 1.6rem;
     margin-bottom: 0.7rem;
 
@@ -88,7 +101,13 @@ const StContentsCardWrapper = styled.div`
     cursor: pointer;
   }
 `;
-const StMainInfo = styled.article``;
+const StMainInfo = styled.article`
+  width: 97.6rem;
+`;
+const StImgMainInfo = styled.article`
+  width: 72.5rem;
+  margin-right: 3.3rem;
+`;
 const StContentInfo = styled.section`
   display: flex;
   flex-direction: column;
