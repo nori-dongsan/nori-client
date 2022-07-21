@@ -1,3 +1,5 @@
+import { MutableRefObject, RefObject } from 'react';
+
 export interface FilterDropdownProps {
   categoryInfo: string[];
   categoryIdx: number;
