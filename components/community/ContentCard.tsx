@@ -48,7 +48,14 @@ export default function ContentCard(props: ContentInfoProps) {
           <span>{replyCount}</span>
         </StReplyInfo>
       </StContentInfo>
-      {img === undefined ? <></> : <StContentImg src={img} alt="리뷰 사진" />}
+      {img === undefined ? (
+        <></>
+      ) : (
+        <StContentImg
+          src={'https://nori-community.s3.ap-northeast-2.amazonaws.com/' + img}
+          alt="리뷰 사진"
+        />
+      )}
     </StContentsCardWrapper>
   );
 }
