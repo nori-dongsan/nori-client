@@ -15,6 +15,8 @@ import {
   LandingCollectionCard,
   LandingMiddleBanner,
   LandingBottomBanner,
+  LandingFooter,
+  LandingHeader,
 } from '../components/landing/main';
 
 export default function index({
@@ -37,8 +39,9 @@ export default function index({
 
   return (
     <div>
-      {!mainData ? (
+      {true ? (
         <>
+          {/* <LandingHeader /> */}
           <LandingMainBanner />
           <StMainSection>
             <article className="trending">
@@ -62,6 +65,7 @@ export default function index({
             </article>
             <LandingBottomBanner />
           </StMainSection>
+          {/* <LandingFooter /> */}
         </>
       ) : (
         <>
@@ -104,6 +108,7 @@ export default function index({
             </article>
           </StMainSection>
           <BottomBanner />
+          <LandingFooter />
         </>
       )}
     </div>
