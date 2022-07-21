@@ -50,7 +50,7 @@ export default function ContentCard(props: ContentInfoProps) {
           <span>{replyCount}</span>
         </StReplyInfo>
       </StContentInfo>
-      {img === undefined ? <></> : <StContentImg src={img} alt="리뷰 사진" />}
+      {img && <StContentImg src={img} alt="리뷰 사진" />}
     </StContentsCardWrapper>
   );
 }
