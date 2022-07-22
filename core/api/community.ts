@@ -4,7 +4,6 @@ import { baseInstance } from '../axios';
 
 export const useGetCollectionProduct = (key: string) => {
   const { data } = useSWR(`/collection?sort=${key}`, baseInstance.get);
-  console.log(data);
   return data;
 };
 
