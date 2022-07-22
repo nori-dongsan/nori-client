@@ -19,6 +19,7 @@ const limit = 20;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const res = await getCommunity();
+  console.log(res);
   return {
     props: res.data,
   };

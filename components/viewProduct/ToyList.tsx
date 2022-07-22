@@ -30,4 +30,6 @@ const StToyListWrapper = styled.section`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  width: 95.2rem;
 `;

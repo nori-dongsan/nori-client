@@ -7,7 +7,6 @@ import LocalStorage from '../localStorage';
 
 export const useGetCollectionProduct = (key: string) => {
   const { data } = useSWR(`/collection?sort=${key}`, baseInstance.get);
-  console.log(data);
   return data;
 };
 

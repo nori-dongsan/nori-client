@@ -57,7 +57,6 @@ export default function ReplyList(props: ReplyListProps) {
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-
   useEffect(() => {
     if (!isFirst) {
       if (replyList) {
