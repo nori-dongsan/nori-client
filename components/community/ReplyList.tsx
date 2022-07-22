@@ -48,8 +48,8 @@ export default function ReplyList(props: ReplyListProps) {
       boardId: cid,
       content: replyText,
     });
-    if (status === 200) router.push(`/community/${cid}`);
     setNewReplyInfo({ boardId: cid, content: '' });
+    if (status === 200) router.push(`/community/${cid}`);
   };
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);

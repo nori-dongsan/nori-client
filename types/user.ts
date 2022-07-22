@@ -6,7 +6,7 @@ export interface UserData {
   email: string;
 }
 
-export interface SignUpBody {
+export interface PostSignUpBody {
   nickname: string;
 }
 

@@ -1,5 +1,5 @@
 import { ToyData } from '../../types/toy';
-export const toyMockData: ToyData[] = [
+export const toyMockData: any = [
   {
     price: 44000,
     priceCode: 3,

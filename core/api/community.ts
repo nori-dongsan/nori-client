@@ -13,7 +13,7 @@ export const getCollectionProduct = (key: string) => {
 };
 
 export const getCommunity = () => {
-  return baseInstance.get(`/board`);
+  return baseInstance.get('/board');
 };
 
 export const postCommunity = (body: FormData) => {

@@ -1,8 +1,7 @@
-import NextAuth, { Awaitable, Session, User } from 'next-auth';
+import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import NaverProvider from 'next-auth/providers/naver';
 import KakaoProvider from 'next-auth/providers/kakao';
-type ExtendedUserType = User & { username?: string; uid?: string };
 export default NextAuth({
   providers: [
     KakaoProvider({
@@ -23,13 +22,6 @@ export default NextAuth({
   session: {
     strategy: 'jwt',
   },
-  // callbacks: {
-  //   async signIn({ user, account, profile, email, credentials }) {
-  //     console.log(user);
-
-  //     return user;
-  //   },
-  // },
   callbacks: {
     async session({ session, token, user }) {
       return session;

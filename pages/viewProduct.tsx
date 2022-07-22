@@ -20,11 +20,12 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRecoilValue } from 'recoil';
 import { FilterTagProps } from '../types/viewProduct';
 import { filterTagState } from '../core/atom';
-import { IcGrayEmpty } from '../public/assets/icons';
+// import { IcGrayEmpty } from '../public/assets/icons';
 import {
   getBannerViewProduct,
   useGetBannerViewProduct,
 } from '../core/api/viewProduct';
+import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
 
 const limit = 40;
 
@@ -80,6 +81,7 @@ export default function viewProduct({
               </StToyListWrapper>
             </StContentSection>
           </StFilterSectionWrapper>
+          <LandingPageNavigation />
         </>
       ) : (
         <>
@@ -95,9 +97,7 @@ export default function viewProduct({
                 />
               </StFilterBarWrapper>
               {toyList.length === 0 ? (
-                <StEmptyView>
-                  <IcGrayEmpty />
-                </StEmptyView>
+                <StEmptyView>{/* <IcGrayEmpty /> */}</StEmptyView>
               ) : (
                 <StToyListWrapper>
                   {toyList.map(
