@@ -64,6 +64,7 @@ export default function viewProduct({
     }
   }, [result, currentPage]);
 
+  console.log(toyList);
   return (
     <StViewProductWrapper>
       {!filterData ? (

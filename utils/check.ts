@@ -7,8 +7,10 @@ export function checkNickname(value: string) {
 
 export function divisionToyData(array: ToyData[]) {
   const count =
-    Math.floor(array.length / 4) + Math.floor(array.length % 4) > 0 ? 1 : 0;
+    Math.floor(array.length / 4) + (Math.floor(array.length % 4) > 0 ? 1 : 0);
   const newArray = [];
+
+  console.log(count);
 
   for (let i = 0; i < count; i += 1) {
     newArray.push(array.splice(0, 4));
@@ -18,7 +20,7 @@ export function divisionToyData(array: ToyData[]) {
 
 export function divisionMainToyData(array: MainToyData[]) {
   const count =
-    Math.floor(array.length / 4) + Math.floor(array.length % 4) > 0 ? 1 : 0;
+    Math.floor(array.length / 4) + (Math.floor(array.length % 4) > 0 ? 1 : 0);
   const newArray = [];
 
   for (let i = 0; i < count; i += 1) {
