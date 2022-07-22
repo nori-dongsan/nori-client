@@ -15,13 +15,14 @@ import {
   LandingPriceSort,
 } from '../components/landing/collectionProduct.tsx';
 import { NextPageContext } from 'next';
+import { divisionMainToyData } from '../utils/check';
 
 const limit = 40;
 
 export default function collectionProduct({}) {
   const { query } = useRouter();
   const { collection } = query;
-  const [toyList, setToyList] = useState<MainToyData[]>([]);
+  const [toyList, setToyList] = useState<MainToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const landingArray = new Array(10).fill(0);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
@@ -48,7 +49,7 @@ export default function collectionProduct({}) {
       data = data.filter(
         (_, idx) => (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
-      setToyList(data);
+      setToyList(divisionMainToyData(data));
       window.scrollTo(0, 0);
       console.log(productList.data.data.toyList);
     }
@@ -74,15 +75,9 @@ export default function collectionProduct({}) {
             handleClickPrice={handleClickPrice}
           />
           <StToyListWrapper>
-            {toyList.map(
-              (_, idx) =>
-                (idx + 1) % 4 === 0 && (
-                  <CollectionList
-                    key={idx}
-                    toyList={toyList.slice(idx - 3, idx + 1)}
-                  />
-                ),
-            )}
+            {toyList.map((data, idx) => (
+              <CollectionList key={idx} toyList={data} />
+            ))}
           </StToyListWrapper>
           {!isLoading && !isError && productList && (
             <PageNavigation
