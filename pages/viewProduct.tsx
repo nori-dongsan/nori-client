@@ -17,9 +17,13 @@ import {
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRecoilValue } from 'recoil';
-import { FilterTagProps } from '../types/viewProduct';
-import { filterTagState } from '../core/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
+import {
+  checkedItemsState,
+  filterCheckQuery,
+  filterTagState,
+} from '../core/atom';
 // import { IcGrayEmpty } from '../public/assets/icons';
 
 import {
@@ -31,7 +35,7 @@ import {
 
 import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
 import { divisionToyData } from '../utils/check';
-
+import { useRouter } from 'next/router';
 
 const limit = 40;
 
