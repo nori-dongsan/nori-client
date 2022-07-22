@@ -2,25 +2,46 @@ import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   checkedItemsState,
+  filterCheckQuery,
   filterTagState,
   toyKindState,
 } from '../../core/atom';
-import { FilterDropdownProps, FilterTagProps } from '../../types/viewProduct';
+import {
+  FilterDropdownProps,
+  FilterTagProps,
+  ViewProductProps,
+} from '../../types/viewProduct';
+import Router from 'next/router';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
-  const {
-    categoryInfo,
-    isDrop,
-    isExcept,
-    categoryIdx,
-    checkedItem,
-    categoryKey,
-  } = props;
+  const { categoryInfo, isDrop, isExcept, categoryIdx, categoryKey } = props;
   const toyKindList = useRecoilValue<string[]>(toyKindState);
   const [checkedItems, setCheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
+
+  const [filterQuery, setFilterCheckQuery] =
+    useRecoilState<ViewProductProps>(filterCheckQuery);
+
+  const handleFilterQuery = (newQuery: ViewProductProps) => {
+    setFilterCheckQuery(newQuery);
+
+    Router.push({
+      pathname: '/viewProduct',
+      query: {
+        filter: true,
+        search: newQuery.search,
+        type: newQuery.type,
+        month: newQuery.month,
+        priceCd: newQuery.priceCd,
+        playHowCd: newQuery.playHowCd,
+        toySiteCd: newQuery.toySiteCd,
+      },
+    });
+    // if doesn't work then use window.location.href
+  };
+
   const handleCheckedItems = (
     categoryIdx: number,
     elementIdx: number,
@@ -47,15 +68,103 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     } else {
       checkedItems[categoryIdx].add(elementIdx);
       setFilterTagList([...filterTagList, tag]);
-      console.log(filterTagList);
     }
-
+    handleQuery(categoryIdx, elementIdx, tagText);
     setCheckedItems({
       ...checkedItems,
       [categoryIdx]: checkedItems[categoryIdx],
     });
   };
-
+  const handleQuery = (
+    categoryIdx: number,
+    elementIdx: number,
+    tagText: string,
+  ) => {
+    let newQuery: ViewProductProps;
+    let newStr: string;
+    switch (categoryIdx) {
+      case 0:
+        newStr = '';
+        checkedItems[0].forEach(function (item, index) {
+          newStr += `${toyKindList[index]} `;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: newStr,
+          month: filterQuery.month,
+          priceCd: filterQuery.priceCd,
+          playHowCd: filterQuery.playHowCd,
+          toySiteCd: filterQuery.toySiteCd,
+        };
+        handleFilterQuery(newQuery);
+        console.log('str', newStr);
+        break;
+      case 1:
+        newStr = '';
+        checkedItems[1].forEach(function (item, index) {
+          newStr += `${item + 1}`;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: filterQuery.type,
+          month: newStr,
+          priceCd: filterQuery.priceCd,
+          playHowCd: filterQuery.playHowCd,
+          toySiteCd: filterQuery.toySiteCd,
+        };
+        handleFilterQuery(newQuery);
+        console.log('str', newStr);
+        break;
+      case 2:
+        newStr = '';
+        checkedItems[2].forEach(function (item, index) {
+          newStr += `${item + 1}`;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: filterQuery.type,
+          month: filterQuery.month,
+          priceCd: newStr,
+          playHowCd: filterQuery.playHowCd,
+          toySiteCd: filterQuery.toySiteCd,
+        };
+        handleFilterQuery(newQuery);
+        console.log('str', newStr);
+        break;
+      case 3:
+        newStr = '';
+        checkedItems[3].forEach(function (item, index) {
+          newStr += `${item + 1}`;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: filterQuery.type,
+          month: filterQuery.month,
+          priceCd: filterQuery.priceCd,
+          playHowCd: newStr,
+          toySiteCd: filterQuery.toySiteCd,
+        };
+        handleFilterQuery(newQuery);
+        console.log('str', newStr);
+        break;
+      case 4:
+        newStr = '';
+        checkedItems[4].forEach(function (item, index) {
+          newStr += `${item + 1}`;
+        });
+        newQuery = {
+          search: filterQuery.search,
+          type: filterQuery.type,
+          month: filterQuery.month,
+          priceCd: filterQuery.priceCd,
+          playHowCd: filterQuery.playHowCd,
+          toySiteCd: newStr,
+        };
+        handleFilterQuery(newQuery);
+        console.log('str', newStr);
+        break;
+    }
+  };
   return (
     <StDropdownWrapper
       isDrop={isDrop}
@@ -64,7 +173,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
         isDrop ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'
       }`}
     >
-      {categoryKey === '종류' && toyKindList.length !== 0
+      {categoryKey === '종류'
         ? toyKindList.map((tagText: string, elementIdx: number) => {
             return (
               <StLabel
@@ -211,27 +320,3 @@ const StDropdownWrapper = styled.div<{ isExcept: boolean; isDrop: boolean }>`
       ? 'slide-fade-in-dropdown-animation 0.2s ease-out'
       : 'slide-fade-out-dropdown-animation 0.2s ease-out'};
 `;
-// display `-객체의 노출여부/표현방식--`
-// ( justify-content / align-items)
-// ( flex-direction / flex-wrap / flex-flow ) → flex ~로 시작하는 것들
-// list-style
-// position `-위치/좌표--`
-// float
-// clear
-
-// width
-// height `-크기/여백--`
-// padding
-// margin
-
-// border
-// background `-윤곽/배경--`
-// color
-// font `-글자/정렬--`
-
-// text-decoration
-// text-align / vertical-align
-
-// white-space
-// other text
-// content `-내용--`

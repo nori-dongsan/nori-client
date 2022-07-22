@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 import React, { useState } from 'react';
 import Router from 'next/router';
+import { ViewProductProps } from '../../types/viewProduct';
+import { filterCheckQuery } from '../../core/atom';
+import { useRecoilState } from 'recoil';
 
 export default function Header() {
   const [inputValue, setInputValue] = useState<string>('');
@@ -10,11 +13,16 @@ export default function Header() {
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
+  const [filterQuery, setFilterCheckQuery] =
+    useRecoilState<ViewProductProps>(filterCheckQuery);
 
   const handleClick = () => {
     Router.push({
       pathname: '/viewProduct',
       query: { search: inputValue },
+    });
+    setFilterCheckQuery({
+      search: inputValue,
     });
   };
 

@@ -1,8 +1,12 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import Router from 'next/router';
+import router, { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { getBannerViewProduct } from '../../core/api/viewProduct';
 import {
   checkedItemsState,
+  filterCheckQuery,
   filterTagState,
   toyKindState,
 } from '../../core/atom';
@@ -15,7 +19,7 @@ import {
   IcStudyProduct,
   IcPlayGroundProduct,
 } from '../../public/assets/icons';
-import { FilterTagProps } from '../../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 
 export default function ViewProductBanner() {
   //상품보기 뷰 배너 아이콘 요소 배열
@@ -43,6 +47,27 @@ export default function ViewProductBanner() {
     useRecoilState<Set<number>[]>(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
+  const [filterQuery, setFilterCheckQuery] =
+    useRecoilState<ViewProductProps>(filterCheckQuery);
+
+  const handleFilterQuery = (selectIdx: number, newQuery: ViewProductProps) => {
+    if (newQuery) setFilterCheckQuery(newQuery);
+
+    Router.push({
+      pathname: '/viewProduct',
+      query: {
+        filter: true,
+        categoryId: selectIdx,
+        search: newQuery.search,
+        type: newQuery.type,
+        month: newQuery.month,
+        priceCd: newQuery.priceCd,
+        playHowCd: newQuery.playHowCd,
+        toySiteCd: newQuery.toySiteCd,
+      },
+    });
+    // if doesn't work then use window.location.href
+  };
   const handleProductIcon = (selectIdx: number) => {
     if (selectedIcon == selectIdx) return;
     setSeletedIcon(selectIdx);
@@ -54,30 +79,133 @@ export default function ViewProductBanner() {
       new Set<number>(),
     ]);
     setFilterTagList([]);
+    let newQuery: ViewProductProps;
     switch (selectIdx) {
       case 0:
-        setToyKindList([]);
+        setToyKindList([
+          '아기체육관',
+          '모빌',
+          '바운서',
+          '쏘서',
+          '점퍼루',
+          '위고',
+          '보행기',
+          '걸음마 보조기',
+          '러닝홈',
+          '러닝테이블',
+          '기타 학습완구',
+          '미끄럼틀',
+          '에어바운스',
+          '트램펄린',
+          '어린이 자동차',
+          '흔들말',
+          '그네',
+          '소꿉놀이',
+          '역할놀이',
+          '기타',
+        ]);
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
+        handleFilterQuery(0, newQuery);
         break;
       case 1:
         setToyKindList(['아기체육관', '모빌', '바운서']);
+        // newQuery = {
+        //   search: '',
+        //   type: '아기체육관 모빌 바운서',
+        //   month: '',
+        //   priceCd: '',
+        //   playHowCd: '',
+        //   toySiteCd: '',
+        // };
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
+        handleFilterQuery(1, newQuery);
         break;
       case 2:
         setToyKindList(['쏘서', '점퍼루', '위고', '보행기', '걸음마 보조기']);
+        // newQuery = {
+        //   search: '',
+        //   type: '쏘서 점퍼루 위고 보행기 걸음마 보조기',
+        //   month: '',
+        //   priceCd: '',
+        //   playHowCd: '',
+        //   toySiteCd: '',
+        // };
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
+        handleFilterQuery(2, newQuery);
         break;
       case 3:
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
         setToyKindList(['러닝홈', '러닝테이블', '기타 학습 완구']);
+        handleFilterQuery(3, newQuery);
         break;
       case 4:
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
         setToyKindList(['미끄럼틀', '에어바운스', '트램펄린']);
+        handleFilterQuery(4, newQuery);
         break;
       case 5:
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
         setToyKindList(['어린이 자동차', '흔들말', '그네']);
+        handleFilterQuery(5, newQuery);
         break;
       case 6:
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
         setToyKindList(['소꿉 놀이', '역할 놀이']);
+        handleFilterQuery(6, newQuery);
         break;
     }
   };
+  // 패패
+
   return (
     <StProductBannerWrapper>
       <h1>상품보기</h1>
@@ -98,11 +226,16 @@ export default function ViewProductBanner() {
           );
         })}
       </StCategoryNav>
+      {filterQuery.search && (
+        <StSearchContent>
+          <span>{`“ ${filterQuery.search} ”`}</span> 에 대한 검색 결과에요
+        </StSearchContent>
+      )}
     </StProductBannerWrapper>
   );
 }
 
-const StProductBannerWrapper = styled.div`
+const StProductBannerWrapper = styled.div<{ isSearch: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,7 +243,7 @@ const StProductBannerWrapper = styled.div`
 
   width: 117.6rem;
   margin: 7.1rem 0 0.4rem 0;
-  padding: 0 3.6rem 5.4rem 3.6rem;
+  // padding: 0 3.6rem 5.4rem 3.6rem;
 
   border-bottom: 1px solid #d9d9d9;
 
@@ -127,6 +260,7 @@ const StCategoryNav = styled.nav`
 
   width: 110.4rem;
   height: 14.4rem;
+  margin: 0 3.6rem 5.4rem 3.6rem;
 `;
 const StProductItem = styled.div<{ isClicked: number; selectedIcon: number }>`
   display: flex;
@@ -139,4 +273,15 @@ const StProductItem = styled.div<{ isClicked: number; selectedIcon: number }>`
   ${({ theme }) => theme.fonts.b3_16_semibold_140};
 
   cursor: pointer;
+`;
+const StSearchContent = styled.div`
+  align-self: flex-start;
+
+  height: 2.5rem;
+  margin: 0 0 1.2rem 0;
+  color: ${({ theme }) => theme.colors.gray007};
+  ${({ theme }) => theme.fonts.t3_19_medium_130};
+  & > span {
+    color: ${({ theme }) => theme.colors.gray009};
+  }
 `;

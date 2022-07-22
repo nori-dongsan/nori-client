@@ -26,12 +26,11 @@ export default function ToyPreview(props: ToyPreviewProps) {
   const handleToyMark = () => {
     setIsMark((prev) => !prev);
   };
+  let img = `https://nori-image.s3.ap-northeast-2.amazonaws.com/${src}`;
   return (
     <StToyWrapper onClick={handleToySite}>
       <StImgWrapper>
-        <StToyImg
-          src={`https://nori-image.s3.ap-northeast-2.amazonaws.com/${src}`}
-        />
+        <StToyImg src={img} />
         <StToyMarkWrapper onClick={handleToyMark}>
           <StToyMark />
           {isMark && <StFillToyMark />}
