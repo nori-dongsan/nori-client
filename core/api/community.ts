@@ -17,7 +17,18 @@ export const useGetCommunityDetail = (id: string) => {
     baseInstance.get,
   );
   return {
-    data: data?.data,
+    data: data?.data?.data,
+    error,
+  };
+};
+export const useCommunityDetail = (id: string) => {
+  const { data, error } = useSWR<
+    Response<
+      Pick<CommunityData, 'title' | 'category' | 'content' | 'imageList'>
+    >
+  >(`/board/${id}`, baseInstance.get);
+  return {
+    data: data?.data?.data,
     error,
   };
 };
@@ -37,19 +48,14 @@ export const getCommunity = () => {
   return baseInstance.get('/board');
 };
 
-export const getCommunityDetail = (id: string) => {
-  console.log('커커컼커;ㅡ;', LocalStorage.getItem('accessToken'));
-  return baseInstance.get(`/board/${id}`, {
-    headers: {
-      accessToken: LocalStorage.getItem('accessToken'),
-      refreshToken: LocalStorage.getItem('refreshToken'),
-    },
-  });
-};
-
 export const deleteCommunity = async (id: string) => {
   try {
-    const { status } = await baseInstance.delete(`/board/${id}`);
+    const { status } = await baseInstance.delete(`/board/${id}`, {
+      headers: {
+        accessToken: LocalStorage.getItem('accessToken'),
+        refreshToken: LocalStorage.getItem('refreshToken'),
+      },
+    });
     return status;
   } catch (e) {
     console.log(e);
@@ -60,6 +66,8 @@ export const putCommunity = (id: string, body: FormData) => {
   return baseInstance.put(`/board/${id}`, body, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      accessToken: LocalStorage.getItem('accessToken'),
+      refreshToken: LocalStorage.getItem('refreshToken'),
     },
   });
 };

@@ -6,5 +6,5 @@ export interface ResponseDto {
 }
 
 export interface Response<T> extends ResponseDto {
-  data: T;
+  data: { data: T };
 }
