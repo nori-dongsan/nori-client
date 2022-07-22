@@ -17,26 +17,42 @@ import {
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRecoilValue } from 'recoil';
-import { FilterTagProps } from '../types/viewProduct';
-import { filterTagState } from '../core/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  FilterTagProps,
+  ViewProductProps,
+  ViewProductServerSide,
+} from '../types/viewProduct';
+import {
+  checkedItemsState,
+  filterCheckQuery,
+  filterTagState,
+} from '../core/atom';
 import { IcGrayEmpty } from '../public/assets/icons';
 import {
   getBannerViewProduct,
+  getViewProductFilter,
   getViewProduct,
-  useGetBannerViewProduct,
+  getBannerViewProductFilter,
 } from '../core/api/viewProduct';
-
+import { Router, useRouter } from 'next/router';
+import { GetViewProduct } from '../types/viewProduct';
 const limit = 40;
 
 export default function viewProduct({
   filterData,
   result,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(filterData, result);
+  const router = useRouter();
+
+  console.log(result);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [initial, setInitial] = useState<boolean>(true);
+  const filterQuery = useRecoilValue<ViewProductProps>(filterCheckQuery);
+  const [checkedItems, setCheckedItems] =
+    useRecoilState<Set<number>[]>(checkedItemsState);
 
   const handleClickPrice = (clickPrice: string) => {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
@@ -45,24 +61,49 @@ export default function viewProduct({
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-
+  // console.log('체크', Object.keys(checkedItems));
+  // console.log('결과조회', filterData);
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
 
-  // let { productList, isLoading, isError } = priceDesc
-  //   ? (useGetCollectionProduct('price-desc') as GetCollectionProduct)
-  //   : (useGetCollectionProduct('price-asc') as GetCollectionProduct);
+  // let { toyFilterList } =
+  //   router.query.iconId && Number(router.query.iconId) !== 0
+  //     ? getBannerViewProductFilter(
+  //         Number(router.query.iconId),
+  //         `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
+  //       )
+  //     : getViewProductFilter(
+  //         `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
+  //       );
 
   useEffect(() => {
     if (result) {
-      const filterData = result.filter(
+      filterData = result.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
+      console.log('여기', filterData);
       setToyList(filterData);
       window.scrollTo(0, 0);
+      setInitial(false);
+      console.log('초기렌더링');
     }
   }, [result, currentPage]);
-
+  // useEffect(() => {
+  //   if (toyFilterList && !initial) {
+  //     // const filterData = toyFilterList.data.filter(
+  //     //   (_: any, idx: number) =>
+  //     //     (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
+  //     // );
+  //     // setToyList(filterData);
+  //     // window.scrollTo(0, 0);
+  //     console.log(
+  //       '이것은?',
+  //       Boolean(router.query.iconId && Number(router.query.iconId) !== 0),
+  //     );
+  //     console.log('토이리스트', toyFilterList.data.data.result);
+  //   }
+  // }, [toyFilterList]);
+  console.log('목록', toyList);
   return (
     <StViewProductWrapper>
       {!filterData ? (
@@ -157,13 +198,68 @@ const StEmptyView = styled.section`
 
   margin: 0 23.8rem;
 `;
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await getViewProduct(0);
 
-  return {
-    props: {
-      filterData: res.data.data.filterData,
-      result: res.data.data.result,
-    },
-  };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // useGetBa
+
+  console.log('쿼링', context.query);
+  if (context.query.filter === 'true') {
+    const { search, type, month, priceCd, playHowCd, toySiteCd } =
+      context.query as ViewProductProps;
+
+    if (context.query.categoryId && Number(context.query.categoryId) !== 0) {
+      const res = await getBannerViewProductFilter(
+        Number(context.query.categoryId),
+        {
+          search,
+          type,
+          month,
+          priceCd,
+          playHowCd,
+          toySiteCd,
+        },
+      );
+      console.log(res.data);
+      return {
+        props: {
+          filterData: res.data.data.filterData,
+          result: res.data.data.result,
+        },
+      };
+    }
+    const res = await getViewProductFilter({
+      search,
+      type,
+      month,
+      priceCd,
+      playHowCd,
+      toySiteCd,
+    });
+    console.log(res);
+    return {
+      props: {
+        filterData: res.data.data.filterData,
+        result: res.data.data.result,
+      },
+    };
+  }
+  if (context.query.iconId && Number(context.query.iconId) !== 0) {
+    const res = await getBannerViewProduct(Number(context.query.iconId));
+    console.log(res.data.data.result);
+    return {
+      props: {
+        filterData: res.data.data.filterData,
+        result: res.data.data.result,
+      },
+    };
+  } else {
+    const res = await getViewProduct();
+
+    return {
+      props: {
+        filterData: res.data.data.filterData,
+        result: res.data.data.result,
+      },
+    };
+  }
 };

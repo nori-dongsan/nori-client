@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist'; //페이지가 변경되더라도 상태관리를 유지
 import { PostCommunityBody, IsChangeCommunity } from '../types/community';
 import { PostLoginBody } from '../types/user';
-import { FilterTagProps } from '../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
 
 const { persistAtom } = recoilPersist();
 
@@ -109,5 +109,37 @@ export const checkedItemsState = atom<Set<number>[]>({
 
 export const toyKindState = atom<string[]>({
   key: 'toyKindState',
-  default: [],
+  default: [
+    '아기체육관',
+    '모빌',
+    '바운서',
+    '쏘서',
+    '점퍼루',
+    '위고',
+    '보행기',
+    '걸음마 보조기',
+    '러닝홈',
+    '러닝테이블',
+    '기타 학습완구',
+    '미끄럼틀',
+    '에어바운스',
+    '트램펄린',
+    '어린이 자동차',
+    '흔들말',
+    '그네',
+    '소꿉놀이',
+    '역할놀이',
+    '기타',
+  ],
+});
+export const filterCheckQuery = atom<ViewProductProps>({
+  key: 'filterCheckQuery',
+  default: {
+    search: '',
+    type: '',
+    month: '',
+    priceCd: '',
+    playHowCd: '',
+    toySiteCd: '',
+  },
 });
