@@ -28,30 +28,30 @@ export default function UpdateForm({
     setTitle(data.title);
 
     const imageList: ImgData[] = [];
-    // data.imageList.forEach(async (image, index) => {
-    //   const file = await convertURLtoFile(
-    //     'https://nori-community.s3.ap-northeast-2.amazonaws.com/' + image,
-    //   );
-    //   setImagesSize((prev) => prev + file.size);
-    //   imageList.push({
-    //     id: index,
-    //     src: image,
-    //     file: file,
-    //   });
-    // });
+    data.imageList.forEach(async (image, index) => {
+      const file = await convertURLtoFile(
+        'https://nori-community.s3.ap-northeast-2.amazonaws.com/' + image,
+      );
+      setImagesSize((prev) => prev + file.size);
+      imageList.push({
+        id: index,
+        src: image,
+        file: file,
+      });
+    });
     setImages(imageList);
   }, []);
 
   const menu = ['후기', '질문', '정보 공유'];
 
-  // const convertURLtoFile = async (url: string) => {
-  //   const response = await fetch(url);
-  //   const data = await response.blob();
-  //   const ext = url.split('.').pop(); // url 구조에 맞게 수정할 예정
-  //   const filename = url.split('/').pop(); // url 구조에 맞게 수정할 예정
-  //   const metadata = { type: `image/${ext}` };
-  //   return new File([data], filename!, metadata);
-  // };
+  const convertURLtoFile = async (url: string) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+    const ext = url.split('.').pop(); // url 구조에 맞게 수정할 예정
+    const filename = url.split('/').pop(); // url 구조에 맞게 수정할 예정
+    const metadata = { type: `image/${ext}` };
+    return new File([data], filename!, metadata);
+  };
 
   const handleIsCategory = () => {
     setIsCategory((prev) => !prev);
