@@ -17,9 +17,17 @@ export default function Header() {
     useRecoilState<ViewProductProps>(filterCheckQuery);
 
   const handleClick = () => {
+    setInputValue('');
     Router.push({
       pathname: '/viewProduct',
-      query: { search: inputValue },
+      query: {
+        search: inputValue,
+        type: '',
+        month: '',
+        priceCd: '',
+        playHowCd: '',
+        toySiteCd: '',
+      },
     });
     setFilterCheckQuery({
       search: inputValue,

@@ -235,7 +235,7 @@ export default function ViewProductBanner() {
   );
 }
 
-const StProductBannerWrapper = styled.div<{ isSearch: boolean }>`
+const StProductBannerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
