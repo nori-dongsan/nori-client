@@ -34,9 +34,9 @@ export default function FilterDropdown(props: FilterDropdownProps) {
         search: newQuery.search,
         type: newQuery.type,
         month: newQuery.month,
-        price: newQuery.price,
-        playHow: newQuery.playHow,
-        store: newQuery.store,
+        priceCd: newQuery.priceCd,
+        playHowCd: newQuery.playHowCd,
+        toySiteCd: newQuery.toySiteCd,
       },
     });
     // if doesn't work then use window.location.href
@@ -93,9 +93,9 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           search: filterQuery.search,
           type: newStr,
           month: filterQuery.month,
-          price: filterQuery.price,
-          playHow: filterQuery.playHow,
-          store: filterQuery.store,
+          priceCd: filterQuery.priceCd,
+          playHowCd: filterQuery.playHowCd,
+          toySiteCd: filterQuery.toySiteCd,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -109,9 +109,9 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           search: filterQuery.search,
           type: filterQuery.type,
           month: newStr,
-          price: filterQuery.price,
-          playHow: filterQuery.playHow,
-          store: filterQuery.store,
+          priceCd: filterQuery.priceCd,
+          playHowCd: filterQuery.playHowCd,
+          toySiteCd: filterQuery.toySiteCd,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -125,9 +125,9 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           search: filterQuery.search,
           type: filterQuery.type,
           month: filterQuery.month,
-          price: newStr,
-          playHow: filterQuery.playHow,
-          store: filterQuery.store,
+          priceCd: newStr,
+          playHowCd: filterQuery.playHowCd,
+          toySiteCd: filterQuery.toySiteCd,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -141,9 +141,9 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           search: filterQuery.search,
           type: filterQuery.type,
           month: filterQuery.month,
-          price: filterQuery.price,
-          playHow: newStr,
-          store: filterQuery.store,
+          priceCd: filterQuery.priceCd,
+          playHowCd: newStr,
+          toySiteCd: filterQuery.toySiteCd,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -157,9 +157,9 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           search: filterQuery.search,
           type: filterQuery.type,
           month: filterQuery.month,
-          price: filterQuery.price,
-          playHow: filterQuery.playHow,
-          store: newStr,
+          priceCd: filterQuery.priceCd,
+          playHowCd: filterQuery.playHowCd,
+          toySiteCd: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);

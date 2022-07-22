@@ -71,10 +71,10 @@ export default function viewProduct({
       ? useGetBannerViewProduct(
           Number(router.query.iconId),
           0,
-          `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&price=${filterQuery.price}&playHow=${filterQuery.playHow}&store=${filterQuery.store}`,
+          `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
         )
       : useGetViewProduct(
-          `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&price=${filterQuery.price}&playHow=${filterQuery.playHow}&store=${filterQuery.store}`,
+          `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
         );
 
   useEffect(() => {
@@ -206,15 +206,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   console.log(context.query);
   if (context.query.filter === 'true') {
-    const { search, type, month, price, playHow, store } =
+    const { search, type, month, priceCd, playHowCd, toySiteCd } =
       context.query as ViewProductProps;
     const res = await getBannerViewProductFilter({
       search,
       type,
       month,
-      price,
-      playHow,
-      store,
+      priceCd,
+      playHowCd,
+      toySiteCd,
     });
     console.log(res);
     return {

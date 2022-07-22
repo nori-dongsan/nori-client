@@ -117,8 +117,8 @@ export const filterCheckQuery = atom<ViewProductProps>({
     search: '',
     type: '',
     month: '',
-    price: '',
-    playHow: '',
-    store: '',
+    priceCd: '',
+    playHowCd: '',
+    toySiteCd: '',
   },
 });
