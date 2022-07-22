@@ -32,7 +32,6 @@ export default function login({
         } as PostLoginBody;
 
         const login = await loginUser(userLoginData);
-        console.log(login);
         if (!login) {
           setUserInfo(userLoginData);
         }

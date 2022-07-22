@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import { IcReply, IcHeart, IcDot } from '../../public/assets/icons';
 import CommunityCategory from './CommunityCategory';
 import Router from 'next/router';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 interface ContentInfoProps {
   id: string;
@@ -12,7 +10,7 @@ interface ContentInfoProps {
   content: string;
   userNickname?: string;
   replyCount?: number;
-  createdAt?: string;
+  createdAt: string;
   img?: string;
 }
 
@@ -32,16 +30,25 @@ export default function ContentCard(props: ContentInfoProps) {
     <StContentsCardWrapper>
       <StContentInfo>
         <CommunityCategory category={category} />
-        <StMainInfo
-          onClick={() => Router.push({ pathname: `/community/${id}` })}
-        >
-          <h1>{title}</h1>
-          <p>{content}</p>
-        </StMainInfo>
+        {!img ? (
+          <StMainInfo
+            onClick={() => Router.push({ pathname: `/community/${id}` })}
+          >
+            <h1>{title}</h1>
+            <p>{content}</p>
+          </StMainInfo>
+        ) : (
+          <StImgMainInfo
+            onClick={() => Router.push({ pathname: `/community/${id}` })}
+          >
+            <h1>{title}</h1>
+            <p>{content}</p>
+          </StImgMainInfo>
+        )}
         <StWriteInfo>
           <span>{userNickname}</span>
           <IcDot />
-          <span>{createdAt}</span>
+          <span>{createdAt.split('T')[0]}</span>
         </StWriteInfo>
         <StReplyInfo>
           <IcHeart />
@@ -50,14 +57,18 @@ export default function ContentCard(props: ContentInfoProps) {
           <span>{replyCount}</span>
         </StReplyInfo>
       </StContentInfo>
-      {img === undefined ? <></> : <StContentImg src={img} alt="리뷰 사진" />}
+      {img && (
+        <StContentImg
+          src={'https://nori-community.s3.ap-northeast-2.amazonaws.com/' + img}
+          alt="리뷰 사진"
+        />
+      )}
     </StContentsCardWrapper>
   );
 }
 
 const StContentsCardWrapper = styled.div`
   display: flex;
-  /* flex-direction: ; */
 
   margin-bottom: 4.8rem;
   padding-bottom: 4.5rem;
@@ -68,7 +79,6 @@ const StContentsCardWrapper = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray005};
 
   h1 {
-    width: 92.3rem;
     margin-top: 1.6rem;
     margin-bottom: 0.7rem;
 
@@ -78,7 +88,6 @@ const StContentsCardWrapper = styled.div`
   }
 
   p {
-    width: 72.5rem;
     margin-bottom: 2.7rem;
 
     display: -webkit-box;
@@ -92,12 +101,18 @@ const StContentsCardWrapper = styled.div`
     cursor: pointer;
   }
 `;
-const StMainInfo = styled.article``;
+const StMainInfo = styled.article`
+  width: 97.6rem;
+`;
+const StImgMainInfo = styled.article`
+  width: 72.5rem;
+  margin-right: 3.3rem;
+`;
 const StContentInfo = styled.section`
   display: flex;
   flex-direction: column;
 
-  width: 72.5rem;
+  width: auto;
 `;
 const StContentImg = styled.img`
   width: 21.8rem;

@@ -1,9 +1,5 @@
 import useSWR from 'swr';
-import {
-  PostCommunityBody,
-  PutCommunityBody,
-  PostCommentBody,
-} from '../../types/community';
+import { PutCommunityBody, PostCommentBody } from '../../types/community';
 import { baseInstance } from '../axios';
 
 export const useGetCollectionProduct = (key: string) => {
@@ -16,33 +12,20 @@ export const getCollectionProduct = (key: string) => {
   return baseInstance.get(`/collection?sort=${key}`);
 };
 
-export const getCommunity = () => {
-  return baseInstance.get(`/board`);
+export const getCommunity = (currentPage: number) => {
+  return baseInstance.get(`/board/?page=${currentPage}`);
 };
 
-// export const getCommunity = () => {
-//   return baseInstance.get(`/board`);
-// };
-
-export const postCommunity = async (body: PostCommunityBody) => {
-  try {
-    const { data } = await baseInstance.post('/board', body);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
+export const postCommunity = (body: FormData) => {
+  return baseInstance.post('/board', body, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
-export const getCommunityDetail = async (id: string) => {
-  try {
-    // const { data } = await axios.get(
-    //   `https://jsonplaceholder.typicode.com/posts/${id}`,
-    // );
-    const { data } = await baseInstance.get(`/board/${id}`);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
+export const getCommunityDetail = (id: string) => {
+  return baseInstance.get(`/board/${id}`);
 };
 
 export const deleteCommunity = async (id: string) => {
@@ -65,8 +48,8 @@ export const putCommunity = async (id: string, body: PutCommunityBody) => {
 
 export const postReply = async (body: PostCommentBody) => {
   try {
-    const { data } = await baseInstance.post('/board/comment', body);
-    return data;
+    const { status } = await baseInstance.post('/board/comment', body);
+    return status;
   } catch (e) {
     console.log(e);
   }
