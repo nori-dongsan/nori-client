@@ -44,3 +44,12 @@ export interface GetViewProduct {
   isLoading: boolean;
   isError: string;
 }
+
+export interface ViewProductServerSide {
+  search: string;
+  type: string;
+  month: string;
+  price: string;
+  playHow: string;
+  store: string;
+}

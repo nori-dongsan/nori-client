@@ -37,6 +37,15 @@ export const useGetBannerViewProduct = (
     isError: error,
   };
 };
+export const getBannerViewProductFilter = (filterQuery: ViewProductProps) => {
+  console.log(filterQuery);
+  return baseInstance.get(
+    encodeURI(
+      `/toy/list?search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&price=${filterQuery.price}&playHow=${filterQuery.playHow}&store=${filterQuery.store}`,
+    ),
+  );
+};
+
 export const getBannerViewProduct = (category: number, currentPage: number) => {
   return baseInstance.get(`/toy/list/${category}?page=${currentPage}`);
 };

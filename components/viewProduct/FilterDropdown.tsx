@@ -11,6 +11,7 @@ import {
   FilterTagProps,
   ViewProductProps,
 } from '../../types/viewProduct';
+import Router from 'next/router';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
   const { categoryInfo, isDrop, isExcept, categoryIdx, categoryKey } = props;
@@ -22,6 +23,24 @@ export default function FilterDropdown(props: FilterDropdownProps) {
 
   const [filterQuery, setFilterCheckQuery] =
     useRecoilState<ViewProductProps>(filterCheckQuery);
+
+  const handleFilterQuery = (newQuery: ViewProductProps) => {
+    setFilterCheckQuery(newQuery);
+
+    Router.push({
+      pathname: '/viewProduct',
+      query: {
+        filter: true,
+        search: newQuery.search,
+        type: newQuery.type,
+        month: newQuery.month,
+        price: newQuery.price,
+        playHow: newQuery.playHow,
+        store: newQuery.store,
+      },
+    });
+    // if doesn't work then use window.location.href
+  };
 
   const handleCheckedItems = (
     categoryIdx: number,
@@ -68,7 +87,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       case 0:
         newStr = '';
         checkedItems[0].forEach(function (item, index) {
-          newStr += `${categoryInfo[index]},`;
+          newStr += `${categoryInfo[index]} `;
         });
         newQuery = {
           search: filterQuery.search,
@@ -78,7 +97,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           playHow: filterQuery.playHow,
           store: filterQuery.store,
         };
-        setFilterCheckQuery(newQuery);
+        handleFilterQuery(newQuery);
         console.log('str', newStr);
         break;
       case 1:
@@ -94,7 +113,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           playHow: filterQuery.playHow,
           store: filterQuery.store,
         };
-        setFilterCheckQuery(newQuery);
+        handleFilterQuery(newQuery);
         console.log('str', newStr);
         break;
       case 2:
@@ -110,7 +129,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           playHow: filterQuery.playHow,
           store: filterQuery.store,
         };
-        setFilterCheckQuery(newQuery);
+        handleFilterQuery(newQuery);
         console.log('str', newStr);
         break;
       case 3:
@@ -126,7 +145,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           playHow: newStr,
           store: filterQuery.store,
         };
-        setFilterCheckQuery(newQuery);
+        handleFilterQuery(newQuery);
         console.log('str', newStr);
         break;
       case 4:
@@ -142,7 +161,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           playHow: filterQuery.playHow,
           store: newStr,
         };
-        setFilterCheckQuery(newQuery);
+        handleFilterQuery(newQuery);
         console.log('str', newStr);
         break;
     }

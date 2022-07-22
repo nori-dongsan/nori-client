@@ -18,7 +18,11 @@ import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
+import {
+  FilterTagProps,
+  ViewProductProps,
+  ViewProductServerSide,
+} from '../types/viewProduct';
 import {
   checkedItemsState,
   filterCheckQuery,
@@ -27,6 +31,7 @@ import {
 import { IcGrayEmpty } from '../public/assets/icons';
 import {
   getBannerViewProduct,
+  getBannerViewProductFilter,
   getViewProduct,
   useGetBannerViewProduct,
   useGetViewProduct,
@@ -39,9 +44,9 @@ export default function viewProduct({
   filterData,
   result,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // console.log(filterData, result);
   const router = useRouter();
 
+  console.log(result);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -57,7 +62,8 @@ export default function viewProduct({
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-  console.log('체크', Object.keys(checkedItems));
+  // console.log('체크', Object.keys(checkedItems));
+  // console.log('결과조회', filterData);
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
 
   let { toyFilterList } =
@@ -72,32 +78,34 @@ export default function viewProduct({
         );
 
   useEffect(() => {
-    if (result && initial) {
+    if (result) {
       filterData = result.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
+      console.log('여기', filterData);
       setToyList(filterData);
       window.scrollTo(0, 0);
       setInitial(false);
       console.log('초기렌더링');
     }
   }, [result, currentPage]);
-  useEffect(() => {
-    if (toyFilterList && !initial) {
-      // const filterData = toyFilterList.data.filter(
-      //   (_: any, idx: number) =>
-      //     (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
-      // );
-      // setToyList(filterData);
-      // window.scrollTo(0, 0);
-      console.log(
-        '이것은?',
-        Boolean(router.query.iconId && Number(router.query.iconId) !== 0),
-      );
-      console.log('토이리스트', toyFilterList.data.data.result);
-    }
-  }, [toyFilterList]);
+  // useEffect(() => {
+  //   if (toyFilterList && !initial) {
+  //     // const filterData = toyFilterList.data.filter(
+  //     //   (_: any, idx: number) =>
+  //     //     (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
+  //     // );
+  //     // setToyList(filterData);
+  //     // window.scrollTo(0, 0);
+  //     console.log(
+  //       '이것은?',
+  //       Boolean(router.query.iconId && Number(router.query.iconId) !== 0),
+  //     );
+  //     console.log('토이리스트', toyFilterList.data.data.result);
+  //   }
+  // }, [toyFilterList]);
+  console.log('목록', toyList);
   return (
     <StViewProductWrapper>
       {!filterData ? (
@@ -192,29 +200,33 @@ const StEmptyView = styled.section`
 
   margin: 0 23.8rem;
 `;
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   if (context.query.iconId && Number(context.query.iconId) !== 0) {
-//     const res = await getBannerViewProduct(Number(context.query.iconId), 0);
-//     return {
-//       props: {
-//         filterData: res.data.data.filterData,
-//         result: res.data.data.result,
-//       },
-//     };
-//   } else {
-//     const res = await getViewProduct(0);
 
-//     return {
-//       props: {
-//         filterData: res.data.data.filterData,
-//         result: res.data.data.result,
-//       },
-//     };
-//   }
-// };
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  // useGetBa
+
+  console.log(context.query);
+  if (context.query.filter === 'true') {
+    const { search, type, month, price, playHow, store } =
+      context.query as ViewProductProps;
+    const res = await getBannerViewProductFilter({
+      search,
+      type,
+      month,
+      price,
+      playHow,
+      store,
+    });
+    console.log(res);
+    return {
+      props: {
+        filterData: res.data.data.filterData,
+        result: res.data.data.result,
+      },
+    };
+  }
   if (context.query.iconId && Number(context.query.iconId) !== 0) {
     const res = await getBannerViewProduct(Number(context.query.iconId), 0);
+    console.log(res.data.data.result);
     return {
       props: {
         filterData: res.data.data.filterData,
