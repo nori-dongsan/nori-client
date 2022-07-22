@@ -1,45 +1,54 @@
 import styled from '@emotion/styled';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { getCommunityDetail } from '../../core/api/community';
+import { useCommunityDetail } from '../../core/api/community';
 import { isChangeInfoState, newPostInfoState } from '../../core/atom';
 import { IcDefaultImg, IcDelete } from '../../public/assets/icons';
 import { CommunityData, ImgData } from '../../types/community';
 
-export default function UpdateForm({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function UpdateForm() {
+  const router = useRouter();
+
+  const cid = router.query.cid as string;
+
+  const { data } = useCommunityDetail(cid);
+
   const [newPostInfo, setNewPostInfo] = useRecoilState(newPostInfoState);
   const [isChangeCommunity, setIsChangeCommunity] =
     useRecoilState(isChangeInfoState);
   const [isCategory, setIsCategory] = useState<boolean>(false);
   const [images, setImages] = useState<ImgData[]>([]);
   const [imagesSize, setImagesSize] = useState<number>(0);
+
   const [category, setCategory] = useState<string>('후기');
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const textRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    setCategory(data.category);
-    setContent(data.content);
-    setTitle(data.title);
+    if (data) {
+      setCategory(data.category);
+      setContent(data.content);
+      setTitle(data.title);
 
-    const imageList: ImgData[] = [];
-    data.imageList.forEach(async (image, index) => {
-      const file = await convertURLtoFile(
-        'https://nori-community.s3.ap-northeast-2.amazonaws.com/' + image,
-      );
-      setImagesSize((prev) => prev + file.size);
-      imageList.push({
-        id: index,
-        src: image,
-        file: file,
+      const imageList: ImgData[] = [];
+      data.imageList.forEach(async (image, index) => {
+        const file = await convertURLtoFile(
+          'https://nori-community.s3.ap-northeast-2.amazonaws.com/' + image,
+        );
+        setImagesSize((prev) => prev + file.size);
+        imageList.push({
+          id: index,
+          src: image,
+          file: file,
+        });
       });
-    });
-    setImages(imageList);
+
+      setImages(imageList);
+    }
   }, []);
 
   const menu = ['후기', '질문', '정보 공유'];
@@ -223,31 +232,6 @@ export default function UpdateForm({
     </StFormMain>
   );
 }
-
-type Props = {
-  data: Pick<CommunityData, 'title' | 'category' | 'content' | 'imageList'>;
-};
-interface Params extends ParsedUrlQuery {
-  cid: string;
-}
-
-export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
-  params,
-}) => {
-  const res = await getCommunityDetail(params!.cid);
-  console.log('==커뮤니티 디테일 수정==');
-  console.log(res);
-  return {
-    props: {
-      data: {
-        title: res.data.data.title,
-        category: res.data.data.category,
-        content: res.data.data.content,
-        imageList: res.data.data.imageList,
-      },
-    },
-  };
-};
 
 const StFormMain = styled.main`
   display: flex;

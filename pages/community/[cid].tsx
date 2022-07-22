@@ -10,7 +10,6 @@ import DetailFloatingBtn from '../../components/community/DetailFloatingBtn';
 import ReplyList from '../../components/community/ReplyList';
 import {
   deleteCommunity,
-  getCommunityDetail,
   useGetCommunityDetail,
 } from '../../core/api/community';
 import { IcExpandImg, IcMenu, IcWriter } from '../../public/assets/icons';
@@ -83,7 +82,7 @@ export default function CommunityDetail() {
                     <StMenuWrapper onClick={handleMenu}>
                       {dataList.author ? (
                         <StMenuList isWriter={dataList.author}>
-                          <Link href={`/write/${dataList.id}`}>
+                          <Link href={`/write/${cid}`}>
                             <li>
                               <a>수정하기</a>
                             </li>
