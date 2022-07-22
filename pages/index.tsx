@@ -197,10 +197,10 @@ const StCollectionTitle = styled(StConceptTitle)`
 `;
 export const getStaticProps: GetStaticProps = async (context) => {
   const res = await getMainProduct();
-  console.log('응답 ', res);
+  console.log(res);
   return {
     props: {
-      mainData: '', // res.data.data,
+      mainData: res.data.data,
     },
   };
 };

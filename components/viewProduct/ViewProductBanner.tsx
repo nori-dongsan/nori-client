@@ -72,6 +72,7 @@ export default function ViewProductBanner() {
     // if doesn't work then use window.location.href
   };
   const handleProductIcon = (selectIdx: number) => {
+    if (selectedIcon == selectIdx) return;
     setSeletedIcon(selectIdx);
     setcheckedItems([
       new Set<number>(),
