@@ -74,9 +74,7 @@ export default function ProductFilter() {
               categoryInfo={filterListData[idx]}
               categoryIdx={idx}
               isExcept={
-                idx == 3 || (idx == 0 && toyKindList.length !== 0)
-                  ? true
-                  : false
+                idx == 3 || (idx == 0 && toyKindList.length < 5) ? true : false
               }
               isDrop={visibility[idx]}
               checkedItem={checkedItems[idx]}

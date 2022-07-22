@@ -206,6 +206,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (context.query.filter === 'true') {
     const { search, type, month, priceCd, playHowCd, toySiteCd } =
       context.query as ViewProductProps;
+
+    if (context.query.categoryId && Number(context.query.categoryId) !== 0) {
+      const res = await getBannerViewProductFilter(
+        Number(context.query.categoryId),
+        {
+          search,
+          type,
+          month,
+          priceCd,
+          playHowCd,
+          toySiteCd,
+        },
+      );
+      console.log(res.data);
+      return {
+        props: {
+          filterData: res.data.data.filterData,
+          result: res.data.data.result,
+        },
+      };
+    }
     const res = await getViewProductFilter({
       search,
       type,

@@ -68,9 +68,8 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     } else {
       checkedItems[categoryIdx].add(elementIdx);
       setFilterTagList([...filterTagList, tag]);
-      handleQuery(categoryIdx, elementIdx, tagText);
     }
-
+    handleQuery(categoryIdx, elementIdx, tagText);
     setCheckedItems({
       ...checkedItems,
       [categoryIdx]: checkedItems[categoryIdx],
@@ -87,7 +86,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       case 0:
         newStr = '';
         checkedItems[0].forEach(function (item, index) {
-          newStr += `${categoryInfo[index]} `;
+          newStr += `${toyKindList[index]} `;
         });
         newQuery = {
           search: filterQuery.search,
@@ -174,7 +173,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
         isDrop ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'
       }`}
     >
-      {categoryKey === '종류' && toyKindList.length !== 0
+      {categoryKey === '종류'
         ? toyKindList.map((tagText: string, elementIdx: number) => {
             return (
               <StLabel

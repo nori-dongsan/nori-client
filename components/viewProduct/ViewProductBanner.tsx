@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
+import Router from 'next/router';
 import router, { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { getBannerViewProduct } from '../../core/api/viewProduct';
 import {
   checkedItemsState,
+  filterCheckQuery,
   filterTagState,
   toyKindState,
 } from '../../core/atom';
@@ -17,7 +19,7 @@ import {
   IcStudyProduct,
   IcPlayGroundProduct,
 } from '../../public/assets/icons';
-import { FilterTagProps } from '../../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 
 export default function ViewProductBanner() {
   //상품보기 뷰 배너 아이콘 요소 배열
@@ -48,13 +50,14 @@ export default function ViewProductBanner() {
   const [filterQuery, setFilterCheckQuery] =
     useRecoilState<ViewProductProps>(filterCheckQuery);
 
-  const handleFilterQuery = (newQuery: ViewProductProps) => {
-    setFilterCheckQuery(newQuery);
+  const handleFilterQuery = (selectIdx: number, newQuery: ViewProductProps) => {
+    if (newQuery) setFilterCheckQuery(newQuery);
 
     Router.push({
       pathname: '/viewProduct',
       query: {
         filter: true,
+        categoryId: selectIdx,
         search: newQuery.search,
         type: newQuery.type,
         month: newQuery.month,
@@ -76,36 +79,133 @@ export default function ViewProductBanner() {
       new Set<number>(),
     ]);
     setFilterTagList([]);
-
+    let newQuery: ViewProductProps;
     switch (selectIdx) {
       case 0:
-        setToyKindList([]);
+        setToyKindList([
+          '아기체육관',
+          '모빌',
+          '바운서',
+          '쏘서',
+          '점퍼루',
+          '위고',
+          '보행기',
+          '걸음마 보조기',
+          '러닝홈',
+          '러닝테이블',
+          '기타 학습완구',
+          '미끄럼틀',
+          '에어바운스',
+          '트램펄린',
+          '어린이 자동차',
+          '흔들말',
+          '그네',
+          '소꿉놀이',
+          '역할놀이',
+          '기타',
+        ]);
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
+        handleFilterQuery(0, newQuery);
         break;
       case 1:
         setToyKindList(['아기체육관', '모빌', '바운서']);
+        // newQuery = {
+        //   search: '',
+        //   type: '아기체육관 모빌 바운서',
+        //   month: '',
+        //   priceCd: '',
+        //   playHowCd: '',
+        //   toySiteCd: '',
+        // };
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
+        handleFilterQuery(1, newQuery);
         break;
       case 2:
         setToyKindList(['쏘서', '점퍼루', '위고', '보행기', '걸음마 보조기']);
+        // newQuery = {
+        //   search: '',
+        //   type: '쏘서 점퍼루 위고 보행기 걸음마 보조기',
+        //   month: '',
+        //   priceCd: '',
+        //   playHowCd: '',
+        //   toySiteCd: '',
+        // };
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
+        handleFilterQuery(2, newQuery);
         break;
       case 3:
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
         setToyKindList(['러닝홈', '러닝테이블', '기타 학습 완구']);
+        handleFilterQuery(3, newQuery);
         break;
       case 4:
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
         setToyKindList(['미끄럼틀', '에어바운스', '트램펄린']);
+        handleFilterQuery(4, newQuery);
         break;
       case 5:
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
         setToyKindList(['어린이 자동차', '흔들말', '그네']);
+        handleFilterQuery(5, newQuery);
         break;
       case 6:
+        newQuery = {
+          search: '',
+          type: '',
+          month: '',
+          priceCd: '',
+          playHowCd: '',
+          toySiteCd: '',
+        };
         setToyKindList(['소꿉 놀이', '역할 놀이']);
+        handleFilterQuery(6, newQuery);
         break;
     }
-
-    router.push({
-      pathname: '/viewProduct',
-      query: { iconId: selectIdx },
-    });
   };
+  // 패패
+
   return (
     <StProductBannerWrapper>
       <h1>상품보기</h1>
