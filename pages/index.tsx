@@ -21,6 +21,7 @@ import {
 import {
   IcMainBanner,
   IcMainBottomBanner,
+  IcMainImgBanner,
   IcMainMiddleBanner,
   IcMainTopBanncer,
 } from '../public/assets/icons';
@@ -75,9 +76,9 @@ export default function index({
           {/* <LandingFooter /> */}
         </>
       ) : (
-        <>
+        <StMainWrapper>
           <StBannerWrapper>
-            <IcMainTopBanncer />
+            <IcMainImgBanner />
           </StBannerWrapper>
           <StMainSection>
             <article className="trending">
@@ -116,12 +117,21 @@ export default function index({
               <ToyList landingCategory="study" toyList={mainData.smart} />
             </article>
           </StMainSection>
-          <IcMainBottomBanner />
-        </>
+          <StBottomBannerWrapper>
+            <IcMainBottomBanner />
+          </StBottomBannerWrapper>
+        </StMainWrapper>
       )}
     </div>
   );
 }
+const StMainWrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+`;
 
 const StMainSection = styled.section`
   display: flex;
@@ -150,7 +160,20 @@ const StBannerWrapper = styled.nav`
   justify-content: center;
   align-items: center;
 
+  width: 100%;
+  height: fit-content;
+
   background-color: ${({ theme }) => theme.colors.mainGreen};
+`;
+const StBottomBannerWrapper = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: fit-content;
+
+  background-color: ${({ theme }) => theme.colors.lightGreen};
 `;
 const StCollectionArticle = styled.article`
   width: 100%;
