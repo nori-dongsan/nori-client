@@ -100,7 +100,7 @@ export default function Header() {
           </Link>
         </p>
       </StTopLink>
-      <StHeaderContents>
+      <StMainContents>
         <Link href="/">
           <a onClick={handleClick}>
             <IcNoriHeaderLogo />
@@ -140,7 +140,7 @@ export default function Header() {
             </StMenuBtn>
           </StMenu>
         </StSearchWrapper>
-      </StHeaderContents>
+      </StMainContents>
     </StHeaderWrapper>
   );
 }
