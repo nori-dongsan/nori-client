@@ -12,7 +12,7 @@ export const useGetCollectionProduct = (key: string) => {
 };
 
 export const useGetCommunityDetail = (id: string) => {
-  const { data, error } = useSWR<Response<Omit<CommunityData, 'image'>>>(
+  const { data, error } = useSWR<Response<CommunityData>>(
     `/board/${id}`,
     baseInstance.get,
   );

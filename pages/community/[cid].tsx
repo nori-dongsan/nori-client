@@ -24,11 +24,22 @@ export default function CommunityDetail() {
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [expandedImg, setExpandedImg] = useState<string>('');
-  const [dataList, setDataList] = useState<Omit<CommunityData, 'image'>>();
+  const [dataList, setDataList] = useState<CommunityData>();
 
   useEffect(() => {
     if (data) {
-      setDataList(data);
+      setDataList({
+        id: data.id,
+        author: data.author,
+        category: data.category,
+        title: data.title,
+        content: data.content,
+        userNickname: data.userNickname,
+        replyCount: data.replyCount,
+        createdAt: data.createdAt,
+        imageList: data.imageList,
+        replyList: data.replyList,
+      });
     }
   }, [data]);
 
