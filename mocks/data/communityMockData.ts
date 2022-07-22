@@ -20,64 +20,76 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -94,14 +106,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -131,14 +145,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -159,14 +175,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -183,14 +201,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -212,14 +232,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -240,14 +262,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -264,14 +288,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -294,14 +320,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -318,14 +346,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -346,14 +376,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -374,14 +406,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -402,14 +436,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -426,14 +462,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -450,14 +488,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -478,14 +518,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -506,14 +548,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -530,14 +574,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -558,14 +604,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -582,14 +630,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -610,14 +660,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -638,14 +690,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -662,14 +716,16 @@ export const communityMockData: CommunityData[] = [
     imageList: [],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
@@ -690,14 +746,16 @@ export const communityMockData: CommunityData[] = [
     ],
     replyList: [
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 좋은 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
       {
+        author: false,
         userNickname: '희지맘',
         content: '와 정말 공감가는 글 입니다.',
-        createdAt: '2022.06.23',
+        createAt: '2022.06.23',
       },
     ],
   },
