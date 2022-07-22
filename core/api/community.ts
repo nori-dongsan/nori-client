@@ -37,13 +37,12 @@ export const deleteCommunity = async (id: string) => {
   }
 };
 
-export const putCommunity = async (id: string, body: PutCommunityBody) => {
-  try {
-    const { data } = await baseInstance.put(`/board/${id}`, body);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
+export const putCommunity = (id: string, body: FormData) => {
+  return baseInstance.put(`/board/${id}`, body, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 export const postReply = async (body: PostCommentBody) => {
