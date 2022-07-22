@@ -12,8 +12,8 @@ export const getCollectionProduct = (key: string) => {
   return baseInstance.get(`/collection?sort=${key}`);
 };
 
-export const getCommunity = (currentPage: number) => {
-  return baseInstance.get(`/board/?page=${currentPage}`);
+export const getCommunity = () => {
+  return baseInstance.get('/board');
 };
 
 export const postCommunity = (body: FormData) => {
