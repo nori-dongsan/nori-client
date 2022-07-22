@@ -25,6 +25,7 @@ import {
   getBannerViewProduct,
   useGetBannerViewProduct,
 } from '../core/api/viewProduct';
+import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
 
 const limit = 40;
 
@@ -80,6 +81,7 @@ export default function viewProduct({
               </StToyListWrapper>
             </StContentSection>
           </StFilterSectionWrapper>
+          <LandingPageNavigation />
         </>
       ) : (
         <>

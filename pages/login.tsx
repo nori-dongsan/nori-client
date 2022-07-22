@@ -16,6 +16,7 @@ import {
   IcKakaoBtn,
 } from '../public/assets/icons';
 import { userInfoState } from '../core/atom';
+
 export default function login({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -95,8 +96,11 @@ const StLoginWrapper = styled.section`
 
   height: 100vh;
   padding-top: 15.2rem;
-  background: ${({ theme }) => theme.colors.mainGreen};
+  background: url('/assets/icons/loginBackground.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
+
 const StContentWrapper = styled.article`
   display: flex;
   justify-content: center;

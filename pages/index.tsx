@@ -18,6 +18,12 @@ import {
   LandingFooter,
   LandingHeader,
 } from '../components/landing/main';
+import {
+  IcMainBanner,
+  IcMainBottomBanner,
+  IcMainMiddleBanner,
+  IcMainTopBanncer,
+} from '../public/assets/icons';
 
 export default function index({
   mainData,
@@ -69,7 +75,9 @@ export default function index({
         </>
       ) : (
         <>
-          <MainBanner />
+          <StBannerWrapper>
+            <IcMainTopBanncer />
+          </StBannerWrapper>
           <StMainSection>
             <article className="trending">
               <StConceptTitle>이번 주 인기 장난감</StConceptTitle>
@@ -96,7 +104,7 @@ export default function index({
               <StConceptTitle>Today's NORI PICK</StConceptTitle>
               <ToyList landingCategory="noriPick" toyList={mainData.noriPick} />
             </article>
-            <MiddleBanner />
+            <IcMainMiddleBanner />
             <article className="senses">
               <StConceptTitle>우리 아이 오감 발달을 위해</StConceptTitle>
               <ToyList landingCategory="develop" toyList={mainData.senses} />
@@ -107,7 +115,7 @@ export default function index({
               <ToyList landingCategory="study" toyList={mainData.smart} />
             </article>
           </StMainSection>
-          <BottomBanner />
+          <IcMainBottomBanner />
         </>
       )}
     </div>
@@ -121,11 +129,13 @@ const StMainSection = styled.section`
   justify-content: center;
   align-items: center;
 
+  margin-bottom: 12rem;
   .trending {
     margin-top: 7.1rem;
   }
   .noriPick {
     margin-top: 6.5rem;
+    margin-bottom: 10rem;
   }
   .senses {
     margin-top: 10rem;
@@ -133,6 +143,13 @@ const StMainSection = styled.section`
   .smart {
     margin-top: 8rem;
   }
+`;
+const StBannerWrapper = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: ${({ theme }) => theme.colors.mainGreen};
 `;
 const StCollectionArticle = styled.article`
   width: 100%;
