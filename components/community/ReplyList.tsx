@@ -60,7 +60,8 @@ export default function ReplyList(props: ReplyListProps) {
       if (replyList) {
         setPageReplyList(
           replyList.filter(
-            (_, idx) => (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
+            (_: any, idx: number) =>
+              (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
           ),
         );
         window.scrollTo({ top: 750 });
