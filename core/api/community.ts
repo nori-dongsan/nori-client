@@ -66,7 +66,12 @@ export const putCommunity = (id: string, body: FormData) => {
 
 export const postReply = async (body: PostCommentBody) => {
   try {
-    const { status } = await baseInstance.post('/board/comment', body);
+    const { status } = await baseInstance.post('/board/comment', body, {
+      headers: {
+        accessToken: LocalStorage.getItem('accessToken'),
+        refreshToken: LocalStorage.getItem('refreshToken'),
+      },
+    });
     return status;
   } catch (e) {
     console.log(e);

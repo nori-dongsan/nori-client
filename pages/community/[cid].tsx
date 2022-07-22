@@ -29,7 +29,7 @@ export default function CommunityDetail() {
 
   useEffect(() => {
     if (data) {
-      setDataList(data);
+      setDataList(data.data);
     }
   }, [data]);
 

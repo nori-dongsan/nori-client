@@ -18,6 +18,7 @@ interface ReplyListProps {
 export default function ReplyList(props: ReplyListProps) {
   const router = useRouter();
   const { replyList, cid } = props;
+  const [replyState, setReplyState] = useState<ReplyData[]>(replyList);
   const [inputColor, setInputColor] = useState<boolean>(false);
   const [replyText, setReplyText] = useState<string>('');
   const [newReplyInfo, setNewReplyInfo] = useState<PostCommentBody>({
@@ -36,6 +37,7 @@ export default function ReplyList(props: ReplyListProps) {
     setInputColor(e.target.value.length !== 0);
   };
 
+  console.log(newReplyInfo);
   const handleReplyregister = async () => {
     const { content } = newReplyInfo;
     if (content === '') {
@@ -44,12 +46,13 @@ export default function ReplyList(props: ReplyListProps) {
     }
 
     const status = await postReply(newReplyInfo);
+    console.log(status);
     setNewReplyInfo({
       boardId: cid,
       content: replyText,
     });
-    setNewReplyInfo({ boardId: cid, content: '' });
     if (status === 200) router.push(`/community/${cid}`);
+    setNewReplyInfo({ boardId: cid, content: '' });
   };
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
@@ -69,7 +72,7 @@ export default function ReplyList(props: ReplyListProps) {
     } else {
       setIsFirst((prev) => !prev);
     }
-  }, [replyList, currentPage]);
+  }, [replyList, currentPage, newReplyInfo]);
   return (
     <>
       <StReplyTitle>
