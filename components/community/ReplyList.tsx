@@ -57,70 +57,62 @@ export default function ReplyList(props: ReplyListProps) {
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-
-  const handleOnKeyPress = (e: { key: string }) => {
-    if (e.key === 'Enter') {
-      handleReplyregister();
-    }
-
-    useEffect(() => {
-      if (!isFirst) {
-        if (replyList) {
-          setPageReplyList(
-            replyList.filter(
-              (_: any, idx: number) =>
-                (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
-            ),
-          );
-          window.scrollTo({ top: 750 });
-        }
-      } else {
-        setIsFirst((prev) => !prev);
+  useEffect(() => {
+    if (!isFirst) {
+      if (replyList) {
+        setPageReplyList(
+          replyList.filter(
+            (_: any, idx: number) =>
+              (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
+          ),
+        );
+        window.scrollTo({ top: 750 });
       }
-    }, [replyList, currentPage, newReplyInfo]);
-    return (
-      <>
-        <StReplyTitle>
-          <h1>댓글</h1>
-          <p>{replyList.length}</p>
-        </StReplyTitle>
-        <StInputForm>
-          <StInputContent inputColor={inputColor}>
-            <input
-              type="text"
-              placeholder="댓글을 남겨 보세요"
-              onKeyUp={handleInputColor}
-              onChange={handleInputText}
-              onKeyPress={handleOnKeyPress}
-            />
-          </StInputContent>
-          <StInputBtn inputColor={inputColor} onClick={handleReplyregister}>
-            입력
-          </StInputBtn>
-        </StInputForm>
-        <StReplyWrapper>
-          {replyList.map(({ author, userNickname, content, createAt }, idx) => (
-            <ReplyContent
-              key={idx}
-              author={author}
-              userNickname={userNickname}
-              content={content}
-              createAt={createAt}
-            />
-          ))}
-        </StReplyWrapper>
-        <StReplyListNav>
-          {pageReplyList && (
-            <PageNavigation
-              currentPage={currentPage}
-              lastPage={Math.ceil(replyList.length / 10)}
-              handleCurrentPage={handleCurrentPage}
-            />
-          )}
-        </StReplyListNav>
-      </>
-    );
-  };
+    } else {
+      setIsFirst((prev) => !prev);
+    }
+  }, [replyList, currentPage, newReplyInfo]);
+  return (
+    <>
+      <StReplyTitle>
+        <h1>댓글</h1>
+        <p>{replyList.length}</p>
+      </StReplyTitle>
+      <StInputForm>
+        <StInputContent inputColor={inputColor}>
+          <input
+            type="text"
+            placeholder="댓글을 남겨 보세요"
+            onKeyUp={handleInputColor}
+            onChange={handleInputText}
+          />
+        </StInputContent>
+        <StInputBtn inputColor={inputColor} onClick={handleReplyregister}>
+          입력
+        </StInputBtn>
+      </StInputForm>
+      <StReplyWrapper>
+        {replyList.map(({ author, userNickname, content, createAt }, idx) => (
+          <ReplyContent
+            key={idx}
+            author={author}
+            userNickname={userNickname}
+            content={content}
+            createAt={createAt}
+          />
+        ))}
+      </StReplyWrapper>
+      <StReplyListNav>
+        {pageReplyList && (
+          <PageNavigation
+            currentPage={currentPage}
+            lastPage={Math.ceil(replyList.length / 10)}
+            handleCurrentPage={handleCurrentPage}
+          />
+        )}
+      </StReplyListNav>
+    </>
+  );
 }
 
 const StReplyWrapper = styled.section`
