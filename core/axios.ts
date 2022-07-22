@@ -14,8 +14,10 @@ const baseInstance = axios.create({
 baseInstance.interceptors.request.use((config) => {
   const headers = {
     ...config.headers,
-    accessToken: LocalStorage.getItem('accessToken'),
-    refreshToken: LocalStorage.getItem('refreshToken'),
+    accessToken:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDksImlhdCI6MTY1ODQ3MDAxNiwiZXhwIjoxNjU4NDc3MjE2LCJpc3MiOiJub3JpIn0.sSU_eakT615zSSY3TB4JOTL4GK-3G76llR1F1jrNR_8',
+    refreshToken:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDksImlhdCI6MTY1ODQ3MDAxNiwiZXhwIjoxNjU5Njc5NjE2LCJpc3MiOiJub3JpIn0.G7wP25IRXUd5OfG2yGMp6spnSBbC5DSedVCTF7M-I4Q',
   };
 
   return { ...config, headers };
