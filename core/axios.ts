@@ -12,7 +12,6 @@ const baseInstance = axios.create({
 // // client side base instance (default)
 // // 로컬스토리지 접근이 가능하고 token이 필요한 api 호출에서 사용
 baseInstance.interceptors.request.use((config) => {
-  console.log(config);
   const headers = {
     ...config.headers,
     accessToken: LocalStorage.getItem('accessToken'),

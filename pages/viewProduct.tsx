@@ -17,9 +17,17 @@ import {
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
+<<<<<<< HEAD
 import { filterCheckQuery, filterTagState } from '../core/atom';
+=======
+import {
+  checkedItemsState,
+  filterCheckQuery,
+  filterTagState,
+} from '../core/atom';
+>>>>>>> ff03cb8356aa9513bcca54ec2e69ad73dd16af07
 // import { IcGrayEmpty } from '../public/assets/icons';
 
 import {
@@ -32,6 +40,8 @@ import {
 import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
 import { divisionToyData } from '../utils/check';
 import { IcGrayEmpty } from '../public/assets/icons';
+import { useRouter } from 'next/router';
+
 
 const limit = 40;
 
