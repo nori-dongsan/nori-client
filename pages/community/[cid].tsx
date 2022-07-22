@@ -120,7 +120,13 @@ export default function CommunityDetail({
       <DetailFloatingBtn heartNum={0} replyNum={replyCount} />
       {isExpanded && (
         <StExpandedImgWrapper onClick={() => handleExpanded()}>
-          <StExpandedImg src={expandedImg} alt="expanded" />
+          <StExpandedImg
+            src={
+              'https://nori-community.s3.ap-northeast-2.amazonaws.com/' +
+              expandedImg
+            }
+            alt="expanded"
+          />
         </StExpandedImgWrapper>
       )}
     </StCommunityMain>
@@ -138,6 +144,8 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
   params,
 }) => {
   const res = await getCommunityDetail(params!.cid);
+  console.log('==커뮤니티 디테일==');
+  console.log(res);
   return {
     props: {
       data: { ...res.data.data, id: params!.cid },
@@ -308,3 +316,13 @@ const StExpandedImg = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+
+// decodeURIComponent(
+//   'https://nori-image.s3.ap-northeast-2.amazonaws.com/장난감점빵/[대여](미개봉새상품) 타이니러브 수더앤그루브 프린세스테일즈모빌 (흑백+칼라+거치대+건전지포함) 플러스패키지.jpg',
+// )
+
+// encodeURIComponent(
+//   'https://nori-image.s3.ap-northeast-2.amazonaws.com/장난감점빵/[대여](미개봉새상품) 타이니러브 수더앤그루브 프린세스테일즈모빌 (흑백%2b칼라%2b거치대%2b건전지포함) 플러스패키지.jpg',
+// )
+
+// let replaced_str = str.replace(/\+/g, '%2b');

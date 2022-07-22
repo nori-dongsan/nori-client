@@ -28,28 +28,30 @@ export default function UpdateForm({
     setTitle(data.title);
 
     const imageList: ImgData[] = [];
-    data.imageList.forEach(async (image, index) => {
-      const file = await convertURLtoFile(image);
-      setImagesSize((prev) => prev + file.size);
-      imageList.push({
-        id: index,
-        src: image,
-        file: file,
-      });
-    });
+    // data.imageList.forEach(async (image, index) => {
+    //   const file = await convertURLtoFile(
+    //     'https://nori-community.s3.ap-northeast-2.amazonaws.com/' + image,
+    //   );
+    //   setImagesSize((prev) => prev + file.size);
+    //   imageList.push({
+    //     id: index,
+    //     src: image,
+    //     file: file,
+    //   });
+    // });
     setImages(imageList);
   }, []);
 
   const menu = ['후기', '질문', '정보 공유'];
 
-  const convertURLtoFile = async (url: string) => {
-    const response = await fetch(url);
-    const data = await response.blob();
-    const ext = url.split('.').pop(); // url 구조에 맞게 수정할 예정
-    const filename = url.split('/').pop(); // url 구조에 맞게 수정할 예정
-    const metadata = { type: `image/${ext}` };
-    return new File([data], filename!, metadata);
-  };
+  // const convertURLtoFile = async (url: string) => {
+  //   const response = await fetch(url);
+  //   const data = await response.blob();
+  //   const ext = url.split('.').pop(); // url 구조에 맞게 수정할 예정
+  //   const filename = url.split('/').pop(); // url 구조에 맞게 수정할 예정
+  //   const metadata = { type: `image/${ext}` };
+  //   return new File([data], filename!, metadata);
+  // };
 
   const handleIsCategory = () => {
     setIsCategory((prev) => !prev);
@@ -90,18 +92,13 @@ export default function UpdateForm({
       return;
     }
     setImagesSize(totalImagesSize);
-
-    const formData = new FormData();
-    images.map((image) => formData.append(image.id + '', image.file));
-    imageList.map((image) => formData.append(image.id + '', image.file));
-
     setIsChangeCommunity({
       ...isChangeCommunity,
       isChangeImageList: true,
     });
     setNewPostInfo({
       ...newPostInfo,
-      imageList: formData,
+      imageList,
     });
     setImages([...images, ...imageList]);
   };
@@ -111,16 +108,13 @@ export default function UpdateForm({
     const delImg = images.filter((image) => image.id === id);
 
     setImagesSize((prev) => prev - delImg[0].file.size);
-
-    const formData = new FormData();
-    imgDelData.map((image) => formData.append(image.id + '', image.file));
     setIsChangeCommunity({
       ...isChangeCommunity,
       isChangeImageList: true,
     });
     setNewPostInfo({
       ...newPostInfo,
-      imageList: formData,
+      imageList: imgDelData,
     });
     setImages(imgDelData);
   };
@@ -212,7 +206,13 @@ export default function UpdateForm({
               {images.length > 0 &&
                 images.map((image) => (
                   <StPreviewImgWrapper key={image.id}>
-                    <StPreviewImg src={image.src} alt={String(image.id)} />
+                    <StPreviewImg
+                      src={
+                        'https://nori-community.s3.ap-northeast-2.amazonaws.com/' +
+                        image.src
+                      }
+                      alt={String(image.id)}
+                    />
                     <StIcDelete onClick={() => handleDeleteImg(image.id)} />
                   </StPreviewImgWrapper>
                 ))}
@@ -234,18 +234,16 @@ interface Params extends ParsedUrlQuery {
 export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
   params,
 }) => {
-  const data = await getCommunityDetail(params!.cid);
+  const res = await getCommunityDetail(params!.cid);
+  console.log('==커뮤니티 디테일 수정==');
+  console.log(res);
   return {
     props: {
       data: {
-        title: '장난감 후기 알려드립니다.',
-        category: '정보 공유',
-        content:
-          '군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한 군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중 법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다.\n 선거에 관한 경비는 법률이 정하는 경우....경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다.\n 선거에 관한 경비는 법률이 정하는 경우....',
-        imageList: [
-          'https://img.huffingtonpost.com/asset/5d703563250000ad0003e5bd.jpeg?ops=scalefit_630_noupscale',
-          'http://image.auction.co.kr/itemimage/24/af/15/24af15b716.jpg',
-        ],
+        title: res.data.data.title,
+        category: res.data.data.category,
+        content: res.data.data.content,
+        imageList: res.data.data.imageList,
       },
     },
   };

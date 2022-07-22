@@ -32,15 +32,19 @@ export default function WriteHeader() {
       });
 
     const res = await postCommunity(formData);
+
     const {
-      data: { data, status },
+      data: { status },
     } = res;
-    setNewPostInfo({
-      category: '후기',
-      title: '',
-      content: '',
-    });
-    if (status === 201) router.push(`/community/${data.boardId}`);
+
+    if (status === 201) {
+      setNewPostInfo({
+        category: '후기',
+        title: '',
+        content: '',
+      });
+      router.push(`/community/${res.data.data.boardId}`);
+    }
   };
 
   const handleCancel = () => {
@@ -61,31 +65,58 @@ export default function WriteHeader() {
       isChangeContent,
       isChangeImageList,
     } = isChangeCommunity;
-    const updatePostInfo: PutCommunityBody = {};
 
-    if (isChangeCategory) updatePostInfo.category = category;
-    if (isChangeTitle) updatePostInfo.title = title;
-    if (isChangeContent) updatePostInfo.content = content;
-    if (isChangeImageList) updatePostInfo.imageList = imageList;
+    const updatePostInfo: PutCommunityBody = {};
+    const formData = new FormData();
+
+    if (isChangeCategory) formData.append('category', category);
+    if (isChangeTitle) {
+      formData.append('title', title);
+      updatePostInfo.title = title;
+    }
+    if (isChangeContent) {
+      formData.append('content', content);
+      updatePostInfo.content = content;
+    }
+    if (isChangeImageList) {
+      if (imageList)
+        imageList.map((image) => {
+          formData.append('imageList', image.file);
+        });
+    }
+
+    console.log('==check==');
+    console.log(formData.get('title'));
+    console.log(formData.get('content'));
+    console.log(formData.get('category'));
+    // console.log(imageList);
 
     if (updatePostInfo.title === '' || updatePostInfo.content === '') {
       alert('내용을 입력해주세요.');
       return;
     }
 
-    const data = await putCommunity(String(query.cid), updatePostInfo);
-    setNewPostInfo({
-      category: '후기',
-      title: '',
-      content: '',
-    });
-    setIsChangeCommunity({
-      isChangeCategory: false,
-      isChangeTitle: false,
-      isChangeContent: false,
-      isChangeImageList: false,
-    });
-    router.push(`/community/${data.id}`);
+    const res = await putCommunity(String(query.cid), formData);
+    const {
+      data: { status },
+    } = res;
+
+    console.log('== check 수정 ==');
+    console.log(res);
+    if (status === 200) {
+      setNewPostInfo({
+        category: '후기',
+        title: '',
+        content: '',
+      });
+      setIsChangeCommunity({
+        isChangeCategory: false,
+        isChangeTitle: false,
+        isChangeContent: false,
+        isChangeImageList: false,
+      });
+      router.push(`/community/${res.data.data.boardId}`);
+    }
   };
 
   return (
