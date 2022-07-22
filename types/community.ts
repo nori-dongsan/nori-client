@@ -1,4 +1,3 @@
-// 댓글
 export interface ReplyData {
   author: boolean;
   userNickname?: string;
