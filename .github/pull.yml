@@ -2,4 +2,4 @@ version: '1'
 rules:
   - base: develop
     upstream: nori-dongsan:develop
-    mergeMethod: hardreset
+    mergeMethod: merge
