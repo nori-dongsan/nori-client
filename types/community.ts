@@ -3,7 +3,7 @@ export interface ReplyData {
   author: boolean;
   userNickname?: string;
   content: string;
-  createdAt: string;
+  createAt: string;
 }
 // 커뮤니티 데이터
 export interface CommunityData {
@@ -24,14 +24,15 @@ export interface PostCommunityBody {
   category: string;
   title: string;
   content: string;
-  imageList?: FormData;
+  imageList?: ImgData[];
 }
+
 // 커뮤니티 수정 put body
 export interface PutCommunityBody {
   category?: string;
   title?: string;
   content?: string;
-  imageList?: FormData;
+  imageList?: ImgData[];
 }
 // 커뮤니티 변경된 state 판단
 export interface IsChangeCommunity {
@@ -40,16 +41,13 @@ export interface IsChangeCommunity {
   isChangeContent: boolean;
   isChangeImageList: boolean;
 }
+
 // 커뮤니티 댓글
 export interface PostCommentBody {
   boardId?: string;
   content: string;
 }
-export interface GetCommunityList {
-  communityList: CommunityData[];
-  isLoading: boolean;
-  isError: string;
-}
+
 // 커뮤니티 글 작성 이미지 데이터
 export interface ImgData {
   id: number;

@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import Router from 'next/router';
-
 import { useState, useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import { postNickname, putSignup } from '../core/api/user';
