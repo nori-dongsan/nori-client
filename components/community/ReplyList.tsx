@@ -27,7 +27,6 @@ export default function ReplyList(props: ReplyListProps) {
   });
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageReplyList, setPageReplyList] = useState<ReplyData[]>([]);
-  const [isFirst, setIsFirst] = useState<boolean>(true);
 
   const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewReplyInfo({ boardId: cid, content: e.target.value });
@@ -37,7 +36,6 @@ export default function ReplyList(props: ReplyListProps) {
     setInputColor(e.target.value.length !== 0);
   };
 
-  console.log(newReplyInfo);
   const handleReplyregister = async () => {
     const { content } = newReplyInfo;
     if (content === '') {
@@ -46,7 +44,6 @@ export default function ReplyList(props: ReplyListProps) {
     }
 
     const status = await postReply(newReplyInfo);
-    console.log(status);
     setNewReplyInfo({
       boardId: cid,
       content: replyText,
@@ -59,18 +56,14 @@ export default function ReplyList(props: ReplyListProps) {
   };
 
   useEffect(() => {
-    if (!isFirst) {
-      if (replyList) {
-        setPageReplyList(
-          replyList.filter(
-            (_: any, idx: number) =>
-              (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
-          ),
-        );
-        window.scrollTo({ top: 750 });
-      }
-    } else {
-      setIsFirst((prev) => !prev);
+    if (replyList) {
+      const tempList = replyList.filter(
+        (_: any, idx: number) =>
+          (currentPage - 1) * 10 <= idx && idx < currentPage * 10,
+      );
+
+      setPageReplyList(tempList);
+      window.scrollTo({ top: 750 });
     }
   }, [replyList, currentPage, newReplyInfo]);
   return (
@@ -93,15 +86,17 @@ export default function ReplyList(props: ReplyListProps) {
         </StInputBtn>
       </StInputForm>
       <StReplyWrapper>
-        {replyList.map(({ author, userNickname, content, createAt }, idx) => (
-          <ReplyContent
-            key={idx}
-            author={author}
-            userNickname={userNickname}
-            content={content}
-            createAt={createAt}
-          />
-        ))}
+        {pageReplyList.map(
+          ({ author, userNickname, content, createAt }, idx) => (
+            <ReplyContent
+              key={idx}
+              author={author}
+              userNickname={userNickname}
+              content={content}
+              createAt={createAt}
+            />
+          ),
+        )}
       </StReplyWrapper>
       <StReplyListNav>
         {pageReplyList && (
