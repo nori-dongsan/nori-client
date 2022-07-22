@@ -26,6 +26,7 @@ export default function Header() {
     Router.push({
       pathname: '/viewProduct',
       query: {
+        filter: true,
         search: inputValue,
         type: '',
         month: '',
@@ -34,6 +35,7 @@ export default function Header() {
         toySiteCd: '',
       },
     });
+    setInputValue('');
     setFilterCheckQuery({
       search: inputValue,
       type: '',
@@ -42,7 +44,7 @@ export default function Header() {
       playHowCd: '',
       toySiteCd: '',
     });
-    setInputValue('');
+
     setToyKindList([
       '아기체육관',
       '모빌',
@@ -91,6 +93,7 @@ export default function Header() {
               maxLength={60}
               placeholder="상품명, 스토어명을 검색해보세요!"
               onChange={handleInputValue}
+              value={inputValue}
             />
             <Link href="/viewProduct">
               <a>
