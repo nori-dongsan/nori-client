@@ -24,6 +24,7 @@ import {
   filterCheckQuery,
   filterTagState,
 } from '../core/atom';
+
 // import { IcGrayEmpty } from '../public/assets/icons';
 
 import {
@@ -38,7 +39,6 @@ import { divisionToyData } from '../utils/check';
 import { IcGrayEmpty } from '../public/assets/icons';
 import { useRouter } from 'next/router';
 
-
 const limit = 40;
 
 export default function viewProduct({
@@ -49,8 +49,6 @@ export default function viewProduct({
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [initial, setInitial] = useState<boolean>(true);
-
   const handleClickPrice = (clickPrice: string) => {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
@@ -82,7 +80,6 @@ export default function viewProduct({
       setToyList(divisionToyData(filterData));
 
       window.scrollTo(0, 0);
-      setInitial(false);
       console.log('초기렌더링');
     }
   }, [result, currentPage]);
@@ -203,22 +200,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           result: res.data.data.result,
         },
       };
+    } else {
+      const res = await getViewProductFilter({
+        search,
+        type,
+        month,
+        priceCd,
+        playHowCd,
+        toySiteCd,
+      });
+      console.log(res);
+      return {
+        props: {
+          filterData: res.data.data.filterData,
+          result: res.data.data.result,
+        },
+      };
     }
-    const res = await getViewProductFilter({
-      search,
-      type,
-      month,
-      priceCd,
-      playHowCd,
-      toySiteCd,
-    });
-    console.log(res);
-    return {
-      props: {
-        filterData: res.data.data.filterData,
-        result: res.data.data.result,
-      },
-    };
   }
   if (context.query.iconId && Number(context.query.iconId) !== 0) {
     const res = await getBannerViewProduct(Number(context.query.iconId));
