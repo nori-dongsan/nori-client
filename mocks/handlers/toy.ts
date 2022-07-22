@@ -33,20 +33,20 @@ export const getToyCollection = rest.get('/collection', (req, res, ctx) => {
 
 // 장난감 검색 및 필터 리스트 조회
 // 필터 검증 로직은 영이 로직 짜고 생각해봐야할 것같아
-export const getToyList = rest.get('/toy/list', (req, res, ctx) => {
-  const search = req.url.searchParams.get('search');
-  const type = req.url.searchParams.get('type');
-  const month = req.url.searchParams.getAll('month');
-  const price = req.url.searchParams.get('price');
-  const playHow = req.url.searchParams.get('playHow');
-  const category = req.url.searchParams.get('category');
+// export const getToyList = rest.get('/toy/list', (req, res, ctx) => {
+//   const search = req.url.searchParams.get('search');
+//   const type = req.url.searchParams.get('type');
+//   const month = req.url.searchParams.getAll('month');
+//   const price = req.url.searchParams.get('price');
+//   const playHow = req.url.searchParams.get('playHow');
+//   const category = req.url.searchParams.get('category');
 
-  const toyList = toyMockData.filter(
-    (toy) =>
-      toy.title.includes(`${search}`) &&
-      toy.type === Number(type) &&
-      toy.price <= Number(price) &&
-      toy.playHow === Number(playHow),
-  );
-  return res(ctx.json(toyList));
-});
+//   const toyList = toyMockData.filter(
+//     (toy) =>
+//       toy.title.includes(`${search}`) &&
+//       toy.type === Number(type) &&
+//       toy.price <= Number(price) &&
+//       toy.playHow === Number(playHow),
+//   );
+//   return res(ctx.json(toyList));
+// });

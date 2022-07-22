@@ -1,6 +1,10 @@
 import LocalStorage from '../localStorage';
 import { baseInstance } from '../axios';
-import { PostLoginBody, SignUpBody, ResponseLoginDto } from '../../types/user';
+import {
+  PostLoginBody,
+  PostSignUpBody,
+  ResponseLoginDto,
+} from '../../types/user';
 
 export const loginUser = async (userLoginData: PostLoginBody) => {
   const data = (await baseInstance.post(
@@ -19,9 +23,9 @@ export const loginUser = async (userLoginData: PostLoginBody) => {
 export const getRefreshToken = () => {
   return baseInstance.get('/auth/refresh');
 };
-export const postNickname = (nicknameBody: SignUpBody) => {
+export const postNickname = (nicknameBody: PostSignUpBody) => {
   return baseInstance.post('/auth/nickname', nicknameBody);
 };
-export const putSignup = (signUpBody: SignUpBody) => {
+export const putSignup = (signUpBody: PostSignUpBody) => {
   return baseInstance.put('/auth/signup', signUpBody);
 };
