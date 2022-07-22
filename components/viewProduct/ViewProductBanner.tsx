@@ -45,7 +45,26 @@ export default function ViewProductBanner() {
     useRecoilState<Set<number>[]>(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
+  const [filterQuery, setFilterCheckQuery] =
+    useRecoilState<ViewProductProps>(filterCheckQuery);
 
+  const handleFilterQuery = (newQuery: ViewProductProps) => {
+    setFilterCheckQuery(newQuery);
+
+    Router.push({
+      pathname: '/viewProduct',
+      query: {
+        filter: true,
+        search: newQuery.search,
+        type: newQuery.type,
+        month: newQuery.month,
+        priceCd: newQuery.priceCd,
+        playHowCd: newQuery.playHowCd,
+        toySiteCd: newQuery.toySiteCd,
+      },
+    });
+    // if doesn't work then use window.location.href
+  };
   const handleProductIcon = (selectIdx: number) => {
     if (selectedIcon == selectIdx) return;
     setSeletedIcon(selectIdx);

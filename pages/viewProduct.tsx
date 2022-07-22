@@ -31,10 +31,9 @@ import {
 import { IcGrayEmpty } from '../public/assets/icons';
 import {
   getBannerViewProduct,
-  getBannerViewProductFilter,
+  getViewProductFilter,
   getViewProduct,
-  useGetBannerViewProduct,
-  useGetViewProduct,
+  getBannerViewProductFilter,
 } from '../core/api/viewProduct';
 import { Router, useRouter } from 'next/router';
 import { GetViewProduct } from '../types/viewProduct';
@@ -66,16 +65,15 @@ export default function viewProduct({
   // console.log('결과조회', filterData);
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
 
-  let { toyFilterList } =
-    router.query.iconId && Number(router.query.iconId) !== 0
-      ? useGetBannerViewProduct(
-          Number(router.query.iconId),
-          0,
-          `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
-        )
-      : useGetViewProduct(
-          `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
-        );
+  // let { toyFilterList } =
+  //   router.query.iconId && Number(router.query.iconId) !== 0
+  //     ? getBannerViewProductFilter(
+  //         Number(router.query.iconId),
+  //         `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
+  //       )
+  //     : getViewProductFilter(
+  //         `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
+  //       );
 
   useEffect(() => {
     if (result) {
@@ -208,7 +206,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (context.query.filter === 'true') {
     const { search, type, month, priceCd, playHowCd, toySiteCd } =
       context.query as ViewProductProps;
-    const res = await getBannerViewProductFilter({
+    const res = await getViewProductFilter({
       search,
       type,
       month,
@@ -225,7 +223,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
   if (context.query.iconId && Number(context.query.iconId) !== 0) {
-    const res = await getBannerViewProduct(Number(context.query.iconId), 0);
+    const res = await getBannerViewProduct(Number(context.query.iconId));
     console.log(res.data.data.result);
     return {
       props: {
