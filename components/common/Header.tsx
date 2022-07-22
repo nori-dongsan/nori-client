@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 import React, { useState } from 'react';
 import Router from 'next/router';
-import { ViewProductProps } from '../../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 import {
+  checkedItemsState,
   filterCheckQuery,
+  filterTagState,
   selectIconState,
   toyKindState,
 } from '../../core/atom';
@@ -16,6 +18,11 @@ export default function Header() {
   const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const [selectedIcon, setSeletedIcon] =
     useRecoilState<number>(selectIconState);
+  const [checkedItems, setCheckedItems] =
+    useRecoilState<Set<number>[]>(checkedItemsState);
+  const [filterTagList, setFilterTagList] =
+    useRecoilState<FilterTagProps[]>(filterTagState);
+
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
@@ -44,7 +51,14 @@ export default function Header() {
       playHowCd: '',
       toySiteCd: '',
     });
-
+    setCheckedItems([
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+    ]);
+    setFilterTagList([]);
     setToyKindList([
       '아기체육관',
       '모빌',
@@ -78,47 +92,55 @@ export default function Header() {
 
   return (
     <StHeaderWrapper className="mainHeader">
-      <StContentSection>
-        <StTopLink>
-          <p>
-            <a>고객센터</a> | <a>마이페이지</a> |
-            <Link href="/login">
-              <a>로그인</a>
-            </Link>
-          </p>
-        </StTopLink>
-        <StMainContents>
-          <Link href="/">
-            <a>
-              <IcNoriHeaderLogo />
-            </a>
+      <StTopLink>
+        <p>
+          <a>고객센터</a> | <a>마이페이지</a> |
+          <Link href="/login">
+            <a>로그인</a>
           </Link>
-          <StSearchWrapper>
-            <StSearchBar>
-              <input
-                type="text"
-                maxLength={60}
-                placeholder="상품명, 스토어명을 검색해보세요!"
-                onChange={handleInputValue}
-                onKeyPress={handleOnKeyPress}
-                value={inputValue}
-              />
-              <IcSearchIcon onClick={handleClick} />
-            </StSearchBar>
-            <StMenu>
-              <Link href="/viewProduct">
-                <StMenuBtn type="button">상품보기</StMenuBtn>
-              </Link>
-              <Link href="/community">
-                <StMenuBtn type="button">커뮤니티</StMenuBtn>
-              </Link>
-              <StMenuBtn href="https://happy-elephant-0ba.notion.site/ABOUT-nori-b95acaff0c3145ab8d3319c0a58dfbe0">
-                ABOUT
+        </p>
+      </StTopLink>
+      <StHeaderContents>
+        <Link href="/">
+          <a onClick={handleClick}>
+            <IcNoriHeaderLogo />
+          </a>
+        </Link>
+        <StSearchWrapper>
+          <StSearchBar>
+            <input
+              type="text"
+              maxLength={60}
+              placeholder="상품명, 스토어명을 검색해보세요!"
+              onChange={handleInputValue}
+              value={inputValue}
+            />
+            <span>
+              <a>
+                <IcSearchIcon onClick={handleClick} />
+              </a>
+            </span>
+          </StSearchBar>
+          <StMenu>
+            <Link href="/viewProduct">
+              <StMenuBtn type="button" onClick={handleClick}>
+                상품보기
               </StMenuBtn>
-            </StMenu>
-          </StSearchWrapper>
-        </StMainContents>
-      </StContentSection>
+            </Link>
+            <Link href="/community">
+              <StMenuBtn type="button" onClick={handleClick}>
+                커뮤니티
+              </StMenuBtn>
+            </Link>
+            <StMenuBtn
+              onClick={handleClick}
+              href="https://happy-elephant-0ba.notion.site/ABOUT-nori-b95acaff0c3145ab8d3319c0a58dfbe0"
+            >
+              ABOUT
+            </StMenuBtn>
+          </StMenu>
+        </StSearchWrapper>
+      </StHeaderContents>
     </StHeaderWrapper>
   );
 }
