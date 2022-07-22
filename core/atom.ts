@@ -143,3 +143,7 @@ export const filterCheckQuery = atom<ViewProductProps>({
     toySiteCd: '',
   },
 });
+export const selectIconState = atom<number>({
+  key: 'selectIconState',
+  default: 0,
+});

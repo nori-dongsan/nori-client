@@ -18,7 +18,7 @@ import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRecoilValue } from 'recoil';
-import { FilterTagProps } from '../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
 import { filterTagState } from '../core/atom';
 // import { IcGrayEmpty } from '../public/assets/icons';
 

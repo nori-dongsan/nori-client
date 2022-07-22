@@ -8,6 +8,7 @@ import {
   checkedItemsState,
   filterCheckQuery,
   filterTagState,
+  selectIconState,
   toyKindState,
 } from '../../core/atom';
 import {
@@ -41,7 +42,9 @@ export default function ViewProductBanner() {
     <IcCarProduct />,
     <IcRoleProduct />,
   ];
-  const [selectedIcon, setSeletedIcon] = useState<number>(0);
+  // const [selectedIcon, setSeletedIcon] = useState<number>(0);
+  const [selectedIcon, setSeletedIcon] =
+    useRecoilState<number>(selectIconState);
   const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const [checkedItems, setcheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);

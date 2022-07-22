@@ -4,12 +4,18 @@ import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 import React, { useState } from 'react';
 import Router from 'next/router';
 import { ViewProductProps } from '../../types/viewProduct';
-import { filterCheckQuery } from '../../core/atom';
+import {
+  filterCheckQuery,
+  selectIconState,
+  toyKindState,
+} from '../../core/atom';
 import { useRecoilState } from 'recoil';
 
 export default function Header() {
   const [inputValue, setInputValue] = useState<string>('');
-
+  const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
+  const [selectedIcon, setSeletedIcon] =
+    useRecoilState<number>(selectIconState);
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
@@ -17,7 +23,6 @@ export default function Header() {
     useRecoilState<ViewProductProps>(filterCheckQuery);
 
   const handleClick = () => {
-    setInputValue('');
     Router.push({
       pathname: '/viewProduct',
       query: {
@@ -31,7 +36,36 @@ export default function Header() {
     });
     setFilterCheckQuery({
       search: inputValue,
+      type: '',
+      month: '',
+      priceCd: '',
+      playHowCd: '',
+      toySiteCd: '',
     });
+    setInputValue('');
+    setToyKindList([
+      '아기체육관',
+      '모빌',
+      '바운서',
+      '쏘서',
+      '점퍼루',
+      '위고',
+      '보행기',
+      '걸음마 보조기',
+      '러닝홈',
+      '러닝테이블',
+      '기타 학습완구',
+      '미끄럼틀',
+      '에어바운스',
+      '트램펄린',
+      '어린이 자동차',
+      '흔들말',
+      '그네',
+      '소꿉놀이',
+      '역할놀이',
+      '기타',
+    ]);
+    setSeletedIcon(0);
   };
 
   return (

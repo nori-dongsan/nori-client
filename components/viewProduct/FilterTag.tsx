@@ -71,13 +71,9 @@ export default function FilterTag(props: FilterTagProps) {
       ...checkedItems,
       [categoryIdx]: checkedItems[categoryIdx],
     });
-    handleQuery(categoryIdx, elementIdx, tagText);
+    handleQuery(categoryIdx);
   };
-  const handleQuery = (
-    categoryIdx: number,
-    elementIdx: number,
-    tagText: string,
-  ) => {
+  const handleQuery = (categoryIdx: number) => {
     let newQuery: ViewProductProps;
     let newStr: string;
     switch (categoryIdx) {
