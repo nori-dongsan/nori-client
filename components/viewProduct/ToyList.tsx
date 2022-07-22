@@ -27,6 +27,8 @@ export default function ToyList(props: ToyListProps) {
 }
 
 const StToyListWrapper = styled.section`
+  with: 95.2rem;
+
   display: flex;
   justify-content: flex-start;
   align-items: center;
