@@ -39,12 +39,13 @@ export default function viewProduct({
   filterData,
   result,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(filterData, result);
+  // console.log(filterData, result);
   const router = useRouter();
 
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [initial, setInitial] = useState<boolean>(true);
   const filterQuery = useRecoilValue<ViewProductProps>(filterCheckQuery);
   const [checkedItems, setCheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);
@@ -58,8 +59,9 @@ export default function viewProduct({
   };
   console.log('체크', Object.keys(checkedItems));
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
-  let { toyFilterList, isLoading, isError } =
-    Number(router.query.iconId) !== 0
+
+  let { toyFilterList } =
+    router.query.iconId && Number(router.query.iconId) !== 0
       ? useGetBannerViewProduct(
           Number(router.query.iconId),
           0,
@@ -70,23 +72,29 @@ export default function viewProduct({
         );
 
   useEffect(() => {
-    if (result) {
+    if (result && initial) {
       filterData = result.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
       setToyList(filterData);
       window.scrollTo(0, 0);
+      setInitial(false);
+      console.log('초기렌더링');
     }
   }, [result, currentPage]);
   useEffect(() => {
-    if (toyFilterList) {
+    if (toyFilterList && !initial) {
       // const filterData = toyFilterList.data.filter(
       //   (_: any, idx: number) =>
       //     (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       // );
       // setToyList(filterData);
       // window.scrollTo(0, 0);
+      console.log(
+        '이것은?',
+        Boolean(router.query.iconId && Number(router.query.iconId) !== 0),
+      );
       console.log('토이리스트', toyFilterList.data.data.result);
     }
   }, [toyFilterList]);

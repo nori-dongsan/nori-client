@@ -45,7 +45,7 @@ export const getBannerViewProduct = (category: number, currentPage: number) => {
 // };
 export const useGetViewProduct = (viewProductData: string) => {
   const { data, error } = useSWR(
-    [`/toy/list/`, viewProductData],
+    [`/toy/list?`, viewProductData],
     baseInstance.get,
     {
       errorRetryCount: 3,
@@ -78,5 +78,5 @@ export const useGetViewProduct = (viewProductData: string) => {
 //   return baseInstance.get(`/toy/list/${category}?`);
 // };
 export const getViewProduct = () => {
-  return baseInstance.get(`/toy/list/`);
+  return baseInstance.get(`/toy/list`);
 };
