@@ -28,6 +28,6 @@ export default function ToyList(props: ToyListProps) {
 
 const StToyListWrapper = styled.section`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
