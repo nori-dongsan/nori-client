@@ -4,35 +4,44 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CommunityCategory from '../../components/community/CommunityCategory';
 import DetailFloatingBtn from '../../components/community/DetailFloatingBtn';
 import ReplyList from '../../components/community/ReplyList';
-import { deleteCommunity, getCommunityDetail } from '../../core/api/community';
+import {
+  deleteCommunity,
+  useGetCommunityDetail,
+} from '../../core/api/community';
 import { IcExpandImg, IcMenu, IcWriter } from '../../public/assets/icons';
 import { CommunityData } from '../../types/community';
 
-export default function CommunityDetail({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function CommunityDetail() {
+  const router = useRouter();
+
+  const cid = router.query.cid as string;
+
+  const { data } = useGetCommunityDetail(cid);
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [expandedImg, setExpandedImg] = useState<string>('');
+  const [dataList, setDataList] = useState<CommunityData>();
 
-  const router = useRouter();
-
-  const {
-    id: cid,
-    author,
-    category,
-    title,
-    content,
-    userNickname,
-    replyCount,
-    createdAt,
-    imageList,
-    replyList,
-  }: Omit<CommunityData, 'image'> = data;
+  useEffect(() => {
+    if (data) {
+      setDataList({
+        id: data.id,
+        author: data.author,
+        category: data.category,
+        title: data.title,
+        content: data.content,
+        userNickname: data.userNickname,
+        replyCount: data.replyCount,
+        createdAt: data.createdAt,
+        imageList: data.imageList,
+        replyList: data.replyList,
+      });
+    }
+  }, [data]);
 
   const handleMenu = () => {
     setIsMenu((prev) => !prev);
@@ -53,81 +62,86 @@ export default function CommunityDetail({
       if (status === 200) router.replace('/community');
     }
   };
+  console.log(dataList);
 
   return (
     <StCommunityMain>
-      <StDetailSection>
-        <StCommunitySection>
-          <StCommunityArticle>
-            <CommunityCategory category={category} />
-            <StCommunityHeader>{title}</StCommunityHeader>
-            <StCommunityInfoWrapper>
-              <StCommunityInfo>
-                <StNickNameInfo>
-                  {author && <IcWriter />}
-                  <span>{userNickname}</span>
-                </StNickNameInfo>
-                <span>{createdAt.split('T')[0]}</span>
-              </StCommunityInfo>
-              <StCommunityMenu>
-                <IcMenu
-                  css={css`
-                    cursor: pointer;
-                  `}
-                  onClick={handleMenu}
-                />
-              </StCommunityMenu>
-              {isMenu && (
-                <StMenuWrapper onClick={handleMenu}>
-                  {author ? (
-                    <StMenuList isWriter={author}>
-                      <Link href={`/write/${cid}`}>
-                        <li>
-                          <a>수정하기</a>
-                        </li>
-                      </Link>
-                      <li onClick={handleDelete}>삭제하기</li>
-                    </StMenuList>
-                  ) : (
-                    <StMenuList isWriter={author}>
-                      <li>신고하기</li>
-                    </StMenuList>
-                  )}
-                </StMenuWrapper>
-              )}
-            </StCommunityInfoWrapper>
-            <StCommunityContent>
-              <StImgWrapper>
-                {imageList.map((item, idx) => (
-                  <StPreviewImgWrapper key={idx}>
-                    <StPreviewImg
-                      src={
-                        'https://nori-community.s3.ap-northeast-2.amazonaws.com/' +
-                        item
-                      }
-                      alt={item}
+      {dataList && (
+        <>
+          <StDetailSection>
+            <StCommunitySection>
+              <StCommunityArticle>
+                <CommunityCategory category={dataList.category} />
+                <StCommunityHeader>{dataList.title}</StCommunityHeader>
+                <StCommunityInfoWrapper>
+                  <StCommunityInfo>
+                    <StNickNameInfo>
+                      {dataList.author && <IcWriter />}
+                      <span>{dataList.userNickname}</span>
+                    </StNickNameInfo>
+                    <span>{dataList.createdAt.split('T')[0]}</span>
+                  </StCommunityInfo>
+                  <StCommunityMenu>
+                    <IcMenu
+                      css={css`
+                        cursor: pointer;
+                      `}
+                      onClick={handleMenu}
                     />
-                    <StExpandImgIcon onClick={() => handleExpanded(item)} />
-                  </StPreviewImgWrapper>
-                ))}
-              </StImgWrapper>
-              <StContent>{content}</StContent>
-            </StCommunityContent>
-          </StCommunityArticle>
-        </StCommunitySection>
-        <ReplyList replyList={replyList} cid={cid} />
-      </StDetailSection>
-      <DetailFloatingBtn heartNum={0} replyNum={replyCount} />
-      {isExpanded && (
-        <StExpandedImgWrapper onClick={() => handleExpanded()}>
-          <StExpandedImg
-            src={
-              'https://nori-community.s3.ap-northeast-2.amazonaws.com/' +
-              expandedImg
-            }
-            alt="expanded"
-          />
-        </StExpandedImgWrapper>
+                  </StCommunityMenu>
+                  {isMenu && (
+                    <StMenuWrapper onClick={handleMenu}>
+                      {dataList.author ? (
+                        <StMenuList isWriter={dataList.author}>
+                          <Link href={`/write/${cid}`}>
+                            <li>
+                              <a>수정하기</a>
+                            </li>
+                          </Link>
+                          <li onClick={handleDelete}>삭제하기</li>
+                        </StMenuList>
+                      ) : (
+                        <StMenuList isWriter={dataList.author}>
+                          <li>신고하기</li>
+                        </StMenuList>
+                      )}
+                    </StMenuWrapper>
+                  )}
+                </StCommunityInfoWrapper>
+                <StCommunityContent>
+                  <StImgWrapper>
+                    {dataList.imageList.map((item, idx) => (
+                      <StPreviewImgWrapper key={idx}>
+                        <StPreviewImg
+                          src={
+                            'https://nori-community.s3.ap-northeast-2.amazonaws.com/' +
+                            item
+                          }
+                          alt={item}
+                        />
+                        <StExpandImgIcon onClick={() => handleExpanded(item)} />
+                      </StPreviewImgWrapper>
+                    ))}
+                  </StImgWrapper>
+                  <StContent>{dataList.content}</StContent>
+                </StCommunityContent>
+              </StCommunityArticle>
+            </StCommunitySection>
+            <ReplyList replyList={dataList.replyList} cid={cid} />
+          </StDetailSection>
+          <DetailFloatingBtn heartNum={0} replyNum={dataList.replyCount} />
+          {isExpanded && (
+            <StExpandedImgWrapper onClick={() => handleExpanded()}>
+              <StExpandedImg
+                src={
+                  'https://nori-community.s3.ap-northeast-2.amazonaws.com/' +
+                  expandedImg
+                }
+                alt="expanded"
+              />
+            </StExpandedImgWrapper>
+          )}
+        </>
       )}
     </StCommunityMain>
   );
@@ -140,18 +154,19 @@ interface Params extends ParsedUrlQuery {
   cid: string;
 }
 
-export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
-  params,
-}) => {
-  const res = await getCommunityDetail(params!.cid);
-  console.log('==커뮤니티 디테일==');
-  console.log(res);
-  return {
-    props: {
-      data: { ...res.data.data, id: params!.cid },
-    },
-  };
-};
+// export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
+//   params,
+// }) => {
+//   const res = await getCommunityDetail(params!.cid);
+//   // console.log(LocalStorage.getItem('accessToken'));
+//   console.log('==커뮤니티 디테일==');
+//   console.log(res);
+//   return {
+//     props: {
+//       data: { ...res.data.data, id: params!.cid },
+//     },
+//   };
+// };
 
 const StCommunityMain = styled.main`
   display: flex;

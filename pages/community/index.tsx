@@ -19,6 +19,7 @@ const limit = 20;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const res = await getCommunity();
+  console.log(res);
   return {
     props: res.data,
   };
@@ -46,7 +47,7 @@ export default function community({
   const handleCategory = (value: string) => {
     setCategory(value);
   };
-
+  console.log('후기 ', data);
   useEffect(() => {
     if (data) {
       data = data.filter(

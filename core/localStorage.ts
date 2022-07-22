@@ -8,9 +8,9 @@ class LocalStorage {
   }
 
   static getItem(key: string) {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem(key) as string;
-    }
+    // if (typeof window !== 'undefined') {
+    return localStorage.getItem(key) as string;
+    // }
     return '';
   }
 

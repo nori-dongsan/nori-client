@@ -84,6 +84,12 @@ export default function Header() {
     setSeletedIcon(0);
   };
 
+  const handleOnKeyPress = (e: { key: string }) => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  };
+
   return (
     <StHeaderWrapper className="mainHeader">
       <StTopLink>
@@ -140,6 +146,9 @@ export default function Header() {
 }
 
 const StHeaderWrapper = styled.header`
+  display: flex;
+  justify-content: space-evenly;
+
   position: sticky;
   top: -3.2rem;
 
@@ -151,13 +160,17 @@ const StHeaderWrapper = styled.header`
 
   z-index: 2;
 `;
+const StContentSection = styled.section`
+  width: 117.6rem;
+`;
 const StTopLink = styled.div`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
 
   padding: 0rem;
   padding-top: 0.7rem;
-  padding-left: 73.25%;
+  padding-left: 82%;
   a {
     padding-left: 1.2rem;
     padding-right: 1.2rem;
@@ -170,9 +183,9 @@ const StTopLink = styled.div`
     }
   }
 `;
-const StHeaderContents = styled.section`
+const StMainContents = styled.section`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 
   width: 100%;

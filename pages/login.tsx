@@ -49,7 +49,7 @@ export default function login({
     };
 
     getUserData();
-  }, [isLogin]);
+  }, []);
 
   return (
     <StLoginWrapper>
