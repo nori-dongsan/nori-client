@@ -26,6 +26,7 @@ import {
   useGetBannerViewProduct,
 } from '../core/api/viewProduct';
 import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
+import { divisionToyData } from '../utils/check';
 
 const limit = 40;
 
@@ -35,7 +36,7 @@ export default function viewProduct({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   console.log(filterData, result);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
-  const [toyList, setToyList] = useState<ToyData[]>([]);
+  const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleClickPrice = (clickPrice: string) => {
@@ -58,11 +59,12 @@ export default function viewProduct({
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
-      setToyList(filterData);
+      setToyList(divisionToyData(filterData));
       window.scrollTo(0, 0);
     }
   }, [result, currentPage]);
 
+  console.log(toyList);
   return (
     <StViewProductWrapper>
       {!filterData ? (
@@ -100,15 +102,9 @@ export default function viewProduct({
                 <StEmptyView>{/* <IcGrayEmpty /> */}</StEmptyView>
               ) : (
                 <StToyListWrapper>
-                  {toyList.map(
-                    (_, idx) =>
-                      (idx + 1) % 4 === 0 && (
-                        <ToyList
-                          key={idx}
-                          toyList={toyList.slice(idx - 3, idx + 1)}
-                        />
-                      ),
-                  )}
+                  {toyList.map((data, idx) => (
+                    <ToyList key={idx} toyList={data} />
+                  ))}
                 </StToyListWrapper>
               )}
             </StContentSection>
