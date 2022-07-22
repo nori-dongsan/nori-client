@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 import React, { useState } from 'react';
 import Router from 'next/router';
-import { ViewProductProps } from '../../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 import {
+  checkedItemsState,
   filterCheckQuery,
+  filterTagState,
   selectIconState,
   toyKindState,
 } from '../../core/atom';
@@ -16,6 +18,10 @@ export default function Header() {
   const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const [selectedIcon, setSeletedIcon] =
     useRecoilState<number>(selectIconState);
+  const [checkedItems, setCheckedItems] =
+    useRecoilState<Set<number>[]>(checkedItemsState);
+  const [filterTagList, setFilterTagList] =
+    useRecoilState<FilterTagProps[]>(filterTagState);
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
@@ -44,7 +50,14 @@ export default function Header() {
       playHowCd: '',
       toySiteCd: '',
     });
-
+    setCheckedItems([
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+    ]);
+    setFilterTagList([]);
     setToyKindList([
       '아기체육관',
       '모빌',
@@ -69,7 +82,48 @@ export default function Header() {
     ]);
     setSeletedIcon(0);
   };
-
+  const handleClickExcept = () => {
+    setInputValue('');
+    setFilterCheckQuery({
+      search: inputValue,
+      type: '',
+      month: '',
+      priceCd: '',
+      playHowCd: '',
+      toySiteCd: '',
+    });
+    setCheckedItems([
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+    ]);
+    setFilterTagList([]);
+    setToyKindList([
+      '아기체육관',
+      '모빌',
+      '바운서',
+      '쏘서',
+      '점퍼루',
+      '위고',
+      '보행기',
+      '걸음마 보조기',
+      '러닝홈',
+      '러닝테이블',
+      '기타 학습완구',
+      '미끄럼틀',
+      '에어바운스',
+      '트램펄린',
+      '어린이 자동차',
+      '흔들말',
+      '그네',
+      '소꿉놀이',
+      '역할놀이',
+      '기타',
+    ]);
+    setSeletedIcon(0);
+  };
   const handleOnKeyPress = (e: { key: string }) => {
     if (e.key === 'Enter') {
       handleClick();
@@ -90,7 +144,7 @@ export default function Header() {
         <StMainContents>
           <Link href="/">
             <a>
-              <IcNoriHeaderLogo />
+              <IcNoriHeaderLogo onClick={handleClickExcept} />
             </a>
           </Link>
           <StSearchWrapper>
@@ -111,12 +165,19 @@ export default function Header() {
             </StSearchBar>
             <StMenu>
               <Link href="/viewProduct">
-                <StMenuBtn type="button">상품보기</StMenuBtn>
+                <StMenuBtn type="button" onClick={handleClickExcept}>
+                  상품보기
+                </StMenuBtn>
               </Link>
               <Link href="/community">
-                <StMenuBtn type="button">커뮤니티</StMenuBtn>
+                <StMenuBtn type="button" onClick={handleClickExcept}>
+                  커뮤니티
+                </StMenuBtn>
               </Link>
-              <StMenuBtn href="https://happy-elephant-0ba.notion.site/ABOUT-nori-b95acaff0c3145ab8d3319c0a58dfbe0">
+              <StMenuBtn
+                onClick={handleClickExcept}
+                href="https://happy-elephant-0ba.notion.site/ABOUT-nori-b95acaff0c3145ab8d3319c0a58dfbe0"
+              >
                 ABOUT
               </StMenuBtn>
             </StMenu>
