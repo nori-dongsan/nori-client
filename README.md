@@ -1,13 +1,16 @@
 
+<div align="center">
 
-<h2>
-   <img src="https://user-images.githubusercontent.com/79238676/178289176-0ff0c55a-0b9b-4323-80e0-cfd4dc042ee0.png"/>
-   </h2>
- <img src="https://capsule-render.vercel.app/api?type=waving&color=FFE766&height=100&section=header&text=Web💚nori-dongsan&fontSize=40&fontColor=ffffff" />
+   
+   ![image](https://user-images.githubusercontent.com/79238676/180428538-5881fe11-6431-4318-aa0f-3568a0187c7b.png)
 
 
 <h2> 🧸 다양한 장난감 정보를 한눈에! 우리 아이 장난감 대여 비교 플랫폼, NORI </h2>
-<img width="748" alt="핵심가치" src="https://user-images.githubusercontent.com/79238676/178306085-6d51b179-cbd6-4b7e-9cb4-7a762f582b68.png">
+
+
+![image](https://user-images.githubusercontent.com/79238676/180428185-34aa0eab-6a68-4e2d-9207-b20a9ee4adff.png)
+
+</div>
 
 
 <h2> 💚 NORI 서비스의 핵심 기능 </h2>
@@ -18,11 +21,16 @@
 <div ><strong>분산되어 있는 다양한 대여 사이트 정보들을 불러와 사용자들로 하여금 여러 정보들을 한 눈에 모아보고 쉽게 비교할 수 있도록 해줍니다.</strong> <br/>
 사용자는 상품 정보 선택 시 대여 사이트로 이동합니다. </div>
 
+![image](https://user-images.githubusercontent.com/79238676/180427820-a561ce87-4a34-4669-9db9-a95ced14da26.png)
+
 
 <h4> 2️⃣ 장난감 대여 사이트 정보 필터링</h4>
 
 <div> <strong>장난감 특성을 비롯한 아이의 개월 수, 가격 등 여러가지 필터링 기능을 이용해 사용자에게 알맞은 장난감 대여 정보를 제공해줍니다.<strong><br/>
 현재 다양한 장난감 대여 사이트들의 경우 단순히 종류에 따른 분류로 이루어져 있습니다. 사용자에게 유용한 필터링 기준들을 통해 기존 사이트들과는 차별화된 기능을 제공하고자 합니다. </div>
+
+![image](https://user-images.githubusercontent.com/79238676/180427848-533fa5ba-52aa-4ed8-8815-7d7bc920b90a.png)
+
 
 
 <h4> 3️⃣ 커뮤니티</h4>
@@ -31,9 +39,16 @@
 장난감 대여를 이용하는 대부분의 부모님들은 맘카페 혹은 블로그에서 정보를 얻은 후 이를 가지고 검색을 하여 대여를 진행하고 있습니다. <br/><br/>
 따라서 NORI 서비스에서는 커뮤니티 기능을 통해 정보를 얻은 후 사이트 내에서 바로 검색하여 좀 더 빠르게 대여를 진행 할 수 있도록 장난감 탐색 과정을 줄여주고자 합니다. </div>
 
+![image](https://user-images.githubusercontent.com/79238676/180427864-2892863a-9180-4522-8157-918ed23b4b9e.png)
+
 ---
 
 ## 🧑🏻‍💻 웹노리들
+<div align="center">
+<img width="487" alt="image" src="https://user-images.githubusercontent.com/79238676/180427945-bb93f8e8-5063-46f4-9726-f78d7e05ea58.png">
+
+</div>
+
 <table align="center">
     <tr align="center" >
         <td style="min-width: 150px;">

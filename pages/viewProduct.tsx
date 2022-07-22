@@ -17,26 +17,22 @@ import {
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  FilterTagProps,
-  ViewProductProps,
-  ViewProductServerSide,
-} from '../types/viewProduct';
-import {
-  checkedItemsState,
-  filterCheckQuery,
-  filterTagState,
-} from '../core/atom';
-import { IcGrayEmpty } from '../public/assets/icons';
+import { useRecoilValue } from 'recoil';
+import { FilterTagProps } from '../types/viewProduct';
+import { filterTagState } from '../core/atom';
+// import { IcGrayEmpty } from '../public/assets/icons';
+
 import {
   getBannerViewProduct,
   getViewProductFilter,
   getViewProduct,
   getBannerViewProductFilter,
 } from '../core/api/viewProduct';
-import { Router, useRouter } from 'next/router';
-import { GetViewProduct } from '../types/viewProduct';
+
+import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
+import { divisionToyData } from '../utils/check';
+
+
 const limit = 40;
 
 export default function viewProduct({
@@ -47,7 +43,7 @@ export default function viewProduct({
 
   console.log(result);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
-  const [toyList, setToyList] = useState<ToyData[]>([]);
+  const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [initial, setInitial] = useState<boolean>(true);
   const filterQuery = useRecoilValue<ViewProductProps>(filterCheckQuery);
@@ -81,29 +77,17 @@ export default function viewProduct({
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
-      console.log('여기', filterData);
-      setToyList(filterData);
+
+      setToyList(divisionToyData(filterData));
+
       window.scrollTo(0, 0);
       setInitial(false);
       console.log('초기렌더링');
     }
   }, [result, currentPage]);
-  // useEffect(() => {
-  //   if (toyFilterList && !initial) {
-  //     // const filterData = toyFilterList.data.filter(
-  //     //   (_: any, idx: number) =>
-  //     //     (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
-  //     // );
-  //     // setToyList(filterData);
-  //     // window.scrollTo(0, 0);
-  //     console.log(
-  //       '이것은?',
-  //       Boolean(router.query.iconId && Number(router.query.iconId) !== 0),
-  //     );
-  //     console.log('토이리스트', toyFilterList.data.data.result);
-  //   }
-  // }, [toyFilterList]);
-  console.log('목록', toyList);
+
+  console.log(toyList);
+
   return (
     <StViewProductWrapper>
       {!filterData ? (
@@ -122,6 +106,7 @@ export default function viewProduct({
               </StToyListWrapper>
             </StContentSection>
           </StFilterSectionWrapper>
+          <LandingPageNavigation />
         </>
       ) : (
         <>
@@ -137,20 +122,12 @@ export default function viewProduct({
                 />
               </StFilterBarWrapper>
               {toyList.length === 0 ? (
-                <StEmptyView>
-                  <IcGrayEmpty />
-                </StEmptyView>
+                <StEmptyView>{/* <IcGrayEmpty /> */}</StEmptyView>
               ) : (
                 <StToyListWrapper>
-                  {toyList.map(
-                    (_, idx) =>
-                      (idx + 1) % 4 === 0 && (
-                        <ToyList
-                          key={idx}
-                          toyList={toyList.slice(idx - 3, idx + 1)}
-                        />
-                      ),
-                  )}
+                  {toyList.map((data, idx) => (
+                    <ToyList key={idx} toyList={data} />
+                  ))}
                 </StToyListWrapper>
               )}
             </StContentSection>

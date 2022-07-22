@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { signIn, getSession } from 'next-auth/react';
+import { signIn, getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { loginUser } from '../core/api/user';
 import { PostLoginBody } from '../types/user';
@@ -16,34 +16,34 @@ import {
   IcKakaoBtn,
 } from '../public/assets/icons';
 import { userInfoState } from '../core/atom';
+
 export default function login({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   useResetRecoilState(userInfoState);
+
   useEffect(() => {
-    const handleLogin = async () => {
+    const getUserData = async () => {
       if (data.session?.user) {
         const userLoginData = {
           snsId: data.session?.user.email,
           provider: userInfo.provider,
           email: data.session?.user.email,
         } as PostLoginBody;
-
         const login = await loginUser(userLoginData);
-        console.log(login);
         if (!login) {
           setUserInfo(userLoginData);
+
+          if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
+            Router.push('/signup');
+        } else {
+          Router.push('/');
         }
       }
     };
-    if (userInfo.provider !== '') handleLogin();
-  }, [data.session]);
-
-  useEffect(() => {
-    if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
-      Router.push('/signup');
-  }, []);
+    getUserData();
+  }, [data.session?.user]);
 
   return (
     <StLoginWrapper>
@@ -96,8 +96,11 @@ const StLoginWrapper = styled.section`
 
   height: 100vh;
   padding-top: 15.2rem;
-  background: ${({ theme }) => theme.colors.mainGreen};
+  background: url('/assets/icons/loginBackground.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
+
 const StContentWrapper = styled.article`
   display: flex;
   justify-content: center;

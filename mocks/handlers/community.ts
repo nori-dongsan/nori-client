@@ -76,7 +76,12 @@ export const postComment = rest.post('/board/comment', (req, res, ctx) => {
   const currentComment: CommunityData[] = communityMockData.filter(
     (community) => community.id === boardId,
   );
-  currentComment[0].replyList?.push({ content: content });
+  currentComment[0].replyList?.push({
+    author: false,
+    userNickname: '희지맘',
+    content: '와 정말 좋은 글 입니다.',
+    createAt: '2022.06.23',
+  });
   communityMockData[Number(boardId) - 1].replyList =
     currentComment[0].replyList;
 
