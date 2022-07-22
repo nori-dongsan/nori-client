@@ -119,14 +119,6 @@ export default function ViewProductBanner() {
         break;
       case 1:
         setToyKindList(['아기체육관', '모빌', '바운서']);
-        // newQuery = {
-        //   search: '',
-        //   type: '아기체육관 모빌 바운서',
-        //   month: '',
-        //   priceCd: '',
-        //   playHowCd: '',
-        //   toySiteCd: '',
-        // };
         newQuery = {
           search: '',
           type: '',
@@ -139,14 +131,7 @@ export default function ViewProductBanner() {
         break;
       case 2:
         setToyKindList(['쏘서', '점퍼루', '위고', '보행기', '걸음마 보조기']);
-        // newQuery = {
-        //   search: '',
-        //   type: '쏘서 점퍼루 위고 보행기 걸음마 보조기',
-        //   month: '',
-        //   priceCd: '',
-        //   playHowCd: '',
-        //   toySiteCd: '',
-        // };
+
         newQuery = {
           search: '',
           type: '',

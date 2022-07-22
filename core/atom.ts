@@ -132,6 +132,7 @@ export const toyKindState = atom<string[]>({
     '기타',
   ],
 });
+
 export const filterCheckQuery = atom<ViewProductProps>({
   key: 'filterCheckQuery',
   default: {
