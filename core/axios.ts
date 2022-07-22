@@ -17,6 +17,7 @@ baseInstance.interceptors.request.use((config) => {
     refreshToken: LocalStorage.getItem('refreshToken'),
   };
   console.log('req', headers);
+
   return { ...config, headers };
 });
 
