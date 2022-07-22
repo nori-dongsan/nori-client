@@ -177,6 +177,7 @@ const StEmptyView = styled.section`
 `;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log(context.query);
   if (context.query.filter === 'true') {
     const { search, type, month, priceCd, playHowCd, toySiteCd } =
       context.query as ViewProductProps;
