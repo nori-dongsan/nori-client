@@ -103,11 +103,7 @@ export default function Header() {
                 onKeyPress={handleOnKeyPress}
                 value={inputValue}
               />
-              <Link href="/viewProduct">
-                <a>
-                  <IcSearchIcon onClick={handleClick} />
-                </a>
-              </Link>
+              <IcSearchIcon onClick={handleClick} />
             </StSearchBar>
             <StMenu>
               <Link href="/viewProduct">
