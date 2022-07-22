@@ -24,6 +24,7 @@ import {
   IcMainMiddleBanner,
   IcMainTopBanncer,
 } from '../public/assets/icons';
+import LocalStorage from '../core/localStorage';
 
 export default function index({
   mainData,

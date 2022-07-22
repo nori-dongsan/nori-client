@@ -21,9 +21,12 @@ export default function login({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
   useResetRecoilState(userInfoState);
-
+  // signOut();
+  // LocalStorage.clearUserSession();
   useEffect(() => {
+    console.log('렌더링');
     const getUserData = async () => {
       if (data.session?.user) {
         const userLoginData = {
@@ -32,9 +35,11 @@ export default function login({
           email: data.session?.user.email,
         } as PostLoginBody;
         const login = await loginUser(userLoginData);
+        console.log(login);
         if (!login) {
           setUserInfo(userLoginData);
 
+          console.log(userInfo);
           if (!userInfo.isSignup && LocalStorage.getItem('accessToken'))
             Router.push('/signup');
         } else {
@@ -42,8 +47,9 @@ export default function login({
         }
       }
     };
+
     getUserData();
-  }, [data.session?.user]);
+  }, [isLogin]);
 
   return (
     <StLoginWrapper>
@@ -75,6 +81,7 @@ export default function login({
           onClick={() => {
             signIn('google');
             setUserInfo({ provider: 'google' });
+            setIsLogin(true);
           }}
         />
         <IcNaverBtn
@@ -140,6 +147,7 @@ const StTextWrapper = styled.article`
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
+
   return {
     props: {
       data: { session },
