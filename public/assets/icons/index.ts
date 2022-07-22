@@ -62,3 +62,4 @@ export { default as IcMainMiddleBanner } from './IcMainMiddleBanner.svg';
 export { default as IcMainBottomBanner } from './IcMainBottomBanner.svg';
 export { default as IcLoginBackground } from './loginBackground.svg';
 export { default as IcGrayEmpty } from './ic_character_gray_empty_typo.svg';
+export { default as IcMainImgBanner } from './IcMainBanner.svg';
