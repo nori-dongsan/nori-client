@@ -1,6 +1,7 @@
 import axios from 'axios';
 import LocalStorage from './localStorage';
 
+console.log(process.env.NEXT_PUBLIC_BASE_URL);
 const baseInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}`,
   headers: {
@@ -17,18 +18,17 @@ baseInstance.interceptors.request.use((config) => {
     refreshToken: LocalStorage.getItem('refreshToken'),
   };
   console.log('req', headers);
+
   return { ...config, headers };
 });
 
 baseInstance.interceptors.response.use(
   async function (res) {
-    console.log('결과', res);
     return res;
   },
   async function (error: { config: any; response: { status: any } }) {
     const { config, response } = error;
-    console.log('결과2', config);
-    console.log('결과2', response);
+    console.log(error);
     const originalRequest = config;
     if (response?.status === 401) {
       // token refresh 요청
