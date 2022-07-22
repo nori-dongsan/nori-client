@@ -72,7 +72,6 @@ export default function ViewProductBanner() {
     // if doesn't work then use window.location.href
   };
   const handleProductIcon = (selectIdx: number) => {
-    if (selectedIcon == selectIdx) return;
     setSeletedIcon(selectIdx);
     setcheckedItems([
       new Set<number>(),
@@ -228,16 +227,12 @@ const StProductBannerWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
   width: 117.6rem;
   margin: 7.1rem 0 0.4rem 0;
   // padding: 0 3.6rem 5.4rem 3.6rem;
-
   border-bottom: 1px solid #d9d9d9;
-
   & > h1 {
     margin-bottom: 3.4rem;
-
     ${({ theme }) => theme.fonts.t1_28_medium_150};
   }
 `;
@@ -245,7 +240,6 @@ const StCategoryNav = styled.nav`
   display: flex;
   gap: 3.2rem;
   justify-content: center;
-
   width: 110.4rem;
   height: 14.4rem;
   margin: 0 3.6rem 5.4rem 3.6rem;
@@ -255,16 +249,13 @@ const StProductItem = styled.div<{ isClicked: number; selectedIcon: number }>`
   align-items: center;
   flex-direction: column;
   gap: 1.2rem;
-
   color: ${({ selectedIcon, isClicked, theme: { colors } }) =>
     selectedIcon == isClicked ? colors.mainGreen : colors.black};
   ${({ theme }) => theme.fonts.b3_16_semibold_140};
-
   cursor: pointer;
 `;
 const StSearchContent = styled.div`
   align-self: flex-start;
-
   height: 2.5rem;
   margin: 0 0 1.2rem 0;
   color: ${({ theme }) => theme.colors.gray007};
