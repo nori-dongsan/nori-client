@@ -108,7 +108,9 @@ export default function Header() {
             <Link href="/community">
               <StMenuBtn type="button">커뮤니티</StMenuBtn>
             </Link>
-            <StMenuBtn>ABOUT</StMenuBtn>
+            <StMenuBtn href="https://happy-elephant-0ba.notion.site/ABOUT-nori-b95acaff0c3145ab8d3319c0a58dfbe0">
+              ABOUT
+            </StMenuBtn>
           </StMenu>
         </StSearchWrapper>
       </StHeaderContents>
