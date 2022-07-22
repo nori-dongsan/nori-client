@@ -3,7 +3,7 @@ export interface ReplyData {
   author: boolean;
   userNickname?: string;
   content: string;
-  createdAt: string;
+  createAt: string;
 }
 // 커뮤니티 데이터
 export interface CommunityData {
