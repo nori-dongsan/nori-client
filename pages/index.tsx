@@ -21,6 +21,7 @@ import {
 import {
   IcMainBanner,
   IcMainBottomBanner,
+  IcMainImgBanner,
   IcMainMiddleBanner,
   IcMainTopBanncer,
 } from '../public/assets/icons';
@@ -77,8 +78,9 @@ export default function index({
       ) : (
         <>
           <StBannerWrapper>
-            <IcMainTopBanncer />
+            <IcMainImgBanner />
           </StBannerWrapper>
+
           <StMainSection>
             <article className="trending">
               <StConceptTitle>이번 주 인기 장난감</StConceptTitle>
@@ -116,7 +118,9 @@ export default function index({
               <ToyList landingCategory="study" toyList={mainData.smart} />
             </article>
           </StMainSection>
-          <IcMainBottomBanner />
+          <StBottomWrapper>
+            <IcMainBottomBanner />
+          </StBottomWrapper>
         </>
       )}
     </div>
@@ -150,7 +154,20 @@ const StBannerWrapper = styled.nav`
   justify-content: center;
   align-items: center;
 
+  width: 100%;
+  height: fit-content;
+
   background-color: ${({ theme }) => theme.colors.mainGreen};
+`;
+const StBottomWrapper = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: fit-content;
+
+  background-color: ${({ theme }) => theme.colors.lightGreen};
 `;
 const StCollectionArticle = styled.article`
   width: 100%;
