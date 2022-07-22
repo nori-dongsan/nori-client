@@ -18,7 +18,7 @@ import { LandingPageNavigation } from '../../components/landing/collectionProduc
 const limit = 20;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await getCommunity(4);
+  const res = await getCommunity();
   return {
     props: res.data,
   };
