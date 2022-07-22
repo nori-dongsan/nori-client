@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 import React, { useState } from 'react';
 import Router from 'next/router';
-import { ViewProductProps } from '../../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 import {
+  checkedItemsState,
   filterCheckQuery,
+  filterTagState,
   selectIconState,
   toyKindState,
 } from '../../core/atom';
@@ -16,6 +18,11 @@ export default function Header() {
   const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const [selectedIcon, setSeletedIcon] =
     useRecoilState<number>(selectIconState);
+  const [checkedItems, setCheckedItems] =
+    useRecoilState<Set<number>[]>(checkedItemsState);
+  const [filterTagList, setFilterTagList] =
+    useRecoilState<FilterTagProps[]>(filterTagState);
+
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
@@ -44,7 +51,14 @@ export default function Header() {
       playHowCd: '',
       toySiteCd: '',
     });
-
+    setCheckedItems([
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+    ]);
+    setFilterTagList([]);
     setToyKindList([
       '아기체육관',
       '모빌',
@@ -82,7 +96,7 @@ export default function Header() {
       </StTopLink>
       <StHeaderContents>
         <Link href="/">
-          <a>
+          <a onClick={handleClick}>
             <IcNoriHeaderLogo />
           </a>
         </Link>
@@ -103,12 +117,19 @@ export default function Header() {
           </StSearchBar>
           <StMenu>
             <Link href="/viewProduct">
-              <StMenuBtn type="button">상품보기</StMenuBtn>
+              <StMenuBtn type="button" onClick={handleClick}>
+                상품보기
+              </StMenuBtn>
             </Link>
             <Link href="/community">
-              <StMenuBtn type="button">커뮤니티</StMenuBtn>
+              <StMenuBtn type="button" onClick={handleClick}>
+                커뮤니티
+              </StMenuBtn>
             </Link>
-            <StMenuBtn href="https://happy-elephant-0ba.notion.site/ABOUT-nori-b95acaff0c3145ab8d3319c0a58dfbe0">
+            <StMenuBtn
+              onClick={handleClick}
+              href="https://happy-elephant-0ba.notion.site/ABOUT-nori-b95acaff0c3145ab8d3319c0a58dfbe0"
+            >
               ABOUT
             </StMenuBtn>
           </StMenu>
