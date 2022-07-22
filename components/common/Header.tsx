@@ -70,55 +70,67 @@ export default function Header() {
     setSeletedIcon(0);
   };
 
+  const handleOnKeyPress = (e: { key: string }) => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  };
+
   return (
     <StHeaderWrapper className="mainHeader">
-      <StTopLink>
-        <p>
-          <a>고객센터</a> | <a>마이페이지</a> |
-          <Link href="/login">
-            <a>로그인</a>
+      <StContentSection>
+        <StTopLink>
+          <p>
+            <a>고객센터</a> | <a>마이페이지</a> |
+            <Link href="/login">
+              <a>로그인</a>
+            </Link>
+          </p>
+        </StTopLink>
+        <StMainContents>
+          <Link href="/">
+            <a>
+              <IcNoriHeaderLogo />
+            </a>
           </Link>
-        </p>
-      </StTopLink>
-      <StHeaderContents>
-        <Link href="/">
-          <a>
-            <IcNoriHeaderLogo />
-          </a>
-        </Link>
-        <StSearchWrapper>
-          <StSearchBar>
-            <input
-              type="text"
-              maxLength={60}
-              placeholder="상품명, 스토어명을 검색해보세요!"
-              onChange={handleInputValue}
-              value={inputValue}
-            />
-            <Link href="/viewProduct">
-              <a>
-                <IcSearchIcon onClick={handleClick} />
-              </a>
-            </Link>
-          </StSearchBar>
-          <StMenu>
-            <Link href="/viewProduct">
-              <StMenuBtn type="button">상품보기</StMenuBtn>
-            </Link>
-            <Link href="/community">
-              <StMenuBtn type="button">커뮤니티</StMenuBtn>
-            </Link>
-            <StMenuBtn href="https://happy-elephant-0ba.notion.site/ABOUT-nori-b95acaff0c3145ab8d3319c0a58dfbe0">
-              ABOUT
-            </StMenuBtn>
-          </StMenu>
-        </StSearchWrapper>
-      </StHeaderContents>
+          <StSearchWrapper>
+            <StSearchBar>
+              <input
+                type="text"
+                maxLength={60}
+                placeholder="상품명, 스토어명을 검색해보세요!"
+                onChange={handleInputValue}
+                onKeyPress={handleOnKeyPress}
+                value={inputValue}
+              />
+              <Link href="/viewProduct">
+                <a>
+                  <IcSearchIcon onClick={handleClick} />
+                </a>
+              </Link>
+            </StSearchBar>
+            <StMenu>
+              <Link href="/viewProduct">
+                <StMenuBtn type="button">상품보기</StMenuBtn>
+              </Link>
+              <Link href="/community">
+                <StMenuBtn type="button">커뮤니티</StMenuBtn>
+              </Link>
+              <StMenuBtn href="https://happy-elephant-0ba.notion.site/ABOUT-nori-b95acaff0c3145ab8d3319c0a58dfbe0">
+                ABOUT
+              </StMenuBtn>
+            </StMenu>
+          </StSearchWrapper>
+        </StMainContents>
+      </StContentSection>
     </StHeaderWrapper>
   );
 }
 
 const StHeaderWrapper = styled.header`
+  display: flex;
+  justify-content: space-evenly;
+
   position: sticky;
   top: -3.2rem;
 
@@ -130,13 +142,17 @@ const StHeaderWrapper = styled.header`
 
   z-index: 2;
 `;
+const StContentSection = styled.section`
+  width: 117.6rem;
+`;
 const StTopLink = styled.div`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
 
   padding: 0rem;
   padding-top: 0.7rem;
-  padding-left: 73.25%;
+  padding-left: 82%;
   a {
     padding-left: 1.2rem;
     padding-right: 1.2rem;
@@ -149,9 +165,9 @@ const StTopLink = styled.div`
     }
   }
 `;
-const StHeaderContents = styled.section`
+const StMainContents = styled.section`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 
   width: 100%;
