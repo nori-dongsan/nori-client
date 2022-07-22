@@ -35,7 +35,9 @@ import {
 
 import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
 import { divisionToyData } from '../utils/check';
+import { IcGrayEmpty } from '../public/assets/icons';
 import { useRouter } from 'next/router';
+
 
 const limit = 40;
 
@@ -43,16 +45,11 @@ export default function viewProduct({
   filterData,
   result,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const router = useRouter();
-
   console.log(result);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [initial, setInitial] = useState<boolean>(true);
-  const filterQuery = useRecoilValue<ViewProductProps>(filterCheckQuery);
-  const [checkedItems, setCheckedItems] =
-    useRecoilState<Set<number>[]>(checkedItemsState);
 
   const handleClickPrice = (clickPrice: string) => {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
@@ -126,7 +123,9 @@ export default function viewProduct({
                 />
               </StFilterBarWrapper>
               {toyList.length === 0 ? (
-                <StEmptyView>{/* <IcGrayEmpty /> */}</StEmptyView>
+                <StEmptyView>
+                  <IcGrayEmpty />
+                </StEmptyView>
               ) : (
                 <StToyListWrapper>
                   {toyList.map((data, idx) => (
@@ -181,9 +180,6 @@ const StEmptyView = styled.section`
 `;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // useGetBa
-
-  console.log('쿼링', context.query);
   if (context.query.filter === 'true') {
     const { search, type, month, priceCd, playHowCd, toySiteCd } =
       context.query as ViewProductProps;

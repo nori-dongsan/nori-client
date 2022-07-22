@@ -69,17 +69,13 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       checkedItems[categoryIdx].add(elementIdx);
       setFilterTagList([...filterTagList, tag]);
     }
-    handleQuery(categoryIdx, elementIdx, tagText);
+    handleQuery(categoryIdx);
     setCheckedItems({
       ...checkedItems,
       [categoryIdx]: checkedItems[categoryIdx],
     });
   };
-  const handleQuery = (
-    categoryIdx: number,
-    elementIdx: number,
-    tagText: string,
-  ) => {
+  const handleQuery = (categoryIdx: number) => {
     let newQuery: ViewProductProps;
     let newStr: string;
     switch (categoryIdx) {

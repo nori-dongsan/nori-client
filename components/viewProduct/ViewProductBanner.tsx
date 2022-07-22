@@ -8,6 +8,7 @@ import {
   checkedItemsState,
   filterCheckQuery,
   filterTagState,
+  selectIconState,
   toyKindState,
 } from '../../core/atom';
 import {
@@ -41,7 +42,9 @@ export default function ViewProductBanner() {
     <IcCarProduct />,
     <IcRoleProduct />,
   ];
-  const [selectedIcon, setSeletedIcon] = useState<number>(0);
+  // const [selectedIcon, setSeletedIcon] = useState<number>(0);
+  const [selectedIcon, setSeletedIcon] =
+    useRecoilState<number>(selectIconState);
   const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const [checkedItems, setcheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);
@@ -116,14 +119,6 @@ export default function ViewProductBanner() {
         break;
       case 1:
         setToyKindList(['아기체육관', '모빌', '바운서']);
-        // newQuery = {
-        //   search: '',
-        //   type: '아기체육관 모빌 바운서',
-        //   month: '',
-        //   priceCd: '',
-        //   playHowCd: '',
-        //   toySiteCd: '',
-        // };
         newQuery = {
           search: '',
           type: '',
@@ -136,14 +131,7 @@ export default function ViewProductBanner() {
         break;
       case 2:
         setToyKindList(['쏘서', '점퍼루', '위고', '보행기', '걸음마 보조기']);
-        // newQuery = {
-        //   search: '',
-        //   type: '쏘서 점퍼루 위고 보행기 걸음마 보조기',
-        //   month: '',
-        //   priceCd: '',
-        //   playHowCd: '',
-        //   toySiteCd: '',
-        // };
+
         newQuery = {
           search: '',
           type: '',
@@ -235,7 +223,7 @@ export default function ViewProductBanner() {
   );
 }
 
-const StProductBannerWrapper = styled.div<{ isSearch: boolean }>`
+const StProductBannerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
