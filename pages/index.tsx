@@ -112,7 +112,7 @@ export default function index({
             </article>
 
             <article className="smart">
-              <StConceptTitle>학습에 도움이 되는 똑똑한 장난감</StConceptTitle>
+              <StConceptTitle>더운 여름엔 홈바운스</StConceptTitle>
               <ToyList landingCategory="study" toyList={mainData.smart} />
             </article>
           </StMainSection>
