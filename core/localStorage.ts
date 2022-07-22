@@ -15,7 +15,7 @@ class LocalStorage {
   }
 
   static removeItem(key: string) {
-    localStorage.removeItem(key);
+    if (typeof window !== 'undefined') localStorage.removeItem(key);
   }
 
   static setUserSession(accessToken: string, refreshToken: string) {
