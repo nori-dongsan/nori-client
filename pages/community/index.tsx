@@ -159,6 +159,7 @@ const StCommunityTitle = styled.h1`
 const StSearchBar = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 
   margin-bottom: 5.9rem;
 
@@ -189,6 +190,7 @@ const StSearchBar = styled.div`
   }
   & > svg {
     margin-right: 0.9rem;
+    /* padding-bottom: 1.4rem; */
 
     cursor: pointer;
   }
