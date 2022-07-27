@@ -9,7 +9,6 @@ interface CommunityListProps {
 
 export default function CommunityList(props: CommunityListProps) {
   const { contentsList } = props;
-  // const [category, setCategory] = useState<string>('모든 글');
 
   return (
     <StCommunityListWrapper>

@@ -53,13 +53,11 @@ export default function community({
         (_: any, idx: number) =>
           (currentPage - 1) * 20 <= idx && idx < currentPage * 20,
       );
-      console.log(data);
       setContentList(data);
       setIsLoading(false);
       window.scrollTo(0, 0);
     }
   }, [data, currentPage]);
-  console.log(contentList.length);
   return (
     <StCommunityWrapper>
       {isLoading ? (
@@ -190,7 +188,6 @@ const StSearchBar = styled.div`
   }
   & > svg {
     margin-right: 0.9rem;
-    /* padding-bottom: 1.4rem; */
 
     cursor: pointer;
   }
@@ -244,9 +241,6 @@ const StCategoryBtn = styled.button`
 `;
 const StCategoryWrapper = styled.div`
   display: block;
-  /* position: absolute; */
-  /* top: 0;
-  left: 0; */
 
   width: 100%;
   height: 100%;
@@ -255,10 +249,6 @@ const StCategoryList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* position: absolute;
-  top: 9.7rem;
-  left: 5.9rem;
-  transform: translate(-50%, -50%); */
 
   width: 11.9rem;
   padding: 1.5rem 1.8rem;
