@@ -189,7 +189,7 @@ const StHeaderWrapper = styled.header`
   justify-content: space-evenly;
 
   position: sticky;
-  top: -0.001rem;
+  top: 0rem;
 
   width: 100%;
   height: 11.4rem;
