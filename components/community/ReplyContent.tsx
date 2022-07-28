@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { IcReplyWriteIcon } from '../../public/assets/icons';
-import { useState } from 'react';
 
 interface ReplyContentProps {
   author: boolean;

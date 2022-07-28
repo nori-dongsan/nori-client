@@ -1,11 +1,7 @@
 import styled from '@emotion/styled';
-import { useState, useEffect, InputHTMLAttributes } from 'react';
+import { useState, useEffect } from 'react';
 import { postReply } from '../../core/api/community';
-import {
-  CommunityData,
-  PostCommentBody,
-  ReplyData,
-} from '../../types/community';
+import { PostCommentBody, ReplyData } from '../../types/community';
 import ReplyContent from './ReplyContent';
 import { useRouter } from 'next/router';
 import { PageNavigation } from '../common/index';

@@ -7,12 +7,9 @@ import {
 import { IcCommunitySearchIcon } from '../../public/assets/icons';
 import { useEffect, useState } from 'react';
 import { CommunityData } from '../../types/community';
-
 import { PageNavigation } from '../../components/common';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getCommunity } from '../../core/api/community';
-import { useRouter } from 'next/router';
-import { communityMockData } from '../../mocks/data/communityMockData';
 import { LandingPageNavigation } from '../../components/landing/collectionProduct.tsx';
 
 const limit = 20;
