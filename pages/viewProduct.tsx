@@ -38,6 +38,7 @@ import { LandingPageNavigation } from '../components/landing/collectionProduct.t
 import { divisionToyData } from '../utils/check';
 import { IcGrayEmpty } from '../public/assets/icons';
 import { useRouter } from 'next/router';
+import { useSWRConfig } from 'swr';
 
 const limit = 40;
 
@@ -46,6 +47,10 @@ export default function viewProduct({
   result,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   console.log(result);
+  const router = useRouter();
+
+  // console.log(`데이터터${JSON.stringify(data?.data.toyFilterList)}`);
+  console.log(`라우터쿼리${JSON.stringify(router.query)}`);
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -56,22 +61,19 @@ export default function viewProduct({
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-  // console.log('체크', Object.keys(checkedItems));
-  // console.log('결과조회', filterData);
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
-
-  // let { toyFilterList } =
-  //   router.query.iconId && Number(router.query.iconId) !== 0
-  //     ? getBannerViewProductFilter(
-  //         Number(router.query.iconId),
-  //         `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
-  //       )
-  //     : getViewProductFilter(
-  //         `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
-  //       );
-
+  let res =
+    router.query.categoryId && Number(router.query.categoryId) !== 0
+      ? getBannerViewProductFilter(
+          Number(router.query.categoryId),
+          router.query,
+        ).data?.data.result
+      : getViewProductFilter(router.query).data?.data.result;
+  // const { mutate } = useSWRConfig();
+  // mutate();
+  console.log(`result는${JSON.stringify(res)}`);
   useEffect(() => {
-    if (result) {
+    if (result && !res) {
       filterData = result.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
@@ -83,7 +85,19 @@ export default function viewProduct({
       console.log('초기렌더링');
     }
   }, [result, currentPage]);
+  useEffect(() => {
+    if (router.query.filter === 'true' && res) {
+      filterData = res.filter(
+        (_: any, idx: number) =>
+          (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
+      );
 
+      setToyList(divisionToyData(filterData));
+
+      window.scrollTo(0, 0);
+      console.log('swr');
+    }
+  }, [res]);
   console.log(toyList);
 
   return (
@@ -175,49 +189,7 @@ const StEmptyView = styled.section`
 
   margin: 0 23.8rem;
 `;
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  if (context.query.filter === 'true') {
-    const { search, type, month, priceCd, playHowCd, toySiteCd } =
-      context.query as ViewProductProps;
-
-    if (context.query.categoryId && Number(context.query.categoryId) !== 0) {
-      const res = await getBannerViewProductFilter(
-        Number(context.query.categoryId),
-        {
-          search,
-          type,
-          month,
-          priceCd,
-          playHowCd,
-          toySiteCd,
-        },
-      );
-      console.log(res.data);
-      return {
-        props: {
-          filterData: res.data.data.filterData,
-          result: res.data.data.result,
-        },
-      };
-    } else {
-      const res = await getViewProductFilter({
-        search,
-        type,
-        month,
-        priceCd,
-        playHowCd,
-        toySiteCd,
-      });
-      console.log(res);
-      return {
-        props: {
-          filterData: res.data.data.filterData,
-          result: res.data.data.result,
-        },
-      };
-    }
-  }
   if (context.query.iconId && Number(context.query.iconId) !== 0) {
     const res = await getBannerViewProduct(Number(context.query.iconId));
     console.log(res.data.data.result);
@@ -238,3 +210,66 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   if (context.query.filter === 'true') {
+//     const { search, type, month, priceCd, playHowCd, toySiteCd } =
+//       context.query as ViewProductProps;
+
+//     if (context.query.categoryId && Number(context.query.categoryId) !== 0) {
+//       const res = await getBannerViewProductFilter(
+//         Number(context.query.categoryId),
+//         {
+//           search,
+//           type,
+//           month,
+//           priceCd,
+//           playHowCd,
+//           toySiteCd,
+//         },
+//       );
+//       console.log(res.data);
+//       return {
+//         props: {
+//           filterData: res.data.data.filterData,
+//           result: res.data.data.result,
+//         },
+//       };
+//     } else {
+//       const res = await getViewProductFilter({
+//         search,
+//         type,
+//         month,
+//         priceCd,
+//         playHowCd,
+//         toySiteCd,
+//       });
+//       console.log(res);
+//       return {
+//         props: {
+//           filterData: res.data.data.filterData,
+//           result: res.data.data.result,
+//         },
+//       };
+//     }
+//   }
+//   if (context.query.iconId && Number(context.query.iconId) !== 0) {
+//     const res = await getBannerViewProduct(Number(context.query.iconId));
+//     console.log(res.data.data.result);
+//     return {
+//       props: {
+//         filterData: res.data.data.filterData,
+//         result: res.data.data.result,
+//       },
+//     };
+//   } else {
+//     const res = await getViewProduct();
+
+//     return {
+//       props: {
+//         filterData: res.data.data.filterData,
+//         result: res.data.data.result,
+//       },
+//     };
+//   }
+// };

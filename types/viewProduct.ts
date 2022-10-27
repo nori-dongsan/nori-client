@@ -1,4 +1,5 @@
 import { MutableRefObject, RefObject } from 'react';
+import { ToyData } from './toy';
 
 export interface FilterDropdownProps {
   categoryInfo: string[];
@@ -38,13 +39,11 @@ export interface ToyFilterData {
   siteUrl: string;
 }
 export interface GetViewProduct {
-  result: {
-    data: { data: { filterData: FilterData; toyFilterList: ToyFilterData[] } };
-  };
-  isLoading: boolean;
-  isError: string;
+  status: number;
+  data: { data: { filterData: FilterData; result: ToyData[] } };
+  success: boolean;
+  message: string;
 }
-
 export interface ViewProductServerSide {
   search: string;
   type: string;
