@@ -223,8 +223,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
   }
-  if (context.query.iconId && Number(context.query.iconId) !== 0) {
-    const res = await getBannerViewProduct(Number(context.query.iconId));
+  if (context.query.categoryId && Number(context.query.categoryId) !== 0) {
+    const res = await getBannerViewProduct(Number(context.query.categoryId));
     console.log('ssr3');
     return {
       props: {

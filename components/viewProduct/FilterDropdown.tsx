@@ -11,9 +11,10 @@ import {
   FilterTagProps,
   ViewProductProps,
 } from '../../types/viewProduct';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
+  const router = useRouter();
   const { categoryInfo, isDrop, isExcept, categoryIdx, categoryKey } = props;
   const toyKindList = useRecoilValue<string[]>(toyKindState);
   const [checkedItems, setCheckedItems] =
@@ -31,6 +32,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       pathname: '/viewProduct',
       query: {
         filter: true,
+        categoryId: router.query.categoryId,
         search: newQuery.search,
         type: newQuery.type,
         month: newQuery.month,
