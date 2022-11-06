@@ -40,24 +40,22 @@ import { IcGrayEmpty } from '../public/assets/icons';
 import { useRouter } from 'next/router';
 
 const limit = 40;
-
 export default function viewProduct({
   filterData,
   result,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   console.log(result);
+
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const handleClickPrice = (clickPrice: string) => {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
-
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-  // console.log('체크', Object.keys(checkedItems));
-  // console.log('결과조회', filterData);
+
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
 
   // let { toyFilterList } =
@@ -179,26 +177,30 @@ const StEmptyView = styled.section`
 export const getServerSideProps: GetServerSideProps = async (context) => {
   context.res.setHeader(
     'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59',
+    'public, s-maxage=1800, stale-while-revalidate=100000000000000000',
+    // 'public, s-maxage=1800, stale-while-revalidate=59',
   );
-
-  if (context.query.filter === 'true') {
-    const { search, type, month, priceCd, playHowCd, toySiteCd } =
-      context.query as ViewProductProps;
-
-    if (context.query.categoryId && Number(context.query.categoryId) !== 0) {
-      const res = await getBannerViewProductFilter(
-        Number(context.query.categoryId),
-        {
-          search,
-          type,
-          month,
-          priceCd,
-          playHowCd,
-          toySiteCd,
-        },
-      );
-      console.log('ssr1');
+  const {
+    filter,
+    categoryId,
+    search,
+    type,
+    month,
+    priceCd,
+    playHowCd,
+    toySiteCd,
+  } = context.query as ViewProductProps;
+  if (filter === 'true') {
+    if (categoryId && Number(categoryId) !== 0) {
+      const res = await getBannerViewProductFilter(Number(categoryId), {
+        categoryId,
+        search,
+        type,
+        month,
+        priceCd,
+        playHowCd,
+        toySiteCd,
+      });
       return {
         props: {
           filterData: res.data.data.filterData,
@@ -214,7 +216,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         playHowCd,
         toySiteCd,
       });
-      console.log('ssr2');
       return {
         props: {
           filterData: res.data.data.filterData,
@@ -223,9 +224,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
   }
-  if (context.query.categoryId && Number(context.query.categoryId) !== 0) {
-    const res = await getBannerViewProduct(Number(context.query.categoryId));
-    console.log('ssr3');
+  if (categoryId && Number(categoryId) !== 0) {
+    const res = await getBannerViewProduct(Number(categoryId));
     return {
       props: {
         filterData: res.data.data.filterData,
@@ -234,7 +234,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   } else {
     const res = await getViewProduct();
-    console.log('ssr4');
     return {
       props: {
         filterData: res.data.data.filterData,

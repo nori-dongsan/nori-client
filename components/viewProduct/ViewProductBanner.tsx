@@ -2,11 +2,12 @@ import styled from '@emotion/styled';
 import Router from 'next/router';
 import router, { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { getBannerViewProduct } from '../../core/api/viewProduct';
 import {
   checkedItemsState,
   filterCheckQuery,
+  filterListState,
   filterTagState,
   selectIconState,
   toyKindState,
@@ -42,37 +43,24 @@ export default function ViewProductBanner() {
     <IcCarProduct />,
     <IcRoleProduct />,
   ];
-  // const [selectedIcon, setSeletedIcon] = useState<number>(0);
-  const [selectedIcon, setSeletedIcon] =
-    useRecoilState<number>(selectIconState);
-  const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
-  const [checkedItems, setcheckedItems] =
-    useRecoilState<Set<number>[]>(checkedItemsState);
-  const [filterTagList, setFilterTagList] =
-    useRecoilState<FilterTagProps[]>(filterTagState);
+  const setToyKindList = useSetRecoilState<string[]>(toyKindState);
+  const setcheckedItems = useSetRecoilState<Set<number>[]>(checkedItemsState);
+  const setFilterTagList = useSetRecoilState<FilterTagProps[]>(filterTagState);
   const [filterQuery, setFilterCheckQuery] =
     useRecoilState<ViewProductProps>(filterCheckQuery);
+  const filterlist = useRecoilValue(filterListState);
 
   const handleFilterQuery = (selectIdx: number, newQuery: ViewProductProps) => {
     if (newQuery) setFilterCheckQuery(newQuery);
-
     Router.push({
       pathname: '/viewProduct',
       query: {
-        filter: true,
-        categoryId: selectIdx,
-        search: newQuery.search,
-        type: newQuery.type,
-        month: newQuery.month,
-        priceCd: newQuery.priceCd,
-        playHowCd: newQuery.playHowCd,
-        toySiteCd: newQuery.toySiteCd,
+        ...newQuery,
       },
     });
     // if doesn't work then use window.location.href
   };
   const handleProductIcon = (selectIdx: number) => {
-    setSeletedIcon(selectIdx);
     setcheckedItems([
       new Set<number>(),
       new Set<number>(),
@@ -84,29 +72,10 @@ export default function ViewProductBanner() {
     let newQuery: ViewProductProps;
     switch (selectIdx) {
       case 0:
-        setToyKindList([
-          '아기체육관',
-          '모빌',
-          '바운서',
-          '쏘서',
-          '점퍼루',
-          '위고',
-          '보행기',
-          '걸음마 보조기',
-          '러닝홈',
-          '러닝테이블',
-          '기타 학습완구',
-          '미끄럼틀',
-          '에어바운스',
-          '트램펄린',
-          '어린이 자동차',
-          '흔들말',
-          '그네',
-          '소꿉놀이',
-          '역할놀이',
-          '기타',
-        ]);
+        setToyKindList(filterlist.filterList.종류);
         newQuery = {
+          filter: 'true',
+          categoryId: '0',
           search: '',
           type: '',
           month: '',
@@ -117,8 +86,10 @@ export default function ViewProductBanner() {
         handleFilterQuery(0, newQuery);
         break;
       case 1:
-        setToyKindList(['아기체육관', '모빌', '바운서']);
+        // setToyKindList(['아기체육관', '모빌', '바운서']);
         newQuery = {
+          filter: 'true',
+          categoryId: '1',
           search: '',
           type: '',
           month: '',
@@ -129,9 +100,11 @@ export default function ViewProductBanner() {
         handleFilterQuery(1, newQuery);
         break;
       case 2:
-        setToyKindList(['쏘서', '점퍼루', '위고', '보행기', '걸음마 보조기']);
+        // setToyKindList(['쏘서', '점퍼루', '위고', '보행기', '걸음마 보조기']);
 
         newQuery = {
+          filter: 'true',
+          categoryId: '2',
           search: '',
           type: '',
           month: '',
@@ -143,6 +116,8 @@ export default function ViewProductBanner() {
         break;
       case 3:
         newQuery = {
+          filter: 'true',
+          categoryId: '3',
           search: '',
           type: '',
           month: '',
@@ -150,11 +125,13 @@ export default function ViewProductBanner() {
           playHowCd: '',
           toySiteCd: '',
         };
-        setToyKindList(['러닝홈', '러닝테이블', '기타 학습 완구']);
+        // setToyKindList(['러닝홈', '러닝테이블', '기타 학습 완구']);
         handleFilterQuery(3, newQuery);
         break;
       case 4:
         newQuery = {
+          filter: 'true',
+          categoryId: '4',
           search: '',
           type: '',
           month: '',
@@ -162,11 +139,13 @@ export default function ViewProductBanner() {
           playHowCd: '',
           toySiteCd: '',
         };
-        setToyKindList(['미끄럼틀', '에어바운스', '트램펄린']);
+        // setToyKindList(['미끄럼틀', '에어바운스', '트램펄린']);
         handleFilterQuery(4, newQuery);
         break;
       case 5:
         newQuery = {
+          filter: 'true',
+          categoryId: '5',
           search: '',
           type: '',
           month: '',
@@ -174,11 +153,13 @@ export default function ViewProductBanner() {
           playHowCd: '',
           toySiteCd: '',
         };
-        setToyKindList(['어린이 자동차', '흔들말', '그네']);
+        // setToyKindList(['어린이 자동차', '흔들말', '그네']);
         handleFilterQuery(5, newQuery);
         break;
       case 6:
         newQuery = {
+          filter: 'true',
+          categoryId: '6',
           search: '',
           type: '',
           month: '',
@@ -186,12 +167,11 @@ export default function ViewProductBanner() {
           playHowCd: '',
           toySiteCd: '',
         };
-        setToyKindList(['소꿉 놀이', '역할 놀이']);
+        // setToyKindList(['소꿉놀이', '역할놀이']);
         handleFilterQuery(6, newQuery);
         break;
     }
   };
-  // 패패
 
   return (
     <StProductBannerWrapper>
@@ -205,7 +185,7 @@ export default function ViewProductBanner() {
               }}
               key={item}
               isClicked={idx}
-              selectedIcon={selectedIcon}
+              selectedIcon={Number(filterQuery.categoryId)}
             >
               {productSvgs[idx]}
               <p>{item}</p>
@@ -244,13 +224,20 @@ const StCategoryNav = styled.nav`
   height: 14.4rem;
   margin: 0 3.6rem 5.4rem 3.6rem;
 `;
-const StProductItem = styled.div<{ isClicked: number; selectedIcon: number }>`
+const StProductItem = styled.div<{
+  isClicked: number;
+  selectedIcon: number;
+}>`
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 1.2rem;
   color: ${({ selectedIcon, isClicked, theme: { colors } }) =>
-    selectedIcon == isClicked ? colors.mainGreen : colors.black};
+    (Number(useRouter().query.categoryId)
+      ? Number(useRouter().query.categoryId)
+      : 0) === isClicked
+      ? colors.mainGreen
+      : colors.black};
   ${({ theme }) => theme.fonts.b3_16_semibold_140};
   cursor: pointer;
 `;

@@ -1,8 +1,9 @@
-import { atom } from 'recoil';
+import { atom, DefaultValue, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist'; //페이지가 변경되더라도 상태관리를 유지
 import { PostCommunityBody, IsChangeCommunity } from '../types/community';
 import { PostLoginBody } from '../types/user';
 import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
+import { getBannerViewProductFilter } from './api/viewProduct';
 
 const { persistAtom } = recoilPersist();
 
@@ -90,7 +91,37 @@ export const filterListState = atom({
     },
   },
 });
+export const getFilterSelector = selector({
+  key: 'getFilterSelector',
+  get: ({ get }) => {
+    get(filterListState).filterList.종류;
+  },
+  // set: ({ get, set, reset }, newKind) => {
+  //   if (newKind instanceof DefaultValue) {
+  //     reset(filterListState);
+  //     set(modalIdsAtom, (prevValue) =>
+  //       prevValue.filter((item) => item !== modalId),
+  //     );
 
+  //     return;
+  //   }
+
+  //   set(modalsAtomFamily(modalId), modalInfo);
+  //   set(modalIdsAtom, (prev) => Array.from(new Set([...prev, modalInfo.id])));
+  // },
+
+  // set: (modalId) => ({ get, set, reset }, modalInfo) => {
+  //   if (modalInfo instanceof DefaultValue) {
+  //     reset(modalsAtomFamily(modalId))
+  //     set(modalIdsAtom, (prevValue) => prevValue.filter((item) => item !== modalId))
+
+  //     return
+  //   }
+
+  //   set(modalsAtomFamily(modalId), modalInfo)
+  //   set(modalIdsAtom, (prev) => Array.from(new Set([...prev, modalInfo.id])))
+  // },
+});
 export const filterTagState = atom<FilterTagProps[]>({
   key: 'filterTagState',
   default: [],
@@ -136,6 +167,8 @@ export const toyKindState = atom<string[]>({
 export const filterCheckQuery = atom<ViewProductProps>({
   key: 'filterCheckQuery',
   default: {
+    filter: 'false',
+    categoryId: '0',
     search: '',
     type: '',
     month: '',

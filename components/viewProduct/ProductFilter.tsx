@@ -11,7 +11,6 @@ import FilterDropdown from './FilterDropdown';
 
 export default function ProductFilter() {
   const filterlist = useRecoilValue(filterListState);
-
   const [visibility, setVisibility] = useState<boolean[]>([
     false,
     false,
@@ -28,8 +27,7 @@ export default function ProductFilter() {
   ]);
   const filterListData = Object.values(filterlist.filterList);
   const filterListKeys = Object.keys(filterlist.filterList);
-  const [checkedItems, setcheckedItems] =
-    useRecoilState<Set<number>[]>(checkedItemsState);
+  const checkedItems = useRecoilValue<Set<number>[]>(checkedItemsState);
   const toyKindList = useRecoilValue<string[]>(toyKindState);
   const [repeat, setRepeat] = useState<any>(null);
   const handleDropdown = (idx: number) => {

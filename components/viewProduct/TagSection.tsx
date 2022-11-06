@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { filterListState, filterTagState } from '../../core/atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { filterTagState } from '../../core/atom';
 import { IcUndoBtn } from '../../public/assets/icons';
 import { FilterTagProps } from '../../types/viewProduct';
 import FilterTag from './FilterTag';

@@ -12,6 +12,7 @@ import {
   ViewProductProps,
 } from '../../types/viewProduct';
 import Router, { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
   const router = useRouter();
@@ -163,6 +164,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
         break;
     }
   };
+
   return (
     <StDropdownWrapper
       isDrop={isDrop}
