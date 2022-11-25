@@ -43,7 +43,7 @@ export default function ViewProductBanner() {
     <IcCarProduct />,
     <IcRoleProduct />,
   ];
-  const setToyKindList = useSetRecoilState<string[]>(toyKindState);
+  const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const setcheckedItems = useSetRecoilState<Set<number>[]>(checkedItemsState);
   const setFilterTagList = useSetRecoilState<FilterTagProps[]>(filterTagState);
   const [filterQuery, setFilterCheckQuery] =
@@ -72,100 +72,49 @@ export default function ViewProductBanner() {
     let newQuery: ViewProductProps;
     switch (selectIdx) {
       case 0:
-        setToyKindList(filterlist.filterList.종류);
+        setToyKindList(toyKindList);
         newQuery = {
-          filter: 'true',
           categoryId: '0',
-          search: '',
-          type: '',
-          month: '',
-          priceCd: '',
-          playHowCd: '',
-          toySiteCd: '',
         };
         handleFilterQuery(0, newQuery);
         break;
       case 1:
         // setToyKindList(['아기체육관', '모빌', '바운서']);
-        newQuery = {
-          filter: 'true',
-          categoryId: '1',
-          search: '',
-          type: '',
-          month: '',
-          priceCd: '',
-          playHowCd: '',
-          toySiteCd: '',
-        };
+        newQuery = { categoryId: '1' };
         handleFilterQuery(1, newQuery);
         break;
       case 2:
         // setToyKindList(['쏘서', '점퍼루', '위고', '보행기', '걸음마 보조기']);
 
         newQuery = {
-          filter: 'true',
           categoryId: '2',
-          search: '',
-          type: '',
-          month: '',
-          priceCd: '',
-          playHowCd: '',
-          toySiteCd: '',
         };
         handleFilterQuery(2, newQuery);
         break;
       case 3:
         newQuery = {
-          filter: 'true',
           categoryId: '3',
-          search: '',
-          type: '',
-          month: '',
-          priceCd: '',
-          playHowCd: '',
-          toySiteCd: '',
         };
         // setToyKindList(['러닝홈', '러닝테이블', '기타 학습 완구']);
         handleFilterQuery(3, newQuery);
         break;
       case 4:
         newQuery = {
-          filter: 'true',
           categoryId: '4',
-          search: '',
-          type: '',
-          month: '',
-          priceCd: '',
-          playHowCd: '',
-          toySiteCd: '',
         };
         // setToyKindList(['미끄럼틀', '에어바운스', '트램펄린']);
         handleFilterQuery(4, newQuery);
         break;
       case 5:
         newQuery = {
-          filter: 'true',
           categoryId: '5',
-          search: '',
-          type: '',
-          month: '',
-          priceCd: '',
-          playHowCd: '',
-          toySiteCd: '',
         };
         // setToyKindList(['어린이 자동차', '흔들말', '그네']);
         handleFilterQuery(5, newQuery);
         break;
       case 6:
         newQuery = {
-          filter: 'true',
           categoryId: '6',
-          search: '',
-          type: '',
-          month: '',
-          priceCd: '',
-          playHowCd: '',
-          toySiteCd: '',
         };
         // setToyKindList(['소꿉놀이', '역할놀이']);
         handleFilterQuery(6, newQuery);
@@ -185,7 +134,6 @@ export default function ViewProductBanner() {
               }}
               key={item}
               isClicked={idx}
-              selectedIcon={Number(filterQuery.categoryId)}
             >
               {productSvgs[idx]}
               <p>{item}</p>
@@ -226,14 +174,13 @@ const StCategoryNav = styled.nav`
 `;
 const StProductItem = styled.div<{
   isClicked: number;
-  selectedIcon: number;
 }>`
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 1.2rem;
-  color: ${({ selectedIcon, isClicked, theme: { colors } }) =>
-    (Number(useRouter().query.categoryId)
+  color: ${({ isClicked, theme: { colors } }) =>
+    (useRouter().query.categoryId
       ? Number(useRouter().query.categoryId)
       : 0) === isClicked
       ? colors.mainGreen

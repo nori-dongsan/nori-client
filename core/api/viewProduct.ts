@@ -1,5 +1,10 @@
+import { Router } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 import useSWR from 'swr';
-import { ViewProductProps } from '../../types/viewProduct';
+import { URLFormatOptions } from 'url';
+import { ToyData } from '../../types/toy';
+import { GetViewProduct, ViewProductProps } from '../../types/viewProduct';
+import { checkQuery } from '../../utils/check';
 import { baseInstance } from '../axios';
 
 // export const useGetViewProduct = (
@@ -37,62 +42,43 @@ import { baseInstance } from '../axios';
 //     isError: error,
 //   };
 // };
-export const getViewProductFilter = (filterQuery: ViewProductProps) => {
-  console.log(filterQuery);
-  return baseInstance.get(
-    encodeURI(
-      `/toy/list?search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
-    ),
+// export const getViewProductFilter = (filterQuery: ViewProductProps) => {
+//   console.log(filterQuery);
+//   return baseInstance.get(
+
+//   );
+// };
+export const getViewProductFilter = (filterQuery: string) => {
+  const { data, error } = useSWR<GetViewProduct>(
+    encodeURI(`/toy/list?${filterQuery}`),
+    baseInstance.get,
+    {
+      errorRetryCount: 3,
+    },
   );
+  return {
+    filterData: data?.data.data.filterData,
+    result: data?.data.data.result,
+    error,
+  };
 };
 export const getBannerViewProductFilter = (
   category: number,
-  filterQuery: ViewProductProps,
+  filterQuery: string,
 ) => {
-  console.log(filterQuery);
-  return baseInstance.get(
-    encodeURI(
-      `/toy/list/${category}?search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
-    ),
+  const { data, error } = useSWR<GetViewProduct>(
+    encodeURI(`/toy/list/${category}?${filterQuery}`),
+    baseInstance.get,
+    {
+      errorRetryCount: 3,
+    },
   );
+  return {
+    filterData: data?.data.data.filterData,
+    result: data?.data.data.result,
+    error,
+  };
 };
-// export const getBannerViewProduct = (category: number, currentPage: number) => {
-//   return baseInstance.get(`/toy/list/${category}?page=${currentPage}`);
-// };
-// export const getViewProduct = (currentPage: number) => {
-//   return baseInstance.get(`/toy/list/?page=${currentPage}`);
-// };
-// export const useGetViewProduct = (viewProductData: string) => {
-//   const { data, error } = useSWR(
-//     [`/toy/list?`, viewProductData],
-//     baseInstance.get,
-//     {
-//       errorRetryCount: 3,
-//     },
-//   );
-//   return {
-//     toyFilterList: data,
-//     isLoading: !error && !data,
-//     isError: error,
-//   };
-// };
-// export const useGetBannerViewProduct = (
-//   category: number,
-//   viewProductData: string,
-// ) => {
-//   const { data, error } = useSWR(
-//     [`/toy/list/${category}?`, viewProductData],
-//     baseInstance.get,
-//     {
-//       errorRetryCount: 3,
-//     },
-//   );
-//   return {
-//     toyFilterList: data,
-//     isLoading: !error && !data,
-//     isError: error,
-//   };
-// };
 export const getBannerViewProduct = (category: number) => {
   return baseInstance.get(`/toy/list/${category}?`);
 };

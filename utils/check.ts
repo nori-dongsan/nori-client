@@ -1,4 +1,7 @@
+import { ParsedUrlQuery } from 'querystring';
+import { filterCheckQuery } from '../core/atom';
 import { MainToyData, ToyData } from '../types/toy';
+import { ViewProductProps } from '../types/viewProduct';
 
 export function checkNickname(value: string) {
   const regex = /^[가-힣|a-z|A-Z|0-9|]{2,10}$/;
@@ -27,4 +30,15 @@ export function divisionMainToyData(array: MainToyData[]) {
     newArray.push(array.splice(0, 4));
   }
   return newArray;
+}
+
+export function checkQuery(chkQuery: ParsedUrlQuery) {
+  let queryString = '';
+  for (let key in chkQuery) {
+    if (chkQuery[key] !== '') {
+      queryString += `${key}=${chkQuery[key]}&`;
+    }
+  }
+  console.log(queryString);
+  return queryString;
 }

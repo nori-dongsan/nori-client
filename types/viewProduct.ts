@@ -16,7 +16,7 @@ export interface FilterTagProps {
   tagText: string;
 }
 export interface ViewProductProps {
-  filter?: string;
+  filter?: boolean;
   categoryId?: string;
   search?: string;
   type?: string;
@@ -26,11 +26,11 @@ export interface ViewProductProps {
   toySiteCd?: string;
 }
 export interface FilterData {
-  type: string[];
-  month: string[];
-  price: string[];
-  playHow: string[];
-  store: string[];
+  종류?: string[];
+  '사용 연령': string[];
+  가격: string[];
+  특성: string[];
+  스토어: string[];
 }
 export interface ToyFilterData {
   image: string;
