@@ -38,7 +38,6 @@ import { LandingPageNavigation } from '../components/landing/collectionProduct.t
 import { chQuery, divisionToyData } from '../utils/check';
 import { IcGrayEmpty } from '../public/assets/icons';
 import { useRouter } from 'next/router';
-import { SWRConfig } from 'swr';
 
 const limit = 40;
 export default function viewProduct({

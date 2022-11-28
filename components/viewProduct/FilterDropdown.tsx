@@ -5,13 +5,16 @@ import {
   filterTagState,
   toyKindState,
 } from '../../core/atom';
-import {
-  FilterDropdownProps,
-  FilterTagProps,
-  ViewProductProps,
-} from '../../types/viewProduct';
+import { FilterDropdownProps, FilterTagProps } from '../../types/viewProduct';
 import Router from 'next/router';
-
+import { ParsedUrlQueryInput } from 'querystring';
+export const viewProductName: string[] = [
+  'type',
+  'month',
+  'priceCd',
+  'playHowCd',
+  'toySiteCd',
+];
 export default function FilterDropdown(props: FilterDropdownProps) {
   const { categoryInfo, isDrop, isExcept, categoryIdx, categoryKey } = props;
   const toyKindList = useRecoilValue<string[]>(toyKindState);
@@ -19,23 +22,6 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     useRecoilState<Set<number>[]>(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
-
-  const handleFilterQuery = (newQuery: ViewProductProps) => {
-    Router.push({
-      pathname: '/viewProduct',
-      query: {
-        filter: true,
-        categoryId: Router.query.categoryId,
-        search: newQuery.search,
-        type: newQuery.type,
-        month: newQuery.month,
-        priceCd: newQuery.priceCd,
-        playHowCd: newQuery.playHowCd,
-        toySiteCd: newQuery.toySiteCd,
-      },
-    });
-  };
-
   const handleCheckedItems = (
     categoryIdx: number,
     elementIdx: number,
@@ -63,86 +49,33 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       checkedItems[categoryIdx].add(elementIdx);
       setFilterTagList([...filterTagList, tag]);
     }
-    handleQuery(categoryIdx);
     setCheckedItems({
       ...checkedItems,
       [categoryIdx]: checkedItems[categoryIdx],
     });
+    handleQuery(categoryIdx);
   };
-  const handleQuery = (categoryIdx: number) => {
-    let newQuery: ViewProductProps;
-    let newStr: string;
-    switch (categoryIdx) {
-      case 0:
-        newStr = '';
-        checkedItems[0].forEach(function (item, index) {
-          newStr += `${toyKindList[index]} `;
-        });
-        newQuery = {
-          ...Router.query,
-          ['type']: newStr,
-        };
-        // newQuery = {
-        //   search: Router.query.search.toString(),
-        //   type: newStr,
-        //   month: Router.query.month,
-        //   priceCd: Router.query.priceCd,
-        //   playHowCd: Router.query.playHowCd,
-        //   toySiteCd: Router.query.toySiteCd,
-        // };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
-      case 1:
-        newStr = '';
-        checkedItems[1].forEach(function (item, index) {
-          newStr += `${item + 1}`;
-        });
-        newQuery = {
-          ...Router.query,
-          ['month']: newStr,
-        };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
-      case 2:
-        newStr = '';
-        checkedItems[2].forEach(function (item, index) {
-          newStr += `${item + 1}`;
-        });
-        newQuery = {
-          ...Router.query,
-          ['priceCd']: newStr,
-        };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
-      case 3:
-        newStr = '';
-        checkedItems[3].forEach(function (item, index) {
-          newStr += `${item + 1}`;
-        });
-        newQuery = {
-          ...Router.query,
-          ['playHowCd']: newStr,
-        };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
-      case 4:
-        newStr = '';
-        checkedItems[4].forEach(function (item, index) {
-          newStr += `${item + 1}`;
-        });
-        newQuery = {
-          ...Router.query,
-          ['toySiteCd']: newStr,
-        };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
+  function handleQuery(categoryIdx: number) {
+    let newQuery: ParsedUrlQueryInput;
+    let newStr: string = '';
+    if (categoryIdx === 0) {
+      checkedItems[0].forEach(function (_, index) {
+        newStr += `${toyKindList[index]} `;
+      });
+    } else {
+      checkedItems[categoryIdx].forEach(function (item) {
+        newStr += `${item + 1}`;
+      });
     }
-  };
+    newQuery = {
+      ...Router.query,
+      [viewProductName[categoryIdx]]: newStr,
+    };
+    Router.push({
+      pathname: '/viewProduct',
+      query: { filter: true, ...newQuery },
+    });
+  }
 
   return (
     <StDropdownWrapper

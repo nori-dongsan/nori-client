@@ -1,6 +1,6 @@
+import Router from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { MainToyData, ToyData } from '../types/toy';
-import { ViewProductProps } from '../types/viewProduct';
 
 export function checkNickname(value: string) {
   const regex = /^[가-힣|a-z|A-Z|0-9|]{2,10}$/;

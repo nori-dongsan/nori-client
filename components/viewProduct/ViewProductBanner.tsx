@@ -1,17 +1,8 @@
 import styled from '@emotion/styled';
 import Router from 'next/router';
-import router, { useRouter } from 'next/router';
-import { ParsedUrlQueryInput } from 'querystring';
-import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { getBannerViewProduct } from '../../core/api/viewProduct';
-import {
-  checkedItemsState,
-  filterListState,
-  filterTagState,
-  selectIconState,
-  toyKindState,
-} from '../../core/atom';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { checkedItemsState, filterTagState } from '../../core/atom';
 import {
   IcAllProduct,
   IcBabyProduct,
@@ -43,21 +34,8 @@ export default function ViewProductBanner() {
     <IcCarProduct />,
     <IcRoleProduct />,
   ];
-  const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const setcheckedItems = useSetRecoilState<Set<number>[]>(checkedItemsState);
   const setFilterTagList = useSetRecoilState<FilterTagProps[]>(filterTagState);
-  const filterlist = useRecoilValue(filterListState);
-
-  const handleFilterQuery = (
-    selectIdx: number,
-    newQuery: ParsedUrlQueryInput,
-  ) => {
-    Router.push({
-      pathname: '/viewProduct',
-      query: newQuery,
-    });
-    // if doesn't work then use window.location.href
-  };
   const handleProductIcon = (selectIdx: number) => {
     setcheckedItems([
       new Set<number>(),
@@ -67,57 +45,12 @@ export default function ViewProductBanner() {
       new Set<number>(),
     ]);
     setFilterTagList([]);
-    let newQuery: ParsedUrlQueryInput;
-    switch (selectIdx) {
-      case 0:
-        setToyKindList(toyKindList);
-        newQuery = {
-          categoryId: '0',
-        };
-        handleFilterQuery(0, newQuery);
-        break;
-      case 1:
-        // setToyKindList(['아기체육관', '모빌', '바운서']);
-        newQuery = { categoryId: '1' };
-        handleFilterQuery(1, newQuery);
-        break;
-      case 2:
-        // setToyKindList(['쏘서', '점퍼루', '위고', '보행기', '걸음마 보조기']);
-
-        newQuery = {
-          categoryId: '2',
-        };
-        handleFilterQuery(2, newQuery);
-        break;
-      case 3:
-        newQuery = {
-          categoryId: '3',
-        };
-        // setToyKindList(['러닝홈', '러닝테이블', '기타 학습 완구']);
-        handleFilterQuery(3, newQuery);
-        break;
-      case 4:
-        newQuery = {
-          categoryId: '4',
-        };
-        // setToyKindList(['미끄럼틀', '에어바운스', '트램펄린']);
-        handleFilterQuery(4, newQuery);
-        break;
-      case 5:
-        newQuery = {
-          categoryId: '5',
-        };
-        // setToyKindList(['어린이 자동차', '흔들말', '그네']);
-        handleFilterQuery(5, newQuery);
-        break;
-      case 6:
-        newQuery = {
-          categoryId: '6',
-        };
-        // setToyKindList(['소꿉놀이', '역할놀이']);
-        handleFilterQuery(6, newQuery);
-        break;
-    }
+    Router.push({
+      pathname: '/viewProduct',
+      query: {
+        categoryId: selectIdx,
+      },
+    });
   };
 
   return (
@@ -155,7 +88,6 @@ const StProductBannerWrapper = styled.div`
   flex-direction: column;
   width: 117.6rem;
   margin: 7.1rem 0 0.4rem 0;
-  // padding: 0 3.6rem 5.4rem 3.6rem;
   border-bottom: 1px solid #d9d9d9;
   & > h1 {
     margin-bottom: 3.4rem;

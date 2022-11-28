@@ -99,27 +99,6 @@ export const filterListState = atom<FilterData>({
     ],
   },
 });
-export const filterSelector = selector<FilterData>({
-  key: 'getFilterSelector',
-  get: ({ get }) => get(filterListState),
-  set: ({ set }, newFilter) => set(filterListState, newFilter),
-
-  //   set(modalsAtomFamily(modalId), modalInfo);
-  //   set(modalIdsAtom, (prev) => Array.from(new Set([...prev, modalInfo.id])));
-  // },
-
-  // set: (modalId) => ({ get, set, reset }, modalInfo) => {
-  //   if (modalInfo instanceof DefaultValue) {
-  //     reset(modalsAtomFamily(modalId))
-  //     set(modalIdsAtom, (prevValue) => prevValue.filter((item) => item !== modalId))
-
-  //     return
-  //   }
-
-  //   set(modalsAtomFamily(modalId), modalInfo)
-  //   set(modalIdsAtom, (prev) => Array.from(new Set([...prev, modalInfo.id])))
-  // },
-});
 export const filterTagState = atom<FilterTagProps[]>({
   key: 'filterTagState',
   default: [],
@@ -166,21 +145,3 @@ export const selectIconState = atom<number>({
   key: 'selectIconState',
   default: 0,
 });
-const useFilterInfo = () => {
-  const [filterList, setFilterList] = useRecoilState(filterSelector);
-  const resetModal = useResetRecoilState(filterSelector);
-
-  // const openModal = () => {
-  //   setModal((current) => ({ ...current, isOpen: true }))
-  // }
-
-  // const hideModal = () => {
-  //   setModal((current) => ({ ...current, isOpen: false }))
-  // }
-
-  // const resetFilter = () => {
-  //   resetModal()
-  // }
-
-  // return { modal, setModal, openModal, hideModal, destroyModal, ... }
-};
