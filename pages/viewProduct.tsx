@@ -23,11 +23,7 @@ import {
   GetViewProduct,
   ViewProductProps,
 } from '../types/viewProduct';
-import {
-  checkedItemsState,
-  filterCheckQuery,
-  filterTagState,
-} from '../core/atom';
+import { filterTagState } from '../core/atom';
 
 // import { IcGrayEmpty } from '../public/assets/icons';
 
@@ -39,7 +35,7 @@ import {
 } from '../core/api/viewProduct';
 
 import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
-import { checkQuery, divisionToyData } from '../utils/check';
+import { chQuery, divisionToyData } from '../utils/check';
 import { IcGrayEmpty } from '../public/assets/icons';
 import { useRouter } from 'next/router';
 import { SWRConfig } from 'swr';
@@ -64,11 +60,11 @@ export default function viewProduct({
     router.query.categoryId && Number(router.query.categoryId) !== 0
       ? getBannerViewProductFilter(
           Number(router.query.categoryId),
-          checkQuery(router.query),
+          chQuery(router.query),
         )
-      : getViewProductFilter(checkQuery(router.query));
+      : getViewProductFilter(chQuery(router.query));
   useEffect(() => {
-    if (router.query.filter !== 'true' && !result) {
+    if (router.query.filter !== 'true' || !result) {
       initialFilterData = initialResult.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,

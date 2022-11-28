@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import router, { useRouter } from 'next/router';
+import { ParsedUrlQueryInput } from 'querystring';
 import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { getBannerViewProduct } from '../../core/api/viewProduct';
 import {
   checkedItemsState,
-  filterCheckQuery,
   filterListState,
   filterTagState,
   selectIconState,
@@ -46,17 +46,15 @@ export default function ViewProductBanner() {
   const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const setcheckedItems = useSetRecoilState<Set<number>[]>(checkedItemsState);
   const setFilterTagList = useSetRecoilState<FilterTagProps[]>(filterTagState);
-  const [filterQuery, setFilterCheckQuery] =
-    useRecoilState<ViewProductProps>(filterCheckQuery);
   const filterlist = useRecoilValue(filterListState);
 
-  const handleFilterQuery = (selectIdx: number, newQuery: ViewProductProps) => {
-    if (newQuery) setFilterCheckQuery(newQuery);
+  const handleFilterQuery = (
+    selectIdx: number,
+    newQuery: ParsedUrlQueryInput,
+  ) => {
     Router.push({
       pathname: '/viewProduct',
-      query: {
-        ...newQuery,
-      },
+      query: newQuery,
     });
     // if doesn't work then use window.location.href
   };
@@ -69,7 +67,7 @@ export default function ViewProductBanner() {
       new Set<number>(),
     ]);
     setFilterTagList([]);
-    let newQuery: ViewProductProps;
+    let newQuery: ParsedUrlQueryInput;
     switch (selectIdx) {
       case 0:
         setToyKindList(toyKindList);
@@ -141,9 +139,9 @@ export default function ViewProductBanner() {
           );
         })}
       </StCategoryNav>
-      {filterQuery.search && (
+      {useRouter().query.search && (
         <StSearchContent>
-          <span>{`“ ${filterQuery.search} ”`}</span> 에 대한 검색 결과에요
+          <span>{`“ ${useRouter().query.search} ”`}</span> 에 대한 검색 결과에요
         </StSearchContent>
       )}
     </StProductBannerWrapper>

@@ -162,19 +162,6 @@ export const toyKindState = atom<string[]>({
   ],
 });
 
-export const filterCheckQuery = atom<ViewProductProps>({
-  key: 'filterCheckQuery',
-  default: {
-    filter: 'false',
-    categoryId: '0',
-    search: '',
-    type: '',
-    month: '',
-    priceCd: '',
-    playHowCd: '',
-    toySiteCd: '',
-  },
-});
 export const selectIconState = atom<number>({
   key: 'selectIconState',
   default: 0,

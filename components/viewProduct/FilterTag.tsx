@@ -3,7 +3,6 @@ import Router from 'next/router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   checkedItemsState,
-  filterCheckQuery,
   filterListState,
   filterTagState,
   toyKindState,
@@ -17,13 +16,9 @@ export default function FilterTag(props: FilterTagProps) {
     useRecoilState<Set<number>[]>(checkedItemsState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
-  const [filterQuery, setFilterCheckQuery] =
-    useRecoilState<ViewProductProps>(filterCheckQuery);
   const toyKindList = useRecoilValue<string[]>(toyKindState);
 
   const handleFilterQuery = (newQuery: ViewProductProps) => {
-    setFilterCheckQuery(newQuery);
-
     Router.push({
       pathname: '/viewProduct',
       query: {
@@ -83,12 +78,8 @@ export default function FilterTag(props: FilterTagProps) {
           newStr += `${toyKindList[index]} `;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: newStr,
-          month: filterQuery.month,
-          priceCd: filterQuery.priceCd,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: filterQuery.toySiteCd,
+          ...Router.query,
+          ['type']: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -99,12 +90,8 @@ export default function FilterTag(props: FilterTagProps) {
           newStr += `${item + 1}`;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: newStr,
-          priceCd: filterQuery.priceCd,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: filterQuery.toySiteCd,
+          ...Router.query,
+          ['month']: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -115,12 +102,8 @@ export default function FilterTag(props: FilterTagProps) {
           newStr += `${item + 1}`;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: filterQuery.month,
-          priceCd: newStr,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: filterQuery.toySiteCd,
+          ...Router.query,
+          ['priceCd']: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -131,12 +114,8 @@ export default function FilterTag(props: FilterTagProps) {
           newStr += `${item + 1}`;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: filterQuery.month,
-          priceCd: filterQuery.priceCd,
-          playHowCd: newStr,
-          toySiteCd: filterQuery.toySiteCd,
+          ...Router.query,
+          ['playHowCd']: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -147,12 +126,8 @@ export default function FilterTag(props: FilterTagProps) {
           newStr += `${item + 1}`;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: filterQuery.month,
-          priceCd: filterQuery.priceCd,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: newStr,
+          ...Router.query,
+          ['toySiteCd']: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);

@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   checkedItemsState,
-  filterCheckQuery,
   filterTagState,
   toyKindState,
 } from '../../core/atom';
@@ -11,11 +10,9 @@ import {
   FilterTagProps,
   ViewProductProps,
 } from '../../types/viewProduct';
-import Router, { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import Router from 'next/router';
 
 export default function FilterDropdown(props: FilterDropdownProps) {
-  const router = useRouter();
   const { categoryInfo, isDrop, isExcept, categoryIdx, categoryKey } = props;
   const toyKindList = useRecoilValue<string[]>(toyKindState);
   const [checkedItems, setCheckedItems] =
@@ -23,17 +20,12 @@ export default function FilterDropdown(props: FilterDropdownProps) {
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
 
-  const [filterQuery, setFilterCheckQuery] =
-    useRecoilState<ViewProductProps>(filterCheckQuery);
-
   const handleFilterQuery = (newQuery: ViewProductProps) => {
-    setFilterCheckQuery(newQuery);
-
     Router.push({
       pathname: '/viewProduct',
       query: {
         filter: true,
-        categoryId: router.query.categoryId,
+        categoryId: Router.query.categoryId,
         search: newQuery.search,
         type: newQuery.type,
         month: newQuery.month,
@@ -42,7 +34,6 @@ export default function FilterDropdown(props: FilterDropdownProps) {
         toySiteCd: newQuery.toySiteCd,
       },
     });
-    // if doesn't work then use window.location.href
   };
 
   const handleCheckedItems = (
@@ -88,13 +79,17 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           newStr += `${toyKindList[index]} `;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: newStr,
-          month: filterQuery.month,
-          priceCd: filterQuery.priceCd,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: filterQuery.toySiteCd,
+          ...Router.query,
+          ['type']: newStr,
         };
+        // newQuery = {
+        //   search: Router.query.search.toString(),
+        //   type: newStr,
+        //   month: Router.query.month,
+        //   priceCd: Router.query.priceCd,
+        //   playHowCd: Router.query.playHowCd,
+        //   toySiteCd: Router.query.toySiteCd,
+        // };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
         break;
@@ -104,12 +99,8 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           newStr += `${item + 1}`;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: newStr,
-          priceCd: filterQuery.priceCd,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: filterQuery.toySiteCd,
+          ...Router.query,
+          ['month']: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -120,12 +111,8 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           newStr += `${item + 1}`;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: filterQuery.month,
-          priceCd: newStr,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: filterQuery.toySiteCd,
+          ...Router.query,
+          ['priceCd']: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -136,12 +123,8 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           newStr += `${item + 1}`;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: filterQuery.month,
-          priceCd: filterQuery.priceCd,
-          playHowCd: newStr,
-          toySiteCd: filterQuery.toySiteCd,
+          ...Router.query,
+          ['playHowCd']: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);
@@ -152,12 +135,8 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           newStr += `${item + 1}`;
         });
         newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: filterQuery.month,
-          priceCd: filterQuery.priceCd,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: newStr,
+          ...Router.query,
+          ['toySiteCd']: newStr,
         };
         handleFilterQuery(newQuery);
         console.log('str', newStr);

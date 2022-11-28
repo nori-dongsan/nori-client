@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { URLFormatOptions } from 'url';
 import { ToyData } from '../../types/toy';
 import { GetViewProduct, ViewProductProps } from '../../types/viewProduct';
-import { checkQuery } from '../../utils/check';
+
 import { baseInstance } from '../axios';
 
 // export const useGetViewProduct = (
@@ -80,7 +80,7 @@ export const getBannerViewProductFilter = (
   };
 };
 export const getBannerViewProduct = (category: number) => {
-  return baseInstance.get(`/toy/list/${category}?`);
+  return baseInstance.get(`/toy/list/${category}`);
 };
 export const getViewProduct = () => {
   return baseInstance.get(`/toy/list`);

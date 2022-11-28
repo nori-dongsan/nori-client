@@ -1,13 +1,36 @@
 import styled from '@emotion/styled';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { filterTagState } from '../../core/atom';
+import Router, { useRouter } from 'next/router';
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from 'recoil';
+import { checkedItemsState, filterTagState } from '../../core/atom';
 import { IcUndoBtn } from '../../public/assets/icons';
-import { FilterTagProps } from '../../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 import FilterTag from './FilterTag';
 
 export default function TagSection() {
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
-
+  const setcheckedItems = useSetRecoilState<Set<number>[]>(checkedItemsState);
+  const resetTagList = useResetRecoilState(filterTagState);
+  const handleUndoBtn = () => {
+    setcheckedItems([
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+      new Set<number>(),
+    ]);
+    resetTagList();
+    Router.push({
+      pathname: '/viewProduct',
+      query: {
+        categoryId: Router.query.categoryId,
+      },
+    });
+  };
   return (
     <StTagSection>
       <StTagWrapper>
@@ -25,7 +48,7 @@ export default function TagSection() {
           },
         )}
       </StTagWrapper>
-      <StUndoAllTagBtn>
+      <StUndoAllTagBtn onClick={handleUndoBtn}>
         <h2>모두 해제</h2>
         <IcUndoBtn />
       </StUndoAllTagBtn>

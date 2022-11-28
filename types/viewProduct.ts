@@ -16,7 +16,7 @@ export interface FilterTagProps {
   tagText: string;
 }
 export interface ViewProductProps {
-  filter?: boolean;
+  filter?: string;
   categoryId?: string;
   search?: string;
   type?: string;

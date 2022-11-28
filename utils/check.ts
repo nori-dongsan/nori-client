@@ -1,5 +1,4 @@
 import { ParsedUrlQuery } from 'querystring';
-import { filterCheckQuery } from '../core/atom';
 import { MainToyData, ToyData } from '../types/toy';
 import { ViewProductProps } from '../types/viewProduct';
 
@@ -32,7 +31,7 @@ export function divisionMainToyData(array: MainToyData[]) {
   return newArray;
 }
 
-export function checkQuery(chkQuery: ParsedUrlQuery) {
+export function chQuery(chkQuery: ParsedUrlQuery) {
   let queryString = '';
   for (let key in chkQuery) {
     if (chkQuery[key] !== '') {

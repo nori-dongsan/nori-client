@@ -6,7 +6,6 @@ import Router from 'next/router';
 import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 import {
   checkedItemsState,
-  filterCheckQuery,
   filterTagState,
   selectIconState,
   toyKindState,
@@ -25,8 +24,6 @@ export default function Header() {
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-  const [filterQuery, setFilterCheckQuery] =
-    useRecoilState<ViewProductProps>(filterCheckQuery);
 
   const handleClick = () => {
     Router.push({
@@ -42,14 +39,6 @@ export default function Header() {
       },
     });
     setInputValue('');
-    setFilterCheckQuery({
-      search: inputValue,
-      type: '',
-      month: '',
-      priceCd: '',
-      playHowCd: '',
-      toySiteCd: '',
-    });
     setCheckedItems([
       new Set<number>(),
       new Set<number>(),
@@ -84,14 +73,6 @@ export default function Header() {
   };
   const handleClickExcept = () => {
     setInputValue('');
-    setFilterCheckQuery({
-      search: inputValue,
-      type: '',
-      month: '',
-      priceCd: '',
-      playHowCd: '',
-      toySiteCd: '',
-    });
     setCheckedItems([
       new Set<number>(),
       new Set<number>(),
