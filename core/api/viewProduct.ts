@@ -49,7 +49,7 @@ import { baseInstance } from '../axios';
 //   );
 // };
 export const getViewProductFilter = (filterQuery: string) => {
-  const { data, error } = useSWR<GetViewProduct>(
+  const { data, error, isValidating } = useSWR<GetViewProduct>(
     encodeURI(`/toy/list?${filterQuery}`),
     baseInstance.get,
     {
@@ -66,7 +66,7 @@ export const getBannerViewProductFilter = (
   category: number,
   filterQuery: string,
 ) => {
-  const { data, error } = useSWR<GetViewProduct>(
+  const { data, error, isValidating } = useSWR<GetViewProduct>(
     encodeURI(`/toy/list/${category}?${filterQuery}`),
     baseInstance.get,
     {

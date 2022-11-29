@@ -44,6 +44,7 @@ export default function viewProduct({
   initialFilterData,
   initialResult,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  // export default function viewProduct() {
   const router = useRouter();
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[][]>([]);
@@ -63,7 +64,7 @@ export default function viewProduct({
         )
       : getViewProductFilter(chQuery(router.query));
   useEffect(() => {
-    if (router.query.filter !== 'true' || !result) {
+    if (router.query.filter !== 'true' && initialFilterData) {
       initialFilterData = initialResult.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
@@ -77,23 +78,21 @@ export default function viewProduct({
   }, [initialResult, currentPage]);
   useEffect(() => {
     if (router.query.filter === 'true' && result) {
-      initialFilterData = result.filter(
+      result = result.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
 
-      setToyList(divisionToyData(initialFilterData));
+      setToyList(divisionToyData(result));
 
       window.scrollTo(0, 0);
       console.log('swr렌더링');
     }
   }, [result, currentPage]);
 
-  console.log(toyList);
-
   return (
     <StViewProductWrapper>
-      {!initialResult ? (
+      {!ToyList ? (
         <>
           <LandingViewProductBanner />
           <StFilterSectionWrapper>
@@ -144,6 +143,7 @@ export default function viewProduct({
                 ? Math.ceil(result.length / limit)
                 : Math.ceil(initialResult.length / limit)
             }
+            // lastPage={Math.ceil(result.length / limit)}
             handleCurrentPage={handleCurrentPage}
           />
         </>

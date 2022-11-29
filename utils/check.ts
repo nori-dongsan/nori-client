@@ -34,7 +34,7 @@ export function divisionMainToyData(array: MainToyData[]) {
 export function chQuery(chkQuery: ParsedUrlQuery) {
   let queryString = '';
   for (let key in chkQuery) {
-    if (chkQuery[key] !== '') {
+    if (chkQuery[key] !== '' && key !== 'categoryId') {
       queryString += `${key}=${chkQuery[key]}&`;
     }
   }
