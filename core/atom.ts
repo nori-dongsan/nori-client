@@ -49,7 +49,7 @@ export const isChangeInfoState = atom<IsChangeCommunity>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const filterListState = atom<FilterData>({
+export const filterListState = atom<Object>({
   key: 'filterListState',
   default: {
     종류: [

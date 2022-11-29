@@ -3,53 +3,13 @@ import { ParsedUrlQuery } from 'querystring';
 import useSWR from 'swr';
 import { URLFormatOptions } from 'url';
 import { ToyData } from '../../types/toy';
+import { Response } from '../../types/api';
 import { GetViewProduct, ViewProductProps } from '../../types/viewProduct';
 
 import { baseInstance } from '../axios';
 
-// export const useGetViewProduct = (
-//   currentPage: number,
-//   viewProductData: string,
-// ) => {
-//   const { data, error } = useSWR(
-//     [`/toy/list?page=${currentPage}&`, viewProductData],
-//     baseInstance.get,
-//     {
-//       errorRetryCount: 3,
-//     },
-//   );
-//   return {
-//     toyFilterList: data,
-//     isLoading: !error && !data,
-//     isError: error,
-//   };
-// };
-// export const useGetBannerViewProduct = (
-//   category: number,
-//   currentPage: number,
-//   viewProductData: string,
-// ) => {
-//   const { data, error } = useSWR(
-//     [`/toy/list/${category}?page=${currentPage}&`, viewProductData],
-//     baseInstance.get,
-//     {
-//       errorRetryCount: 3,
-//     },
-//   );
-//   return {
-//     toyFilterList: data,
-//     isLoading: !error && !data,
-//     isError: error,
-//   };
-// };
-// export const getViewProductFilter = (filterQuery: ViewProductProps) => {
-//   console.log(filterQuery);
-//   return baseInstance.get(
-
-//   );
-// };
 export const getViewProductFilter = (filterQuery: string) => {
-  const { data, error, isValidating } = useSWR<GetViewProduct>(
+  const { data, error } = useSWR<Response<GetViewProduct>>(
     encodeURI(`/toy/list?${filterQuery}`),
     baseInstance.get,
     {
@@ -66,7 +26,7 @@ export const getBannerViewProductFilter = (
   category: number,
   filterQuery: string,
 ) => {
-  const { data, error, isValidating } = useSWR<GetViewProduct>(
+  const { data, error } = useSWR<Response<GetViewProduct>>(
     encodeURI(`/toy/list/${category}?${filterQuery}`),
     baseInstance.get,
     {

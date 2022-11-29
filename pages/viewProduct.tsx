@@ -17,13 +17,13 @@ import {
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
+  FilterData,
   FilterTagProps,
-  GetViewProduct,
   ViewProductProps,
 } from '../types/viewProduct';
-import { filterTagState } from '../core/atom';
+import { filterTagState, toyKindState } from '../core/atom';
 
 // import { IcGrayEmpty } from '../public/assets/icons';
 
@@ -49,6 +49,7 @@ export default function viewProduct({
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const setToyKindArr = useSetRecoilState<string[]>(toyKindState);
   const handleClickPrice = (clickPrice: string) => {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
@@ -56,22 +57,23 @@ export default function viewProduct({
     setCurrentPage(nextPage);
   };
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
-  let { result } =
+  let { result, filterData } = (
     router.query.categoryId && Number(router.query.categoryId) !== 0
       ? getBannerViewProductFilter(
           Number(router.query.categoryId),
           chQuery(router.query),
         )
-      : getViewProductFilter(chQuery(router.query));
+      : getViewProductFilter(chQuery(router.query))
+  ) as { result: ToyData[]; filterData: FilterData };
   useEffect(() => {
     if (router.query.filter !== 'true' && initialFilterData) {
-      initialFilterData = initialResult.filter(
+      result = initialResult.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
 
-      setToyList(divisionToyData(initialFilterData));
-
+      setToyList(divisionToyData(result));
+      initialFilterData.type && setToyKindArr(initialFilterData.type);
       window.scrollTo(0, 0);
       console.log('초기렌더링');
     }
@@ -84,7 +86,7 @@ export default function viewProduct({
       );
 
       setToyList(divisionToyData(result));
-
+      filterData.type && setToyKindArr(filterData.type);
       window.scrollTo(0, 0);
       console.log('swr렌더링');
     }
@@ -143,7 +145,6 @@ export default function viewProduct({
                 ? Math.ceil(result.length / limit)
                 : Math.ceil(initialResult.length / limit)
             }
-            // lastPage={Math.ceil(result.length / limit)}
             handleCurrentPage={handleCurrentPage}
           />
         </>

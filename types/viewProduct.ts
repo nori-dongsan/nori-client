@@ -26,31 +26,13 @@ export interface ViewProductProps {
   toySiteCd?: string;
 }
 export interface FilterData {
-  종류?: string[];
-  '사용 연령': string[];
-  가격: string[];
-  특성: string[];
-  스토어: string[];
-}
-export interface ToyFilterData {
-  image: string;
-  title: string;
-  siteName: string;
-  price: string;
-  month: number;
-  siteUrl: string;
+  type?: string[];
+  month: string[];
+  price: string[];
+  playHow: string[];
+  store: string[];
 }
 export interface GetViewProduct {
-  status: number;
-  data: { data: { filterData: FilterData; result: ToyData[] } };
-  success: boolean;
-  message: string;
-}
-export interface ViewProductServerSide {
-  search: string;
-  type: string;
-  month: string;
-  price: string;
-  playHow: string;
-  store: string;
+  filterData: FilterData;
+  result: ToyData[];
 }
