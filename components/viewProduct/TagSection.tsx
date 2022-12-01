@@ -6,7 +6,11 @@ import {
   useResetRecoilState,
   useSetRecoilState,
 } from 'recoil';
-import { checkedItemsState, filterTagState } from '../../core/atom';
+import {
+  checkedItemsState,
+  currentQueryState,
+  filterTagState,
+} from '../../core/atom';
 import { IcUndoBtn } from '../../public/assets/icons';
 import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 import FilterTag from './FilterTag';
@@ -15,6 +19,8 @@ export default function TagSection() {
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
   const setcheckedItems = useSetRecoilState<Set<number>[]>(checkedItemsState);
   const resetTagList = useResetRecoilState(filterTagState);
+  const [currentQuery, setQuery] =
+    useRecoilState<ViewProductProps>(currentQueryState);
   const handleUndoBtn = () => {
     setcheckedItems([
       new Set<number>(),
@@ -24,12 +30,13 @@ export default function TagSection() {
       new Set<number>(),
     ]);
     resetTagList();
-    Router.push({
-      pathname: '/viewProduct',
-      query: {
-        categoryId: Router.query.categoryId,
-      },
-    });
+    // Router.push({
+    //   pathname: '/viewProduct',
+    //   query: {
+    //     categoryId: Router.query.categoryId,
+    //   },
+    // });
+    setQuery({ categoryId: Router.query.categoryId?.toString() });
   };
   return (
     <StTagSection>

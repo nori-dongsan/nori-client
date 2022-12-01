@@ -145,3 +145,16 @@ export const selectIconState = atom<number>({
   key: 'selectIconState',
   default: 0,
 });
+export const currentQueryState = atom<ViewProductProps>({
+  key: 'currentQueryState',
+  default: {
+    filter: '',
+    categoryId: '',
+    search: '',
+    type: '',
+    month: '',
+    priceCd: '',
+    playHowCd: '',
+    toySiteCd: '',
+  },
+});

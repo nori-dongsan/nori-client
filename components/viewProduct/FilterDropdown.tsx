@@ -2,12 +2,14 @@ import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   checkedItemsState,
+  currentQueryState,
   filterTagState,
   toyKindState,
 } from '../../core/atom';
-import { FilterDropdownProps, FilterTagProps } from '../../types/viewProduct';
+import { FilterDropdownProps, FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 import Router from 'next/router';
 import { ParsedUrlQueryInput } from 'querystring';
+import { chQuery } from '../../utils/check';
 export const viewProductName: string[] = [
   'type',
   'month',
@@ -20,6 +22,8 @@ export default function FilterDropdown(props: FilterDropdownProps) {
   const toyKindList = useRecoilValue<string[]>(toyKindState);
   const [checkedItems, setCheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);
+  const [currentQuery, setQuery] =
+    useRecoilState<ViewProductProps>(currentQueryState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
   const handleCheckedItems = (
@@ -56,7 +60,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
     handleQuery(categoryIdx);
   };
   function handleQuery(categoryIdx: number) {
-    let newQuery: ParsedUrlQueryInput;
+    let newQuery: ViewProductProps;
     let newStr: string = '';
     if (categoryIdx === 0) {
       checkedItems[0].forEach(function (_, index) {
@@ -68,13 +72,15 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       });
     }
     newQuery = {
-      ...Router.query,
+      ...currentQuery,
       [viewProductName[categoryIdx]]: newStr,
+      filter: 'true',
     };
-    Router.push({
-      pathname: '/viewProduct',
-      query: { filter: true, ...newQuery },
-    });
+    setQuery(newQuery);
+    // Router.push({
+    //   pathname: '/viewProduct',
+    //   query: { filter: true, ...newQuery },
+    // });
   }
 
   return (

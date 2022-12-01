@@ -4,17 +4,20 @@ import { ParsedUrlQueryInput } from 'querystring';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   checkedItemsState,
+  currentQueryState,
   filterTagState,
   toyKindState,
 } from '../../core/atom';
 import { IcDeleteTag } from '../../public/assets/icons';
-import { FilterTagProps } from '../../types/viewProduct';
+import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 import { viewProductName } from './FilterDropdown';
 
 export default function FilterTag(props: FilterTagProps) {
   const { categoryIdx, elementIdx, categoryKey, tagText } = props;
   const [checkedItems, setCheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);
+  const [currentQuery, setQuery] =
+    useRecoilState<ViewProductProps>(currentQueryState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
   const toyKindList = useRecoilValue<string[]>(toyKindState);
@@ -65,10 +68,12 @@ export default function FilterTag(props: FilterTagProps) {
       ...Router.query,
       [viewProductName[categoryIdx]]: newStr,
     };
-    Router.push({
-      pathname: '/viewProduct',
-      query: newQuery,
-    });
+    // Router.push({
+    //   pathname: '/viewProduct',
+    //   query: newQuery,
+    // });
+
+    setQuery(newQuery);
   }
 
   return (

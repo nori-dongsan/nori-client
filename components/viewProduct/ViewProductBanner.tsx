@@ -2,7 +2,11 @@ import styled from '@emotion/styled';
 import Router from 'next/router';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
-import { checkedItemsState, filterTagState } from '../../core/atom';
+import {
+  checkedItemsState,
+  currentQueryState,
+  filterTagState,
+} from '../../core/atom';
 import {
   IcAllProduct,
   IcBabyProduct,
@@ -34,6 +38,8 @@ export default function ViewProductBanner() {
     <IcCarProduct />,
     <IcRoleProduct />,
   ];
+
+  const setQuery = useSetRecoilState<ViewProductProps>(currentQueryState);
   const setcheckedItems = useSetRecoilState<Set<number>[]>(checkedItemsState);
   const setFilterTagList = useSetRecoilState<FilterTagProps[]>(filterTagState);
   const handleProductIcon = (selectIdx: number) => {
@@ -51,8 +57,17 @@ export default function ViewProductBanner() {
         categoryId: selectIdx,
       },
     });
+    setQuery({
+      filter: '',
+      categoryId: selectIdx.toString(),
+      search: '',
+      type: '',
+      month: '',
+      priceCd: '',
+      playHowCd: '',
+      toySiteCd: '',
+    });
   };
-
   return (
     <StProductBannerWrapper>
       <h1>상품보기</h1>

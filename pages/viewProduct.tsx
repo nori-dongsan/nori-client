@@ -23,7 +23,7 @@ import {
   FilterTagProps,
   ViewProductProps,
 } from '../types/viewProduct';
-import { filterTagState, toyKindState } from '../core/atom';
+import { currentQueryState, filterTagState, toyKindState } from '../core/atom';
 
 // import { IcGrayEmpty } from '../public/assets/icons';
 
@@ -38,6 +38,7 @@ import { LandingPageNavigation } from '../components/landing/collectionProduct.t
 import { chQuery, divisionToyData } from '../utils/check';
 import { IcGrayEmpty } from '../public/assets/icons';
 import { useRouter } from 'next/router';
+import { stringifyQuery } from 'next/dist/server/server-route-utils';
 
 const limit = 40;
 export default function viewProduct({
@@ -50,6 +51,7 @@ export default function viewProduct({
   const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const setToyKindArr = useSetRecoilState<string[]>(toyKindState);
+  const currentQuery = useRecoilValue(currentQueryState);
   const handleClickPrice = (clickPrice: string) => {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
@@ -57,16 +59,20 @@ export default function viewProduct({
     setCurrentPage(nextPage);
   };
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
-  let { result, filterData } = (
-    router.query.categoryId && Number(router.query.categoryId) !== 0
+  let { result } = (
+    currentQuery.categoryId && Number(currentQuery.categoryId) !== 0
       ? getBannerViewProductFilter(
-          Number(router.query.categoryId),
-          chQuery(router.query),
+          Number(currentQuery.categoryId),
+          chQuery(currentQuery),
         )
-      : getViewProductFilter(chQuery(router.query))
-  ) as { result: ToyData[]; filterData: FilterData };
+      : getViewProductFilter(chQuery(currentQuery))
+  ) as {
+    result: ToyData[];
+    filterData: FilterData;
+  };
+  console.log(`현재 쿼리 ${currentQuery}`);
   useEffect(() => {
-    if (router.query.filter !== 'true' && initialFilterData) {
+    if (currentQuery.filter !== 'true' && initialFilterData) {
       result = initialResult.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
@@ -79,14 +85,12 @@ export default function viewProduct({
     }
   }, [initialResult, currentPage]);
   useEffect(() => {
-    if (router.query.filter === 'true' && result) {
+    if (currentQuery.filter === 'true' && result) {
       result = result.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
-
       setToyList(divisionToyData(result));
-      filterData.type && setToyKindArr(filterData.type);
       window.scrollTo(0, 0);
       console.log('swr렌더링');
     }
