@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import { useRouter } from 'next/router';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   checkedItemsState,
   currentQueryState,
@@ -58,14 +58,7 @@ export default function ViewProductBanner() {
       },
     });
     setQuery({
-      filter: '',
       categoryId: selectIdx.toString(),
-      search: '',
-      type: '',
-      month: '',
-      priceCd: '',
-      playHowCd: '',
-      toySiteCd: '',
     });
   };
   return (

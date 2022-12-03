@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import Router from 'next/router';
-import { ParsedUrlQueryInput } from 'querystring';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   checkedItemsState,
@@ -53,7 +51,7 @@ export default function FilterTag(props: FilterTagProps) {
     handleQuery(categoryIdx);
   };
   function handleQuery(categoryIdx: number) {
-    let newQuery: ParsedUrlQueryInput;
+    let newQuery: ViewProductProps;
     let newStr: string = '';
     if (categoryIdx === 0) {
       checkedItems[0].forEach(function (_, index) {
@@ -65,14 +63,9 @@ export default function FilterTag(props: FilterTagProps) {
       });
     }
     newQuery = {
-      ...Router.query,
+      ...currentQuery,
       [viewProductName[categoryIdx]]: newStr,
     };
-    // Router.push({
-    //   pathname: '/viewProduct',
-    //   query: newQuery,
-    // });
-
     setQuery(newQuery);
   }
 

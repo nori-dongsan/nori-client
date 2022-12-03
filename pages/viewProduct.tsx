@@ -17,36 +17,28 @@ import {
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   FilterData,
   FilterTagProps,
   ViewProductProps,
 } from '../types/viewProduct';
 import { currentQueryState, filterTagState, toyKindState } from '../core/atom';
-
-// import { IcGrayEmpty } from '../public/assets/icons';
-
 import {
   getBannerViewProduct,
   getViewProductFilter,
   getViewProduct,
   getBannerViewProductFilter,
 } from '../core/api/viewProduct';
-
 import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
 import { chQuery, divisionToyData } from '../utils/check';
 import { IcGrayEmpty } from '../public/assets/icons';
-import { useRouter } from 'next/router';
-import { stringifyQuery } from 'next/dist/server/server-route-utils';
 
 const limit = 40;
 export default function viewProduct({
   initialFilterData,
   initialResult,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // export default function viewProduct() {
-  const router = useRouter();
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -70,18 +62,15 @@ export default function viewProduct({
     result: ToyData[];
     filterData: FilterData;
   };
-  console.log(`현재 쿼리 ${currentQuery}`);
   useEffect(() => {
     if (currentQuery.filter !== 'true' && initialFilterData) {
       result = initialResult.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
-
       setToyList(divisionToyData(result));
       initialFilterData.type && setToyKindArr(initialFilterData.type);
       window.scrollTo(0, 0);
-      console.log('초기렌더링');
     }
   }, [initialResult, currentPage]);
   useEffect(() => {
@@ -92,7 +81,6 @@ export default function viewProduct({
       );
       setToyList(divisionToyData(result));
       window.scrollTo(0, 0);
-      console.log('swr렌더링');
     }
   }, [result, currentPage]);
 

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import {
   useRecoilState,
   useRecoilValue,
@@ -19,8 +19,7 @@ export default function TagSection() {
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
   const setcheckedItems = useSetRecoilState<Set<number>[]>(checkedItemsState);
   const resetTagList = useResetRecoilState(filterTagState);
-  const [currentQuery, setQuery] =
-    useRecoilState<ViewProductProps>(currentQueryState);
+  const setQuery = useSetRecoilState<ViewProductProps>(currentQueryState);
   const handleUndoBtn = () => {
     setcheckedItems([
       new Set<number>(),
@@ -30,12 +29,6 @@ export default function TagSection() {
       new Set<number>(),
     ]);
     resetTagList();
-    // Router.push({
-    //   pathname: '/viewProduct',
-    //   query: {
-    //     categoryId: Router.query.categoryId,
-    //   },
-    // });
     setQuery({ categoryId: Router.query.categoryId?.toString() });
   };
   return (

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import {
   checkedItemsState,
   filterListState,

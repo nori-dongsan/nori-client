@@ -6,10 +6,11 @@ import {
   filterTagState,
   toyKindState,
 } from '../../core/atom';
-import { FilterDropdownProps, FilterTagProps, ViewProductProps } from '../../types/viewProduct';
-import Router from 'next/router';
-import { ParsedUrlQueryInput } from 'querystring';
-import { chQuery } from '../../utils/check';
+import {
+  FilterDropdownProps,
+  FilterTagProps,
+  ViewProductProps,
+} from '../../types/viewProduct';
 export const viewProductName: string[] = [
   'type',
   'month',
@@ -44,11 +45,9 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           item.categoryIdx === categoryIdx && item.elementIdx === elementIdx
         );
       });
-
       let copyFilterTagList = [...filterTagList];
       copyFilterTagList.splice(deleteidx, 1);
       setFilterTagList(copyFilterTagList);
-      console.log(filterTagList);
     } else {
       checkedItems[categoryIdx].add(elementIdx);
       setFilterTagList([...filterTagList, tag]);
@@ -77,10 +76,6 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       filter: 'true',
     };
     setQuery(newQuery);
-    // Router.push({
-    //   pathname: '/viewProduct',
-    //   query: { filter: true, ...newQuery },
-    // });
   }
 
   return (

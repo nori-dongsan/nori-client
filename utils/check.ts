@@ -34,10 +34,8 @@ export function divisionMainToyData(array: MainToyData[]) {
 
 export function chQuery(chkQuery: ViewProductProps) {
   let queryString = '';
-
   for (const [key, value] of Object.entries(chkQuery)) {
     if (value !== '') queryString += `${key}=${value}&`;
   }
-
   return queryString;
 }
