@@ -33,12 +33,14 @@ import {
 import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
 import { chQuery, divisionToyData } from '../utils/check';
 import { IcGrayEmpty } from '../public/assets/icons';
+import { useRouter } from 'next/router';
 
 const limit = 40;
 export default function viewProduct({
   initialFilterData,
   initialResult,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -51,19 +53,19 @@ export default function viewProduct({
     setCurrentPage(nextPage);
   };
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
-  let { result } = (
-    currentQuery.categoryId && Number(currentQuery.categoryId) !== 0
+  let { result, filterData } = (
+    router.query.categoryId && Number(router.query.categoryId) !== 0
       ? getBannerViewProductFilter(
-          Number(currentQuery.categoryId),
-          chQuery(currentQuery),
+          Number(router.query.categoryId),
+          chQuery(router.query),
         )
-      : getViewProductFilter(chQuery(currentQuery))
+      : getViewProductFilter(chQuery(router.query))
   ) as {
     result: ToyData[];
     filterData: FilterData;
   };
   useEffect(() => {
-    if (currentQuery.filter !== 'true' && initialFilterData) {
+    if (router.query.filter !== 'true' && initialFilterData) {
       result = initialResult.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
@@ -74,12 +76,15 @@ export default function viewProduct({
     }
   }, [initialResult, currentPage]);
   useEffect(() => {
-    if (currentQuery.filter === 'true' && result) {
+    if (router.query.filter === 'true' && result) {
       result = result.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
       setToyList(divisionToyData(result));
+      if (router.query.search && filterData.type)
+        setToyKindArr(filterData.type);
+
       window.scrollTo(0, 0);
     }
   }, [result, currentPage]);

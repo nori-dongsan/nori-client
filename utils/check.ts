@@ -37,5 +37,7 @@ export function chQuery(chkQuery: ViewProductProps) {
   for (const [key, value] of Object.entries(chkQuery)) {
     if (value !== '') queryString += `${key}=${value}&`;
   }
+
+  console.log(queryString);
   return queryString;
 }

@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   checkedItemsState,
@@ -11,6 +13,7 @@ import {
   FilterTagProps,
   ViewProductProps,
 } from '../../types/viewProduct';
+import { chQuery } from '../../utils/check';
 export const viewProductName: string[] = [
   'type',
   'month',
@@ -19,14 +22,16 @@ export const viewProductName: string[] = [
   'toySiteCd',
 ];
 export default function FilterDropdown(props: FilterDropdownProps) {
+  const router = useRouter();
   const { categoryInfo, isDrop, isExcept, categoryIdx, categoryKey } = props;
   const toyKindList = useRecoilValue<string[]>(toyKindState);
   const [checkedItems, setCheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);
-  const [currentQuery, setQuery] =
-    useRecoilState<ViewProductProps>(currentQueryState);
+  // const [currentQuery, setQuery] =
+  //   useRecoilState<ViewProductProps>(currentQueryState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
+
   const handleCheckedItems = (
     categoryIdx: number,
     elementIdx: number,
@@ -71,11 +76,22 @@ export default function FilterDropdown(props: FilterDropdownProps) {
       });
     }
     newQuery = {
-      ...currentQuery,
+      ...router.query,
       [viewProductName[categoryIdx]]: newStr,
       filter: 'true',
     };
-    setQuery(newQuery);
+    // setQuery(newQuery);
+    // 추후 window.history.state.url 를 이용해서 제대로 동작하도록
+    router.push(
+      {
+        pathname: '/viewProduct',
+        query: { ...newQuery },
+      },
+      undefined,
+      { shallow: true },
+    );
+
+    console.log(`헤헤 ${JSON.stringify(router.query)}`);
   }
 
   return (
