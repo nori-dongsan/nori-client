@@ -1,8 +1,19 @@
-import { atom } from 'recoil';
+import {
+  atom,
+  DefaultValue,
+  selector,
+  useRecoilState,
+  useResetRecoilState,
+} from 'recoil';
 import { recoilPersist } from 'recoil-persist'; //페이지가 변경되더라도 상태관리를 유지
 import { PostCommunityBody, IsChangeCommunity } from '../types/community';
 import { PostLoginBody } from '../types/user';
-import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
+import {
+  FilterData,
+  FilterTagProps,
+  ViewProductProps,
+} from '../types/viewProduct';
+import { getBannerViewProductFilter } from './api/viewProduct';
 
 const { persistAtom } = recoilPersist();
 
@@ -38,59 +49,56 @@ export const isChangeInfoState = atom<IsChangeCommunity>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const filterListState = atom({
+export const filterListState = atom<Object>({
   key: 'filterListState',
   default: {
-    filterList: {
-      종류: [
-        '아기체육관',
-        '모빌',
-        '바운서',
-        '쏘서',
-        '점퍼루',
-        '위고',
-        '보행기',
-        '걸음마 보조기',
-        '러닝홈',
-        '러닝테이블',
-        '기타 학습완구',
-        '미끄럼틀',
-        '에어바운스',
-        '트램펄린',
-        '어린이 자동차',
-        '흔들말',
-        '그네',
-        '소꿉놀이',
-        '역할놀이',
-        '기타',
-      ],
-      '사용 연령': [
-        '0~5개월',
-        '6~11개월',
-        '12~17개월',
-        '18~23개월',
-        '24~35개월',
-        '36~47개월',
-        '48~60개월',
-        '기타',
-      ],
-      가격: ['1만원 미만', '1-3만원', '3-5만원', '5-8만원', '8만원이상'],
-      특성: ['타고 노는', '만지고 노는', '기타'],
-      스토어: [
-        '국민장난감',
-        '그린키드',
-        '러브로',
-        '리틀베이비',
-        '빌리바바',
-        '어텐션홈이벤트',
-        '장난감점빵',
-        '젤리바운스',
-        '해피장난감',
-      ],
-    },
+    종류: [
+      '아기체육관',
+      '모빌',
+      '바운서',
+      '쏘서',
+      '점퍼루',
+      '위고',
+      '보행기',
+      '걸음마 보조기',
+      '러닝홈',
+      '러닝테이블',
+      '기타 학습완구',
+      '미끄럼틀',
+      '에어바운스',
+      '트램펄린',
+      '어린이 자동차',
+      '흔들말',
+      '그네',
+      '소꿉놀이',
+      '역할놀이',
+      '기타',
+    ],
+    '사용 연령': [
+      '0~5개월',
+      '6~11개월',
+      '12~17개월',
+      '18~23개월',
+      '24~35개월',
+      '36~47개월',
+      '48~60개월',
+      '기타',
+    ],
+    가격: ['1만원 미만', '1-3만원', '3-5만원', '5-8만원', '8만원이상'],
+    특성: ['타고 노는', '만지고 노는', '기타'],
+    스토어: [
+      '국민장난감',
+      '그린키드',
+      '러브로',
+      '리틀베이비',
+      '빌리바바',
+      '어텐션홈이벤트',
+      '장난감점빵',
+      '젤리바운스',
+      '해피장난감',
+    ],
   },
 });
-
 export const filterTagState = atom<FilterTagProps[]>({
   key: 'filterTagState',
   default: [],
@@ -133,9 +141,15 @@ export const toyKindState = atom<string[]>({
   ],
 });
 
-export const filterCheckQuery = atom<ViewProductProps>({
-  key: 'filterCheckQuery',
+export const selectIconState = atom<number>({
+  key: 'selectIconState',
+  default: 0,
+});
+export const currentQueryState = atom<ViewProductProps>({
+  key: 'currentQueryState',
   default: {
+    filter: '',
+    categoryId: '',
     search: '',
     type: '',
     month: '',
@@ -143,8 +157,4 @@ export const filterCheckQuery = atom<ViewProductProps>({
     playHowCd: '',
     toySiteCd: '',
   },
-});
-export const selectIconState = atom<number>({
-  key: 'selectIconState',
-  default: 0,
 });

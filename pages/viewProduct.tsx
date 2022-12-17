@@ -17,78 +17,81 @@ import {
 import { PriceFilter, PageNavigation } from '../components/common';
 import { ToyData } from '../types/toy';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { FilterTagProps, ViewProductProps } from '../types/viewProduct';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
-  checkedItemsState,
-  filterCheckQuery,
-  filterTagState,
-} from '../core/atom';
-
-// import { IcGrayEmpty } from '../public/assets/icons';
-
+  FilterData,
+  FilterTagProps,
+  ViewProductProps,
+} from '../types/viewProduct';
+import { currentQueryState, filterTagState, toyKindState } from '../core/atom';
 import {
   getBannerViewProduct,
   getViewProductFilter,
   getViewProduct,
   getBannerViewProductFilter,
 } from '../core/api/viewProduct';
-
 import { LandingPageNavigation } from '../components/landing/collectionProduct.tsx';
-import { divisionToyData } from '../utils/check';
+import { chQuery, divisionToyData } from '../utils/check';
 import { IcGrayEmpty } from '../public/assets/icons';
 import { useRouter } from 'next/router';
 
 const limit = 40;
-
 export default function viewProduct({
-  filterData,
-  result,
+  initialFilterData,
+  initialResult,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(result);
+  const router = useRouter();
   const [priceDesc, setPriceDesc] = useState<boolean>(true);
   const [toyList, setToyList] = useState<ToyData[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const setToyKindArr = useSetRecoilState<string[]>(toyKindState);
+  const currentQuery = useRecoilValue(currentQueryState);
   const handleClickPrice = (clickPrice: string) => {
     clickPrice === 'price-desc' ? setPriceDesc(true) : setPriceDesc(false);
   };
-
   const handleCurrentPage = (nextPage: number) => {
     setCurrentPage(nextPage);
   };
-  // console.log('체크', Object.keys(checkedItems));
-  // console.log('결과조회', filterData);
   const filterTagList = useRecoilValue<FilterTagProps[]>(filterTagState);
-
-  // let { toyFilterList } =
-  //   router.query.iconId && Number(router.query.iconId) !== 0
-  //     ? getBannerViewProductFilter(
-  //         Number(router.query.iconId),
-  //         `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
-  //       )
-  //     : getViewProductFilter(
-  //         `search=${filterQuery.search}&type=${filterQuery.type}&month=${filterQuery.month}&priceCd=${filterQuery.priceCd}&playHowCd=${filterQuery.playHowCd}&toySiteCd=${filterQuery.toySiteCd}`,
-  //       );
-
+  let { result, filterData } = (
+    router.query.categoryId && Number(router.query.categoryId) !== 0
+      ? getBannerViewProductFilter(
+          Number(router.query.categoryId),
+          chQuery(router.query),
+        )
+      : getViewProductFilter(chQuery(router.query))
+  ) as {
+    result: ToyData[];
+    filterData: FilterData;
+  };
   useEffect(() => {
-    if (result) {
-      filterData = result.filter(
+    if (router.query.filter !== 'true' && initialFilterData) {
+      result = initialResult.filter(
         (_: any, idx: number) =>
           (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
       );
-
-      setToyList(divisionToyData(filterData));
+      setToyList(divisionToyData(result));
+      initialFilterData.type && setToyKindArr(initialFilterData.type);
+      window.scrollTo(0, 0);
+    }
+  }, [initialResult, currentPage]);
+  useEffect(() => {
+    if (router.query.filter === 'true' && result) {
+      result = result.filter(
+        (_: any, idx: number) =>
+          (currentPage - 1) * 40 <= idx && idx < currentPage * 40,
+      );
+      setToyList(divisionToyData(result));
+      if (router.query.search && filterData.type)
+        setToyKindArr(filterData.type);
 
       window.scrollTo(0, 0);
-      console.log('초기렌더링');
     }
   }, [result, currentPage]);
 
-  console.log(toyList);
-
   return (
     <StViewProductWrapper>
-      {!filterData ? (
+      {!ToyList ? (
         <>
           <LandingViewProductBanner />
           <StFilterSectionWrapper>
@@ -134,7 +137,11 @@ export default function viewProduct({
           </StFilterSectionWrapper>
           <PageNavigation
             currentPage={currentPage}
-            lastPage={Math.ceil(result.length / limit)}
+            lastPage={
+              result
+                ? Math.ceil(result.length / limit)
+                : Math.ceil(initialResult.length / limit)
+            }
             handleCurrentPage={handleCurrentPage}
           />
         </>
@@ -177,63 +184,22 @@ const StEmptyView = styled.section`
 `;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  if (context.query.filter === 'true') {
-    const { search, type, month, priceCd, playHowCd, toySiteCd } =
-      context.query as ViewProductProps;
+  const { categoryId } = context.query as ViewProductProps;
 
-    if (context.query.categoryId && Number(context.query.categoryId) !== 0) {
-      const res = await getBannerViewProductFilter(
-        Number(context.query.categoryId),
-        {
-          search,
-          type,
-          month,
-          priceCd,
-          playHowCd,
-          toySiteCd,
-        },
-      );
-      console.log(res.data);
-      return {
-        props: {
-          filterData: res.data.data.filterData,
-          result: res.data.data.result,
-        },
-      };
-    } else {
-      const res = await getViewProductFilter({
-        search,
-        type,
-        month,
-        priceCd,
-        playHowCd,
-        toySiteCd,
-      });
-      console.log(res);
-      return {
-        props: {
-          filterData: res.data.data.filterData,
-          result: res.data.data.result,
-        },
-      };
-    }
-  }
-  if (context.query.iconId && Number(context.query.iconId) !== 0) {
-    const res = await getBannerViewProduct(Number(context.query.iconId));
-    console.log(res.data.data.result);
+  if (categoryId && Number(categoryId) !== 0) {
+    const res = await getBannerViewProduct(Number(categoryId));
     return {
       props: {
-        filterData: res.data.data.filterData,
-        result: res.data.data.result,
+        initialFilterData: res.data.data.filterData,
+        initialResult: res.data.data.result,
       },
     };
   } else {
     const res = await getViewProduct();
-
     return {
       props: {
-        filterData: res.data.data.filterData,
-        result: res.data.data.result,
+        initialFilterData: res.data.data.filterData,
+        initialResult: res.data.data.result,
       },
     };
   }

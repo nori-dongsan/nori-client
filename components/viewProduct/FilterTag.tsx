@@ -1,44 +1,24 @@
 import styled from '@emotion/styled';
-import Router from 'next/router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   checkedItemsState,
-  filterCheckQuery,
-  filterListState,
+  currentQueryState,
   filterTagState,
   toyKindState,
 } from '../../core/atom';
 import { IcDeleteTag } from '../../public/assets/icons';
 import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
+import { viewProductName } from './FilterDropdown';
 
 export default function FilterTag(props: FilterTagProps) {
   const { categoryIdx, elementIdx, categoryKey, tagText } = props;
   const [checkedItems, setCheckedItems] =
     useRecoilState<Set<number>[]>(checkedItemsState);
+  const [currentQuery, setQuery] =
+    useRecoilState<ViewProductProps>(currentQueryState);
   const [filterTagList, setFilterTagList] =
     useRecoilState<FilterTagProps[]>(filterTagState);
-  const [filterQuery, setFilterCheckQuery] =
-    useRecoilState<ViewProductProps>(filterCheckQuery);
   const toyKindList = useRecoilValue<string[]>(toyKindState);
-
-  const handleFilterQuery = (newQuery: ViewProductProps) => {
-    setFilterCheckQuery(newQuery);
-
-    Router.push({
-      pathname: '/viewProduct',
-      query: {
-        filter: true,
-        search: newQuery.search,
-        type: newQuery.type,
-        month: newQuery.month,
-        priceCd: newQuery.priceCd,
-        playHowCd: newQuery.playHowCd,
-        toySiteCd: newQuery.toySiteCd,
-      },
-    });
-    // if doesn't work then use window.location.href
-  };
-
   const handleFilterTag = (
     categoryIdx: number,
     elementIdx: number,
@@ -57,108 +37,38 @@ export default function FilterTag(props: FilterTagProps) {
           item.categoryIdx === categoryIdx && item.elementIdx === elementIdx
         );
       });
-
       let copyFilterTagList = [...filterTagList];
       copyFilterTagList.splice(deleteidx, 1);
       setFilterTagList(copyFilterTagList);
     } else {
       checkedItems[categoryIdx].add(elementIdx);
       setFilterTagList([...filterTagList, tag]);
-      console.log(filterTagList);
     }
-
     setCheckedItems({
       ...checkedItems,
       [categoryIdx]: checkedItems[categoryIdx],
     });
     handleQuery(categoryIdx);
   };
-  const handleQuery = (categoryIdx: number) => {
+  function handleQuery(categoryIdx: number) {
     let newQuery: ViewProductProps;
-    let newStr: string;
-    switch (categoryIdx) {
-      case 0:
-        newStr = '';
-        checkedItems[0].forEach(function (item, index) {
-          newStr += `${toyKindList[index]} `;
-        });
-        newQuery = {
-          search: filterQuery.search,
-          type: newStr,
-          month: filterQuery.month,
-          priceCd: filterQuery.priceCd,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: filterQuery.toySiteCd,
-        };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
-      case 1:
-        newStr = '';
-        checkedItems[1].forEach(function (item, index) {
-          newStr += `${item + 1}`;
-        });
-        newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: newStr,
-          priceCd: filterQuery.priceCd,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: filterQuery.toySiteCd,
-        };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
-      case 2:
-        newStr = '';
-        checkedItems[2].forEach(function (item, index) {
-          newStr += `${item + 1}`;
-        });
-        newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: filterQuery.month,
-          priceCd: newStr,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: filterQuery.toySiteCd,
-        };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
-      case 3:
-        newStr = '';
-        checkedItems[3].forEach(function (item, index) {
-          newStr += `${item + 1}`;
-        });
-        newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: filterQuery.month,
-          priceCd: filterQuery.priceCd,
-          playHowCd: newStr,
-          toySiteCd: filterQuery.toySiteCd,
-        };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
-      case 4:
-        newStr = '';
-        checkedItems[4].forEach(function (item, index) {
-          newStr += `${item + 1}`;
-        });
-        newQuery = {
-          search: filterQuery.search,
-          type: filterQuery.type,
-          month: filterQuery.month,
-          priceCd: filterQuery.priceCd,
-          playHowCd: filterQuery.playHowCd,
-          toySiteCd: newStr,
-        };
-        handleFilterQuery(newQuery);
-        console.log('str', newStr);
-        break;
+    let newStr: string = '';
+    if (categoryIdx === 0) {
+      checkedItems[0].forEach(function (_, index) {
+        newStr += `${toyKindList[index]} `;
+      });
+    } else {
+      checkedItems[categoryIdx].forEach(function (item) {
+        newStr += `${item + 1}`;
+      });
     }
-  };
+    newQuery = {
+      ...currentQuery,
+      [viewProductName[categoryIdx]]: newStr,
+    };
+    setQuery(newQuery);
+  }
+
   return (
     <StFilterTag>
       <h2>{tagText === '기타' ? `${tagText} (${categoryKey})` : tagText}</h2>

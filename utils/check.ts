@@ -1,4 +1,7 @@
+import Router from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 import { MainToyData, ToyData } from '../types/toy';
+import { ViewProductProps } from '../types/viewProduct';
 
 export function checkNickname(value: string) {
   const regex = /^[가-힣|a-z|A-Z|0-9|]{2,10}$/;
@@ -27,4 +30,14 @@ export function divisionMainToyData(array: MainToyData[]) {
     newArray.push(array.splice(0, 4));
   }
   return newArray;
+}
+
+export function chQuery(chkQuery: ViewProductProps) {
+  let queryString = '';
+  for (const [key, value] of Object.entries(chkQuery)) {
+    if (value !== '') queryString += `${key}=${value}&`;
+  }
+
+  console.log(queryString);
+  return queryString;
 }

@@ -2,11 +2,10 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import { IcNoriHeaderLogo, IcSearchIcon } from '../../public/assets/icons';
 import React, { useState } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { FilterTagProps, ViewProductProps } from '../../types/viewProduct';
 import {
   checkedItemsState,
-  filterCheckQuery,
   filterTagState,
   selectIconState,
   toyKindState,
@@ -14,6 +13,7 @@ import {
 import { useRecoilState } from 'recoil';
 
 export default function Header() {
+  const router = useRouter();
   const [inputValue, setInputValue] = useState<string>('');
   const [toyKindList, setToyKindList] = useRecoilState<string[]>(toyKindState);
   const [selectedIcon, setSeletedIcon] =
@@ -25,31 +25,18 @@ export default function Header() {
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-  const [filterQuery, setFilterCheckQuery] =
-    useRecoilState<ViewProductProps>(filterCheckQuery);
 
   const handleClick = () => {
-    Router.push({
-      pathname: '/viewProduct',
-      query: {
-        filter: true,
-        search: inputValue,
-        type: '',
-        month: '',
-        priceCd: '',
-        playHowCd: '',
-        toySiteCd: '',
+    router.push(
+      {
+        pathname: '/viewProduct',
+        query: { filter: true, search: inputValue },
       },
-    });
+      undefined,
+      { shallow: true },
+    );
+
     setInputValue('');
-    setFilterCheckQuery({
-      search: inputValue,
-      type: '',
-      month: '',
-      priceCd: '',
-      playHowCd: '',
-      toySiteCd: '',
-    });
     setCheckedItems([
       new Set<number>(),
       new Set<number>(),
@@ -58,40 +45,32 @@ export default function Header() {
       new Set<number>(),
     ]);
     setFilterTagList([]);
-    setToyKindList([
-      '아기체육관',
-      '모빌',
-      '바운서',
-      '쏘서',
-      '점퍼루',
-      '위고',
-      '보행기',
-      '걸음마 보조기',
-      '러닝홈',
-      '러닝테이블',
-      '기타 학습완구',
-      '미끄럼틀',
-      '에어바운스',
-      '트램펄린',
-      '어린이 자동차',
-      '흔들말',
-      '그네',
-      '소꿉놀이',
-      '역할놀이',
-      '기타',
-    ]);
-    setSeletedIcon(0);
+    // setToyKindList([
+    //   '아기체육관',
+    //   '모빌',
+    //   '바운서',
+    //   '쏘서',
+    //   '점퍼루',
+    //   '위고',
+    //   '보행기',
+    //   '걸음마 보조기',
+    //   '러닝홈',
+    //   '러닝테이블',
+    //   '기타 학습완구',
+    //   '미끄럼틀',
+    //   '에어바운스',
+    //   '트램펄린',
+    //   '어린이 자동차',
+    //   '흔들말',
+    //   '그네',
+    //   '소꿉놀이',
+    //   '역할놀이',
+    //   '기타',
+    // ]);
+    // setSeletedIcon(0);
   };
   const handleClickExcept = () => {
     setInputValue('');
-    setFilterCheckQuery({
-      search: inputValue,
-      type: '',
-      month: '',
-      priceCd: '',
-      playHowCd: '',
-      toySiteCd: '',
-    });
     setCheckedItems([
       new Set<number>(),
       new Set<number>(),
